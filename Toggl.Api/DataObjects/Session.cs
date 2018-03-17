@@ -3,46 +3,6 @@ using Newtonsoft.Json;
 
 namespace Toggl.Api.DataObjects
 {
-	/// <summary>
-	/// "id": 387715,
-	/// "api_token": "2d1d95cef10e17831ec505e9e6f9f7ea",
-	/// "default_wid": 303523,
-	/// "email": "toggle@infocss.com",
-	/// "fullname": "Toggle",
-	/// "jquery_timeofday_format": "h:i A",
-	/// "jquery_date_format": "m/d/Y",
-	/// "timeofday_format": "h:mm A",
-	/// "date_format": "MM/DD/YYYY",
-	/// "store_start_and_stop_time": true,
-	/// "beginning_of_week": 1,
-	/// "language": "en_US",
-	/// "image_url": "https:/// www.toggl.com/images/profile.png",
-	/// "sidebar_piechart": false,
-	/// "at": "2012-11-14T04:26:22+00:00",
-	/// "created_at": "2012-10-28T19:06:04+00:00",
-	/// "retention": 9,
-	/// "record_timeline": false,
-	/// "render_timeline": false,
-	/// "timeline_enabled": false,
-	/// "timeline_experiment": false,
-	/// "manual_mode": false,
-	/// "new_blog_post": {
-	///   "title": "6 Tools To Monitor Your Social Media Performance",
-	///   "url": "http:/// blog.toggl.com/2013/09/tools-to-monitor-your-social-media-performance/?utm_source=rss&utm_medium=rss&utm_campaign=tools-to-monitor-your-social-media-performance",
-	///   "category": "Uncategorized",
-	///   "pub_date": "2013-09-02T05:51:23Z"
-	/// },
-	/// "should_upgrade": false,
-	/// "show_offer": false,
-	/// "share_experiment": false,
-	/// "achievements_enabled": false,
-	/// "timezone": "America/New_York",
-	/// "openid_enabled": false,
-	/// "send_product_emails": true,
-	/// "send_weekly_report": false,
-	/// "send_timer_notifications": true,
-	/// "invitation": {}
-	/// </summary>
 	public class Session : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "id")]

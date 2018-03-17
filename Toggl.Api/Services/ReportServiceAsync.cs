@@ -1,4 +1,5 @@
-﻿using Toggl.Api.DataObjects;
+﻿using System.Threading.Tasks;
+using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 using Toggl.Api.QueryObjects;
 using Toggl.Api.Routes;
@@ -22,13 +23,13 @@ namespace Toggl.Api.Services
 		}
 
 
-		public async System.Threading.Tasks.Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
+		public async Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
 		{
 			var report = await ToggleSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
 			return report;
 		}
 
-		public async System.Threading.Tasks.Task<DetailedReport> FullDetailedReport(DetailedReportParams requestParameters)
+		public async Task<DetailedReport> FullDetailedReport(DetailedReportParams requestParameters)
 		{
 			var report = await Detailed(requestParameters);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 using Toggl.Api.Routes;
@@ -29,12 +30,12 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
 		/// </summary>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<List<TimeEntry>> ListRecent()
+		public /* async */ Task<List<TimeEntry>> ListRecent()
 		{
 			throw new NotImplementedException();
 		}
 
-		public async System.Threading.Tasks.Task<List<TimeEntry>> List()
+		public async Task<List<TimeEntry>> List()
 		{
 			return await List(new QueryObjects.TimeEntryParams());
 		}
@@ -45,7 +46,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<List<TimeEntry>> List(QueryObjects.TimeEntryParams obj)
+		public async Task<List<TimeEntry>> List(QueryObjects.TimeEntryParams obj)
 		{
 			var response = await ToggleSrv.Get(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters());
 			var entries = response
@@ -63,7 +64,7 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entry-details
 		/// </summary>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<TimeEntry> Current()
+		public async Task<TimeEntry> Current()
 		{
 			var url = ApiRoutes.TimeEntry.TimeEntryCurrentUrl;
 
@@ -79,7 +80,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<TimeEntry> Get(long id)
+		public async Task<TimeEntry> Get(long id)
 		{
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
 
@@ -95,7 +96,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<TimeEntry> Add(TimeEntry obj)
+		public async Task<TimeEntry> Add(TimeEntry obj)
 		{
 			var url = ApiRoutes.TimeEntry.TimeEntriesUrl;
 
@@ -110,7 +111,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj">A TimeEntry object.</param>
 		/// <returns>The runnig TimeEntry.</returns>
-		public async System.Threading.Tasks.Task<TimeEntry> Start(TimeEntry obj)
+		public async Task<TimeEntry> Start(TimeEntry obj)
 		{
 			var url = ApiRoutes.TimeEntry.TimeEntryStartUrl;
 
@@ -125,7 +126,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj">A TimeEntry object.</param>
 		/// <returns>The stopped TimeEntry.</returns>
-		public async System.Threading.Tasks.Task<TimeEntry> Stop(TimeEntry obj)
+		public async Task<TimeEntry> Stop(TimeEntry obj)
 		{
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryStopUrl, obj.Id);
 
@@ -140,7 +141,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<TimeEntry> Edit(TimeEntry obj)
+		public async Task<TimeEntry> Edit(TimeEntry obj)
 		{
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, obj.Id);
 
@@ -156,7 +157,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<bool> Delete(long id)
+		public async Task<bool> Delete(long id)
 		{
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
 
@@ -165,14 +166,14 @@ namespace Toggl.Api.Services
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
-		public async System.Threading.Tasks.Task<bool> DeleteIfAny(long[] ids)
+		public async Task<bool> DeleteIfAny(long[] ids)
 		{
 			if (!ids.Any() || ids == null)
 				return true;
 			return await Delete(ids);
 		}
 
-		public async System.Threading.Tasks.Task<bool> Delete(long[] ids)
+		public async Task<bool> Delete(long[] ids)
 		{
 			if (!ids.Any() || ids == null)
 				throw new ArgumentNullException("ids");

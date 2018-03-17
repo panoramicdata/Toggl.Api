@@ -4,6 +4,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Toggl.Api</AssemblyName>
     <RootNamespace>Toggl.Api</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Company>Panoramic Data Limited</Company>
+    <Description>Toggl API</Description>
+    <Copyright>Panoramic Data Limited 2018</Copyright>
+    <PackageIconUrl>https://toggl.com/images/media-toolkit/logo_01.jpg</PackageIconUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://bitbucket.org/panoramicdata/toggl.api</PackageProjectUrl>
+    <RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

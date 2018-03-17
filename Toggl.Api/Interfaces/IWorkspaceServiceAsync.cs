@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
-using Task = System.Threading.Tasks.Task;
 
 namespace Toggl.Api.Interfaces
 {
@@ -43,7 +42,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="workspaceId"></param>
 		/// <returns></returns>
-		Task<List<Task>> Tasks(int workspaceId);
+		Task<List<DataObjects.Task>> Tasks(int workspaceId);
 
 		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-tags

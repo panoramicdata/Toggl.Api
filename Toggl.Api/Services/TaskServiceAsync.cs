@@ -137,7 +137,7 @@ namespace Toggl.Api.Services
 			return await ForProject(project.Id.Value);
 		}
 
-		public async System.Threading.Tasks.Task Merge(Task masterTask, Task slaveTask, int workspaceId, string userAgent = "TogglAPI.Net")
+		public async void Merge(Task masterTask, Task slaveTask, int workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			if (!masterTask.Id.HasValue)
 				throw new InvalidOperationException("Master task Id not set");
@@ -148,7 +148,7 @@ namespace Toggl.Api.Services
 			await Merge(masterTask.Id.Value, slaveTask.Id.Value, workspaceId, userAgent);
 		}
 
-		public async System.Threading.Tasks.Task Merge(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = "TogglAPI.Net")
+		public async System.Threading.Tasks.Task Merge(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			var reportService = new ReportServiceAsync(ToggleSrv);
 			var timeEntryService = new TimeEntryServiceAsync(ToggleSrv);
@@ -187,7 +187,7 @@ namespace Toggl.Api.Services
 			}
 		}
 
-		public async System.Threading.Tasks.Task Merge(int masterTaskId, int[] slaveTasksIds, int workspaceId, string userAgent = "TogglAPI.Net")
+		public async void Merge(int masterTaskId, int[] slaveTasksIds, int workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			var reportService = new ReportServiceAsync(ToggleSrv);
 			var timeEntryService = new TimeEntryServiceAsync(ToggleSrv);

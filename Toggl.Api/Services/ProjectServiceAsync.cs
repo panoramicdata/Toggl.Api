@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 using Toggl.Api.Routes;
@@ -12,9 +13,7 @@ namespace Toggl.Api.Services
 	{
 		private readonly string _projectsUrl = ApiRoutes.Project.ProjectsUrl;
 
-
 		private IApiServiceAsync ToggleSrv { get; set; }
-
 
 		public ProjectServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -31,7 +30,7 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md
 		/// </summary>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<List<Project>> List()
+		public async Task<List<Project>> List()
 		{
 			var lstProj = new List<Project>();
 			var response = await ToggleSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl);
@@ -44,7 +43,7 @@ namespace Toggl.Api.Services
 			return lstProj;
 		}
 
-		public async System.Threading.Tasks.Task<List<Project>> ForWorkspace(int id)
+		public async Task<List<Project>> ForWorkspace(int id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, id);
 			var response = await ToggleSrv.Get(url);
@@ -52,14 +51,14 @@ namespace Toggl.Api.Services
 			return data;
 		}
 
-		public async System.Threading.Tasks.Task<List<Project>> ForClient(Client client)
+		public async Task<List<Project>> ForClient(Client client)
 		{
 			if (!client.Id.HasValue)
 				throw new InvalidOperationException("Client Id not set");
 			return await ForClient(client.Id.Value);
 		}
 
-		public async System.Threading.Tasks.Task<List<Project>> ForClient(int id)
+		public async Task<List<Project>> ForClient(int id)
 		{
 			var url = string.Format(ApiRoutes.Client.ClientProjectsUrl, id);
 			var response = await ToggleSrv.Get(url);
@@ -67,7 +66,7 @@ namespace Toggl.Api.Services
 			return data;
 		}
 
-		public async System.Threading.Tasks.Task<Project> Get(int id)
+		public async Task<Project> Get(int id)
 		{
 			var result = await List();
 			return result.FirstOrDefault(w => w.Id == id);
@@ -79,7 +78,7 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="project"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<Project> Add(Project project)
+		public async Task<Project> Add(Project project)
 		{
 			var response = await ToggleSrv.Post(_projectsUrl, project.ToJson());
 			var data = response.GetData<Project>();
@@ -92,21 +91,21 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public async System.Threading.Tasks.Task<bool> Delete(int id)
+		public async Task<bool> Delete(int id)
 		{
 			var url = string.Format(ApiRoutes.Project.DetailUrl, id);
 			var rsp = await ToggleSrv.Delete(url);
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
-		public async System.Threading.Tasks.Task<bool> DeleteIfAny(int[] ids)
+		public async Task<bool> DeleteIfAny(int[] ids)
 		{
 			if (!ids.Any() || ids == null)
 				return true;
 			return await Delete(ids);
 		}
 
-		public async System.Threading.Tasks.Task<bool> Delete(int[] ids)
+		public async Task<bool> Delete(int[] ids)
 		{
 			if (!ids.Any() || ids == null)
 				throw new ArgumentNullException("ids");

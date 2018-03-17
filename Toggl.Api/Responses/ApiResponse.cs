@@ -14,7 +14,7 @@ namespace Toggl.Api.Responses
 
 		[JsonProperty(PropertyName = "related_data_updated_at")]
 		[JsonConverter(typeof(IsoDateTimeConverter))]
-		public DateTime related_data_updated_at { get; set; }
+		public DateTime RelatedDataUpdatedAt { get; set; }
 
 		public HttpStatusCode StatusCode { get; set; }
 

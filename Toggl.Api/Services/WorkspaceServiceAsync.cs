@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 using Toggl.Api.Routes;
-using Task = Toggl.Api.DataObjects.Task;
 
 namespace Toggl.Api.Services
 {
@@ -58,11 +57,11 @@ namespace Toggl.Api.Services
 		}
 
 
-		public async Task<List<Task>> Tasks(int workspaceId)
+		public async Task<List<DataObjects.Task>> Tasks(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceTasksUrl, workspaceId);
 			var response = await ToggleSrv.Get(url);
-			var data = response.GetData<List<Task>>();
+			var data = response.GetData<List<DataObjects.Task>>();
 			return data;
 		}
 
@@ -74,7 +73,7 @@ namespace Toggl.Api.Services
 			return data;
 		}
 
-		Task<List<System.Threading.Tasks.Task>> IWorkspaceServiceAsync.Tasks(int workspaceId)
+		Task<List<DataObjects.Task>> IWorkspaceServiceAsync.Tasks(int workspaceId)
 		{
 			throw new System.NotImplementedException();
 		}

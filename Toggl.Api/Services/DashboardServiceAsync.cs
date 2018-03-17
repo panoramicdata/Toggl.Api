@@ -10,25 +10,25 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Toggl.Api.Services
 {
-	public class ClientServiceAsync : IClientServiceAsync
+	public class DashboardServiceAsync : IServiceAsync<Dashboard>
 	{
-		private static Dictionary<int, Client> _cachedClients;
+		private static Dictionary<int, Dashboard> _cache;
 
 		private async Task EnsureCacheLoaded()
 		{
-			if (_cachedClients == null)
+			if (_cache == null)
 				await List();
 		}
 
 		public IApiServiceAsync ToggleSrv { get; set; }
 
-		public ClientServiceAsync(string apiKey)
+		public DashboardServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
 
 		}
 
-		public ClientServiceAsync(IApiServiceAsync srv)
+		public DashboardServiceAsync(IApiServiceAsync srv)
 		{
 			ToggleSrv = srv;
 		}
@@ -38,37 +38,41 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-clients-visible-to-user
 		/// </summary>
 		/// <returns></returns>
-		public async Task<List<Client>> List(bool includeDeleted = false)
+		public async Task<List<Dashboard>> List(bool includeDeleted = false)
 		{
 			var response = await ToggleSrv.Get(ApiRoutes.Client.ClientsUrl);
-			var result = response.GetData<List<Client>>();
+			var result = response.GetData<List<Dashboard>>();
 
-			_cachedClients = result.ToDictionary(client => client.Id.Value, client => client);
-
-			return includeDeleted
-				? result
-				: result.Where(client => client.DeletedAt == null).ToList();
+			return result.ToList();
 		}
 
-		public async Task<Client> Get(int id)
+		public async Task<Dashboard> Get(int id)
 		{
-			if (_cachedClients != null && _cachedClients.ContainsKey(id))
-				return _cachedClients[id];
+			if (_cache != null && _cache.ContainsKey(id))
+				return _cache[id];
 
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
 			var response = await ToggleSrv.Get(url);
-			var data = response.GetData<Client>();
+			var data = response.GetData<Dashboard>();
 			return data;
 
 		}
 
-		public async Task<Client> GetByName(string name)
+		public Task<Dashboard> Add(Dashboard obj)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<Dashboard> Edit(Dashboard obj)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<Dashboard> GetByName(string name)
 		{
 			await EnsureCacheLoaded();
 
-			return _cachedClients
-				.Values
-				.Single(client => client.Name == name && client.DeletedAt == null);
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
@@ -77,12 +81,12 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public async Task<Client> Add(Client obj)
+		public async Task<Dashboard> Add(Client obj)
 		{
-			_cachedClients = null;
+			_cache = null;
 			var url = ApiRoutes.Client.ClientsUrl;
 			var response = await ToggleSrv.Post(url, obj.ToJson());
-			var data = response.GetData<Client>();
+			var data = response.GetData<Dashboard>();
 			return data;
 
 		}
@@ -93,12 +97,12 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public async Task<Client> Edit(Client obj)
+		public async Task<Dashboard> Edit(Client obj)
 		{
-			_cachedClients = null;
+			_cache = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, obj.Id);
 			var response = await ToggleSrv.Put(url, obj.ToJson());
-			var data = response.GetData<Client>();
+			var data = response.GetData<Dashboard>();
 			return data;
 		}
 
@@ -110,7 +114,7 @@ namespace Toggl.Api.Services
 		/// <returns></returns>
 		public async Task<bool> Delete(int id)
 		{
-			_cachedClients = null;
+			_cache = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
 			var res = await ToggleSrv.Delete(url);
 			return res.StatusCode == HttpStatusCode.OK;
@@ -129,7 +133,7 @@ namespace Toggl.Api.Services
 			if (!ids.Any() || ids == null)
 				throw new ArgumentNullException("ids");
 
-			_cachedClients = null;
+			_cache = null;
 
 			var result = new Dictionary<int, bool>(ids.Length);
 			foreach (var id in ids)

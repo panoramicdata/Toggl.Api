@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Toggl.Api.DataObjects;
@@ -10,6 +11,7 @@ using Toggl.Api.Interfaces;
 using Toggl.Api.Requests;
 using Toggl.Api.Responses;
 using Toggl.Api.Routes;
+using Task = System.Threading.Tasks.Task;
 
 namespace Toggl.Api.Services
 {
@@ -24,7 +26,7 @@ namespace Toggl.Api.Services
 			ApiToken = apiToken;
 		}
 
-		public async System.Threading.Tasks.Task Initialize()
+		public async Task Initialize()
 		{
 			if (Session != null && !string.IsNullOrEmpty(Session.ApiToken))
 			{
@@ -34,7 +36,7 @@ namespace Toggl.Api.Services
 			await GetSession();
 		}
 
-		public async System.Threading.Tasks.Task<Session> GetSession()
+		public async Task<Session> GetSession()
 		{
 
 			var args = new List<KeyValuePair<string, string>>();
@@ -47,7 +49,7 @@ namespace Toggl.Api.Services
 			return Session;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Get(string url)
+		public async Task<ApiResponse> Get(string url)
 		{
 			var response = await Get(new ApiRequest
 			{
@@ -56,7 +58,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Get(string url, List<KeyValuePair<string, string>> args)
+		public async Task<ApiResponse> Get(string url, List<KeyValuePair<string, string>> args)
 		{
 			var response = await Get(new ApiRequest
 			{
@@ -66,7 +68,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<TResponse> Get<TResponse>(string url, List<KeyValuePair<string, string>> args)
+		public async Task<TResponse> Get<TResponse>(string url, List<KeyValuePair<string, string>> args)
 		{
 			var response = await Get<TResponse>(new ApiRequest
 			{
@@ -76,7 +78,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Delete(string url)
+		public async Task<ApiResponse> Delete(string url)
 		{
 			var response = await Get(new ApiRequest
 			{
@@ -86,7 +88,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Delete(string url, List<KeyValuePair<string, string>> args)
+		public async Task<ApiResponse> Delete(string url, List<KeyValuePair<string, string>> args)
 		{
 			var response = await Get(new ApiRequest
 			{
@@ -97,7 +99,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Post(string url, string data)
+		public async Task<ApiResponse> Post(string url, string data)
 		{
 			var response = await Get(
 				new ApiRequest
@@ -110,7 +112,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Post(string url, List<KeyValuePair<string, string>> args, string data = "")
+		public async Task<ApiResponse> Post(string url, List<KeyValuePair<string, string>> args, string data = "")
 		{
 			var response = await Get(
 				new ApiRequest
@@ -124,7 +126,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Put(string url, string data)
+		public async Task<ApiResponse> Put(string url, string data)
 		{
 			var response = await Get(
 				new ApiRequest
@@ -137,7 +139,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async System.Threading.Tasks.Task<ApiResponse> Put(string url, List<KeyValuePair<string, string>> args, string data = "")
+		public async Task<ApiResponse> Put(string url, List<KeyValuePair<string, string>> args, string data = "")
 		{
 			var response = await Get(
 				new ApiRequest
@@ -151,7 +153,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		private async System.Threading.Tasks.Task<TResponse> Get<TResponse>(ApiRequest apiRequest)
+		private async Task<TResponse> Get<TResponse>(ApiRequest apiRequest)
 		{
 			string[] value = {""};
 
@@ -187,7 +189,7 @@ namespace Toggl.Api.Services
 			return rsp;
 		}
 
-		private async System.Threading.Tasks.Task<ApiResponse> Get(ApiRequest apiRequest)
+		private async Task<ApiResponse> Get(ApiRequest apiRequest)
 		{
 			string[] value = {""};
 
@@ -222,7 +224,7 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			var authResponse = (HttpWebResponse) authRequest.GetResponse();
+			var authResponse = (HttpWebResponse) await authRequest.GetResponseAsync();
 			string content;
 			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
 			{
@@ -237,7 +239,7 @@ namespace Toggl.Api.Services
 				var rsp = new ApiResponse
 				{
 					Data = new JObject(),
-					related_data_updated_at = DateTime.Now,
+					RelatedDataUpdatedAt = DateTime.Now,
 					StatusCode = authResponse.StatusCode,
 					Method = authResponse.Method
 				};
@@ -261,7 +263,7 @@ namespace Toggl.Api.Services
 				var rsp = new ApiResponse
 				{
 					Data = token,
-					related_data_updated_at = DateTime.Now,
+					RelatedDataUpdatedAt = DateTime.Now,
 					StatusCode = authResponse.StatusCode,
 					Method = authResponse.Method
 				};

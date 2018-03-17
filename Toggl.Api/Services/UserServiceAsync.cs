@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Extensions;
 using Toggl.Api.Interfaces;
@@ -25,7 +26,7 @@ namespace Toggl.Api.Services
 		}
 
 
-		public async System.Threading.Tasks.Task<User> GetCurrent()
+		public async Task<User> GetCurrent()
 		{
 			var url = ApiRoutes.User.CurrentUrl;
 
@@ -35,7 +36,7 @@ namespace Toggl.Api.Services
 			return obj;
 		}
 
-		public async System.Threading.Tasks.Task<UserExtended> GetCurrentExtended()
+		public async Task<UserExtended> GetCurrentExtended()
 		{
 			var url = ApiRoutes.User.CurrentExtendedUrl;
 
@@ -45,7 +46,7 @@ namespace Toggl.Api.Services
 			return obj;
 		}
 
-		public async System.Threading.Tasks.Task<UserExtended> GetCurrentChanged(DateTime since)
+		public async Task<UserExtended> GetCurrentChanged(DateTime since)
 		{
 			var url = string.Format(ApiRoutes.User.CurrentSinceUrl, since.ToUnixTime());
 
@@ -55,7 +56,7 @@ namespace Toggl.Api.Services
 			return obj;
 		}
 
-		public async System.Threading.Tasks.Task<User> Edit(User u)
+		public async Task<User> Edit(User u)
 		{
 			var url = string.Format(ApiRoutes.User.EditUrl);
 			var data = u.ToJson();
@@ -66,7 +67,7 @@ namespace Toggl.Api.Services
 			return u;
 		}
 
-		public async System.Threading.Tasks.Task<string> ResetApiToken()
+		public async Task<string> ResetApiToken()
 		{
 			var url = ApiRoutes.User.ResetApiTokenUrl;
 
@@ -76,7 +77,7 @@ namespace Toggl.Api.Services
 			return apiToken;
 		}
 
-		public async System.Threading.Tasks.Task<List<User>> GetForWorkspace(int id)
+		public async Task<List<User>> GetForWorkspace(int id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, id);
 			var response = await ToggleSrv.Get(url);
@@ -84,7 +85,7 @@ namespace Toggl.Api.Services
 			return data;
 		}
 
-		public async System.Threading.Tasks.Task<User> Add(User u)
+		public async Task<User> Add(User u)
 		{
 			var url = string.Format(ApiRoutes.User.AddUrl);
 			var data = u.ToJson();

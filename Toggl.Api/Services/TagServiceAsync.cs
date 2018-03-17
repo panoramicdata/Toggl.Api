@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 
@@ -7,8 +7,7 @@ namespace Toggl.Api.Services
 {
 	public class TagServiceAsync : ITagServiceAsync
 	{
-		private IApiServiceAsync ToggleSrv { get; set; }
-
+		private IApiServiceAsync ToggleSrv { get; }
 
 		public TagServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -21,15 +20,9 @@ namespace Toggl.Api.Services
 			ToggleSrv = srv;
 		}
 
-
-		/// <summary>
-		/// 
-		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md
-		/// </summary>
-		/// <returns></returns>
-		public async System.Threading.Tasks.Task<List<Client>> List()
+		public Task<List<Tag>> List()
 		{
-			throw new NotImplementedException();
+			throw new System.NotImplementedException();
 		}
 	}
 }

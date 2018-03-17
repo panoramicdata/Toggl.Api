@@ -2,11 +2,10 @@
 using Toggl.Api.DataObjects;
 using Toggl.Api.Responses;
 
-namespace Toggl.Api
+namespace Toggl.Api.Interfaces
 {
 	public interface ITogglService
 	{
-
 		Session GetSession();
 
 		ApiResponse Get(string url);

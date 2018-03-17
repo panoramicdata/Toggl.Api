@@ -50,7 +50,7 @@ namespace Toggl.Api.DataObjects
 				}
 
 			);
-			var propNm = (string.IsNullOrEmpty(objName)) ? GetType().Name.LowerCaseUnderscore() : objName;
+			var propNm = string.IsNullOrEmpty(objName) ? GetType().Name.LowerCaseUnderscore() : objName;
 
 			return "{\"" + propNm + "\":" + data + "}";
 		}

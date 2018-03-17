@@ -6,8 +6,10 @@ namespace Toggl.Api
 	/// <summary>
 	/// 
 	/// </summary>
-	public class TogglAsync
+	public class TogglClient
 	{
+		public const string UserAgent = "Toggl.Api";
+
 		private IApiServiceAsync ApiService { get; set; }
 
 		/// <summary>
@@ -45,7 +47,7 @@ namespace Toggl.Api
 		/// </summary>
 		public IWorkspaceServiceAsync Workspace { get; private set; }
 
-		public TogglAsync(string key)
+		public TogglClient(string key)
 		{
 			ApiService = new ApiServiceAsync(key);
 			Client = new ClientServiceAsync(ApiService);

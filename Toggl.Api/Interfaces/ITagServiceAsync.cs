@@ -11,6 +11,6 @@ namespace Toggl.Api.Interfaces
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md
 		/// </summary>
 		/// <returns></returns>
-		Task<List<Client>> List();
+		Task<List<Tag>> List();
 	}
 }

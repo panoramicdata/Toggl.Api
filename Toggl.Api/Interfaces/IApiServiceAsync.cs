@@ -20,6 +20,5 @@ namespace Toggl.Api.Interfaces
 		Task<ApiResponse> Put(string url, string data);
 		Task<ApiResponse> Put(string url, List<KeyValuePair<string, string>> args, string data);
 		Task Initialize();
-
 	}
 }
