@@ -7,7 +7,7 @@ namespace Toggl.Api.Services
 {
 	public class TagServiceAsync : ITagServiceAsync
 	{
-		private IApiServiceAsync ToggleSrv { get; }
+		private IApiServiceAsync TogglSrv { get; }
 
 		public TagServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -17,7 +17,7 @@ namespace Toggl.Api.Services
 
 		public TagServiceAsync(IApiServiceAsync srv)
 		{
-			ToggleSrv = srv;
+			TogglSrv = srv;
 		}
 
 		public Task<List<Tag>> List()

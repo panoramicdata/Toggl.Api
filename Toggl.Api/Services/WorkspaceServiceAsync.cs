@@ -11,7 +11,7 @@ namespace Toggl.Api.Services
 	/// </summary>
 	public class WorkspaceServiceAsync : IWorkspaceServiceAsync
 	{
-		private IApiServiceAsync ToggleSrv { get; set; }
+		private IApiServiceAsync TogglSrv { get; set; }
 
 		public WorkspaceServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -20,13 +20,13 @@ namespace Toggl.Api.Services
 
 		public WorkspaceServiceAsync(IApiServiceAsync srv)
 		{
-			ToggleSrv = srv;
+			TogglSrv = srv;
 		}
 
 		public async Task<List<Workspace>> List()
 		{
 			var url = ApiRoutes.Workspace.ListWorkspaceUrl;
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Workspace>>();
 			return data;
 		}
@@ -34,7 +34,7 @@ namespace Toggl.Api.Services
 		public async Task<List<User>> Users(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, workspaceId);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<User>>();
 			return data;
 		}
@@ -43,7 +43,7 @@ namespace Toggl.Api.Services
 		public async Task<List<Client>> Clients(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceClientsUrl, workspaceId);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Client>>();
 			return data;
 		}
@@ -51,7 +51,7 @@ namespace Toggl.Api.Services
 		public async Task<List<Project>> Projects(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, workspaceId);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Project>>();
 			return data;
 		}
@@ -60,7 +60,7 @@ namespace Toggl.Api.Services
 		public async Task<List<DataObjects.Task>> Tasks(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceTasksUrl, workspaceId);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<DataObjects.Task>>();
 			return data;
 		}
@@ -68,7 +68,7 @@ namespace Toggl.Api.Services
 		public async Task<List<Tag>> Tags(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceTagsUrl, workspaceId);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Tag>>();
 			return data;
 		}

@@ -20,7 +20,7 @@ namespace Toggl.Api.Services
 				await List();
 		}
 
-		public IApiServiceAsync ToggleSrv { get; set; }
+		public IApiServiceAsync TogglSrv { get; set; }
 
 		public DashboardServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -30,7 +30,7 @@ namespace Toggl.Api.Services
 
 		public DashboardServiceAsync(IApiServiceAsync srv)
 		{
-			ToggleSrv = srv;
+			TogglSrv = srv;
 		}
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace Toggl.Api.Services
 		/// <returns></returns>
 		public async Task<List<Dashboard>> List(bool includeDeleted = false)
 		{
-			var response = await ToggleSrv.Get(ApiRoutes.Client.ClientsUrl);
+			var response = await TogglSrv.Get(ApiRoutes.Client.ClientsUrl);
 			var result = response.GetData<List<Dashboard>>();
 
 			return result.ToList();
@@ -52,7 +52,7 @@ namespace Toggl.Api.Services
 				return _cache[id];
 
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<Dashboard>();
 			return data;
 
@@ -85,7 +85,7 @@ namespace Toggl.Api.Services
 		{
 			_cache = null;
 			var url = ApiRoutes.Client.ClientsUrl;
-			var response = await ToggleSrv.Post(url, obj.ToJson());
+			var response = await TogglSrv.Post(url, obj.ToJson());
 			var data = response.GetData<Dashboard>();
 			return data;
 
@@ -101,7 +101,7 @@ namespace Toggl.Api.Services
 		{
 			_cache = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, obj.Id);
-			var response = await ToggleSrv.Put(url, obj.ToJson());
+			var response = await TogglSrv.Put(url, obj.ToJson());
 			var data = response.GetData<Dashboard>();
 			return data;
 		}
@@ -116,7 +116,7 @@ namespace Toggl.Api.Services
 		{
 			_cache = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-			var res = await ToggleSrv.Delete(url);
+			var res = await TogglSrv.Delete(url);
 			return res.StatusCode == HttpStatusCode.OK;
 		}
 

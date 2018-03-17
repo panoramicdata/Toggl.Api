@@ -21,4 +21,8 @@
     <PackageReference Include="RestSharp" Version="106.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>

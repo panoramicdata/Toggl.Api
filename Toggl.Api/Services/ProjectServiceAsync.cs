@@ -13,7 +13,7 @@ namespace Toggl.Api.Services
 	{
 		private readonly string _projectsUrl = ApiRoutes.Project.ProjectsUrl;
 
-		private IApiServiceAsync ToggleSrv { get; set; }
+		private IApiServiceAsync TogglSrv { get; set; }
 
 		public ProjectServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -22,7 +22,7 @@ namespace Toggl.Api.Services
 
 		public ProjectServiceAsync(IApiServiceAsync srv)
 		{
-			ToggleSrv = srv;
+			TogglSrv = srv;
 		}
 
 		/// <summary>
@@ -33,7 +33,7 @@ namespace Toggl.Api.Services
 		public async Task<List<Project>> List()
 		{
 			var lstProj = new List<Project>();
-			var response = await ToggleSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl);
+			var response = await TogglSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl);
 			var lstWrkSpc = response.GetData<List<Workspace>>();
 			lstWrkSpc.ForEach(async e =>
 			{
@@ -46,7 +46,7 @@ namespace Toggl.Api.Services
 		public async Task<List<Project>> ForWorkspace(int id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, id);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Project>>();
 			return data;
 		}
@@ -61,7 +61,7 @@ namespace Toggl.Api.Services
 		public async Task<List<Project>> ForClient(int id)
 		{
 			var url = string.Format(ApiRoutes.Client.ClientProjectsUrl, id);
-			var response = await ToggleSrv.Get(url);
+			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Project>>();
 			return data;
 		}
@@ -80,7 +80,7 @@ namespace Toggl.Api.Services
 		/// <returns></returns>
 		public async Task<Project> Add(Project project)
 		{
-			var response = await ToggleSrv.Post(_projectsUrl, project.ToJson());
+			var response = await TogglSrv.Post(_projectsUrl, project.ToJson());
 			var data = response.GetData<Project>();
 			return data;
 		}
@@ -94,7 +94,7 @@ namespace Toggl.Api.Services
 		public async Task<bool> Delete(int id)
 		{
 			var url = string.Format(ApiRoutes.Project.DetailUrl, id);
-			var rsp = await ToggleSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url);
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
@@ -114,7 +114,7 @@ namespace Toggl.Api.Services
 				ApiRoutes.Project.ProjectsBulkDeleteUrl,
 				string.Join(",", ids.Select(id => id.ToString()).ToArray()));
 
-			var rsp = await ToggleSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url);
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 

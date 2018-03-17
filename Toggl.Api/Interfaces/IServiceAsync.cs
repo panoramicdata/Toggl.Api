@@ -5,7 +5,7 @@ namespace Toggl.Api.Interfaces
 {
 	public interface IServiceAsync<T>
 	{	
-		IApiServiceAsync ToggleSrv { get; set; }
+		IApiServiceAsync TogglSrv { get; set; }
 
 		/// <summary>
 		/// 

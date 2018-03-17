@@ -7,71 +7,71 @@
 
 		public static class Reports
 		{
-			public static readonly string Detailed = TogglReportUrl + "/details";
-			public static readonly string Weekly = TogglReportUrl + "/weekly";
-			public static readonly string Summary = TogglReportUrl + "/summary";
+			public const string Detailed = TogglReportUrl + "/details";
+			public const string Weekly = TogglReportUrl + "/weekly";
+			public const string Summary = TogglReportUrl + "/summary";
 		}
 
 		public static class Session
 		{
-			public static readonly string Me = TogglBaseUrl + "/me";
+			public const string Me = TogglBaseUrl + "/me";
 		}
 
 		public static class Client
 		{
-			public static readonly string ClientsUrl = TogglBaseUrl + "/clients";
-			public static readonly string ClientUrl = TogglBaseUrl + "/clients/{0}";
-			public static readonly string ClientProjectsUrl = TogglBaseUrl + "/clients/{0}/projects";
+			public const string ClientsUrl = TogglBaseUrl + "/clients";
+			public const string ClientUrl = TogglBaseUrl + "/clients/{0}";
+			public const string ClientProjectsUrl = TogglBaseUrl + "/clients/{0}/projects";
 		}
 
 		public static class Workspace
 		{
-			public static readonly string ListWorkspaceUrl = TogglBaseUrl + "/workspaces";
-			public static readonly string AddWorkspaceUserUrl = TogglBaseUrl + "/workspaces/{0}/project_users";
-			public static readonly string ListWorkspaceUsersUrl = TogglBaseUrl + "/workspaces/{0}/users";
-			public static readonly string ListWorkspaceProjectsUrl = TogglBaseUrl + "/workspaces/{0}/projects";
-			public static readonly string ListWorkspaceClientsUrl = TogglBaseUrl + "/workspaces/{0}/clients";
-			public static readonly string ListWorkspaceTasksUrl = TogglBaseUrl + "/workspaces/{0}/tasks";
-			public static readonly string ListWorkspaceTagsUrl = TogglBaseUrl + "/workspaces/{0}/tags";
+			public const string ListWorkspaceUrl = TogglBaseUrl + "/workspaces";
+			public const string AddWorkspaceUserUrl = TogglBaseUrl + "/workspaces/{0}/project_users";
+			public const string ListWorkspaceUsersUrl = TogglBaseUrl + "/workspaces/{0}/users";
+			public const string ListWorkspaceProjectsUrl = TogglBaseUrl + "/workspaces/{0}/projects";
+			public const string ListWorkspaceClientsUrl = TogglBaseUrl + "/workspaces/{0}/clients";
+			public const string ListWorkspaceTasksUrl = TogglBaseUrl + "/workspaces/{0}/tasks";
+			public const string ListWorkspaceTagsUrl = TogglBaseUrl + "/workspaces/{0}/tags";
 		}
 
 		public static class Task
 		{
-			public static readonly string TogglTasksUrl = TogglBaseUrl + "/tasks";
-			public static readonly string TogglTasksGet = TogglBaseUrl + "/tasks/{0}";
+			public const string TogglTasksUrl = TogglBaseUrl + "/tasks";
+			public const string TogglTasksGet = TogglBaseUrl + "/tasks/{0}";
 		}
 
 		public static class TimeEntry
 		{
-			public static readonly string TimeEntriesUrl = TogglBaseUrl + "/time_entries";
-			public static readonly string TimeEntryStartUrl = TogglBaseUrl + "/time_entries/start";
-			public static readonly string TimeEntryStopUrl = TogglBaseUrl + "/time_entries/{0}/stop";
-			public static readonly string TimeEntryUrl = TogglBaseUrl + "/time_entries/{0}";
-			public static readonly string TimeEntryCurrentUrl = TogglBaseUrl + "/time_entries/current";
+			public const string TimeEntriesUrl = TogglBaseUrl + "/time_entries";
+			public const string TimeEntryStartUrl = TogglBaseUrl + "/time_entries/start";
+			public const string TimeEntryStopUrl = TogglBaseUrl + "/time_entries/{0}/stop";
+			public const string TimeEntryUrl = TogglBaseUrl + "/time_entries/{0}";
+			public const string TimeEntryCurrentUrl = TogglBaseUrl + "/time_entries/current";
 		}
 
 		public static class Project
 		{
-			public static readonly string ProjectsBulkDeleteUrl = TogglBaseUrl + "/projects/{0}";
-			public static readonly string ProjectsUrl = TogglBaseUrl + "/projects";
-			public static readonly string DetailUrl = TogglBaseUrl + "/projects/{0}";
-			public static readonly string UsersUrl = TogglBaseUrl + "/projects/{0}/project_users";
-			public static readonly string ProjectTasksUrl = TogglBaseUrl + "/projects/{0}/tasks";
+			public const string ProjectsBulkDeleteUrl = TogglBaseUrl + "/projects/{0}";
+			public const string ProjectsUrl = TogglBaseUrl + "/projects";
+			public const string DetailUrl = TogglBaseUrl + "/projects/{0}";
+			public const string UsersUrl = TogglBaseUrl + "/projects/{0}/project_users";
+			public const string ProjectTasksUrl = TogglBaseUrl + "/projects/{0}/tasks";
 		}
 
 		public static class User
 		{
-			public static readonly string CurrentUrl = TogglBaseUrl + "/me";
-			public static readonly string CurrentExtendedUrl = TogglBaseUrl + "/me?with_related_data=true";
-			public static readonly string CurrentSinceUrl = TogglBaseUrl + "/me?since={0}&with_related_data=true";
-			public static readonly string ResetApiTokenUrl = TogglBaseUrl + "/reset_token";
-			public static readonly string EditUrl = TogglBaseUrl + "/me";
-			public static readonly string AddUrl = TogglBaseUrl + "/signups";
+			public const string CurrentUrl = TogglBaseUrl + "/me";
+			public const string CurrentExtendedUrl = TogglBaseUrl + "/me?with_related_data=true";
+			public const string CurrentSinceUrl = TogglBaseUrl + "/me?since={0}&with_related_data=true";
+			public const string ResetApiTokenUrl = TogglBaseUrl + "/reset_token";
+			public const string EditUrl = TogglBaseUrl + "/me";
+			public const string AddUrl = TogglBaseUrl + "/signups";
 		}
 
 		public static class Dashboard
 		{
-			public static readonly string DashboardUrl = TogglBaseUrl + "/dashboard/{0}";
+			public const string DashboardUrl = TogglBaseUrl + "/dashboard/{0}";
 		}
 	}
 }
