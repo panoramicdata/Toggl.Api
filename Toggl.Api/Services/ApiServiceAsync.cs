@@ -224,7 +224,7 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			var authResponse = (HttpWebResponse) await authRequest.GetResponseAsync();
+			var authResponse = (HttpWebResponse) authRequest.GetResponse();
 			string content;
 			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
 			{
