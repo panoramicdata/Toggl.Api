@@ -13,7 +13,7 @@ namespace Toggl.Api.Test
 		[Fact]
 		public async void List()
 		{
-			var clients = await TogglClient.Workspace.List();
+			var clients = await TogglClient.Workspaces.List();
 			Assert.True(clients.Any());
 		}
 	}

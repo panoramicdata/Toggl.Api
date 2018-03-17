@@ -10,53 +10,59 @@ namespace Toggl.Api
 	{
 		public const string UserAgent = "Toggl.Api";
 
-		private IApiServiceAsync ApiService { get; set; }
+		private IApiServiceAsync ApiService { get; }
 
 		/// <summary>
 		/// Holds methods to access client information
 		/// </summary>
-		public IClientServiceAsync Client { get; private set; }
+		public IClientServiceAsync Clients { get; }
 
 		/// <summary>
 		/// Holds methods to access project information
 		/// </summary>
-		public IProjectServiceAsync Project { get; private set; }
+		public IProjectServiceAsync Projects { get; }
+
+		/// <summary>
+		/// Holds methods to access report information
+		/// </summary>
+		public ReportServiceAsync Reports { get; }
 
 		/// <summary>
 		/// Holds methods to access tag information
 		/// </summary>
-		public ITagServiceAsync Tag { get; private set; }
+		public ITagServiceAsync Tags { get; }
 
 		/// <summary>
 		/// Holds methods to access task information
 		/// </summary>
-		public ITaskServiceAsync Task { get; private set; }
+		public ITaskServiceAsync Tasks { get; }
 
 		/// <summary>
 		/// Holds methods to access time entry information
 		/// </summary>
-		public ITimeEntryServiceAsync TimeEntry { get; private set; }
+		public ITimeEntryServiceAsync TimeEntries { get; }
 
 		/// <summary>
 		/// Holds methods to access user information
 		/// </summary>
-		public IUserServiceAsync User { get; private set; }
+		public IUserServiceAsync Users { get; }
 
 		/// <summary>
 		/// Holds methods to access workspace information
 		/// </summary>
-		public IWorkspaceServiceAsync Workspace { get; private set; }
+		public IWorkspaceServiceAsync Workspaces { get; }
 
 		public TogglClient(string key)
 		{
 			ApiService = new ApiServiceAsync(key);
-			Client = new ClientServiceAsync(ApiService);
-			Project = new ProjectServiceAsync(ApiService);
-			Tag = new TagServiceAsync(ApiService);
-			Task = new TaskServiceAsync(ApiService);
-			TimeEntry = new TimeEntryServiceAsync(ApiService);
-			User = new UserServiceAsync(ApiService);
-			Workspace = new WorkspaceServiceAsync(ApiService);
+			Clients = new ClientServiceAsync(ApiService);
+			Projects = new ProjectServiceAsync(ApiService);
+			Reports = new ReportServiceAsync(ApiService);
+			Tags = new TagServiceAsync(ApiService);
+			Tasks = new TaskServiceAsync(ApiService);
+			TimeEntries = new TimeEntryServiceAsync(ApiService);
+			Users = new UserServiceAsync(ApiService);
+			Workspaces = new WorkspaceServiceAsync(ApiService);
 		}
 	}
 }
