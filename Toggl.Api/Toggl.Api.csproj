@@ -14,11 +14,12 @@
     <PackageProjectUrl>https://bitbucket.org/panoramicdata/toggl.api</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
+    <Authors>David Bond</Authors>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="RestSharp" Version="106.1.0" />
   </ItemGroup>
 
   <ItemGroup>
