@@ -4,10 +4,7 @@ namespace Toggl.Api.Extensions
 
 	public static class Dates
 	{
-		public static string ToIsoDateStr(this DateTime date)
-		{
-			return date.ToString("yyyy-MM-ddTHH:mm:sszzz");
-		}
+		public static string ToIsoDateStr(this DateTime date) => date.ToString("yyyy-MM-ddTHH:mm:sszzz");
 
 		public static long ToUnixTime(this DateTime date)
 		{

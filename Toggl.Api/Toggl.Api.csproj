@@ -15,7 +15,8 @@
     <RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <Authors>David Bond</Authors>
-    <Version>1.0.2</Version>
+    <Version>1.0.5</Version>
+    <PackageReleaseNotes>Fixed broken ProjectUser code</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

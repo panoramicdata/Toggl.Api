@@ -2,7 +2,7 @@
 {
 	public static class ApiRoutes
 	{
-		private const string TogglBaseUrl = "https://www.toggl.com/api/v8";
+		private const string TogglBaseUrl = "https://www.toggl.com/api/v9";
 		private const string TogglReportUrl = "https://toggl.com/reports/api/v2";
 
 		public static class Reports
@@ -27,12 +27,13 @@
 		public static class Workspace
 		{
 			public const string ListWorkspaceUrl = TogglBaseUrl + "/workspaces";
-			public const string AddWorkspaceUserUrl = TogglBaseUrl + "/workspaces/{0}/project_users";
+			public const string ListWorkspaceProjectUsersUrl = TogglBaseUrl + "/workspaces/{0}/project_users";
 			public const string ListWorkspaceUsersUrl = TogglBaseUrl + "/workspaces/{0}/users";
 			public const string ListWorkspaceProjectsUrl = TogglBaseUrl + "/workspaces/{0}/projects";
 			public const string ListWorkspaceClientsUrl = TogglBaseUrl + "/workspaces/{0}/clients";
 			public const string ListWorkspaceTasksUrl = TogglBaseUrl + "/workspaces/{0}/tasks";
 			public const string ListWorkspaceTagsUrl = TogglBaseUrl + "/workspaces/{0}/tags";
+			public const string GetWorkspaceTimeEntry = TogglBaseUrl + "/workspaces/{0}/time_entries/{1}";
 		}
 
 		public static class Task
@@ -55,7 +56,6 @@
 			public const string ProjectsBulkDeleteUrl = TogglBaseUrl + "/projects/{0}";
 			public const string ProjectsUrl = TogglBaseUrl + "/projects";
 			public const string DetailUrl = TogglBaseUrl + "/projects/{0}";
-			public const string UsersUrl = TogglBaseUrl + "/projects/{0}/project_users";
 			public const string ProjectTasksUrl = TogglBaseUrl + "/projects/{0}/tasks";
 		}
 

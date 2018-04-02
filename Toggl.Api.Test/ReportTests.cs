@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Toggl.Api.Extensions;
 using Toggl.Api.QueryObjects;
 using Xunit;
@@ -24,6 +25,7 @@ namespace Toggl.Api.Test
 			var projects = await TogglClient.Projects.List();
 			var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 			Assert.NotNull(togglProject);
+			Assert.NotNull(togglProject.Id);
 
 			var utcNow = DateTime.UtcNow;
 			var endDateTime = new DateTime(utcNow.Year, utcNow.Month, 1);
@@ -39,6 +41,15 @@ namespace Toggl.Api.Test
 				Page = 1
 			});
 			Assert.NotNull(detailedReport);
+
+			// Refetch the time entries
+			var timeEntryIds = detailedReport.Data.Select(d=>d.Id).ToList();
+
+			foreach (var timeEntryId in timeEntryIds)
+			{
+				var refetchedTimeEntry = await TogglClient.Workspaces.GetTimeEntry(togglWorkspace.Id, timeEntryId.Value);
+				Assert.Equal(timeEntryId, refetchedTimeEntry.Id);
+			}
 		}
 	}
 }

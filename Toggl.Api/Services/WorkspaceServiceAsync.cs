@@ -39,6 +39,14 @@ namespace Toggl.Api.Services
 			return data;
 		}
 
+		public async Task<List<ProjectUser>> ProjectUsers(int workspaceId)
+		{
+			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectUsersUrl, workspaceId);
+			var response = await TogglSrv.Get(url);
+			var data = response.GetData<List<ProjectUser>>();
+			return data;
+		}
+
 
 		public async Task<List<Client>> Clients(int workspaceId)
 		{
@@ -70,6 +78,14 @@ namespace Toggl.Api.Services
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceTagsUrl, workspaceId);
 			var response = await TogglSrv.Get(url);
 			var data = response.GetData<List<Tag>>();
+			return data;
+		}
+
+		public async Task<TimeEntry> GetTimeEntry(int workspaceId, long workspaceTimeEntryId)
+		{
+			var url = string.Format(ApiRoutes.Workspace.GetWorkspaceTimeEntry, workspaceId, workspaceTimeEntryId);
+			var response = await TogglSrv.Get(url);
+			var data = response.GetData<TimeEntry>();
 			return data;
 		}
 

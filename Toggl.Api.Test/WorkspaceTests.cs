@@ -13,8 +13,22 @@ namespace Toggl.Api.Test
 		[Fact]
 		public async void List()
 		{
-			var clients = await TogglClient.Workspaces.List();
-			Assert.True(clients.Any());
+			var workspaces = await TogglClient.Workspaces.List();
+			Assert.True(workspaces.Any());
+		}
+
+		[Fact]
+		public async void ListProjectUsers()
+		{
+			var workspaces = await TogglClient.Workspaces.List();
+			Assert.True(workspaces.Any());
+			var workspaceId = workspaces.First().Id;
+			var projectUsers = await TogglClient.Workspaces.ProjectUsers(workspaceId);
+			Assert.True(projectUsers.Any());
+			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.Id));
+			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.UserId));
+			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.ProjectId));
+			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.WorkspaceId));
 		}
 	}
 }

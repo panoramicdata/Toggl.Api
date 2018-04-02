@@ -24,6 +24,13 @@ namespace Toggl.Api.Interfaces
 		Task<List<User>> Users(int workspaceId);
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="workspaceId"></param>
+		/// <returns></returns>
+		Task<List<ProjectUser>> ProjectUsers(int workspaceId);
+
+		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-clients
 		/// </summary>
 		/// <param name="workspaceId"></param>
@@ -50,5 +57,13 @@ namespace Toggl.Api.Interfaces
 		/// <param name="workspaceId"></param>
 		/// <returns></returns>
 		Task<List<Tag>> Tags(int workspaceId);
+
+		/// <summary>
+		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-timeentries
+		/// </summary>
+		/// <param name="workspaceId"></param>
+		/// <param name="workspaceTimeEntryId"></param>
+		/// <returns></returns>
+		Task<TimeEntry> GetTimeEntry(int workspaceId, long workspaceTimeEntryId);
 	}
 }
