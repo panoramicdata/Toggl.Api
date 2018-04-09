@@ -47,7 +47,7 @@ namespace Toggl.Api.Test
 
 			foreach (var timeEntryId in timeEntryIds)
 			{
-				var refetchedTimeEntry = await TogglClient.Workspaces.GetTimeEntry(togglWorkspace.Id, timeEntryId.Value);
+				var refetchedTimeEntry = await TogglClient.TimeEntries.Get(timeEntryId.Value);
 				Assert.Equal(timeEntryId, refetchedTimeEntry.Id);
 			}
 		}
