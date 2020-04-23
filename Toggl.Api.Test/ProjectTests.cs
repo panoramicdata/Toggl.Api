@@ -14,18 +14,18 @@ namespace Toggl.Api.Test
 		[Fact]
 		public async void List()
 		{
-			var projects = await TogglClient.Projects.List();
-			Assert.True(projects.Any());
+			var projects = await TogglClient.Projects.List().ConfigureAwait(false);
+			Assert.True(projects?.Any());
 		}
 
 		[Fact]
 		public async void GetProjectReportDashboard()
 		{
-			var workspaces = await TogglClient.Workspaces.List();
+			var workspaces = await TogglClient.Workspaces.List().ConfigureAwait(false);
 			var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
 			Assert.NotNull(togglWorkspace);
 
-			var projects = await TogglClient.Projects.List();
+			var projects = await TogglClient.Projects.List().ConfigureAwait(false);
 			var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 			Assert.NotNull(togglProject);
 
