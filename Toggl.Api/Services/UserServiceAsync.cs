@@ -10,14 +10,12 @@ namespace Toggl.Api.Services
 {
 	public class UserServiceAsync : IUserServiceAsync
 	{
-
 		private IApiServiceAsync TogglSrv { get; set; }
 
 
 		public UserServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
-
 		}
 
 		public UserServiceAsync(IApiServiceAsync srv)

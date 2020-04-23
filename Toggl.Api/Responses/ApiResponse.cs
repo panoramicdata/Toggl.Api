@@ -10,7 +10,7 @@ namespace Toggl.Api.Responses
 	public class ApiResponse
 	{
 		[JsonProperty(PropertyName = "data")]
-		public dynamic Data { get; set; }
+		public object Data { get; set; }
 
 		[JsonProperty(PropertyName = "related_data_updated_at")]
 		[JsonConverter(typeof(IsoDateTimeConverter))]

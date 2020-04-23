@@ -100,14 +100,14 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> DeleteIfAny(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				return true;
 			return await Delete(ids);
 		}
 
 		public async Task<bool> Delete(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException("ids");
 
 			var url = string.Format(
@@ -117,6 +117,5 @@ namespace Toggl.Api.Services
 			var rsp = await TogglSrv.Delete(url);
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
-
 	}
 }

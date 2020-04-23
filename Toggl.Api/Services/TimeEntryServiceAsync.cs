@@ -17,7 +17,6 @@ namespace Toggl.Api.Services
 		public TimeEntryServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
-
 		}
 
 		public TimeEntryServiceAsync(IApiServiceAsync srv)
@@ -168,14 +167,14 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> DeleteIfAny(long[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				return true;
 			return await Delete(ids);
 		}
 
 		public async Task<bool> Delete(long[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException("ids");
 
 			var result = new Dictionary<long, bool>(ids.Length);

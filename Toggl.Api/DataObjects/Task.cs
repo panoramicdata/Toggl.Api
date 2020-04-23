@@ -8,7 +8,6 @@ namespace Toggl.Api.DataObjects
 	/// </summary>
 	public class Task : BaseDataObject
 	{
-
 		[JsonProperty(PropertyName = "id")]
 		public int? Id { get; set; }
 

@@ -61,6 +61,5 @@ namespace Toggl.Api.Interfaces
 		/// <param name="u"></param>
 		/// <returns></returns>
 		Task<User> Add(User u);
-
 	}
 }

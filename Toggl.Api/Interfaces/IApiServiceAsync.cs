@@ -8,7 +8,6 @@ namespace Toggl.Api.Interfaces
 {
 	public interface IApiServiceAsync
 	{
-
 		Task<Session> GetSession();
 		Task<ApiResponse> Get(string url);
 		Task<ApiResponse> Get(string url, List<KeyValuePair<string, string>> args);

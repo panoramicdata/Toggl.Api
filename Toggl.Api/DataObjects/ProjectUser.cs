@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Toggl.Api.DataObjects
 {
@@ -11,13 +11,13 @@ namespace Toggl.Api.DataObjects
 		[JsonProperty(PropertyName = "id")]
 		public int Id { get; set; }
 
-		[JsonProperty(PropertyName = "project_id")]
+		[JsonProperty(PropertyName = "pid")]
 		public int ProjectId { get; set; }
 
-		[JsonProperty(PropertyName = "workspace_id")]
+		[JsonProperty(PropertyName = "wid")]
 		public int WorkspaceId { get; set; }
 
-		[JsonProperty(PropertyName = "user_id")]
+		[JsonProperty(PropertyName = "uid")]
 		public int UserId { get; set; }
 
 		[JsonProperty(PropertyName = "manager")]
@@ -31,11 +31,5 @@ namespace Toggl.Api.DataObjects
 		/// </summary>
 		[JsonProperty(PropertyName = "rate")]
 		public double? HourlyRate { get; set; }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(PropertyName = "labour_cost")]
-		public double? LabourCost { get; set; }
 	}
 }

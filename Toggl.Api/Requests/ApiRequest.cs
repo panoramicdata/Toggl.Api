@@ -18,6 +18,5 @@ namespace Toggl.Api.Requests
 			Method = "GET";
 			ContentType = "application/json";
 		}
-
 	}
 }

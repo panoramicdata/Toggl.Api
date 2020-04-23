@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 
 namespace Toggl.Api.DataObjects
 {
-
 	public class TimeEntry : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "id")]

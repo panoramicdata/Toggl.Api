@@ -14,7 +14,6 @@ namespace Toggl.Api.Services
 		public ReportServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
-
 		}
 
 		public ReportServiceAsync(IApiServiceAsync srv)

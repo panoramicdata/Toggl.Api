@@ -21,14 +21,12 @@ namespace Toggl.Api.Services
 		public TaskServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
-
 		}
 
 		public TaskServiceAsync(IApiServiceAsync srv)
 		{
 			TogglSrv = srv;
 		}
-
 
 		public async Task<Task> Get(int id)
 		{
@@ -82,14 +80,14 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> DeleteIfAny(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				return true;
 			return await Delete(ids);
 		}
 
 		public async Task<bool> Delete(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException("ids");
 
 			var url = string.Format(

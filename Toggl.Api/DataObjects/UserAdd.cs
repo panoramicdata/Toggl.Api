@@ -12,6 +12,5 @@ namespace Toggl.Api.DataObjects
 
 		[JsonProperty(PropertyName = "timezone")]
 		public string Timezone { get; set; }
-
 	}
 }

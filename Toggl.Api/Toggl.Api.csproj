@@ -8,19 +8,19 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company>Panoramic Data Limited</Company>
     <Description>Toggl API</Description>
-    <Copyright>Panoramic Data Limited 2018</Copyright>
+    <Copyright>Panoramic Data Limited 2020</Copyright>
     <PackageIconUrl>https://toggl.com/images/media-toolkit/logo_01.jpg</PackageIconUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <PackageProjectUrl>https://bitbucket.org/panoramicdata/toggl.api</PackageProjectUrl>
     <RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <Authors>David Bond</Authors>
-    <Version>1.0.5</Version>
-    <PackageReleaseNotes>Fixed broken ProjectUser code</PackageReleaseNotes>
+    <Version>1.0.6</Version>
+    <PackageReleaseNotes>Added Project Report endpoint</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>

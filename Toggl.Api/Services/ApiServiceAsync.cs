@@ -38,7 +38,6 @@ namespace Toggl.Api.Services
 
 		public async Task<Session> GetSession()
 		{
-
 			var args = new List<KeyValuePair<string, string>>();
 
 			var response = await Get(ApiRoutes.Session.Me, args);
@@ -269,7 +268,6 @@ namespace Toggl.Api.Services
 				};
 				return rsp;
 			}
-
 		}
 
 		private string GetAuthHeader()

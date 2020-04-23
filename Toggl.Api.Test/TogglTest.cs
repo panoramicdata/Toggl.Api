@@ -17,11 +17,7 @@ namespace Toggl.Api.Test
 
 		protected TogglTest(ITestOutputHelper iTestOutputHelper)
 		{
-			Logger = new LoggerFactory()
-				.AddDebug(LogLevel.Trace)
-				.AddXunit(iTestOutputHelper, LogLevel.Trace)
-				.CreateLogger<TogglTest>();
-
+			Logger = iTestOutputHelper.BuildLogger();
 			Configuration = LoadConfiguration("appsettings.json");
 			TogglClient = new TogglClient(Configuration.ApiKey);
 		}

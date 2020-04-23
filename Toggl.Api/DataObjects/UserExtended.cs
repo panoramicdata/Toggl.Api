@@ -8,7 +8,6 @@ namespace Toggl.Api.DataObjects
 	/// </summary>
 	public class UserExtended : User
 	{
-
 		[JsonProperty(PropertyName = "time_entries")]
 		public List<TimeEntry> TimeEntries { get; set; }
 

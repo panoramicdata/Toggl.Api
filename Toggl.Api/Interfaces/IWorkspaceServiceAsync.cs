@@ -9,7 +9,6 @@ namespace Toggl.Api.Interfaces
 	/// </summary>
 	public interface IWorkspaceServiceAsync
 	{
-
 		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspaces
 		/// </summary>

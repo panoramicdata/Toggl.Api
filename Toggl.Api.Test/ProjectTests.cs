@@ -15,7 +15,7 @@ namespace Toggl.Api.Test
 		public async void List()
 		{
 			var projects = await TogglClient.Projects.List().ConfigureAwait(false);
-			Assert.True(projects?.Any());
+			Assert.True(projects.Count > 0);
 		}
 
 		[Fact]

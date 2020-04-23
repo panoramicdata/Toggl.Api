@@ -25,7 +25,6 @@ namespace Toggl.Api.Services
 		public DashboardServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
-
 		}
 
 		public DashboardServiceAsync(IApiServiceAsync srv)
@@ -55,7 +54,6 @@ namespace Toggl.Api.Services
 			var response = await TogglSrv.Get(url);
 			var data = response.GetData<Dashboard>();
 			return data;
-
 		}
 
 		public Task<Dashboard> Add(Dashboard obj)
@@ -88,7 +86,6 @@ namespace Toggl.Api.Services
 			var response = await TogglSrv.Post(url, obj.ToJson());
 			var data = response.GetData<Dashboard>();
 			return data;
-
 		}
 
 		/// <summary>
@@ -122,7 +119,7 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> DeleteIfAny(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				return true;
 
 			return await Delete(ids);
@@ -130,7 +127,7 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> Delete(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException("ids");
 
 			_cache = null;

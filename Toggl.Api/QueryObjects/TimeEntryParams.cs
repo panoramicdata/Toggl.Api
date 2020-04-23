@@ -6,7 +6,6 @@ namespace Toggl.Api.QueryObjects
 {
 	public class TimeEntryParams : TimeEntry
 	{
-
 		public DateTime? StartDate { get; set; }
 		public DateTime? EndDate { get; set; }
 

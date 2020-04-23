@@ -44,6 +44,5 @@ namespace Toggl.Api.QueryObjects
 
         [JsonProperty(PropertyName = "without_description")]
         public bool? WithoutDescription { get; set; }
-       
     }
 }

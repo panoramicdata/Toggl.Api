@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Toggl.Api.DataObjects
 {
@@ -64,7 +64,7 @@ namespace Toggl.Api.DataObjects
 		public bool? IsBillable { get; set; }
 
 		/// <summary>
-		/// auto_estimates: whether the esitamated hours is calculated based on task esimations or is fixed manually(boolean, default false, not required, premium functionality)
+		/// auto_estimates: whether the estimated hours is calculated based on task estimations or is fixed manually(boolean, default false, not required, premium functionality)
 		/// </summary>
 		[JsonProperty(PropertyName = "auto_estimates")]
 		public bool? IsAutoEstimates { get; set; }

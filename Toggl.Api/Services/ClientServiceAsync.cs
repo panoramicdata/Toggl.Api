@@ -25,7 +25,6 @@ namespace Toggl.Api.Services
 		public ClientServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
-
 		}
 
 		public ClientServiceAsync(IApiServiceAsync srv)
@@ -59,7 +58,6 @@ namespace Toggl.Api.Services
 			var response = await TogglSrv.Get(url);
 			var data = response.GetData<Client>();
 			return data;
-
 		}
 
 		public async Task<Client> GetByName(string name)
@@ -84,7 +82,6 @@ namespace Toggl.Api.Services
 			var response = await TogglSrv.Post(url, obj.ToJson());
 			var data = response.GetData<Client>();
 			return data;
-
 		}
 
 		/// <summary>
@@ -118,7 +115,7 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> DeleteIfAny(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				return true;
 
 			return await Delete(ids);
@@ -126,7 +123,7 @@ namespace Toggl.Api.Services
 
 		public async Task<bool> Delete(int[] ids)
 		{
-			if (!ids.Any() || ids == null)
+			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException("ids");
 
 			_cachedClients = null;

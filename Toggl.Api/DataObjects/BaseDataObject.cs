@@ -54,6 +54,5 @@ namespace Toggl.Api.DataObjects
 
 			return "{\"" + propNm + "\":" + data + "}";
 		}
-
 	}
 }
