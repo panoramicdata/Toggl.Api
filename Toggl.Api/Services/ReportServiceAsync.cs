@@ -22,6 +22,8 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
+		public async Task<ProjectReportDashboard> ProjectReport(ProjectDashboardParams requestParameters) =>
+			await TogglSrv.Get<ProjectReportDashboard>(ApiRoutes.Reports.Project, requestParameters.ToKeyValuePair());
 
 		public async Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
 		{

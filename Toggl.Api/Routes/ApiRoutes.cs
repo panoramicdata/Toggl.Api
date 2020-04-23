@@ -10,6 +10,7 @@
 			public const string Detailed = TogglReportUrl + "/details";
 			public const string Weekly = TogglReportUrl + "/weekly";
 			public const string Summary = TogglReportUrl + "/summary";
+			public const string Project = TogglReportUrl + "/project";
 		}
 
 		public static class Session
