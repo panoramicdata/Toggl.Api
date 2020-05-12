@@ -2,9 +2,9 @@
 
 namespace Toggl.Api.QueryObjects
 {
-    public class DetailedReportParams : ReportParams
-    {        
-        [JsonProperty(PropertyName = "page")]
-        public int? Page { get; set; }        
-    }
+	public class DetailedReportParams : ReportParams
+	{
+		[JsonProperty(PropertyName = "page")]
+		public int? Page { get; set; }
+	}
 }

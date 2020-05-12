@@ -31,49 +31,46 @@ namespace Toggl.Api.Services
 		public async Task<Task> Get(int id)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
-			var response = await TogglSrv.Get(url);
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
 			var data = response.GetData<Task>();
 			return data;
 		}
 
 		/// <summary>
-		/// 
+		///Add a task
 		/// https://www.toggl.com/public/api#post_tasks
 		/// </summary>
 		/// <param name="t"></param>
-		/// <returns></returns>
 		public async Task<Task> Add(Task t)
 		{
-			var response = await TogglSrv.Post(_togglTasksUrl, t.ToJson());
+			var response = await TogglSrv.Post(_togglTasksUrl, t.ToJson()).ConfigureAwait(false);
 			var data = response.GetData<Task>();
 			return data;
 		}
 
 		/// <summary>
-		/// 
+		/// Edit a task
 		/// https://www.toggl.com/public/api#put_tasks
 		/// </summary>
 		/// <param name="t"></param>
-		/// <returns></returns>
 		public async Task<Task> Edit(Task t)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, t.Id);
-			var response = await TogglSrv.Put(url, t.ToJson());
+			var response = await TogglSrv.Put(url, t.ToJson()).ConfigureAwait(false);
 			var data = response.GetData<Task>();
 			return data;
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// https://www.toggl.com/public/api#del_tasks
 		/// </summary>
 		/// <param name="id"></param>
-		/// <returns></returns>
 		public async Task<bool> Delete(int id)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
 
-			var rsp = await TogglSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url).ConfigureAwait(false);
 
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
@@ -82,19 +79,19 @@ namespace Toggl.Api.Services
 		{
 			if (ids.Length == 0 || ids == null)
 				return true;
-			return await Delete(ids);
+			return await Delete(ids).ConfigureAwait(false);
 		}
 
 		public async Task<bool> Delete(int[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
-				throw new ArgumentNullException("ids");
+				throw new ArgumentNullException(nameof(ids));
 
 			var url = string.Format(
 				ApiRoutes.Task.TogglTasksGet,
 				string.Join(",", ids.Select(id => id.ToString()).ToArray()));
 
-			var rsp = await TogglSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url).ConfigureAwait(false);
 
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
@@ -104,25 +101,25 @@ namespace Toggl.Api.Services
 			if (!project.Id.HasValue)
 				throw new InvalidOperationException("Project Id not set");
 
-			return await ForProjectByName(project.Id.Value, taskName);
+			return await ForProjectByName(project.Id.Value, taskName).ConfigureAwait(false);
 		}
 
 		public async Task<Task> ForProjectByName(int projectId, string taskName)
 		{
-			var projectTasks = await ForProject(projectId);
+			var projectTasks = await ForProject(projectId).ConfigureAwait(false);
 			return projectTasks.Single(task => task.Name == taskName);
 		}
 
 		public async Task<Task> TryGetForProjectByName(int projectId, string taskName)
 		{
-			var projectTasks = await ForProject(projectId);
+			var projectTasks = await ForProject(projectId).ConfigureAwait(false);
 			return projectTasks.SingleOrDefault(task => task.Name == taskName);
 		}
 
 		public async Task<List<Task>> ForProject(int id)
 		{
 			var url = string.Format(ApiRoutes.Project.ProjectTasksUrl, id);
-			var response = await TogglSrv.Get(url);
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
 			var data = response.GetData<List<Task>>();
 			return data;
 		}
@@ -132,7 +129,7 @@ namespace Toggl.Api.Services
 			if (!project.Id.HasValue)
 				throw new InvalidOperationException("Project Id not set");
 
-			return await ForProject(project.Id.Value);
+			return await ForProject(project.Id.Value).ConfigureAwait(false);
 		}
 
 		public async void Merge(Task masterTask, Task slaveTask, int workspaceId, string userAgent = TogglClient.UserAgent)
@@ -143,7 +140,7 @@ namespace Toggl.Api.Services
 			if (!slaveTask.Id.HasValue)
 				throw new InvalidOperationException("Slave task Id not set");
 
-			await Merge(masterTask.Id.Value, slaveTask.Id.Value, workspaceId, userAgent);
+			await Merge(masterTask.Id.Value, slaveTask.Id.Value, workspaceId, userAgent).ConfigureAwait(false);
 		}
 
 		public async System.Threading.Tasks.Task Merge(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = TogglClient.UserAgent)
@@ -159,19 +156,19 @@ namespace Toggl.Api.Services
 				Since = DateTime.Now.AddYears(-1).ToIsoDateStr()
 			};
 
-			var result = await reportService.Detailed(reportParams);
+			var result = await reportService.Detailed(reportParams).ConfigureAwait(false);
 
 			if (result.TotalCount > result.PerPage)
-				result = await reportService.FullDetailedReport(reportParams);
+				result = await reportService.FullDetailedReport(reportParams).ConfigureAwait(false);
 
 			foreach (var reportTimeEntry in result.Data)
 			{
 				if (reportTimeEntry.Id == null) continue;
-				var timeEntry = await timeEntryService.Get(reportTimeEntry.Id.Value);
+				var timeEntry = await timeEntryService.Get(reportTimeEntry.Id.Value).ConfigureAwait(false);
 				timeEntry.TaskId = masterTaskId;
 				try
 				{
-					var _ = await timeEntryService.Edit(timeEntry);
+					var _ = await timeEntryService.Edit(timeEntry).ConfigureAwait(false);
 				}
 				catch (Exception ex)
 				{
@@ -179,7 +176,7 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			if (!await Delete(slaveTaskId))
+			if (!await Delete(slaveTaskId).ConfigureAwait(false))
 			{
 				throw new InvalidOperationException(string.Format("Can't delete task #{0}", slaveTaskId));
 			}
@@ -198,10 +195,10 @@ namespace Toggl.Api.Services
 				Since = DateTime.Now.AddYears(-1).ToIsoDateStr()
 			};
 
-			var result = await reportService.Detailed(reportParams);
+			var result = await reportService.Detailed(reportParams).ConfigureAwait(false);
 
 			if (result.TotalCount > result.PerPage)
-				result = await reportService.FullDetailedReport(reportParams);
+				result = await reportService.FullDetailedReport(reportParams).ConfigureAwait(false);
 
 			foreach (var reportTimeEntry in result.Data)
 			{
@@ -209,16 +206,16 @@ namespace Toggl.Api.Services
 				{
 					continue;
 				}
-				var timeEntry = await timeEntryService.Get(reportTimeEntry.Id.Value);
+				var timeEntry = await timeEntryService.Get(reportTimeEntry.Id.Value).ConfigureAwait(false);
 				timeEntry.TaskId = masterTaskId;
-				var editedTimeEntry = await timeEntryService.Edit(timeEntry);
+				var editedTimeEntry = await timeEntryService.Edit(timeEntry).ConfigureAwait(false);
 				if (editedTimeEntry == null)
 					throw new ArgumentNullException(string.Format("Can't edit timeEntry #{0}", reportTimeEntry.Id));
 			}
 
 			foreach (var slaveTaskId in slaveTasksIds)
 			{
-				if (!await Delete(slaveTaskId))
+				if (!await Delete(slaveTaskId).ConfigureAwait(false))
 					throw new InvalidOperationException(string.Format("Can't delete task #{0}", slaveTaskId));
 			}
 		}

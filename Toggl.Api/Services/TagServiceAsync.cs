@@ -20,8 +20,6 @@ namespace Toggl.Api.Services
 		}
 
 		public Task<List<Tag>> List()
-		{
-			throw new System.NotImplementedException();
-		}
+			=> throw new System.NotImplementedException();
 	}
 }

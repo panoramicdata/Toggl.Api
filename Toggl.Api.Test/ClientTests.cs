@@ -12,7 +12,10 @@ namespace Toggl.Api.Test
 		[Fact]
 		public async void GetClients()
 		{
-			var clients = await TogglClient.Clients.List().ConfigureAwait(false);
+			var clients = await TogglClient
+				.Clients
+				.List()
+				.ConfigureAwait(false);
 			Assert.True(clients.Count > 0);
 		}
 	}

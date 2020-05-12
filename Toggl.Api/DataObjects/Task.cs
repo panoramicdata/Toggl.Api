@@ -32,9 +32,6 @@ namespace Toggl.Api.DataObjects
 		[JsonProperty(PropertyName = "at")]
 		public DateTime? UpdatedOn { get; set; }
 
-		public override string ToString()
-		{
-			return string.Format("Id: {0}, Name: {1}", Id, Name);
-		}
+		public override string ToString() => string.Format("Id: {0}, Name: {1}", Id, Name);
 	}
 }

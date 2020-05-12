@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Toggl.Api.Extensions;
 using Toggl.Api.QueryObjects;
 using Xunit;
@@ -18,11 +17,17 @@ namespace Toggl.Api.Test
 		[Fact]
 		public async void List()
 		{
-			var workspaces = await TogglClient.Workspaces.List();
-			var togglWorkspace = workspaces.SingleOrDefault(w=>w.Name == Configuration.SampleWorkspaceName);
+			var workspaces = await TogglClient
+				.Workspaces
+				.List()
+				.ConfigureAwait(false);
+			var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
 			Assert.NotNull(togglWorkspace);
 
-			var projects = await TogglClient.Projects.List();
+			List<DataObjects.Project> projects = await TogglClient
+				.Projects
+				.List()
+				.ConfigureAwait(false);
 			var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 			Assert.NotNull(togglProject);
 			Assert.NotNull(togglProject.Id);
@@ -39,15 +44,18 @@ namespace Toggl.Api.Test
 				Until = endDateTime.ToIsoDateStr(),
 				ProjectIds = new List<int> { togglProject.Id.Value },
 				Page = 1
-			});
+			}).ConfigureAwait(false);
 			Assert.NotNull(detailedReport);
 
 			// Refetch the time entries
-			var timeEntryIds = detailedReport.Data.Select(d=>d.Id).ToList();
+			var timeEntryIds = detailedReport.Data.Select(d => d.Id).ToList();
 
 			foreach (var timeEntryId in timeEntryIds)
 			{
-				var refetchedTimeEntry = await TogglClient.TimeEntries.Get(timeEntryId.Value);
+				var refetchedTimeEntry = await TogglClient
+					.TimeEntries
+					.Get(timeEntryId.Value)
+					.ConfigureAwait(false);
 				Assert.Equal(timeEntryId, refetchedTimeEntry.Id);
 			}
 		}

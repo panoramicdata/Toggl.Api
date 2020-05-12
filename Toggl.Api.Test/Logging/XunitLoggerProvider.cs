@@ -19,10 +19,7 @@ namespace Toggl.Api.Test.Logging
 			_minLevel = minLevel;
 		}
 
-		public ILogger CreateLogger(string categoryName)
-		{
-			return new XunitLogger(_output, categoryName, _minLevel);
-		}
+		public ILogger CreateLogger(string categoryName) => new XunitLogger(_output, categoryName, _minLevel);
 
 		public void Dispose()
 		{

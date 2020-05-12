@@ -26,18 +26,17 @@ namespace Toggl.Api.Services
 		}
 
 		/// <summary>
-		/// 
+		/// List projects
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md
 		/// </summary>
-		/// <returns></returns>
 		public async Task<List<Project>> List()
 		{
 			var lstProj = new List<Project>();
-			var response = await TogglSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl);
+			var response = await TogglSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl).ConfigureAwait(false);
 			var lstWrkSpc = response.GetData<List<Workspace>>();
 			lstWrkSpc.ForEach(async e =>
 			{
-				var projs = await ForWorkspace(e.Id);
+				var projs = await ForWorkspace(e.Id).ConfigureAwait(false);
 				lstProj.AddRange(projs);
 			});
 			return lstProj;
@@ -46,55 +45,51 @@ namespace Toggl.Api.Services
 		public async Task<List<Project>> ForWorkspace(int id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, id);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<Project>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<Project>>();
 		}
 
 		public async Task<List<Project>> ForClient(Client client)
 		{
 			if (!client.Id.HasValue)
 				throw new InvalidOperationException("Client Id not set");
-			return await ForClient(client.Id.Value);
+			return await ForClient(client.Id.Value).ConfigureAwait(false);
 		}
 
 		public async Task<List<Project>> ForClient(int id)
 		{
-			var url = string.Format(ApiRoutes.Client.ClientProjectsUrl, id);
-			var response = await TogglSrv.Get(url);
+			var response = await TogglSrv.Get(string.Format(ApiRoutes.Client.ClientProjectsUrl, id)).ConfigureAwait(false);
 			var data = response.GetData<List<Project>>();
 			return data;
 		}
 
 		public async Task<Project> Get(int id)
 		{
-			var result = await List();
+			var result = await List().ConfigureAwait(false);
 			return result.FirstOrDefault(w => w.Id == id);
 		}
 
 		/// <summary>
-		/// 
+		/// Add a project
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#create-project
 		/// </summary>
 		/// <param name="project"></param>
-		/// <returns></returns>
 		public async Task<Project> Add(Project project)
 		{
-			var response = await TogglSrv.Post(_projectsUrl, project.ToJson());
+			var response = await TogglSrv.Post(_projectsUrl, project.ToJson()).ConfigureAwait(false);
 			var data = response.GetData<Project>();
 			return data;
 		}
 
 		/// <summary>
-		/// 
+		/// Delete a project
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#delete-a-project
 		/// </summary>
 		/// <param name="id"></param>
-		/// <returns></returns>
 		public async Task<bool> Delete(int id)
 		{
 			var url = string.Format(ApiRoutes.Project.DetailUrl, id);
-			var rsp = await TogglSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url).ConfigureAwait(false);
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
@@ -102,19 +97,19 @@ namespace Toggl.Api.Services
 		{
 			if (ids.Length == 0 || ids == null)
 				return true;
-			return await Delete(ids);
+			return await Delete(ids).ConfigureAwait(false);
 		}
 
 		public async Task<bool> Delete(int[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
-				throw new ArgumentNullException("ids");
+				throw new ArgumentNullException(nameof(ids));
 
 			var url = string.Format(
 				ApiRoutes.Project.ProjectsBulkDeleteUrl,
 				string.Join(",", ids.Select(id => id.ToString()).ToArray()));
 
-			var rsp = await TogglSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url).ConfigureAwait(false);
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 	}

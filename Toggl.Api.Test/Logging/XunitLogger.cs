@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Text;
-using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace Toggl.Api.Test.Logging
@@ -62,7 +62,7 @@ namespace Toggl.Api.Test.Logging
 			{
 				_output.WriteLine(message);
 			}
-			catch (Exception)
+			catch
 			{
 				// We could fail because we're on a background thread and our captured ITestOutputHelper is
 				// busted (if the test "completed" before the background thread fired).
@@ -93,20 +93,11 @@ namespace Toggl.Api.Test.Logging
 		{
 			_output = output;
 		}
-		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-		{
-			_output.WriteLine(state.ToString());
-		}
+		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) => _output.WriteLine(state.ToString());
 
-		public bool IsEnabled(LogLevel logLevel)
-		{
-			return true;
-		}
+		public bool IsEnabled(LogLevel logLevel) => true;
 
-		public IDisposable BeginScope<TState>(TState state)
-		{
-			return this;
-		}
+		public IDisposable BeginScope<TState>(TState state) => this;
 
 		public void Dispose()
 		{

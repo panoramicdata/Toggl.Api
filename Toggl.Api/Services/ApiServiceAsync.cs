@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 using Toggl.Api.Requests;
@@ -33,14 +33,14 @@ namespace Toggl.Api.Services
 				return;
 			}
 
-			await GetSession();
+			await GetSession().ConfigureAwait(false);
 		}
 
 		public async Task<Session> GetSession()
 		{
 			var args = new List<KeyValuePair<string, string>>();
 
-			var response = await Get(ApiRoutes.Session.Me, args);
+			var response = await Get(ApiRoutes.Session.Me, args).ConfigureAwait(false);
 			Session = response.GetData<Session>();
 
 			ApiToken = Session.ApiToken;
@@ -53,7 +53,7 @@ namespace Toggl.Api.Services
 			var response = await Get(new ApiRequest
 			{
 				Url = url
-			});
+			}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -63,7 +63,7 @@ namespace Toggl.Api.Services
 			{
 				Url = url,
 				Args = args
-			});
+			}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -73,7 +73,7 @@ namespace Toggl.Api.Services
 			{
 				Url = url,
 				Args = args
-			});
+			}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -83,7 +83,7 @@ namespace Toggl.Api.Services
 			{
 				Url = url,
 				Method = "DELETE"
-			});
+			}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -94,7 +94,7 @@ namespace Toggl.Api.Services
 				Url = url,
 				Method = "DELETE",
 				Args = args
-			});
+			}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -107,7 +107,7 @@ namespace Toggl.Api.Services
 					Method = "POST",
 					ContentType = "application/json",
 					Data = data
-				});
+				}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -121,7 +121,7 @@ namespace Toggl.Api.Services
 					Method = "POST",
 					ContentType = "application/json",
 					Data = data
-				});
+				}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -134,7 +134,7 @@ namespace Toggl.Api.Services
 					Method = "PUT",
 					ContentType = "application/json",
 					Data = data
-				});
+				}).ConfigureAwait(false);
 			return response;
 		}
 
@@ -148,15 +148,15 @@ namespace Toggl.Api.Services
 					Method = "PUT",
 					ContentType = "application/json",
 					Data = data
-				});
+				}).ConfigureAwait(false);
 			return response;
 		}
 
 		private async Task<TResponse> Get<TResponse>(ApiRequest apiRequest)
 		{
-			string[] value = {""};
+			string[] value = { "" };
 
-			if (apiRequest.Args != null && apiRequest.Args.Count > 0)
+			if (apiRequest.Args?.Count > 0)
 			{
 				apiRequest.Args.ForEach(e => value[0] += e.Key + "=" + Uri.EscapeDataString(e.Value) + "&");
 				value[0] = value[0].Trim('&');
@@ -167,7 +167,7 @@ namespace Toggl.Api.Services
 				apiRequest.Url += "?" + value[0];
 			}
 
-			var authRequest = (HttpWebRequest) WebRequest.Create(apiRequest.Url);
+			var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
 
 			authRequest.Method = apiRequest.Method;
 
@@ -177,7 +177,7 @@ namespace Toggl.Api.Services
 
 			authRequest.Headers.Add(GetAuthHeader());
 
-			var authResponse = (HttpWebResponse)await authRequest.GetResponseAsync();
+			var authResponse = (HttpWebResponse)await authRequest.GetResponseAsync().ConfigureAwait(false);
 			string content;
 			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
 			{
@@ -190,9 +190,9 @@ namespace Toggl.Api.Services
 
 		private async Task<ApiResponse> Get(ApiRequest apiRequest)
 		{
-			string[] value = {""};
+			string[] value = { "" };
 
-			if (apiRequest.Args != null && apiRequest.Args.Count > 0)
+			if (apiRequest.Args?.Count > 0)
 			{
 				apiRequest.Args.ForEach(e => value[0] += e.Key + "=" + Uri.EscapeDataString(e.Value) + "&");
 				value[0] = value[0].Trim('&');
@@ -203,7 +203,7 @@ namespace Toggl.Api.Services
 				apiRequest.Url += "?" + value[0];
 			}
 
-			var authRequest = (HttpWebRequest) WebRequest.Create(apiRequest.Url);
+			var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
 
 			authRequest.Method = apiRequest.Method;
 			authRequest.ContentType = apiRequest.ContentType;
@@ -223,7 +223,7 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			var authResponse = (HttpWebResponse) authRequest.GetResponse();
+			var authResponse = (HttpWebResponse)authRequest.GetResponse();
 			string content;
 			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
 			{
@@ -231,9 +231,9 @@ namespace Toggl.Api.Services
 			}
 
 			if ((string.IsNullOrEmpty(content)
-			     || content.ToLower() == "null")
-			    && authResponse.StatusCode == HttpStatusCode.OK
-			    && authResponse.Method == "DELETE")
+				  || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
+				 && authResponse.StatusCode == HttpStatusCode.OK
+				 && authResponse.Method == "DELETE")
 			{
 				var rsp = new ApiResponse
 				{
@@ -248,8 +248,8 @@ namespace Toggl.Api.Services
 
 			try
 			{
-				var rsp = content.ToLower() == "null"
-					? new ApiResponse {Data = null}
+				var rsp = string.Equals(content, "null", StringComparison.OrdinalIgnoreCase)
+					? new ApiResponse { Data = null }
 					: JsonConvert.DeserializeObject<ApiResponse>(content);
 
 				rsp.StatusCode = authResponse.StatusCode;

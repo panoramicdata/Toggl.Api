@@ -24,19 +24,10 @@ namespace Toggl.Api.QueryObjects
 			return lst;
 		}
 
-		private string GetStartParameter()
-		{
-			return GetIsoDate(StartDate);
-		}
+		private string GetStartParameter() => GetIsoDate(StartDate);
 
-		private string GetEndIsoDate()
-		{
-			return GetIsoDate(EndDate);
-		}
+		private string GetEndIsoDate() => GetIsoDate(EndDate);
 
-		private string GetIsoDate(DateTime? dt)
-		{
-			return dt.GetValueOrDefault().ToString("yyyy-MM-ddTHH:mm:sszzz");
-		}
+		private string GetIsoDate(DateTime? dt) => dt.GetValueOrDefault().ToString("yyyy-MM-ddTHH:mm:sszzz");
 	}
 }

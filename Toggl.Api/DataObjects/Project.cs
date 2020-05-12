@@ -4,8 +4,8 @@ using System;
 namespace Toggl.Api.DataObjects
 {
 	/// <summary>
-	/// 
-	///https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#projects
+	/// A Project
+	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#projects
 	/// </summary>
 	public class Project : BaseDataObject
 	{
@@ -87,9 +87,6 @@ namespace Toggl.Api.DataObjects
 		[JsonProperty(PropertyName = "rate")]
 		public double? HourlyRate { get; set; }
 
-		public override string ToString()
-		{
-			return string.Format("Id: {0}, Name: {1}", Id, Name);
-		}
+		public override string ToString() => string.Format("Id: {0}, Name: {1}", Id, Name);
 	}
 }

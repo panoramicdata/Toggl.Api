@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Toggl.Api.DataObjects
 {
@@ -53,10 +53,7 @@ namespace Toggl.Api.DataObjects
 		[JsonProperty(PropertyName = "server_deleted_at")]
 		public DateTime? DeletedAt { get; set; }
 
-
 		public override string ToString()
-		{
-			return string.Format("Id: {0}, Name: {1} {2}", Id, Name, DeletedAt == null ? string.Empty : "[DELETED]");
-		}
+			=> string.Format("Id: {0}, Name: {1} {2}", Id, Name, DeletedAt == null ? string.Empty : "[DELETED]");
 	}
 }

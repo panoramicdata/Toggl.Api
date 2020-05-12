@@ -4,11 +4,24 @@ using Toggl.Api.Services;
 namespace Toggl.Api
 {
 	/// <summary>
-	/// 
+	///A Toggl client
 	/// </summary>
 	public class TogglClient
 	{
 		public const string UserAgent = "Toggl.Api";
+
+		public TogglClient(string key)
+		{
+			ApiService = new ApiServiceAsync(key);
+			Clients = new ClientServiceAsync(ApiService);
+			Projects = new ProjectServiceAsync(ApiService);
+			Reports = new ReportServiceAsync(ApiService);
+			Tags = new TagServiceAsync(ApiService);
+			Tasks = new TaskServiceAsync(ApiService);
+			TimeEntries = new TimeEntryServiceAsync(ApiService);
+			Users = new UserServiceAsync(ApiService);
+			Workspaces = new WorkspaceServiceAsync(ApiService);
+		}
 
 		private IApiServiceAsync ApiService { get; }
 
@@ -51,18 +64,5 @@ namespace Toggl.Api
 		/// Holds methods to access workspace information
 		/// </summary>
 		public IWorkspaceServiceAsync Workspaces { get; }
-
-		public TogglClient(string key)
-		{
-			ApiService = new ApiServiceAsync(key);
-			Clients = new ClientServiceAsync(ApiService);
-			Projects = new ProjectServiceAsync(ApiService);
-			Reports = new ReportServiceAsync(ApiService);
-			Tags = new TagServiceAsync(ApiService);
-			Tasks = new TaskServiceAsync(ApiService);
-			TimeEntries = new TimeEntryServiceAsync(ApiService);
-			Users = new UserServiceAsync(ApiService);
-			Workspaces = new WorkspaceServiceAsync(ApiService);
-		}
 	}
 }

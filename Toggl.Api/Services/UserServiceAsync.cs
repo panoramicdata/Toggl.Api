@@ -12,7 +12,6 @@ namespace Toggl.Api.Services
 	{
 		private IApiServiceAsync TogglSrv { get; set; }
 
-
 		public UserServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
@@ -23,64 +22,55 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
-
 		public async Task<User> GetCurrent()
 		{
-			var url = ApiRoutes.User.CurrentUrl;
-
-			var response = await TogglSrv.Get(url);
-			var obj = response.GetData<User>();
-
-			return obj;
+			var response = await TogglSrv
+				.Get(ApiRoutes.User.CurrentUrl)
+				.ConfigureAwait(false);
+			return response.GetData<User>();
 		}
 
 		public async Task<UserExtended> GetCurrentExtended()
 		{
-			var url = ApiRoutes.User.CurrentExtendedUrl;
-
-			var response = await TogglSrv.Get(url);
-			var obj = response.GetData<UserExtended>();
-
-			return obj;
+			var response = await TogglSrv
+				.Get(ApiRoutes.User.CurrentExtendedUrl)
+				.ConfigureAwait(false);
+			return response.GetData<UserExtended>();
 		}
 
 		public async Task<UserExtended> GetCurrentChanged(DateTime since)
 		{
-			var url = string.Format(ApiRoutes.User.CurrentSinceUrl, since.ToUnixTime());
-
-			var response = await TogglSrv.Get(url);
-			var obj = response.GetData<UserExtended>();
-
-			return obj;
+			var response = await TogglSrv
+				.Get(string.Format(ApiRoutes.User.CurrentSinceUrl, since.ToUnixTime()))
+				.ConfigureAwait(false);
+			return response.GetData<UserExtended>();
 		}
 
 		public async Task<User> Edit(User u)
 		{
-			var url = string.Format(ApiRoutes.User.EditUrl);
 			var data = u.ToJson();
 
-			var response = await TogglSrv.Put(url, data);
-			u = response.GetData<User>();
-
-			return u;
+			var response = await TogglSrv
+				.Put(string.Format(ApiRoutes.User.EditUrl), data)
+				.ConfigureAwait(false);
+			return response.GetData<User>();
 		}
 
 		public async Task<string> ResetApiToken()
 		{
-			var url = ApiRoutes.User.ResetApiTokenUrl;
-
-			var response = await TogglSrv.Post(url, null);
-			var apiToken = response.GetData<string>();
-
-			return apiToken;
+			var response = await TogglSrv
+				.Post(ApiRoutes.User.ResetApiTokenUrl, null)
+				.ConfigureAwait(false);
+			return response.GetData<string>();
 		}
 
 		public async Task<List<User>> ForWorkspace(int id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, id);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<User>>();
-			return data;
+			var response = await TogglSrv
+				.Get(url)
+				.ConfigureAwait(false);
+			return response.GetData<List<User>>();
 		}
 
 		public async Task<User> Add(User u)
@@ -88,10 +78,10 @@ namespace Toggl.Api.Services
 			var url = string.Format(ApiRoutes.User.AddUrl);
 			var data = u.ToJson();
 
-			var response = await TogglSrv.Post(url, data);
-			u = response.GetData<User>();
-
-			return u;
+			var response = await TogglSrv
+				.Post(url, data)
+				.ConfigureAwait(false);
+			return response.GetData<User>();
 		}
 	}
 }

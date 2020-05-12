@@ -25,73 +25,60 @@ namespace Toggl.Api.Services
 
 		public async Task<List<Workspace>> List()
 		{
-			var url = ApiRoutes.Workspace.ListWorkspaceUrl;
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<Workspace>>();
-			return data;
+			var response = await TogglSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl).ConfigureAwait(false);
+			return response.GetData<List<Workspace>>();
 		}
 
 		public async Task<List<User>> Users(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, workspaceId);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<User>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<User>>();
 		}
 
 		public async Task<List<ProjectUser>> ProjectUsers(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectUsersUrl, workspaceId);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<ProjectUser>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<ProjectUser>>();
 		}
-
 
 		public async Task<List<Client>> Clients(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceClientsUrl, workspaceId);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<Client>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<Client>>();
 		}
 
 		public async Task<List<Project>> Projects(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, workspaceId);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<Project>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<Project>>();
 		}
-
 
 		public async Task<List<DataObjects.Task>> Tasks(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceTasksUrl, workspaceId);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<DataObjects.Task>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<DataObjects.Task>>();
 		}
 
 		public async Task<List<Tag>> Tags(int workspaceId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceTagsUrl, workspaceId);
-			var response = await TogglSrv.Get(url);
-			var data = response.GetData<List<Tag>>();
-			return data;
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			return response.GetData<List<Tag>>();
 		}
 
 		public async Task<TimeEntry> GetTimeEntry(int workspaceId, long workspaceTimeEntryId)
 		{
 			var url = string.Format(ApiRoutes.Workspace.GetWorkspaceTimeEntry, workspaceId, workspaceTimeEntryId);
-			var response = await TogglSrv.Get(url);
+			var response = await TogglSrv.Get(url).ConfigureAwait(false);
 			var data = response.GetData<TimeEntry>();
 			return data;
 		}
 
-		Task<List<DataObjects.Task>> IWorkspaceServiceAsync.Tasks(int workspaceId)
-		{
-			throw new System.NotImplementedException();
-		}
+		Task<List<DataObjects.Task>> IWorkspaceServiceAsync.Tasks(int workspaceId) => throw new System.NotImplementedException();
 	}
 }

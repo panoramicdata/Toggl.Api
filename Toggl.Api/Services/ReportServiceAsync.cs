@@ -10,7 +10,6 @@ namespace Toggl.Api.Services
 	{
 		public IApiServiceAsync TogglSrv { get; set; }
 
-
 		public ReportServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
 		{
@@ -21,18 +20,15 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
-		public async Task<ProjectReportDashboard> ProjectReport(ProjectDashboardParams requestParameters) =>
-			await TogglSrv.Get<ProjectReportDashboard>(ApiRoutes.Reports.Project, requestParameters.ToKeyValuePair());
+		public Task<ProjectReportDashboard> ProjectReport(ProjectDashboardParams requestParameters) =>
+			TogglSrv.Get<ProjectReportDashboard>(ApiRoutes.Reports.Project, requestParameters.ToKeyValuePair());
 
-		public async Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
-		{
-			var report = await TogglSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
-			return report;
-		}
+		public Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
+			=> TogglSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
 
 		public async Task<DetailedReport> FullDetailedReport(DetailedReportParams requestParameters)
 		{
-			var report = await Detailed(requestParameters);
+			var report = await Detailed(requestParameters).ConfigureAwait(false);
 
 			if (report.TotalCount < report.PerPage)
 				return report;
@@ -43,7 +39,7 @@ namespace Toggl.Api.Services
 			for (var page = 1; page <= pageCount; page++)
 			{
 				requestParameters.Page = page;
-				var pagedReport = await Detailed(requestParameters);
+				var pagedReport = await Detailed(requestParameters).ConfigureAwait(false);
 
 				if (resultReport == null)
 				{

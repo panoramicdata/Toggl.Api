@@ -7,10 +7,9 @@ namespace Toggl.Api.Interfaces
 	public interface IProjectServiceAsync
 	{
 		/// <summary>
-		/// 
+		///List project services
 		/// https://www.toggl.com/public/api#get_projects
 		/// </summary>
-		/// <returns></returns>
 		Task<List<Project>> List();
 
 		Task<Project> Get(int id);

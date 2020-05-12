@@ -1,6 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace Toggl.Api.Converters
 {
@@ -18,7 +18,7 @@ namespace Toggl.Api.Converters
 					throw new ArgumentOutOfRangeException("Unix epoch starts January 1st, 1970");
 				}
 
-				ticks = (long) delta.TotalSeconds;
+				ticks = (long)delta.TotalSeconds;
 			}
 			else
 			{
@@ -36,12 +36,8 @@ namespace Toggl.Api.Converters
 					$"Unexpected token parsing date. Expected Integer, got {reader.TokenType}.");
 			}
 
-			var ticks = (long) reader.Value;
-
-			var date = new DateTime(1970, 1, 1);
-			date = date.AddSeconds(ticks);
-
-			return date;
+			var ticks = (long)reader.Value;
+			return new DateTime(1970, 1, 1).AddSeconds(ticks);
 		}
 	}
 }

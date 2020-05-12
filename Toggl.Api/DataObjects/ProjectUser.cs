@@ -4,7 +4,7 @@ using System;
 namespace Toggl.Api.DataObjects
 {
 	/// <summary>
-	/// 
+	/// A Project User
 	/// </summary>
 	public class ProjectUser : BaseDataObject
 	{
