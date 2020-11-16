@@ -22,64 +22,64 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
-		public async Task<User> GetCurrent()
+		public async Task<User> GetCurrentAsync()
 		{
 			var response = await TogglSrv
-				.Get(ApiRoutes.User.CurrentUrl)
+				.GetAsync(ApiRoutes.User.CurrentUrl)
 				.ConfigureAwait(false);
 			return response.GetData<User>();
 		}
 
-		public async Task<UserExtended> GetCurrentExtended()
+		public async Task<UserExtended> GetCurrentExtendedAsync()
 		{
 			var response = await TogglSrv
-				.Get(ApiRoutes.User.CurrentExtendedUrl)
+				.GetAsync(ApiRoutes.User.CurrentExtendedUrl)
 				.ConfigureAwait(false);
 			return response.GetData<UserExtended>();
 		}
 
-		public async Task<UserExtended> GetCurrentChanged(DateTime since)
+		public async Task<UserExtended> GetCurrentChangedAsync(DateTime since)
 		{
 			var response = await TogglSrv
-				.Get(string.Format(ApiRoutes.User.CurrentSinceUrl, since.ToUnixTime()))
+				.GetAsync(string.Format(ApiRoutes.User.CurrentSinceUrl, since.ToUnixTime()))
 				.ConfigureAwait(false);
 			return response.GetData<UserExtended>();
 		}
 
-		public async Task<User> Edit(User u)
+		public async Task<User> UpdateAsync(User u)
 		{
 			var data = u.ToJson();
 
 			var response = await TogglSrv
-				.Put(string.Format(ApiRoutes.User.EditUrl), data)
+				.PutAsync(string.Format(ApiRoutes.User.EditUrl), data)
 				.ConfigureAwait(false);
 			return response.GetData<User>();
 		}
 
-		public async Task<string> ResetApiToken()
+		public async Task<string> ResetApiTokenAsync()
 		{
 			var response = await TogglSrv
-				.Post(ApiRoutes.User.ResetApiTokenUrl, null)
+				.PostAsync(ApiRoutes.User.ResetApiTokenUrl, null)
 				.ConfigureAwait(false);
 			return response.GetData<string>();
 		}
 
-		public async Task<List<User>> ForWorkspace(int id)
+		public async Task<List<User>> GetForWorkspaceAsync(int id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, id);
 			var response = await TogglSrv
-				.Get(url)
+				.GetAsync(url)
 				.ConfigureAwait(false);
 			return response.GetData<List<User>>();
 		}
 
-		public async Task<User> Add(User u)
+		public async Task<User> CreateAsync(User u)
 		{
 			var url = string.Format(ApiRoutes.User.AddUrl);
 			var data = u.ToJson();
 
 			var response = await TogglSrv
-				.Post(url, data)
+				.PostAsync(url, data)
 				.ConfigureAwait(false);
 			return response.GetData<User>();
 		}

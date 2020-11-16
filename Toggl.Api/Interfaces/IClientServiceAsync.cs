@@ -13,7 +13,7 @@ namespace Toggl.Api.Interfaces
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-clients-visible-to-user
 		/// </summary>
 		/// <returns></returns>
-		Task<List<Client>> List(bool includeDeleted = false);
+		Task<List<Client>> GetAllAsync(bool includeDeleted = false);
 
 		/// <summary>
 		/// Get a client
@@ -21,7 +21,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<Client> Get(int id);
+		Task<Client> GetAsync(int id);
 
 		/// <summary>
 		/// Add a client
@@ -29,7 +29,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		Task<Client> Add(Client obj);
+		Task<Client> CreateAsync(Client obj);
 
 		/// <summary>
 		/// Edit a client
@@ -37,7 +37,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		Task<Client> Edit(Client obj);
+		Task<Client> UpdateAsync(Client obj);
 
 		/// <summary>
 		/// Delete a client
@@ -45,6 +45,6 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<bool> Delete(int id);
+		Task<bool> DeleteAsync(int id);
 	}
 }

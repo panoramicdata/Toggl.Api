@@ -30,16 +30,17 @@ namespace Toggl.Api.Services
 		/// </summary>
 		public /* async */ Task<List<TimeEntry>> ListRecent() => throw new NotImplementedException();
 
-		public async Task<List<TimeEntry>> List() => await List(new QueryObjects.TimeEntryParams()).ConfigureAwait(false);
+		public Task<List<TimeEntry>> GetAllAsync()
+			=> GetAllAsync(new QueryObjects.TimeEntryParams());
 
 		/// <summary>
 		/// List time entries
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
 		/// </summary>
 		/// <param name="obj"></param>
-		public async Task<List<TimeEntry>> List(QueryObjects.TimeEntryParams obj)
+		public async Task<List<TimeEntry>> GetAllAsync(QueryObjects.TimeEntryParams obj)
 		{
-			var response = await TogglSrv.Get(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters()).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters()).ConfigureAwait(false);
 			var entries = response
 				.GetData<List<TimeEntry>>()
 				.AsQueryable();
@@ -54,9 +55,9 @@ namespace Toggl.Api.Services
 		/// Get the Current time entry
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entry-details
 		/// </summary>
-		public async Task<TimeEntry> Current()
+		public async Task<TimeEntry> GetCurrentAsync()
 		{
-			var response = await TogglSrv.Get(ApiRoutes.TimeEntry.TimeEntryCurrentUrl).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(ApiRoutes.TimeEntry.TimeEntryCurrentUrl).ConfigureAwait(false);
 			return response.GetData<TimeEntry>();
 		}
 
@@ -65,9 +66,9 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entry-details
 		/// </summary>
 		/// <param name="id"></param>
-		public async Task<TimeEntry> Get(long id)
+		public async Task<TimeEntry> GetAsync(long id)
 		{
-			var response = await TogglSrv.Get(string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id)).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id)).ConfigureAwait(false);
 			return response.GetData<TimeEntry>();
 		}
 
@@ -76,10 +77,10 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#create-a-time-entry
 		/// </summary>
 		/// <param name="obj"></param>
-		public async Task<TimeEntry> Add(TimeEntry obj)
+		public async Task<TimeEntry> CreateAsync(TimeEntry obj)
 		{
 			var response = await TogglSrv
-				.Post(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.ToJson())
+				.PostAsync(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.ToJson())
 				.ConfigureAwait(false);
 			var timeEntry = response.GetData<TimeEntry>();
 
@@ -91,10 +92,10 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj">A TimeEntry object.</param>
 		/// <returns>The runnig TimeEntry.</returns>
-		public async Task<TimeEntry> Start(TimeEntry obj)
+		public async Task<TimeEntry> StartAsync(TimeEntry obj)
 		{
 			var response = await TogglSrv
-				.Post(ApiRoutes.TimeEntry.TimeEntryStartUrl, obj.ToJson())
+				.PostAsync(ApiRoutes.TimeEntry.TimeEntryStartUrl, obj.ToJson())
 				.ConfigureAwait(false);
 			var timeEntry = response.GetData<TimeEntry>();
 
@@ -106,11 +107,11 @@ namespace Toggl.Api.Services
 		/// </summary>
 		/// <param name="obj">A TimeEntry object.</param>
 		/// <returns>The stopped TimeEntry.</returns>
-		public async Task<TimeEntry> Stop(TimeEntry obj)
+		public async Task<TimeEntry> StopAsync(TimeEntry obj)
 		{
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryStopUrl, obj.Id);
 
-			var response = await TogglSrv.Put(url, obj.ToJson()).ConfigureAwait(false);
+			var response = await TogglSrv.PutAsync(url, obj.ToJson()).ConfigureAwait(false);
 			var timeEntry = response.GetData<TimeEntry>();
 
 			return timeEntry;
@@ -120,11 +121,11 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#update-a-time-entry
 		/// </summary>
 		/// <param name="obj"></param>
-		public async Task<TimeEntry> Edit(TimeEntry obj)
+		public async Task<TimeEntry> UpdateAsync(TimeEntry obj)
 		{
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, obj.Id);
 
-			var response = await TogglSrv.Put(url, obj.ToJson()).ConfigureAwait(false);
+			var response = await TogglSrv.PutAsync(url, obj.ToJson()).ConfigureAwait(false);
 			var timeEntry = response.GetData<TimeEntry>();
 
 			return timeEntry;
@@ -135,21 +136,21 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#delete-a-time-entry
 		/// </summary>
 		/// <param name="id"></param>
-		public async Task<bool> Delete(long id)
+		public async Task<bool> DeleteAsync(long id)
 		{
-			var rsp = await TogglSrv.Delete(string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id)).ConfigureAwait(false);
+			var rsp = await TogglSrv.DeleteAsync(string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id)).ConfigureAwait(false);
 
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
-		public async Task<bool> DeleteIfAny(long[] ids)
+		public async Task<bool> DeleteIfAnyAsync(long[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
 				return true;
-			return await Delete(ids).ConfigureAwait(false);
+			return await DeleteAsync(ids).ConfigureAwait(false);
 		}
 
-		public async Task<bool> Delete(long[] ids)
+		public async Task<bool> DeleteAsync(long[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException(nameof(ids));
@@ -157,7 +158,7 @@ namespace Toggl.Api.Services
 			var result = new Dictionary<long, bool>(ids.Length);
 			foreach (var id in ids)
 			{
-				result.Add(id, await Delete(id).ConfigureAwait(false));
+				result.Add(id, await DeleteAsync(id).ConfigureAwait(false));
 			}
 
 			return !result.ContainsValue(false);

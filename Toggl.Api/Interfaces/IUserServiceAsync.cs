@@ -14,14 +14,14 @@ namespace Toggl.Api.Interfaces
 		/// Method to get basic information about a user.
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
 		/// </summary>
-		Task<User> GetCurrent();
+		Task<User> GetCurrentAsync();
 
 		/// <summary>
 		/// Method to get basic information about a user and to get all the workspaces, clients, projects,
 		/// tasks, time entries and tags which the user can see
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
 		/// </summary>
-		Task<UserExtended> GetCurrentExtended();
+		Task<UserExtended> GetCurrentExtendedAsync();
 
 		/// <summary>
 		/// Method to get basic information about a user and to get all the workspaces, clients, projects,
@@ -29,31 +29,31 @@ namespace Toggl.Api.Interfaces
 		/// add since parameter to the query.
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
 		/// </summary>
-		Task<UserExtended> GetCurrentChanged(DateTime since);
+		Task<UserExtended> GetCurrentChangedAsync(DateTime since);
 
 		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#update-user-data
 		/// </summary>
 		/// <param name="u">UserEdit</param>
 		/// <returns>User</returns>
-		Task<User> Edit(User u);
+		Task<User> UpdateAsync(User u);
 
 		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#reset-api-token
 		/// </summary>
-		Task<string> ResetApiToken();
+		Task<string> ResetApiTokenAsync();
 
 		/// <summary>
 		///  Get list of users for a workspace
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-users
 		/// </summary>
 		/// <param name="id"></param>
-		Task<List<User>> ForWorkspace(int id);
+		Task<List<User>> GetForWorkspaceAsync(int id);
 
 		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-workspace-users
 		/// </summary>
 		/// <param name="u"></param>
-		Task<User> Add(User u);
+		Task<User> CreateAsync(User u);
 	}
 }

@@ -16,7 +16,7 @@ namespace Toggl.Api.Test
 		{
 			var projects = await TogglClient
 				.Projects
-				.List()
+				.ListAsync()
 				.ConfigureAwait(false);
 			Assert.True(projects.Count > 0);
 		}
@@ -26,19 +26,19 @@ namespace Toggl.Api.Test
 		{
 			var workspaces = await TogglClient
 				.Workspaces
-				.List()
+				.GetAllAsync()
 				.ConfigureAwait(false);
 			var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
 			Assert.NotNull(togglWorkspace);
 
 			var projects = await TogglClient
 				.Projects
-				.List()
+				.ListAsync()
 				.ConfigureAwait(false);
 			var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 			Assert.NotNull(togglProject);
 
-			var projectReportDashboard = await TogglClient.Reports.ProjectReport(new ProjectDashboardParams
+			var projectReportDashboard = await TogglClient.Reports.GetProjectReportAsync(new ProjectDashboardParams
 			{
 				UserAgent = "TogglAPI.Net",
 				WorkspaceId = togglWorkspace.Id,

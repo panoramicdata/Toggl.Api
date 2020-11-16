@@ -10,10 +10,10 @@ namespace Toggl.Api.Interfaces
 		///List project services
 		/// https://www.toggl.com/public/api#get_projects
 		/// </summary>
-		Task<List<Project>> List();
+		Task<List<Project>> ListAsync();
 
-		Task<Project> Get(int id);
+		Task<Project> GetAsync(int id);
 
-		Task<Project> Add(Project project);
+		Task<Project> AddAsync(Project project);
 	}
 }

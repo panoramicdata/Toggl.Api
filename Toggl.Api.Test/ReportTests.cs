@@ -19,14 +19,14 @@ namespace Toggl.Api.Test
 		{
 			var workspaces = await TogglClient
 				.Workspaces
-				.List()
+				.GetAllAsync()
 				.ConfigureAwait(false);
 			var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
 			Assert.NotNull(togglWorkspace);
 
 			List<DataObjects.Project> projects = await TogglClient
 				.Projects
-				.List()
+				.ListAsync()
 				.ConfigureAwait(false);
 			var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 			Assert.NotNull(togglProject);
@@ -54,7 +54,7 @@ namespace Toggl.Api.Test
 			{
 				var refetchedTimeEntry = await TogglClient
 					.TimeEntries
-					.Get(timeEntryId.Value)
+					.GetAsync(timeEntryId.Value)
 					.ConfigureAwait(false);
 				Assert.Equal(timeEntryId, refetchedTimeEntry.Id);
 			}

@@ -26,21 +26,21 @@ namespace Toggl.Api.Services
 			ApiToken = apiToken;
 		}
 
-		public async Task Initialize()
+		public async Task InitializeAsync()
 		{
 			if (Session != null && !string.IsNullOrEmpty(Session.ApiToken))
 			{
 				return;
 			}
 
-			await GetSession().ConfigureAwait(false);
+			await GetSessionAsync().ConfigureAwait(false);
 		}
 
-		public async Task<Session> GetSession()
+		public async Task<Session> GetSessionAsync()
 		{
 			var args = new List<KeyValuePair<string, string>>();
 
-			var response = await Get(ApiRoutes.Session.Me, args).ConfigureAwait(false);
+			var response = await GetAsync(ApiRoutes.Session.Me, args).ConfigureAwait(false);
 			Session = response.GetData<Session>();
 
 			ApiToken = Session.ApiToken;
@@ -48,18 +48,18 @@ namespace Toggl.Api.Services
 			return Session;
 		}
 
-		public async Task<ApiResponse> Get(string url)
+		public async Task<ApiResponse> GetAsync(string url)
 		{
-			var response = await Get(new ApiRequest
+			var response = await GetAsync(new ApiRequest
 			{
 				Url = url
 			}).ConfigureAwait(false);
 			return response;
 		}
 
-		public async Task<ApiResponse> Get(string url, List<KeyValuePair<string, string>> args)
+		public async Task<ApiResponse> GetAsync(string url, List<KeyValuePair<string, string>> args)
 		{
-			var response = await Get(new ApiRequest
+			var response = await GetAsync(new ApiRequest
 			{
 				Url = url,
 				Args = args
@@ -67,9 +67,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<TResponse> Get<TResponse>(string url, List<KeyValuePair<string, string>> args)
+		public async Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, string>> args)
 		{
-			var response = await Get<TResponse>(new ApiRequest
+			var response = await GetAsync<TResponse>(new ApiRequest
 			{
 				Url = url,
 				Args = args
@@ -77,9 +77,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> Delete(string url)
+		public async Task<ApiResponse> DeleteAsync(string url)
 		{
-			var response = await Get(new ApiRequest
+			var response = await GetAsync(new ApiRequest
 			{
 				Url = url,
 				Method = "DELETE"
@@ -87,9 +87,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> Delete(string url, List<KeyValuePair<string, string>> args)
+		public async Task<ApiResponse> DeleteAsync(string url, List<KeyValuePair<string, string>> args)
 		{
-			var response = await Get(new ApiRequest
+			var response = await GetAsync(new ApiRequest
 			{
 				Url = url,
 				Method = "DELETE",
@@ -98,9 +98,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> Post(string url, string data)
+		public async Task<ApiResponse> PostAsync(string url, string data)
 		{
-			var response = await Get(
+			var response = await GetAsync(
 				new ApiRequest
 				{
 					Url = url,
@@ -111,9 +111,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> Post(string url, List<KeyValuePair<string, string>> args, string data = "")
+		public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
 		{
-			var response = await Get(
+			var response = await GetAsync(
 				new ApiRequest
 				{
 					Url = url,
@@ -125,9 +125,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> Put(string url, string data)
+		public async Task<ApiResponse> PutAsync(string url, string data)
 		{
-			var response = await Get(
+			var response = await GetAsync(
 				new ApiRequest
 				{
 					Url = url,
@@ -138,9 +138,9 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> Put(string url, List<KeyValuePair<string, string>> args, string data = "")
+		public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
 		{
-			var response = await Get(
+			var response = await GetAsync(
 				new ApiRequest
 				{
 					Url = url,
@@ -152,7 +152,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		private async Task<TResponse> Get<TResponse>(ApiRequest apiRequest)
+		private async Task<TResponse> GetAsync<TResponse>(ApiRequest apiRequest)
 		{
 			string[] value = { "" };
 
@@ -177,7 +177,9 @@ namespace Toggl.Api.Services
 
 			authRequest.Headers.Add(GetAuthHeader());
 
-			var authResponse = (HttpWebResponse)await authRequest.GetResponseAsync().ConfigureAwait(false);
+			var authResponse = (HttpWebResponse)await authRequest
+				.GetResponseAsync()
+				.ConfigureAwait(false);
 			string content;
 			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
 			{
@@ -188,7 +190,7 @@ namespace Toggl.Api.Services
 			return rsp;
 		}
 
-		private async Task<ApiResponse> Get(ApiRequest apiRequest)
+		private async Task<ApiResponse> GetAsync(ApiRequest apiRequest)
 		{
 			string[] value = { "" };
 
@@ -223,7 +225,9 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			var authResponse = (HttpWebResponse)authRequest.GetResponse();
+			var authResponse = (HttpWebResponse)await authRequest
+				.GetResponseAsync()
+				.ConfigureAwait(false);
 			string content;
 			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
 			{

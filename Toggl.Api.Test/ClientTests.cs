@@ -14,7 +14,7 @@ namespace Toggl.Api.Test
 		{
 			var clients = await TogglClient
 				.Clients
-				.List()
+				.GetAllAsync()
 				.ConfigureAwait(false);
 			Assert.True(clients.Count > 0);
 		}

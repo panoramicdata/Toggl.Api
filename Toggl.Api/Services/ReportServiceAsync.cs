@@ -20,13 +20,13 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
-		public Task<ProjectReportDashboard> ProjectReport(ProjectDashboardParams requestParameters) =>
-			TogglSrv.Get<ProjectReportDashboard>(ApiRoutes.Reports.Project, requestParameters.ToKeyValuePair());
+		public Task<ProjectReportDashboard> GetProjectReportAsync(ProjectDashboardParams requestParameters) =>
+			TogglSrv.GetAsync<ProjectReportDashboard>(ApiRoutes.Reports.Project, requestParameters.ToKeyValuePair());
 
 		public Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
-			=> TogglSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
+			=> TogglSrv.GetAsync<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
 
-		public async Task<DetailedReport> FullDetailedReport(DetailedReportParams requestParameters)
+		public async Task<DetailedReport> GetFullDetailedReportAsync(DetailedReportParams requestParameters)
 		{
 			var report = await Detailed(requestParameters).ConfigureAwait(false);
 

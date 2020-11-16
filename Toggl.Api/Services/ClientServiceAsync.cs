@@ -17,7 +17,7 @@ namespace Toggl.Api.Services
 		private async Task EnsureCacheLoaded()
 		{
 			if (_cachedClients == null)
-				await List().ConfigureAwait(false);
+				await GetAllAsync().ConfigureAwait(false);
 		}
 
 		public IApiServiceAsync TogglSrv { get; set; }
@@ -36,9 +36,9 @@ namespace Toggl.Api.Services
 		///
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-clients-visible-to-user
 		/// </summary>
-		public async Task<List<Client>> List(bool includeDeleted = false)
+		public async Task<List<Client>> GetAllAsync(bool includeDeleted = false)
 		{
-			var response = await TogglSrv.Get(ApiRoutes.Client.ClientsUrl).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(ApiRoutes.Client.ClientsUrl).ConfigureAwait(false);
 			var result = response.GetData<List<Client>>();
 
 			_cachedClients = result.ToDictionary(client => client.Id.Value, client => client);
@@ -48,18 +48,18 @@ namespace Toggl.Api.Services
 				: result.Where(client => client.DeletedAt == null).ToList();
 		}
 
-		public async Task<Client> Get(int id)
+		public async Task<Client> GetAsync(int id)
 		{
 			if (_cachedClients?.ContainsKey(id) == true)
 				return _cachedClients[id];
 
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);
 			var data = response.GetData<Client>();
 			return data;
 		}
 
-		public async Task<Client> GetByName(string name)
+		public async Task<Client> GetByNameAsync(string name)
 		{
 			await EnsureCacheLoaded().ConfigureAwait(false);
 
@@ -73,11 +73,11 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#create-a-client
 		/// </summary>
 		/// <param name="obj"></param>
-		public async Task<Client> Add(Client obj)
+		public async Task<Client> CreateAsync(Client obj)
 		{
 			_cachedClients = null;
 			var response = await TogglSrv
-				.Post(ApiRoutes.Client.ClientsUrl, obj.ToJson())
+				.PostAsync(ApiRoutes.Client.ClientsUrl, obj.ToJson())
 				.ConfigureAwait(false);
 			var data = response.GetData<Client>();
 			return data;
@@ -88,12 +88,12 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#update-a-client
 		/// </summary>
 		/// <param name="obj"></param>
-		public async Task<Client> Edit(Client obj)
+		public async Task<Client> UpdateAsync(Client obj)
 		{
 			_cachedClients = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, obj.Id);
 			var response = await TogglSrv
-				.Put(url, obj.ToJson())
+				.PutAsync(url, obj.ToJson())
 				.ConfigureAwait(false);
 			var data = response.GetData<Client>();
 			return data;
@@ -104,25 +104,25 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#delete-a-client
 		/// </summary>
 		/// <param name="id"></param>
-		public async Task<bool> Delete(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			_cachedClients = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
 			var res = await TogglSrv
-				.Delete(url)
+				.DeleteAsync(url)
 				.ConfigureAwait(false);
 			return res.StatusCode == HttpStatusCode.OK;
 		}
 
-		public async Task<bool> DeleteIfAny(int[] ids)
+		public async Task<bool> DeleteIfAnyAsync(int[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
 				return true;
 
-			return await Delete(ids).ConfigureAwait(false);
+			return await DeleteAsync(ids).ConfigureAwait(false);
 		}
 
-		public async Task<bool> Delete(int[] ids)
+		public async Task<bool> DeleteAsync(int[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException(nameof(ids));
@@ -132,7 +132,7 @@ namespace Toggl.Api.Services
 			var result = new Dictionary<int, bool>(ids.Length);
 			foreach (var id in ids)
 			{
-				result.Add(id, await Delete(id).ConfigureAwait(false));
+				result.Add(id, await DeleteAsync(id).ConfigureAwait(false));
 			}
 
 			return !result.ContainsValue(false);

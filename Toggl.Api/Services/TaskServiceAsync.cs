@@ -28,10 +28,10 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
-		public async Task<Task> Get(int id)
+		public async Task<Task> GetAsync(int id)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
-			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);
 			var data = response.GetData<Task>();
 			return data;
 		}
@@ -41,9 +41,9 @@ namespace Toggl.Api.Services
 		/// https://www.toggl.com/public/api#post_tasks
 		/// </summary>
 		/// <param name="t"></param>
-		public async Task<Task> Add(Task t)
+		public async Task<Task> CreateAsync(Task t)
 		{
-			var response = await TogglSrv.Post(_togglTasksUrl, t.ToJson()).ConfigureAwait(false);
+			var response = await TogglSrv.PostAsync(_togglTasksUrl, t.ToJson()).ConfigureAwait(false);
 			var data = response.GetData<Task>();
 			return data;
 		}
@@ -53,10 +53,10 @@ namespace Toggl.Api.Services
 		/// https://www.toggl.com/public/api#put_tasks
 		/// </summary>
 		/// <param name="t"></param>
-		public async Task<Task> Edit(Task t)
+		public async Task<Task> UpdateAsync(Task t)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, t.Id);
-			var response = await TogglSrv.Put(url, t.ToJson()).ConfigureAwait(false);
+			var response = await TogglSrv.PutAsync(url, t.ToJson()).ConfigureAwait(false);
 			var data = response.GetData<Task>();
 			return data;
 		}
@@ -66,23 +66,23 @@ namespace Toggl.Api.Services
 		/// https://www.toggl.com/public/api#del_tasks
 		/// </summary>
 		/// <param name="id"></param>
-		public async Task<bool> Delete(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
 
-			var rsp = await TogglSrv.Delete(url).ConfigureAwait(false);
+			var rsp = await TogglSrv.DeleteAsync(url).ConfigureAwait(false);
 
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
-		public async Task<bool> DeleteIfAny(int[] ids)
+		public async Task<bool> DeleteIfAnyAsync(int[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
 				return true;
-			return await Delete(ids).ConfigureAwait(false);
+			return await DeleteAsync(ids).ConfigureAwait(false);
 		}
 
-		public async Task<bool> Delete(int[] ids)
+		public async Task<bool> DeleteAsync(int[] ids)
 		{
 			if (ids.Length == 0 || ids == null)
 				throw new ArgumentNullException(nameof(ids));
@@ -91,48 +91,48 @@ namespace Toggl.Api.Services
 				ApiRoutes.Task.TogglTasksGet,
 				string.Join(",", ids.Select(id => id.ToString()).ToArray()));
 
-			var rsp = await TogglSrv.Delete(url).ConfigureAwait(false);
+			var rsp = await TogglSrv.DeleteAsync(url).ConfigureAwait(false);
 
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}
 
-		public async Task<Task> ForProjectByName(Project project, string taskName)
+		public async Task<Task> GetForProjectByNameAsync(Project project, string taskName)
 		{
 			if (!project.Id.HasValue)
 				throw new InvalidOperationException("Project Id not set");
 
-			return await ForProjectByName(project.Id.Value, taskName).ConfigureAwait(false);
+			return await GetForProjectByNameAsync(project.Id.Value, taskName).ConfigureAwait(false);
 		}
 
-		public async Task<Task> ForProjectByName(int projectId, string taskName)
+		public async Task<Task> GetForProjectByNameAsync(int projectId, string taskName)
 		{
-			var projectTasks = await ForProject(projectId).ConfigureAwait(false);
+			var projectTasks = await GetForProjectAsync(projectId).ConfigureAwait(false);
 			return projectTasks.Single(task => task.Name == taskName);
 		}
 
 		public async Task<Task> TryGetForProjectByName(int projectId, string taskName)
 		{
-			var projectTasks = await ForProject(projectId).ConfigureAwait(false);
+			var projectTasks = await GetForProjectAsync(projectId).ConfigureAwait(false);
 			return projectTasks.SingleOrDefault(task => task.Name == taskName);
 		}
 
-		public async Task<List<Task>> ForProject(int id)
+		public async Task<List<Task>> GetForProjectAsync(int id)
 		{
 			var url = string.Format(ApiRoutes.Project.ProjectTasksUrl, id);
-			var response = await TogglSrv.Get(url).ConfigureAwait(false);
+			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);
 			var data = response.GetData<List<Task>>();
 			return data;
 		}
 
-		public async Task<List<Task>> ForProject(Project project)
+		public async Task<List<Task>> GetForProjectAsync(Project project)
 		{
 			if (!project.Id.HasValue)
 				throw new InvalidOperationException("Project Id not set");
 
-			return await ForProject(project.Id.Value).ConfigureAwait(false);
+			return await GetForProjectAsync(project.Id.Value).ConfigureAwait(false);
 		}
 
-		public async void Merge(Task masterTask, Task slaveTask, int workspaceId, string userAgent = TogglClient.UserAgent)
+		public async void MergeAsync(Task masterTask, Task slaveTask, int workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			if (!masterTask.Id.HasValue)
 				throw new InvalidOperationException("Master task Id not set");
@@ -140,10 +140,10 @@ namespace Toggl.Api.Services
 			if (!slaveTask.Id.HasValue)
 				throw new InvalidOperationException("Slave task Id not set");
 
-			await Merge(masterTask.Id.Value, slaveTask.Id.Value, workspaceId, userAgent).ConfigureAwait(false);
+			await MergeAsync(masterTask.Id.Value, slaveTask.Id.Value, workspaceId, userAgent).ConfigureAwait(false);
 		}
 
-		public async System.Threading.Tasks.Task Merge(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = TogglClient.UserAgent)
+		public async System.Threading.Tasks.Task MergeAsync(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			var reportService = new ReportServiceAsync(TogglSrv);
 			var timeEntryService = new TimeEntryServiceAsync(TogglSrv);
@@ -159,16 +159,16 @@ namespace Toggl.Api.Services
 			var result = await reportService.Detailed(reportParams).ConfigureAwait(false);
 
 			if (result.TotalCount > result.PerPage)
-				result = await reportService.FullDetailedReport(reportParams).ConfigureAwait(false);
+				result = await reportService.GetFullDetailedReportAsync(reportParams).ConfigureAwait(false);
 
 			foreach (var reportTimeEntry in result.Data)
 			{
 				if (reportTimeEntry.Id == null) continue;
-				var timeEntry = await timeEntryService.Get(reportTimeEntry.Id.Value).ConfigureAwait(false);
+				var timeEntry = await timeEntryService.GetAsync(reportTimeEntry.Id.Value).ConfigureAwait(false);
 				timeEntry.TaskId = masterTaskId;
 				try
 				{
-					var _ = await timeEntryService.Edit(timeEntry).ConfigureAwait(false);
+					var _ = await timeEntryService.UpdateAsync(timeEntry).ConfigureAwait(false);
 				}
 				catch (Exception ex)
 				{
@@ -176,13 +176,13 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			if (!await Delete(slaveTaskId).ConfigureAwait(false))
+			if (!await DeleteAsync(slaveTaskId).ConfigureAwait(false))
 			{
 				throw new InvalidOperationException(string.Format("Can't delete task #{0}", slaveTaskId));
 			}
 		}
 
-		public async void Merge(int masterTaskId, int[] slaveTasksIds, int workspaceId, string userAgent = TogglClient.UserAgent)
+		public async void MergeAsync(int masterTaskId, int[] slaveTasksIds, int workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			var reportService = new ReportServiceAsync(TogglSrv);
 			var timeEntryService = new TimeEntryServiceAsync(TogglSrv);
@@ -198,7 +198,7 @@ namespace Toggl.Api.Services
 			var result = await reportService.Detailed(reportParams).ConfigureAwait(false);
 
 			if (result.TotalCount > result.PerPage)
-				result = await reportService.FullDetailedReport(reportParams).ConfigureAwait(false);
+				result = await reportService.GetFullDetailedReportAsync(reportParams).ConfigureAwait(false);
 
 			foreach (var reportTimeEntry in result.Data)
 			{
@@ -206,16 +206,16 @@ namespace Toggl.Api.Services
 				{
 					continue;
 				}
-				var timeEntry = await timeEntryService.Get(reportTimeEntry.Id.Value).ConfigureAwait(false);
+				var timeEntry = await timeEntryService.GetAsync(reportTimeEntry.Id.Value).ConfigureAwait(false);
 				timeEntry.TaskId = masterTaskId;
-				var editedTimeEntry = await timeEntryService.Edit(timeEntry).ConfigureAwait(false);
+				var editedTimeEntry = await timeEntryService.UpdateAsync(timeEntry).ConfigureAwait(false);
 				if (editedTimeEntry == null)
 					throw new ArgumentNullException(string.Format("Can't edit timeEntry #{0}", reportTimeEntry.Id));
 			}
 
 			foreach (var slaveTaskId in slaveTasksIds)
 			{
-				if (!await Delete(slaveTaskId).ConfigureAwait(false))
+				if (!await DeleteAsync(slaveTaskId).ConfigureAwait(false))
 					throw new InvalidOperationException(string.Format("Can't delete task #{0}", slaveTaskId));
 			}
 		}

@@ -18,7 +18,7 @@ namespace Toggl.Api.Interfaces
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
 		/// </summary>
 		/// <returns></returns>
-		Task<List<TimeEntry>> List();
+		Task<List<TimeEntry>> GetAllAsync();
 
 		/// <summary>
 		/// List time entries
@@ -26,14 +26,14 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		Task<List<TimeEntry>> List(QueryObjects.TimeEntryParams obj);
+		Task<List<TimeEntry>> GetAllAsync(QueryObjects.TimeEntryParams obj);
 
 		/// <summary>
 		/// Get the current time entry
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-running-time-entry
 		/// </summary>
 		/// <returns></returns>
-		Task<TimeEntry> Current();
+		Task<TimeEntry> GetCurrentAsync();
 
 		/// <summary>
 		/// Get a time entry
@@ -41,7 +41,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<TimeEntry> Get(long id);
+		Task<TimeEntry> GetAsync(long id);
 
 		/// <summary>
 		/// Add a time entry
@@ -49,7 +49,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		Task<TimeEntry> Add(TimeEntry obj);
+		Task<TimeEntry> CreateAsync(TimeEntry obj);
 
 		/// <summary>
 		/// Start a TimeEntry
@@ -57,7 +57,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj">A TimeEntry object.</param>
 		/// <returns>The runnig TimeEntry.</returns>
-		Task<TimeEntry> Start(TimeEntry obj);
+		Task<TimeEntry> StartAsync(TimeEntry obj);
 
 		/// <summary>
 		/// Stop a TimeEntry
@@ -65,7 +65,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj">A TimeEntry object.</param>
 		/// <returns>The stopped TimeEntry.</returns>
-		Task<TimeEntry> Stop(TimeEntry obj);
+		Task<TimeEntry> StopAsync(TimeEntry obj);
 
 		/// <summary>
 		/// Edit a time entry
@@ -73,7 +73,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		Task<TimeEntry> Edit(TimeEntry obj);
+		Task<TimeEntry> UpdateAsync(TimeEntry obj);
 
 		/// <summary>
 		/// Delete a time entry
@@ -81,6 +81,6 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<bool> Delete(long id);
+		Task<bool> DeleteAsync(long id);
 	}
 }

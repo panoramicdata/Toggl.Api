@@ -8,16 +8,16 @@ namespace Toggl.Api.Interfaces
 {
 	public interface IApiServiceAsync
 	{
-		Task<Session> GetSession();
-		Task<ApiResponse> Get(string url);
-		Task<ApiResponse> Get(string url, List<KeyValuePair<string, string>> args);
-		Task<TResponse> Get<TResponse>(string url, List<KeyValuePair<string, string>> args);
-		Task<ApiResponse> Delete(string url);
-		Task<ApiResponse> Delete(string url, List<KeyValuePair<string, string>> args);
-		Task<ApiResponse> Post(string url, string data);
-		Task<ApiResponse> Post(string url, List<KeyValuePair<string, string>> args, string data);
-		Task<ApiResponse> Put(string url, string data);
-		Task<ApiResponse> Put(string url, List<KeyValuePair<string, string>> args, string data);
-		Task Initialize();
+		Task<Session> GetSessionAsync();
+		Task<ApiResponse> GetAsync(string url);
+		Task<ApiResponse> GetAsync(string url, List<KeyValuePair<string, string>> args);
+		Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, string>> args);
+		Task<ApiResponse> DeleteAsync(string url);
+		Task<ApiResponse> DeleteAsync(string url, List<KeyValuePair<string, string>> args);
+		Task<ApiResponse> PostAsync(string url, string data);
+		Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data);
+		Task<ApiResponse> PutAsync(string url, string data);
+		Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data);
+		Task InitializeAsync();
 	}
 }

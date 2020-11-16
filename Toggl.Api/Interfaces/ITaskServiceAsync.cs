@@ -11,7 +11,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<Task> Get(int id);
+		Task<Task> GetAsync(int id);
 
 		/// <summary>
 		///Add a Task
@@ -19,7 +19,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		Task<Task> Add(Task t);
+		Task<Task> CreateAsync(Task t);
 
 		/// <summary>
 		/// Edit a task
@@ -27,7 +27,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		Task<Task> Edit(Task t);
+		Task<Task> UpdateAsync(Task t);
 
 		/// <summary>
 		/// Delete a task
@@ -35,6 +35,6 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<bool> Delete(int id);
+		Task<bool> DeleteAsync(int id);
 	}
 }

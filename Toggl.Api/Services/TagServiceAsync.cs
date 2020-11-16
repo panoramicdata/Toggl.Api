@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
@@ -19,7 +20,7 @@ namespace Toggl.Api.Services
 			_apiServiceAsync = apiServiceAsync;
 		}
 
-		public Task<List<Tag>> List()
-			=> throw new System.NotImplementedException();
+		public Task<List<Tag>> GetAllAsync()
+			=> throw new NotImplementedException();
 	}
 }
