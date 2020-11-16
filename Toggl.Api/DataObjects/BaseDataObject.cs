@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
+using System.Linq;
 using Toggl.Api.Extensions;
 
 namespace Toggl.Api.DataObjects
@@ -17,7 +17,10 @@ namespace Toggl.Api.DataObjects
 				{
 					var val = p.GetValue(this, null);
 
-					if (!(p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).Single() is JsonPropertyAttribute jsonProperty) || val == null) return;
+					if (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).Single() is not JsonPropertyAttribute jsonProperty || val == null)
+					{
+						return;
+					}
 
 					if (val is IEnumerable<int> ints)
 					{

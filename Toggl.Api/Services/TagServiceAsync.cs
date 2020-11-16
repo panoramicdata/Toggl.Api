@@ -8,7 +8,7 @@ namespace Toggl.Api.Services
 {
 	public class TagServiceAsync : ITagServiceAsync
 	{
-		private IApiServiceAsync _apiServiceAsync;
+		private readonly IApiServiceAsync _apiServiceAsync;
 
 		public TagServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))

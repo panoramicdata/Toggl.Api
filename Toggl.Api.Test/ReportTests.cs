@@ -48,7 +48,7 @@ namespace Toggl.Api.Test
 			Assert.NotNull(detailedReport);
 
 			// Refetch the time entries
-			var timeEntryIds = detailedReport.Data.Select(d => d.Id).ToList();
+			var timeEntryIds = detailedReport.Data.ConvertAll(d => d.Id);
 
 			foreach (var timeEntryId in timeEntryIds)
 			{

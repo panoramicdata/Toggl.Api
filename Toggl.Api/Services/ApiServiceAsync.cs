@@ -219,10 +219,8 @@ namespace Toggl.Api.Services
 
 				value[0] += apiRequest.Data;
 				authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
-				using (var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom))
-				{
-					writer.Write(value[0]);
-				}
+				using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
+				writer.Write(value[0]);
 			}
 
 			var authResponse = (HttpWebResponse)await authRequest

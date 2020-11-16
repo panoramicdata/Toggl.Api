@@ -14,15 +14,17 @@
 		<PackageProjectUrl>https://bitbucket.org/panoramicdata/toggl.api</PackageProjectUrl>
 		<RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
-		<Authors>David Bond</Authors>
+		<Authors>Panoramic Data Limited</Authors>
 		<Version>1.0.6</Version>
 		<PackageReleaseNotes>Added Project Report endpoint</PackageReleaseNotes>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enabled</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="Icon.png" Pack="true" PackagePath="" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 	</ItemGroup>

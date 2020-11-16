@@ -67,7 +67,8 @@ namespace Toggl.Api.Services
 		/// <param name="name"></param>
 		public async Task<Dashboard> GetByNameAsync(string name)
 		{
-			await EnsureCacheLoaded().ConfigureAwait(false);
+			await EnsureCacheLoaded()
+				.ConfigureAwait(false);
 
 			throw new NotImplementedException();
 		}

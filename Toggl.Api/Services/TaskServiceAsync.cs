@@ -206,17 +206,25 @@ namespace Toggl.Api.Services
 				{
 					continue;
 				}
-				var timeEntry = await timeEntryService.GetAsync(reportTimeEntry.Id.Value).ConfigureAwait(false);
+				var timeEntry = await timeEntryService
+					.GetAsync(reportTimeEntry.Id.Value)
+					.ConfigureAwait(false);
 				timeEntry.TaskId = masterTaskId;
-				var editedTimeEntry = await timeEntryService.UpdateAsync(timeEntry).ConfigureAwait(false);
+				var editedTimeEntry = await timeEntryService
+					.UpdateAsync(timeEntry)
+					.ConfigureAwait(false);
 				if (editedTimeEntry == null)
+				{
 					throw new ArgumentNullException(string.Format("Can't edit timeEntry #{0}", reportTimeEntry.Id));
+				}
 			}
 
 			foreach (var slaveTaskId in slaveTasksIds)
 			{
 				if (!await DeleteAsync(slaveTaskId).ConfigureAwait(false))
+				{
 					throw new InvalidOperationException(string.Format("Can't delete task #{0}", slaveTaskId));
+				}
 			}
 		}
 	}
