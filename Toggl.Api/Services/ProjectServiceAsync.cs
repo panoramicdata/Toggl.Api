@@ -34,11 +34,21 @@ namespace Toggl.Api.Services
 			var lstProj = new List<Project>();
 			var response = await TogglSrv.GetAsync(ApiRoutes.Workspace.ListWorkspaceUrl).ConfigureAwait(false);
 			var lstWrkSpc = response.GetData<List<Workspace>>();
-			lstWrkSpc.ForEach(async e =>
+
+			foreach (var workspace in lstWrkSpc)
 			{
-				var projs = await GetForWorkspaceAsync(e.Id).ConfigureAwait(false);
+				var projs = await GetForWorkspaceAsync(workspace.Id).ConfigureAwait(false);
 				lstProj.AddRange(projs);
-			});
+			}
+
+			// This does not work below when there are more than one workspace!
+
+			//lstWrkSpc.ForEach(async e =>
+			//{
+			//	var projs = await GetForWorkspaceAsync(e.Id).ConfigureAwait(false);
+			//	lstProj.AddRange(projs);
+			//});
+
 			return lstProj;
 		}
 

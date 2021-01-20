@@ -180,10 +180,21 @@ namespace Toggl.Api.Services
 			var authResponse = (HttpWebResponse)await authRequest
 				.GetResponseAsync()
 				.ConfigureAwait(false);
+
 			string content;
-			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
+
+			while (true)
 			{
+				if ((int)authResponse.StatusCode == 429)    // Too many requests
+				{
+					await Task.Delay(10000, default).ConfigureAwait(false);
+					continue;
+				}
+				using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
 				content = reader.ReadToEnd();
+
+				// Success
+				break;
 			}
 
 			var rsp = JsonConvert.DeserializeObject<TResponse>(content);
@@ -227,9 +238,20 @@ namespace Toggl.Api.Services
 				.GetResponseAsync()
 				.ConfigureAwait(false);
 			string content;
-			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
+
+			while (true)
 			{
+				if ((int)authResponse.StatusCode == 429)    // Too many requests
+				{
+					await Task.Delay(10000, default).ConfigureAwait(false);
+					continue;
+				}
+
+				using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
 				content = reader.ReadToEnd();
+
+				// Success
+				break;
 			}
 
 			if ((string.IsNullOrEmpty(content)
