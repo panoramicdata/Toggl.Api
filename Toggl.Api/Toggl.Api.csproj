@@ -15,8 +15,8 @@
 		<RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
-		<Version>1.0.6</Version>
-		<PackageReleaseNotes>Added Project Report endpoint</PackageReleaseNotes>
+		<Version>1.0.7</Version>
+		<PackageReleaseNotes>Added support for 429 (too many requests) back-off and retry for GET requests.</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
