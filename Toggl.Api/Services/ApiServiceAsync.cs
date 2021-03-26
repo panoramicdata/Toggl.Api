@@ -177,24 +177,32 @@ namespace Toggl.Api.Services
 
 			authRequest.Headers.Add(GetAuthHeader());
 
-			var authResponse = (HttpWebResponse)await authRequest
-				.GetResponseAsync()
-				.ConfigureAwait(false);
-
 			string content;
 
 			while (true)
 			{
-				if ((int)authResponse.StatusCode == 429)    // Too many requests
+				try
 				{
-					await Task.Delay(10000, default).ConfigureAwait(false);
+					var authResponse = (HttpWebResponse)await authRequest
+						.GetResponseAsync()
+						.ConfigureAwait(false);
+
+					if ((int)authResponse.StatusCode == 429)    // Too many requests
+					{
+						await Task.Delay(5000, default).ConfigureAwait(false);
+						continue;
+					}
+					using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
+					content = reader.ReadToEnd();
+
+					// Success
+					break;
+				}
+				catch (WebException ex) when (ex.Message.Contains("(429)"))
+				{
+					await Task.Delay(5000, default).ConfigureAwait(false);
 					continue;
 				}
-				using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
-				content = reader.ReadToEnd();
-
-				// Success
-				break;
 			}
 
 			var rsp = JsonConvert.DeserializeObject<TResponse>(content);
@@ -234,28 +242,38 @@ namespace Toggl.Api.Services
 				writer.Write(value[0]);
 			}
 
-			var authResponse = (HttpWebResponse)await authRequest
-				.GetResponseAsync()
-				.ConfigureAwait(false);
 			string content;
+			HttpWebResponse? authResponse;
 
 			while (true)
 			{
-				if ((int)authResponse.StatusCode == 429)    // Too many requests
+				try
 				{
-					await Task.Delay(10000, default).ConfigureAwait(false);
+					authResponse = (HttpWebResponse)await authRequest
+						.GetResponseAsync()
+						.ConfigureAwait(false);
+
+					if ((int)authResponse.StatusCode == 429)    // Too many requests
+					{
+						await Task.Delay(5000, default).ConfigureAwait(false);
+						continue;
+					}
+
+					using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
+					content = reader.ReadToEnd();
+
+					// Success
+					break;
+				}
+				catch (WebException ex) when (ex.Message.Contains("(429)"))
+				{
+					await Task.Delay(5000, default).ConfigureAwait(false);
 					continue;
 				}
-
-				using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
-				content = reader.ReadToEnd();
-
-				// Success
-				break;
 			}
 
 			if ((string.IsNullOrEmpty(content)
-				  || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
+				 || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
 				 && authResponse.StatusCode == HttpStatusCode.OK
 				 && authResponse.Method == "DELETE")
 			{
