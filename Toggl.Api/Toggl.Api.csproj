@@ -8,7 +8,7 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Company>Panoramic Data Limited</Company>
 		<Description>Toggl API</Description>
-		<Copyright>Panoramic Data Limited 2020</Copyright>
+		<Copyright>Panoramic Data Limited 2021</Copyright>
 		<PackageIcon>Icon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://bitbucket.org/panoramicdata/toggl.api</PackageProjectUrl>
