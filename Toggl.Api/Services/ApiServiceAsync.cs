@@ -167,22 +167,18 @@ namespace Toggl.Api.Services
 				apiRequest.Url += "?" + value[0];
 			}
 
-			var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
-
-			authRequest.Method = apiRequest.Method;
-
-			authRequest.ContentType = apiRequest.ContentType;
-
-			authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-
-			authRequest.Headers.Add(GetAuthHeader());
-
 			string content;
 
 			while (true)
 			{
 				try
 				{
+					var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
+					authRequest.Method = apiRequest.Method;
+					authRequest.ContentType = apiRequest.ContentType;
+					authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+					authRequest.Headers.Add(GetAuthHeader());
+
 					var authResponse = (HttpWebResponse)await authRequest
 						.GetResponseAsync()
 						.ConfigureAwait(false);
@@ -224,24 +220,6 @@ namespace Toggl.Api.Services
 				apiRequest.Url += "?" + value[0];
 			}
 
-			var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
-
-			authRequest.Method = apiRequest.Method;
-			authRequest.ContentType = apiRequest.ContentType;
-			authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-
-			authRequest.Headers.Add(GetAuthHeader());
-
-			if (apiRequest.Method == "POST" || apiRequest.Method == "PUT")
-			{
-				var utd8WithoutBom = new UTF8Encoding(false);
-
-				value[0] += apiRequest.Data;
-				authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
-				using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
-				writer.Write(value[0]);
-			}
-
 			string content;
 			HttpWebResponse? authResponse;
 
@@ -249,6 +227,22 @@ namespace Toggl.Api.Services
 			{
 				try
 				{
+					var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
+					authRequest.Method = apiRequest.Method;
+					authRequest.ContentType = apiRequest.ContentType;
+					authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+					authRequest.Headers.Add(GetAuthHeader());
+
+					if (apiRequest.Method == "POST" || apiRequest.Method == "PUT")
+					{
+						var utd8WithoutBom = new UTF8Encoding(false);
+
+						value[0] += apiRequest.Data;
+						authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
+						using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
+						writer.Write(value[0]);
+					}
+
 					authResponse = (HttpWebResponse)await authRequest
 						.GetResponseAsync()
 						.ConfigureAwait(false);

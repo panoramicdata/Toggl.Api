@@ -15,8 +15,8 @@
 		<RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
-		<Version>1.0.8</Version>
-		<PackageReleaseNotes>Fixed support for 429 (too many requests) back-off and retry (5 seconds) for GET requests.</PackageReleaseNotes>
+		<Version>1.0.9</Version>
+		<PackageReleaseNotes>Fixed possible thread conflict for re-requests when retrying GET requests.</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
