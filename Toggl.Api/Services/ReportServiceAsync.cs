@@ -35,7 +35,7 @@ namespace Toggl.Api.Services
 
 			var pageCount = (report.TotalCount + report.PerPage - 1) / report.PerPage;
 
-			DetailedReport resultReport = null;
+			var resultReport = default(DetailedReport?);
 			for (var page = 1; page <= pageCount; page++)
 			{
 				requestParameters.Page = page;
@@ -51,7 +51,7 @@ namespace Toggl.Api.Services
 				}
 			}
 
-			return resultReport;
+			return resultReport!;
 		}
 	}
 }

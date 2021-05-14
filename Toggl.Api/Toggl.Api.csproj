@@ -18,7 +18,7 @@
 		<Version>1.0.6</Version>
 		<PackageReleaseNotes>Added Project Report endpoint</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
-		<Nullable>enabled</Nullable>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
