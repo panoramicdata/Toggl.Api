@@ -15,11 +15,13 @@
 		<RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
-		<Version>1.0.6</Version>
-		<PackageReleaseNotes>Refactored to use Nullable enable.
-Updated nuget packages
-Improved list handling
-All unit tests pass</PackageReleaseNotes>
+		<Version>1.0.10</Version>
+		<PackageReleaseNotes>
+			Refactored to use Nullable enable.
+			Updated nuget packages
+			Improved list handling
+			All unit tests pass
+		</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>

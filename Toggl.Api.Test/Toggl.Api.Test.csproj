@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
-		<IsPackable>false</IsPackable>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	  <LangVersion>latest</LangVersion>
+	  <IsPackable>false</IsPackable>
+	  <Nullable>enabled</Nullable>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Divergic.Logging.Xunit" Version="3.6.0" />

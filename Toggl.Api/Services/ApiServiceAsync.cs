@@ -167,23 +167,38 @@ namespace Toggl.Api.Services
 				apiRequest.Url += "?" + value[0];
 			}
 
-			var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
-
-			authRequest.Method = apiRequest.Method;
-
-			authRequest.ContentType = apiRequest.ContentType;
-
-			authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-
-			authRequest.Headers.Add(GetAuthHeader());
-
-			var authResponse = (HttpWebResponse)await authRequest
-				.GetResponseAsync()
-				.ConfigureAwait(false);
 			string content;
-			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
+
+			while (true)
 			{
-				content = reader.ReadToEnd();
+				try
+				{
+					var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
+					authRequest.Method = apiRequest.Method;
+					authRequest.ContentType = apiRequest.ContentType;
+					authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+					authRequest.Headers.Add(GetAuthHeader());
+
+					var authResponse = (HttpWebResponse)await authRequest
+						.GetResponseAsync()
+						.ConfigureAwait(false);
+
+					if ((int)authResponse.StatusCode == 429)    // Too many requests
+					{
+						await Task.Delay(5000, default).ConfigureAwait(false);
+						continue;
+					}
+					using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
+					content = reader.ReadToEnd();
+
+					// Success
+					break;
+				}
+				catch (WebException ex) when (ex.Message.Contains("(429)"))
+				{
+					await Task.Delay(5000, default).ConfigureAwait(false);
+					continue;
+				}
 			}
 
 			var rsp = JsonConvert.DeserializeObject<TResponse>(content);
@@ -205,35 +220,54 @@ namespace Toggl.Api.Services
 				apiRequest.Url += "?" + value[0];
 			}
 
-			var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
-
-			authRequest.Method = apiRequest.Method;
-			authRequest.ContentType = apiRequest.ContentType;
-			authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-
-			authRequest.Headers.Add(GetAuthHeader());
-
-			if (apiRequest.Method == "POST" || apiRequest.Method == "PUT")
-			{
-				var utd8WithoutBom = new UTF8Encoding(false);
-
-				value[0] += apiRequest.Data;
-				authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
-				using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
-				writer.Write(value[0]);
-			}
-
-			var authResponse = (HttpWebResponse)await authRequest
-				.GetResponseAsync()
-				.ConfigureAwait(false);
 			string content;
-			using (var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8))
+			HttpWebResponse? authResponse;
+
+			while (true)
 			{
-				content = reader.ReadToEnd();
+				try
+				{
+					var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
+					authRequest.Method = apiRequest.Method;
+					authRequest.ContentType = apiRequest.ContentType;
+					authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+					authRequest.Headers.Add(GetAuthHeader());
+
+					if (apiRequest.Method == "POST" || apiRequest.Method == "PUT")
+					{
+						var utd8WithoutBom = new UTF8Encoding(false);
+
+						value[0] += apiRequest.Data;
+						authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
+						using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
+						writer.Write(value[0]);
+					}
+
+					authResponse = (HttpWebResponse)await authRequest
+						.GetResponseAsync()
+						.ConfigureAwait(false);
+
+					if ((int)authResponse.StatusCode == 429)    // Too many requests
+					{
+						await Task.Delay(5000, default).ConfigureAwait(false);
+						continue;
+					}
+
+					using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
+					content = reader.ReadToEnd();
+
+					// Success
+					break;
+				}
+				catch (WebException ex) when (ex.Message.Contains("(429)"))
+				{
+					await Task.Delay(5000, default).ConfigureAwait(false);
+					continue;
+				}
 			}
 
 			if ((string.IsNullOrEmpty(content)
-				  || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
+				 || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
 				 && authResponse.StatusCode == HttpStatusCode.OK
 				 && authResponse.Method == "DELETE")
 			{
