@@ -15,8 +15,8 @@
 		<RepositoryUrl>https://bitbucket.org/panoramicdata/toggl.api</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
-		<Version>1.0.10</Version>
 		<PackageReleaseNotes>
+			Upversioned to align with Toggl Track API version number.
 			Refactored to use Nullable enable.
 			Updated nuget packages
 			Improved list handling
@@ -31,6 +31,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Nerdbank.GitVersioning" Version="3.4.194">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="SecurityCodeScan.VS2019" Version="5.1.0">
 		  <PrivateAssets>all</PrivateAssets>
