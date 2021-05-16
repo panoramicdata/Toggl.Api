@@ -69,7 +69,7 @@ namespace Toggl.Api.Services
 		/// <param name="id"></param>
 		public async Task<TimeEntry> GetAsync(long id)
 		{
-			string url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
+			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
 			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);
 			return response.GetData<TimeEntry>();
 		}

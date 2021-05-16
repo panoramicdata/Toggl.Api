@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
@@ -8,7 +8,7 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Company>Panoramic Data Limited</Company>
 		<Description>Toggl API</Description>
-		<Copyright>Panoramic Data Limited 2020</Copyright>
+		<Copyright>Panoramic Data Limited 2021</Copyright>
 		<PackageIcon>Icon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://bitbucket.org/panoramicdata/toggl.api</PackageProjectUrl>
@@ -16,7 +16,10 @@
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
 		<Version>1.0.6</Version>
-		<PackageReleaseNotes>Added Project Report endpoint</PackageReleaseNotes>
+		<PackageReleaseNotes>Refactored to use Nullable enable.
+Updated nuget packages
+Improved list handling
+All unit tests pass</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>

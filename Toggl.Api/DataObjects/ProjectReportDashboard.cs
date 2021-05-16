@@ -64,6 +64,6 @@ namespace Toggl.Api.DataObjects
 		/// Flag indicating if total of task time estimations (true) should be used as grand-estimate, for false value estimated_seconds should be used instead
 		/// </summary>
 		[JsonProperty(PropertyName = "use_task_estimated_seconds")]
-		public bool UseTaskEstimatedSeconds { get; set; }
+		public bool? UseTaskEstimatedSeconds { get; set; }
 	}
 }
