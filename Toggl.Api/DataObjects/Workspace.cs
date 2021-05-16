@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Toggl.Api.DataObjects
 {
@@ -18,7 +18,7 @@ namespace Toggl.Api.DataObjects
 		/// name: (string, required)
 		/// </summary>
 		[JsonProperty(PropertyName = "name")]
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// premium: If it's a pro workspace or not. Shows if someone is paying for the workspace or not (boolean, not required)

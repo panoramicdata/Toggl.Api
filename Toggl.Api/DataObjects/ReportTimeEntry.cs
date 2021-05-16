@@ -13,35 +13,35 @@ namespace Toggl.Api.DataObjects
 		public long? ProjectId { get; set; }
 
 		[JsonProperty(PropertyName = "project")]
-		public string ProjectName { get; set; }
+		public string? ProjectName { get; set; }
 
 		[JsonProperty(PropertyName = "client")]
-		public string ClientName { get; set; }
+		public string? ClientName { get; set; }
 
 		[JsonProperty(PropertyName = "tid")]
 		public long? TaskId { get; set; }
 
 		[JsonProperty(PropertyName = "task")]
-		public string TaskName { get; set; }
+		public string? TaskName { get; set; }
 
 		[JsonProperty(PropertyName = "uid")]
 		public long? UserId { get; set; }
 
 		[JsonProperty(PropertyName = "user")]
-		public string UserName { get; set; }
+		public string? UserName { get; set; } = null;
 
 		[JsonProperty(PropertyName = "description")]
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		[JsonProperty(PropertyName = "start")]
 		//[JsonConverter(typeof(IsoDateTimeConverter))]
 		//public DateTime? Start { get; set; }
-		public string Start { get; set; }
+		public string? Start { get; set; }
 
 		[JsonProperty(PropertyName = "end")]
 		//[JsonConverter(typeof(IsoDateTimeConverter))]
 		//public DateTime? Stop { get; set; }
-		public string Stop { get; set; }
+		public string? Stop { get; set; } = null;
 
 		[JsonProperty(PropertyName = "dur")]
 		public long? Duration { get; set; }
@@ -49,7 +49,7 @@ namespace Toggl.Api.DataObjects
 		[JsonProperty(PropertyName = "updated")]
 		//[JsonConverter(typeof(IsoDateTimeConverter))]
 		//public DateTime? Stop { get; set; }
-		public string Updated { get; set; }
+		public string? Updated { get; set; } = null;
 
 		[JsonProperty(PropertyName = "use_stop")]
 		public bool? UseStop { get; set; }
@@ -61,7 +61,7 @@ namespace Toggl.Api.DataObjects
 		public long? Billable { get; set; }
 
 		[JsonProperty(PropertyName = "tags")]
-		public List<string> TagNames { get; set; }
+		public List<string>? TagNames { get; set; } = null;
 
 		public override string ToString() => string.Format("Id: {0}, Start: {1}, Stop: {2}, TaskId: {3}", Id, Start, Stop, TaskId);
 	}

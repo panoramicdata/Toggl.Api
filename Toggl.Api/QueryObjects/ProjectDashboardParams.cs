@@ -9,7 +9,7 @@ namespace Toggl.Api.QueryObjects
 		/// The developer's details
 		/// </summary>
 		[JsonProperty(PropertyName = "user_agent")]
-		public string UserAgent { get; set; }
+		public string? UserAgent { get; set; }
 
 		/// <summary>
 		/// The workspace whose data you want to access

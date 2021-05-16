@@ -19,7 +19,7 @@ namespace Toggl.Api.Services
 	{
 		private string ApiToken { get; set; }
 
-		public Session Session { get; set; }
+		public Session? Session { get; set; }
 
 		public ApiServiceAsync(string apiToken)
 		{
@@ -98,7 +98,7 @@ namespace Toggl.Api.Services
 			return response;
 		}
 
-		public async Task<ApiResponse> PostAsync(string url, string data)
+		public async Task<ApiResponse> PostAsync(string url, string? data)
 		{
 			var response = await GetAsync(
 				new ApiRequest
@@ -251,7 +251,7 @@ namespace Toggl.Api.Services
 			try
 			{
 				var rsp = string.Equals(content, "null", StringComparison.OrdinalIgnoreCase)
-					? new ApiResponse { Data = null }
+					? new ApiResponse()
 					: JsonConvert.DeserializeObject<ApiResponse>(content);
 
 				rsp.StatusCode = authResponse.StatusCode;

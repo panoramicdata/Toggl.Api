@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Toggl.Api.DataObjects
 {
@@ -9,28 +9,28 @@ namespace Toggl.Api.DataObjects
 		public int? Id { get; set; }
 
 		[JsonProperty(PropertyName = "api_token")]
-		public string ApiToken { get; set; }
+		public string ApiToken { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "default_wid")]
 		public int? DefaultWorkspaceId { get; set; }
 
 		[JsonProperty(PropertyName = "email")]
-		public string Email { get; set; }
+		public string Email { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "fullname")]
-		public string FullName { get; set; }
+		public string FullName { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "jquery_timeofday_format")]
-		public string JQueryTimeofdayFormat { get; set; }
+		public string JQueryTimeofdayFormat { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "jquery_date_format")]
-		public string JqueryDateFormat { get; set; }
+		public string JqueryDateFormat { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "timeofday_format")]
-		public string TimeOfDayFormat { get; set; }
+		public string TimeOfDayFormat { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "date_format")]
-		public string DateFormat { get; set; }
+		public string DateFormat { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "store_start_and_stop_time")]
 		public bool? IsStartStopTime { get; set; }
@@ -39,10 +39,10 @@ namespace Toggl.Api.DataObjects
 		public int BeginningOfWeek { get; set; }
 
 		[JsonProperty(PropertyName = "language")]
-		public string Language { get; set; }
+		public string Language { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "image_url")]
-		public string ImageUrl { get; set; }
+		public string ImageUrl { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "sidebar_piechart")]
 		public bool? IsSidebarPiechart { get; set; }
@@ -72,7 +72,7 @@ namespace Toggl.Api.DataObjects
 		public bool? IsManualMode { get; set; }
 
 		[JsonProperty(PropertyName = "new_blog_post")]
-		public NewBlogPost NewBlogPost { get; set; }
+		public NewBlogPost? NewBlogPost { get; set; }
 
 		[JsonProperty(PropertyName = "should_upgrade")]
 		public bool? IsShouldUpgrade { get; set; }
@@ -87,7 +87,7 @@ namespace Toggl.Api.DataObjects
 		public bool? IsAchievementsEnabled { get; set; }
 
 		[JsonProperty(PropertyName = "timezone")]
-		public string Timezone { get; set; }
+		public string Timezone { get; set; } = string.Empty;
 
 		[JsonProperty(PropertyName = "openid_enabled")]
 		public bool? IsOpenidEnabled { get; set; }

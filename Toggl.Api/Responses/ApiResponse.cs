@@ -11,7 +11,7 @@ namespace Toggl.Api.Responses
 	public class ApiResponse
 	{
 		[JsonProperty(PropertyName = "data")]
-		public object Data { get; set; }
+		public object? Data { get; set; }
 
 		[JsonProperty(PropertyName = "related_data_updated_at")]
 		[JsonConverter(typeof(IsoDateTimeConverter))]
@@ -19,7 +19,7 @@ namespace Toggl.Api.Responses
 
 		public HttpStatusCode StatusCode { get; set; }
 
-		public string Method { get; set; }
+		public string Method { get; set; } = string.Empty;
 
 		public T GetData<T>()
 		{
@@ -27,32 +27,33 @@ namespace Toggl.Api.Responses
 			var iso = new IsoDateTimeConverter();
 			cverts.Add(iso);
 
-			T obj;
 			if (Method == "DELETE" && StatusCode.Equals(HttpStatusCode.OK))
 			{
-				obj = (T)Activator.CreateInstance(typeof(T));
+				return (T)Activator.CreateInstance(typeof(T));
 			}
 			else if (Data != null)
 			{
-				if (Data is JToken)
+				if (Data is JArray jArray)
 				{
-					var token = JToken.FromObject(Data);
-					obj = token.ToObject<T>()
+					T t = jArray.ToObject<T>() ?? (T)Activator.CreateInstance(typeof(T));
+					return t;
+				}
+				if (Data is JToken jToken)
+				{
+					return jToken.ToObject<T>()
 						?? throw new TogglApiException("Could not create data object from JToken");
 				}
 				else
 				{
 					var json = JsonConvert.SerializeObject(Data, cverts.ToArray());
-					obj = JsonConvert.DeserializeObject<T>(json, cverts.ToArray())
+					return JsonConvert.DeserializeObject<T>(json, cverts.ToArray())
 						?? throw new TogglApiException("Could not create data object");
 				}
 			}
 			else
 			{
-				obj = (T)Activator.CreateInstance(typeof(T));
+				return (T)Activator.CreateInstance(typeof(T));
 			}
-
-			return obj;
 		}
 	}
 }

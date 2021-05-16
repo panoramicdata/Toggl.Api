@@ -16,7 +16,7 @@ namespace Toggl.Api.Services
 	{
 		private readonly string _togglTasksUrl = ApiRoutes.Task.TogglTasksUrl;
 
-		private IApiServiceAsync TogglSrv { get; set; }
+		private IApiServiceAsync TogglSrv { get; }
 
 		public TaskServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -161,7 +161,7 @@ namespace Toggl.Api.Services
 			if (result.TotalCount > result.PerPage)
 				result = await reportService.GetFullDetailedReportAsync(reportParams).ConfigureAwait(false);
 
-			foreach (var reportTimeEntry in result.Data)
+			foreach (var reportTimeEntry in result.Data ?? throw new FormatException("Data was unexpectedly null"))
 			{
 				if (reportTimeEntry.Id == null) continue;
 				var timeEntry = await timeEntryService.GetAsync(reportTimeEntry.Id.Value).ConfigureAwait(false);
@@ -200,7 +200,7 @@ namespace Toggl.Api.Services
 			if (result.TotalCount > result.PerPage)
 				result = await reportService.GetFullDetailedReportAsync(reportParams).ConfigureAwait(false);
 
-			foreach (var reportTimeEntry in result.Data)
+			foreach (var reportTimeEntry in result.Data ?? throw new FormatException("Data was unexpectedly null"))
 			{
 				if (reportTimeEntry.Id == null)
 				{

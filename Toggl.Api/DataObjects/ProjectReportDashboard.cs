@@ -10,25 +10,25 @@ namespace Toggl.Api.DataObjects
 		/// Name of project
 		/// </summary>
 		[JsonProperty(PropertyName = "name")]
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Total time tracked for this project (ms)
 		/// </summary>
 		[JsonProperty(PropertyName = "duration")]
-		public long DurationMs { get; set; }
+		public long? DurationMs { get; set; }
 
 		/// <summary>
 		/// Total time without tasks for this project (ms)
 		/// </summary>
 		[JsonProperty(PropertyName = "duration_without_task")]
-		public long DurationWithoutTaskMs { get; set; }
+		public long? DurationWithoutTaskMs { get; set; }
 
 		/// <summary>
 		/// Billable time tracked for this project (ms)
 		/// </summary>
 		[JsonProperty(PropertyName = "billable_duration")]
-		public long BillableDurationMs { get; set; }
+		public long? BillableDurationMs { get; set; }
 
 		/// <summary>
 		/// Sum of earnings
@@ -40,13 +40,13 @@ namespace Toggl.Api.DataObjects
 		/// Total number of tasks in this project
 		/// </summary>
 		[JsonProperty(PropertyName = "tasks_count")]
-		public int TasksCount { get; set; }
+		public int? TasksCount { get; set; }
 
 		/// <summary>
 		/// Currency of billable_amount
 		/// </summary>
 		[JsonProperty(PropertyName = "currency")]
-		public string Currency { get; set; }
+		public string? Currency { get; set; }
 
 		/// <summary>
 		/// Estimate of how long project would take in seconds

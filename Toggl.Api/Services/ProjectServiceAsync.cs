@@ -13,7 +13,7 @@ namespace Toggl.Api.Services
 	{
 		private readonly string _projectsUrl = ApiRoutes.Project.ProjectsUrl;
 
-		private IApiServiceAsync TogglSrv { get; set; }
+		private IApiServiceAsync TogglSrv { get; }
 
 		public ProjectServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -31,15 +31,16 @@ namespace Toggl.Api.Services
 		/// </summary>
 		public async Task<List<Project>> ListAsync()
 		{
-			var lstProj = new List<Project>();
-			var response = await TogglSrv.GetAsync(ApiRoutes.Workspace.ListWorkspaceUrl).ConfigureAwait(false);
-			var lstWrkSpc = response.GetData<List<Workspace>>();
-			lstWrkSpc.ForEach(async e =>
+			var allProjects = new List<Project>();
+			var apiResponse = await TogglSrv.GetAsync(ApiRoutes.Workspace.ListWorkspaceUrl).ConfigureAwait(false);
+			var workspaces = apiResponse.GetData<List<Workspace>>();
+			foreach (var workspace in workspaces)
 			{
-				var projs = await GetForWorkspaceAsync(e.Id).ConfigureAwait(false);
-				lstProj.AddRange(projs);
-			});
-			return lstProj;
+				var workspaceProjects = await GetForWorkspaceAsync(workspace.Id)
+					.ConfigureAwait(false);
+				allProjects.AddRange(workspaceProjects);
+			}
+			return allProjects;
 		}
 
 		public async Task<List<Project>> GetForWorkspaceAsync(int id)

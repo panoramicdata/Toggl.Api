@@ -14,7 +14,7 @@ namespace Toggl.Api.Interfaces
 		Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, string>> args);
 		Task<ApiResponse> DeleteAsync(string url);
 		Task<ApiResponse> DeleteAsync(string url, List<KeyValuePair<string, string>> args);
-		Task<ApiResponse> PostAsync(string url, string data);
+		Task<ApiResponse> PostAsync(string url, string? data);
 		Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data);
 		Task<ApiResponse> PutAsync(string url, string data);
 		Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data);

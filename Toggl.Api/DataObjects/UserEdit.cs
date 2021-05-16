@@ -8,10 +8,10 @@ namespace Toggl.Api.DataObjects
 	public class UserEdit : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "fullname")]
-		public string FullName { get; set; }
+		public string? FullName { get; set; }
 
 		[JsonProperty(PropertyName = "email")]
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		[JsonProperty(PropertyName = "send_product_emails")]
 		public bool? IsSendProductEmails { get; set; }
@@ -26,21 +26,21 @@ namespace Toggl.Api.DataObjects
 		public bool? IsStartStopTime { get; set; }
 
 		[JsonProperty(PropertyName = "beginning_of_week")]
-		public int BeginningOfWeek { get; set; }
+		public int? BeginningOfWeek { get; set; }
 
 		[JsonProperty(PropertyName = "timezone")]
-		public string Timezone { get; set; }
+		public string? Timezone { get; set; }
 
 		[JsonProperty(PropertyName = "timeofday_format")]
-		public string TimeOfDayFormat { get; set; }
+		public string? TimeOfDayFormat { get; set; }
 
 		[JsonProperty(PropertyName = "date_format")]
-		public string DateFormat { get; set; }
+		public string? DateFormat { get; set; }
 
 		[JsonProperty(PropertyName = "current_password")]
-		public string CurrentPassword { get; set; }
+		public string? CurrentPassword { get; set; }
 
 		[JsonProperty(PropertyName = "password")]
-		public string Password { get; set; }
+		public string? Password { get; set; }
 	}
 }

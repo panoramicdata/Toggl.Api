@@ -21,6 +21,6 @@ namespace Toggl.Api.Services
 		}
 
 		public Task<List<Tag>> GetAllAsync()
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 	}
 }

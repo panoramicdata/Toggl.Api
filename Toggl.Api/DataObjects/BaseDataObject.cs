@@ -17,7 +17,7 @@ namespace Toggl.Api.DataObjects
 				{
 					var val = p.GetValue(this, null);
 
-					if (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).Single() is not JsonPropertyAttribute jsonProperty || val == null)
+					if (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).Single() is not JsonPropertyAttribute jsonProperty || val == null || jsonProperty.PropertyName is null)
 					{
 						return;
 					}

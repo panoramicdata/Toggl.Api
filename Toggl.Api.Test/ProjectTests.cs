@@ -1,3 +1,4 @@
+using FluentAssertions;
 using System.Linq;
 using Toggl.Api.QueryObjects;
 using Xunit;
@@ -18,7 +19,7 @@ namespace Toggl.Api.Test
 				.Projects
 				.ListAsync()
 				.ConfigureAwait(false);
-			Assert.True(projects.Count > 0);
+			projects.Should().NotBeNullOrEmpty();
 		}
 
 		[Fact]
@@ -29,26 +30,26 @@ namespace Toggl.Api.Test
 				.GetAllAsync()
 				.ConfigureAwait(false);
 			var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
-			Assert.NotNull(togglWorkspace);
+			togglWorkspace.Should().NotBeNull();
 
 			var projects = await TogglClient
 				.Projects
 				.ListAsync()
 				.ConfigureAwait(false);
 			var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
-			Assert.NotNull(togglProject);
+			togglProject.Should().NotBeNull();
 
 			var projectReportDashboard = await TogglClient.Reports.GetProjectReportAsync(new ProjectDashboardParams
 			{
 				UserAgent = "TogglAPI.Net",
-				WorkspaceId = togglWorkspace.Id,
-				ProjectId = togglProject.Id.Value,
+				WorkspaceId = togglWorkspace!.Id,
+				ProjectId = togglProject!.Id!.Value,
 				OrderDesc = "on",
 				OrderField = "name"
 			})
 			.ConfigureAwait(false);
 
-			Assert.NotNull(projectReportDashboard);
+			projectReportDashboard.Should().NotBeNull();
 		}
 	}
 }

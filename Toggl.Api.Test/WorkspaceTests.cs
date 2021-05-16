@@ -1,4 +1,4 @@
-using System.Linq;
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -13,22 +13,32 @@ namespace Toggl.Api.Test
 		[Fact]
 		public async void List()
 		{
-			var workspaces = await TogglClient.Workspaces.GetAllAsync().ConfigureAwait(false);
-			Assert.True(workspaces.Count > 0);
+			var workspaces = await TogglClient
+				.Workspaces
+				.GetAllAsync()
+				.ConfigureAwait(false);
+			workspaces.Should().NotBeNullOrEmpty();
 		}
 
 		[Fact]
 		public async void ListProjectUsers()
 		{
-			var workspaces = await TogglClient.Workspaces.GetAllAsync().ConfigureAwait(false);
-			Assert.True(workspaces.Count > 0);
+			var workspaces = await TogglClient
+				.Workspaces
+				.GetAllAsync()
+				.ConfigureAwait(false);
+			workspaces.Should().NotBeNullOrEmpty();
 			var workspaceId = workspaces[0].Id;
-			var projectUsers = await TogglClient.Workspaces.GetProjectUsersAsync(workspaceId).ConfigureAwait(false);
-			Assert.True(projectUsers.Count > 0);
-			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.Id));
-			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.UserId));
-			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.ProjectId));
-			Assert.All(projectUsers, pu => Assert.NotEqual(0, pu.WorkspaceId));
+
+			var projectUsers = await TogglClient
+				.Workspaces
+				.GetProjectUsersAsync(workspaceId)
+				.ConfigureAwait(false);
+			projectUsers.Should().NotBeNullOrEmpty();
+			projectUsers.Should().OnlyContain(pu => pu.Id != 0);
+			projectUsers.Should().OnlyContain(pu => pu.UserId != 0);
+			projectUsers.Should().OnlyContain(pu => pu.ProjectId != 0);
+			projectUsers.Should().OnlyContain(pu => pu.WorkspaceId != 0);
 		}
 	}
 }

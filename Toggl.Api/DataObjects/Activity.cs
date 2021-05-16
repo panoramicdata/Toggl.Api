@@ -15,7 +15,7 @@ namespace Toggl.Api.DataObjects
 		public int Duration { get; set; }
 
 		[JsonProperty(PropertyName = "description")]
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		[JsonProperty(PropertyName = "stop")]
 		public DateTime Stop { get; set; }

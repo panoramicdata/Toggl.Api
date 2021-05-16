@@ -41,7 +41,7 @@ namespace Toggl.Api.Services
 				requestParameters.Page = page;
 				var pagedReport = await Detailed(requestParameters).ConfigureAwait(false);
 
-				if (resultReport == null)
+				if (resultReport?.Data == null)
 				{
 					resultReport = pagedReport;
 				}

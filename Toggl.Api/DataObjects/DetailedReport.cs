@@ -6,7 +6,7 @@ namespace Toggl.Api.DataObjects
 	public class DetailedReport : Report
 	{
 		[JsonProperty(PropertyName = "data")]
-		public List<ReportTimeEntry> Data { get; set; }
+		public List<ReportTimeEntry>? Data { get; set; }
 
 		[JsonProperty(PropertyName = "total_count")]
 		public long? TotalCount { get; set; }

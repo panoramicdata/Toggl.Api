@@ -12,7 +12,7 @@ namespace Toggl.Api.Services
 
 	public class TimeEntryServiceAsync : ITimeEntryServiceAsync
 	{
-		private IApiServiceAsync TogglSrv { get; set; }
+		private IApiServiceAsync TogglSrv { get; }
 
 		public TimeEntryServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -28,7 +28,8 @@ namespace Toggl.Api.Services
 		/// List recent time entries
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
 		/// </summary>
-		public /* async */ Task<List<TimeEntry>> ListRecent() => throw new NotImplementedException();
+		public /* async */ Task<List<TimeEntry>> ListRecent()
+			=> throw new NotSupportedException();
 
 		public Task<List<TimeEntry>> GetAllAsync()
 			=> GetAllAsync(new QueryObjects.TimeEntryParams());
@@ -68,7 +69,8 @@ namespace Toggl.Api.Services
 		/// <param name="id"></param>
 		public async Task<TimeEntry> GetAsync(long id)
 		{
-			var response = await TogglSrv.GetAsync(string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id)).ConfigureAwait(false);
+			string url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
+			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);
 			return response.GetData<TimeEntry>();
 		}
 

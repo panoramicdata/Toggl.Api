@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Toggl.Api.DataObjects
 {
@@ -9,18 +9,18 @@ namespace Toggl.Api.DataObjects
 	public class UserExtended : User
 	{
 		[JsonProperty(PropertyName = "time_entries")]
-		public List<TimeEntry> TimeEntries { get; set; }
+		public List<TimeEntry>? TimeEntries { get; set; }
 
 		[JsonProperty(PropertyName = "projects")]
-		public List<Project> Projects { get; set; }
+		public List<Project>? Projects { get; set; }
 
 		[JsonProperty(PropertyName = "tags")]
-		public List<Tag> Tags { get; set; }
+		public List<Tag>? Tags { get; set; }
 
 		[JsonProperty(PropertyName = "workspaces")]
-		public List<Workspace> Workspaces { get; set; }
+		public List<Workspace>? Workspaces { get; set; }
 
 		[JsonProperty(PropertyName = "clients")]
-		public List<Client> Clients { get; set; }
+		public List<Client>? Clients { get; set; }
 	}
 }

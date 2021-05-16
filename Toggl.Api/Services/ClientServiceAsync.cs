@@ -12,7 +12,7 @@ namespace Toggl.Api.Services
 {
 	public class ClientServiceAsync : IClientServiceAsync
 	{
-		private static Dictionary<int, Client> _cachedClients;
+		private static Dictionary<int, Client>? _cachedClients;
 
 		private async Task EnsureCacheLoaded()
 		{
@@ -41,7 +41,7 @@ namespace Toggl.Api.Services
 			var response = await TogglSrv.GetAsync(ApiRoutes.Client.ClientsUrl).ConfigureAwait(false);
 			var result = response.GetData<List<Client>>();
 
-			_cachedClients = result.ToDictionary(client => client.Id.Value, client => client);
+			_cachedClients = result.ToDictionary(client => client.Id!.Value, client => client);
 
 			return includeDeleted
 				? result
@@ -63,7 +63,7 @@ namespace Toggl.Api.Services
 		{
 			await EnsureCacheLoaded().ConfigureAwait(false);
 
-			return _cachedClients
+			return _cachedClients!
 				.Values
 				.Single(client => client.Name == name && client.DeletedAt == null);
 		}

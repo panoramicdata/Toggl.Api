@@ -8,9 +8,9 @@ namespace Toggl.Api.DataObjects
 	public class UserAdd : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "email")]
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		[JsonProperty(PropertyName = "timezone")]
-		public string Timezone { get; set; }
+		public string? Timezone { get; set; }
 	}
 }

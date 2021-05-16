@@ -6,7 +6,7 @@ namespace Toggl.Api.Converters
 {
 	public class TogglDateTimeConverter : DateTimeConverterBase
 	{
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
 		{
 			long ticks;
 			if (value is DateTime time)
@@ -28,7 +28,7 @@ namespace Toggl.Api.Converters
 			writer.WriteValue(ticks);
 		}
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
 		{
 			if (reader.TokenType != JsonToken.Integer)
 			{
@@ -36,7 +36,13 @@ namespace Toggl.Api.Converters
 					$"Unexpected token parsing date. Expected Integer, got {reader.TokenType}.");
 			}
 
-			var ticks = (long)reader.Value;
+			var readerValue = reader.Value;
+			if (readerValue is null)
+			{
+				throw new FormatException("Reader value is null");
+			}
+
+			var ticks = (long)readerValue;
 			return new DateTime(1970, 1, 1).AddSeconds(ticks);
 		}
 	}

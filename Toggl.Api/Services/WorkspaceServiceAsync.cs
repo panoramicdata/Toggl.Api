@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
@@ -11,7 +12,7 @@ namespace Toggl.Api.Services
 	/// </summary>
 	public class WorkspaceServiceAsync : IWorkspaceServiceAsync
 	{
-		private IApiServiceAsync TogglSrv { get; set; }
+		private IApiServiceAsync TogglSrv { get; }
 
 		public WorkspaceServiceAsync(string apiKey)
 			: this(new ApiServiceAsync(apiKey))
@@ -80,6 +81,6 @@ namespace Toggl.Api.Services
 		}
 
 		Task<List<DataObjects.Task>> IWorkspaceServiceAsync.GetTasksAsync(int workspaceId)
-			=> throw new System.NotImplementedException();
+			=> throw new NotSupportedException();
 	}
 }

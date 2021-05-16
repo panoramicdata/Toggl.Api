@@ -12,12 +12,15 @@ namespace Toggl.Api.Services
 {
 	public class DashboardServiceAsync : IServiceAsync<Dashboard>
 	{
-		private static Dictionary<int, Dashboard> _cache;
+		private static Dictionary<int, Dashboard>? _cache;
 
 		private async Task EnsureCacheLoaded()
 		{
-			if (_cache == null)
-				await GetAllAsync().ConfigureAwait(false);
+			if (_cache is not null)
+			{
+				return;
+			}
+			await GetAllAsync().ConfigureAwait(false);
 		}
 
 		public IApiServiceAsync TogglSrv { get; set; }
@@ -56,21 +59,21 @@ namespace Toggl.Api.Services
 		}
 
 		public Task<Dashboard> CreateAsync(Dashboard obj)
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		public Task<Dashboard> UpdateAsync(Dashboard obj)
-			=> throw new NotImplementedException();
+			=> throw new NotSupportedException();
 
 		/// <summary>
 		/// Gets a dashboard by name
 		/// </summary>
 		/// <param name="name"></param>
-		public async Task<Dashboard> GetByNameAsync(string name)
+		public async Task<Dashboard?> GetByNameAsync(string name)
 		{
 			await EnsureCacheLoaded()
 				.ConfigureAwait(false);
 
-			throw new NotImplementedException();
+			throw new NotSupportedException($"Fetching dashboard by name e.g. '{name}' is not supported.");
 		}
 
 		/// <summary>
@@ -81,7 +84,9 @@ namespace Toggl.Api.Services
 		public async Task<Dashboard> CreateAsync(Client obj)
 		{
 			_cache = null;
-			var response = await TogglSrv.PostAsync(ApiRoutes.Client.ClientsUrl, obj.ToJson()).ConfigureAwait(false);
+			var response = await TogglSrv
+				.PostAsync(ApiRoutes.Client.ClientsUrl, obj.ToJson())
+				.ConfigureAwait(false);
 			var data = response.GetData<Dashboard>();
 			return data;
 		}

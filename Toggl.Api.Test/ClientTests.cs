@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -16,7 +17,7 @@ namespace Toggl.Api.Test
 				.Clients
 				.GetAllAsync()
 				.ConfigureAwait(false);
-			Assert.True(clients.Count > 0);
+			clients.Should().NotBeNullOrEmpty();
 		}
 	}
 }
