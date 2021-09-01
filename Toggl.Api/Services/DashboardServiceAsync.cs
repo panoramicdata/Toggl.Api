@@ -12,7 +12,7 @@ namespace Toggl.Api.Services
 {
 	public class DashboardServiceAsync : IServiceAsync<Dashboard>
 	{
-		private static Dictionary<int, Dashboard>? _cache;
+		private static Dictionary<long, Dashboard>? _cache;
 
 		private async Task EnsureCacheLoaded()
 		{
@@ -47,7 +47,7 @@ namespace Toggl.Api.Services
 			return result.ToList();
 		}
 
-		public async Task<Dashboard> GetAsync(int id)
+		public async Task<Dashboard> GetAsync(long id)
 		{
 			if (_cache?.ContainsKey(id) == true)
 				return _cache[id];

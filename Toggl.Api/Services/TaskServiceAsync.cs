@@ -28,7 +28,7 @@ namespace Toggl.Api.Services
 			TogglSrv = srv;
 		}
 
-		public async Task<Task> GetAsync(int id)
+		public async Task<Task> GetAsync(long id)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
 			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);

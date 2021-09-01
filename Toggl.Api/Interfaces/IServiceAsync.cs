@@ -18,7 +18,7 @@ namespace Toggl.Api.Interfaces
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-client-projects
 		/// </summary>
 		/// <param name="id"></param>
-		Task<T> GetAsync(int id);
+		Task<T> GetAsync(long id);
 
 		/// <summary>
 		/// Add an API service

@@ -12,7 +12,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		Task<List<Project>> ListAsync();
 
-		Task<Project> GetAsync(int id);
+		Task<Project> GetAsync(long id);
 
 		Task<Project> AddAsync(Project project);
 	}

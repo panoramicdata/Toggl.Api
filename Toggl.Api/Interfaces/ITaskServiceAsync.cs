@@ -11,7 +11,7 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<Task> GetAsync(int id);
+		Task<Task> GetAsync(long id);
 
 		/// <summary>
 		///Add a Task

@@ -57,14 +57,14 @@ namespace Toggl.Api.Services
 			return await GetForClientAsync(client.Id.Value).ConfigureAwait(false);
 		}
 
-		public async Task<List<Project>> GetForClientAsync(int id)
+		public async Task<List<Project>> GetForClientAsync(long id)
 		{
 			var response = await TogglSrv.GetAsync(string.Format(ApiRoutes.Client.ClientProjectsUrl, id)).ConfigureAwait(false);
 			var data = response.GetData<List<Project>>();
 			return data;
 		}
 
-		public async Task<Project> GetAsync(int id)
+		public async Task<Project> GetAsync(long id)
 		{
 			var result = await ListAsync().ConfigureAwait(false);
 			return result.Find(w => w.Id == id);

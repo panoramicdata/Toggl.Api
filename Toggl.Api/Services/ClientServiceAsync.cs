@@ -12,7 +12,7 @@ namespace Toggl.Api.Services
 {
 	public class ClientServiceAsync : IClientServiceAsync
 	{
-		private static Dictionary<int, Client>? _cachedClients;
+		private static Dictionary<long, Client>? _cachedClients;
 
 		private async Task EnsureCacheLoaded()
 		{
@@ -48,7 +48,7 @@ namespace Toggl.Api.Services
 				: result.Where(client => client.DeletedAt == null).ToList();
 		}
 
-		public async Task<Client> GetAsync(int id)
+		public async Task<Client> GetAsync(long id)
 		{
 			if (_cachedClients?.ContainsKey(id) == true)
 				return _cachedClients[id];

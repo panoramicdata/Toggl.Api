@@ -16,11 +16,7 @@
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
 		<PackageReleaseNotes>
-			Upversioned to align with Toggl Track API version number.
-			Refactored to use Nullable enable.
-			Updated nuget packages
-			Improved list handling
-			All unit tests pass
+			Updated IDs everywhere to be longs rather than ints.
 		</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>

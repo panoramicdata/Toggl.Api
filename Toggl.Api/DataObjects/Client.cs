@@ -12,7 +12,7 @@ namespace Toggl.Api.DataObjects
 		/// id : The client id
 		/// </summary>
 		[JsonProperty(PropertyName = "id")]
-		public int? Id { get; set; }
+		public long? Id { get; set; }
 
 		/// <summary>
 		/// name: The name of the client (string, required, unique in workspace)
