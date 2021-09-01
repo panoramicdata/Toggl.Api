@@ -9,13 +9,13 @@ namespace Toggl.Api.DataObjects
 	public class User : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "id")]
-		public int? Id { get; set; }
+		public long? Id { get; set; }
 
 		[JsonProperty(PropertyName = "api_token")]
 		public string? ApiToken { get; set; }
 
 		[JsonProperty(PropertyName = "default_wid")]
-		public int? DefaultWorkspaceId { get; set; }
+		public long? DefaultWorkspaceId { get; set; }
 
 		[JsonProperty(PropertyName = "email")]
 		public string? Email { get; set; }

@@ -43,7 +43,7 @@ namespace Toggl.Api.Services
 			return allProjects;
 		}
 
-		public async Task<List<Project>> GetForWorkspaceAsync(int id)
+		public async Task<List<Project>> GetForWorkspaceAsync(long id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, id);
 			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);

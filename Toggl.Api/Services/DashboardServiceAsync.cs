@@ -110,7 +110,7 @@ namespace Toggl.Api.Services
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#delete-a-client
 		/// </summary>
 		/// <param name="id"></param>
-		public async Task<bool> DeleteAsync(int id)
+		public async Task<bool> DeleteAsync(long id)
 		{
 			_cache = null;
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);

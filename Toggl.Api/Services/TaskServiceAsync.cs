@@ -66,7 +66,7 @@ namespace Toggl.Api.Services
 		/// https://www.toggl.com/public/api#del_tasks
 		/// </summary>
 		/// <param name="id"></param>
-		public async Task<bool> DeleteAsync(int id)
+		public async Task<bool> DeleteAsync(long id)
 		{
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
 
@@ -104,19 +104,19 @@ namespace Toggl.Api.Services
 			return await GetForProjectByNameAsync(project.Id.Value, taskName).ConfigureAwait(false);
 		}
 
-		public async Task<Task> GetForProjectByNameAsync(int projectId, string taskName)
+		public async Task<Task> GetForProjectByNameAsync(long projectId, string taskName)
 		{
 			var projectTasks = await GetForProjectAsync(projectId).ConfigureAwait(false);
 			return projectTasks.Single(task => task.Name == taskName);
 		}
 
-		public async Task<Task> TryGetForProjectByName(int projectId, string taskName)
+		public async Task<Task> TryGetForProjectByName(long projectId, string taskName)
 		{
 			var projectTasks = await GetForProjectAsync(projectId).ConfigureAwait(false);
 			return projectTasks.SingleOrDefault(task => task.Name == taskName);
 		}
 
-		public async Task<List<Task>> GetForProjectAsync(int id)
+		public async Task<List<Task>> GetForProjectAsync(long id)
 		{
 			var url = string.Format(ApiRoutes.Project.ProjectTasksUrl, id);
 			var response = await TogglSrv.GetAsync(url).ConfigureAwait(false);
@@ -132,7 +132,7 @@ namespace Toggl.Api.Services
 			return await GetForProjectAsync(project.Id.Value).ConfigureAwait(false);
 		}
 
-		public async void MergeAsync(Task masterTask, Task slaveTask, int workspaceId, string userAgent = TogglClient.UserAgent)
+		public async void MergeAsync(Task masterTask, Task slaveTask, long workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			if (!masterTask.Id.HasValue)
 				throw new InvalidOperationException("Master task Id not set");
@@ -143,7 +143,7 @@ namespace Toggl.Api.Services
 			await MergeAsync(masterTask.Id.Value, slaveTask.Id.Value, workspaceId, userAgent).ConfigureAwait(false);
 		}
 
-		public async System.Threading.Tasks.Task MergeAsync(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = TogglClient.UserAgent)
+		public async System.Threading.Tasks.Task MergeAsync(long masterTaskId, long slaveTaskId, long workspaceId, string userAgent = TogglClient.UserAgent)
 		{
 			var reportService = new ReportServiceAsync(TogglSrv);
 			var timeEntryService = new TimeEntryServiceAsync(TogglSrv);

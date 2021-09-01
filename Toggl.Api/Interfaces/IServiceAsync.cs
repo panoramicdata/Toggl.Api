@@ -39,6 +39,6 @@ namespace Toggl.Api.Interfaces
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#delete-a-client
 		/// </summary>
 		/// <param name="id"></param>
-		Task<bool> DeleteAsync(int id);
+		Task<bool> DeleteAsync(long id);
 	}
 }

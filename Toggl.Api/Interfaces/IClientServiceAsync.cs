@@ -45,6 +45,6 @@ namespace Toggl.Api.Interfaces
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<bool> DeleteAsync(int id);
+		Task<bool> DeleteAsync(long id);
 	}
 }

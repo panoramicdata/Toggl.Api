@@ -6,7 +6,7 @@ namespace Toggl.Api.DataObjects
 	public class Session : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "id")]
-		public int? Id { get; set; }
+		public long? Id { get; set; }
 
 		[JsonProperty(PropertyName = "api_token")]
 		public string ApiToken { get; set; } = string.Empty;

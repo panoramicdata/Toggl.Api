@@ -12,19 +12,19 @@ namespace Toggl.Api.DataObjects
 		/// id: The id of the project
 		/// </summary>
 		[JsonProperty(PropertyName = "id")]
-		public int? Id { get; set; }
+		public long? Id { get; set; }
 
 		/// <summary>
 		/// wid: workspace ID, where the project will be saved (integer, required)
 		/// </summary>
 		[JsonProperty(PropertyName = "wid")]
-		public int WorkspaceId { get; set; } = 0;
+		public long WorkspaceId { get; set; } = 0;
 
 		/// <summary>
 		///  cid: client ID (integer, not required)
 		/// </summary>
 		[JsonProperty(PropertyName = "cid")]
-		public int? ClientId { get; set; }
+		public long? ClientId { get; set; }
 
 		/// <summary>
 		/// name: The name of the project (string, required, unique for client and workspace)
@@ -96,7 +96,7 @@ namespace Toggl.Api.DataObjects
 		/// template_id: id of the template project used on current project's creation
 		/// </summary>
 		[JsonProperty(PropertyName = "template_id")]
-		public int? TemplateId { get; set; }
+		public long? TemplateId { get; set; }
 
 		/// <summary>
 		/// rate: hourly rate of the project (float, not required, premium functionality)

@@ -10,7 +10,7 @@ namespace Toggl.Api.QueryObjects
 		public string? UserAgent { get; set; }
 
 		[JsonProperty(PropertyName = "workspace_id")]
-		public int? WorkspaceId { get; set; }
+		public long? WorkspaceId { get; set; }
 
 		[JsonProperty(PropertyName = "since")]
 		public string? Since { get; set; }
@@ -22,22 +22,22 @@ namespace Toggl.Api.QueryObjects
 		public string? Billable { get; set; }
 
 		[JsonProperty(PropertyName = "client_ids")]
-		public List<int>? ClientIds { get; set; }
+		public List<long>? ClientIds { get; set; }
 
 		[JsonProperty(PropertyName = "project_ids")]
-		public List<int>? ProjectIds { get; set; }
+		public List<long>? ProjectIds { get; set; }
 
 		[JsonProperty(PropertyName = "user_ids")]
-		public List<int>? UserIds { get; set; }
+		public List<long>? UserIds { get; set; }
 
 		[JsonProperty(PropertyName = "tag_ids")]
-		public List<int>? TagIds { get; set; }
+		public List<long>? TagIds { get; set; }
 
 		[JsonProperty(PropertyName = "task_ids")]
 		public string? TaskIds { get; set; }
 
 		[JsonProperty(PropertyName = "time_entry_ids")]
-		public List<int>? TimeEntryIds { get; set; }
+		public List<long>? TimeEntryIds { get; set; }
 
 		[JsonProperty(PropertyName = "description")]
 		public string? Description { get; set; }

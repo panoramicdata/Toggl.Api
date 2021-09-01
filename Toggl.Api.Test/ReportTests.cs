@@ -46,7 +46,7 @@ namespace Toggl.Api.Test
 				WorkspaceId = togglWorkspace!.Id,
 				Since = startDateTime.ToIsoDateStr(),
 				Until = endDateTime.ToIsoDateStr(),
-				ProjectIds = new List<int> { togglProject!.Id!.Value },
+				ProjectIds = new List<long> { togglProject!.Id!.Value },
 				Page = 1
 			}).ConfigureAwait(false);
 			detailedReport.Should().NotBeNull();

@@ -40,7 +40,7 @@ namespace Toggl.Api.DataObjects
 		/// Total number of tasks in this project
 		/// </summary>
 		[JsonProperty(PropertyName = "tasks_count")]
-		public int? TasksCount { get; set; }
+		public long? TasksCount { get; set; }
 
 		/// <summary>
 		/// Currency of billable_amount

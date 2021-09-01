@@ -6,10 +6,10 @@ namespace Toggl.Api.DataObjects
 	public class Activity : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "user_id")]
-		public int UserId { get; set; }
+		public long UserId { get; set; }
 
 		[JsonProperty(PropertyName = "project_id")]
-		public int ProjectId { get; set; }
+		public long ProjectId { get; set; }
 
 		[JsonProperty(PropertyName = "duration")]
 		public int Duration { get; set; }

@@ -9,16 +9,16 @@ namespace Toggl.Api.DataObjects
 	public class ProjectUser : BaseDataObject
 	{
 		[JsonProperty(PropertyName = "id")]
-		public int Id { get; set; }
+		public long Id { get; set; }
 
 		[JsonProperty(PropertyName = "pid")]
-		public int ProjectId { get; set; }
+		public long ProjectId { get; set; }
 
 		[JsonProperty(PropertyName = "wid")]
-		public int WorkspaceId { get; set; }
+		public long WorkspaceId { get; set; }
 
 		[JsonProperty(PropertyName = "uid")]
-		public int UserId { get; set; }
+		public long UserId { get; set; }
 
 		[JsonProperty(PropertyName = "manager")]
 		public bool IsManager { get; set; }

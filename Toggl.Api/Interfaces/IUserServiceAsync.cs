@@ -48,7 +48,7 @@ namespace Toggl.Api.Interfaces
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-users
 		/// </summary>
 		/// <param name="id"></param>
-		Task<List<User>> GetForWorkspaceAsync(int id);
+		Task<List<User>> GetForWorkspaceAsync(long id);
 
 		/// <summary>
 		/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-workspace-users

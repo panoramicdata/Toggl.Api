@@ -16,7 +16,7 @@
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
 		<PackageReleaseNotes>
-			Updated IDs everywhere to be longs rather than ints.
+			Changed all int IDs to longs.
 		</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>

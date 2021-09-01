@@ -24,7 +24,7 @@ namespace Toggl.Api.DataObjects
 		/// wid: workspace ID, where the client will be used (integer, required)
 		/// </summary>
 		[JsonProperty(PropertyName = "wid")]
-		public int? WorkspaceId { get; set; }
+		public long? WorkspaceId { get; set; }
 
 		/// <summary>
 		/// notes: Notes for the client (string, not required)

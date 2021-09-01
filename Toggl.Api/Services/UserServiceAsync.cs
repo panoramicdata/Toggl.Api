@@ -64,7 +64,7 @@ namespace Toggl.Api.Services
 			return response.GetData<string>();
 		}
 
-		public async Task<List<User>> GetForWorkspaceAsync(int id)
+		public async Task<List<User>> GetForWorkspaceAsync(long id)
 		{
 			var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, id);
 			var response = await TogglSrv

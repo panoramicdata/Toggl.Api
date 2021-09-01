@@ -15,13 +15,13 @@ namespace Toggl.Api.QueryObjects
 		/// The workspace whose data you want to access
 		/// </summary>
 		[JsonProperty(PropertyName = "workspace_id")]
-		public int WorkspaceId { get; set; }
+		public long WorkspaceId { get; set; }
 
 		/// <summary>
 		/// The project whose data you want to access
 		/// </summary>
 		[JsonProperty(PropertyName = "project_id")]
-		public int ProjectId { get; set; }
+		public long ProjectId { get; set; }
 
 		/// <summary>
 		/// name/assignee/duration/billable_amount/estimated_seconds
