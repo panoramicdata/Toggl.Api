@@ -53,7 +53,9 @@ namespace Toggl.Api.Services
 			var response = await GetAsync(new ApiRequest
 			{
 				Url = url
-			}).ConfigureAwait(false);
+			})
+			.ConfigureAwait(false);
+
 			return response;
 		}
 
@@ -63,7 +65,9 @@ namespace Toggl.Api.Services
 			{
 				Url = url,
 				Args = args
-			}).ConfigureAwait(false);
+			})
+			.ConfigureAwait(false);
+
 			return response;
 		}
 
@@ -73,7 +77,9 @@ namespace Toggl.Api.Services
 			{
 				Url = url,
 				Args = args
-			}).ConfigureAwait(false);
+			})
+			.ConfigureAwait(false);
+
 			return response;
 		}
 
@@ -83,7 +89,9 @@ namespace Toggl.Api.Services
 			{
 				Url = url,
 				Method = "DELETE"
-			}).ConfigureAwait(false);
+			})
+			.ConfigureAwait(false);
+
 			return response;
 		}
 
@@ -107,7 +115,9 @@ namespace Toggl.Api.Services
 					Method = "POST",
 					ContentType = "application/json",
 					Data = data
-				}).ConfigureAwait(false);
+				})
+				.ConfigureAwait(false);
+
 			return response;
 		}
 
@@ -121,7 +131,9 @@ namespace Toggl.Api.Services
 					Method = "POST",
 					ContentType = "application/json",
 					Data = data
-				}).ConfigureAwait(false);
+				})
+				.ConfigureAwait(false);
+
 			return response;
 		}
 
@@ -148,7 +160,9 @@ namespace Toggl.Api.Services
 					Method = "PUT",
 					ContentType = "application/json",
 					Data = data
-				}).ConfigureAwait(false);
+				})
+				.ConfigureAwait(false);
+
 			return response;
 		}
 

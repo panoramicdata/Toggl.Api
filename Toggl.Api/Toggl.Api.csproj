@@ -16,7 +16,7 @@
 		<RepositoryType>Git</RepositoryType>
 		<Authors>Panoramic Data Limited</Authors>
 		<PackageReleaseNotes>
-			Changed all int IDs to longs.
+			List of int64 items in URL parameters fixed
 		</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>

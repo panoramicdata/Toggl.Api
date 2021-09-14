@@ -48,7 +48,9 @@ namespace Toggl.Api.Test
 				Until = endDateTime.ToIsoDateStr(),
 				ProjectIds = new List<long> { togglProject!.Id!.Value },
 				Page = 1
-			}).ConfigureAwait(false);
+			})
+			.ConfigureAwait(false);
+
 			detailedReport.Should().NotBeNull();
 			detailedReport.Data.Should().NotBeNull();
 

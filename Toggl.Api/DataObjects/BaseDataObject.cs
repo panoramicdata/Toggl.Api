@@ -10,32 +10,37 @@ namespace Toggl.Api.DataObjects
 	{
 		public List<KeyValuePair<string, string>> ToKeyValuePair()
 		{
-			var lst = new List<KeyValuePair<string, string>>();
+			var list = new List<KeyValuePair<string, string>>();
 
-			GetType().GetProperties().ToList()
-				.ForEach(p =>
+			GetType().GetProperties().ToList().ForEach(propertyInfo =>
+			{
+				var val = propertyInfo.GetValue(this, null);
+
+				if (propertyInfo.GetCustomAttributes(typeof(JsonPropertyAttribute), false).Single() is not JsonPropertyAttribute jsonProperty || val == null || jsonProperty.PropertyName is null)
 				{
-					var val = p.GetValue(this, null);
+					return;
+				}
 
-					if (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).Single() is not JsonPropertyAttribute jsonProperty || val == null || jsonProperty.PropertyName is null)
-					{
-						return;
-					}
+				if (val is IEnumerable<int> ints)
+				{
+					var param = string.Join(",", ints);
+					var pair = new KeyValuePair<string, string>(jsonProperty.PropertyName, param);
+					list.Add(pair);
+				}
+				else if (val is IEnumerable<long> longs)
+				{
+					var param = string.Join(",", longs);
+					var pair = new KeyValuePair<string, string>(jsonProperty.PropertyName, param);
+					list.Add(pair);
+				}
+				else
+				{
+					var pair = new KeyValuePair<string, string>(jsonProperty.PropertyName, val.ToString());
+					list.Add(pair);
+				}
+			});
 
-					if (val is IEnumerable<int> ints)
-					{
-						var param = string.Join(",", ints);
-						var pair = new KeyValuePair<string, string>(jsonProperty.PropertyName, param);
-						lst.Add(pair);
-					}
-					else
-					{
-						var pair = new KeyValuePair<string, string>(jsonProperty.PropertyName, val.ToString());
-						lst.Add(pair);
-					}
-				});
-
-			return lst;
+			return list;
 		}
 
 		public string ToJson(string objName = "")
