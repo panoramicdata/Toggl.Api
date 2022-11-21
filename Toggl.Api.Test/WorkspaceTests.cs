@@ -11,7 +11,7 @@ public class WorkspaceTests : TogglTest
 	}
 
 	[Fact]
-	public async void List()
+	public async Task List()
 	{
 		var workspaces = await TogglClient
 			.Workspaces
@@ -21,7 +21,7 @@ public class WorkspaceTests : TogglTest
 	}
 
 	[Fact]
-	public async void ListProjectUsers()
+	public async Task ListProjectUsers()
 	{
 		var workspaces = await TogglClient
 			.Workspaces

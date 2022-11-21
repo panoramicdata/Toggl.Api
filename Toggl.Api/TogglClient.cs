@@ -4,11 +4,11 @@ using Toggl.Api.Services;
 namespace Toggl.Api;
 
 /// <summary>
-///A Toggl client
+/// A Toggl client
 /// </summary>
 public class TogglClient
 {
-	public static readonly string UserAgent = "Toggl.Api";
+	public const string UserAgent = "Toggl.Api";
 
 	public TogglClient(string key)
 	{

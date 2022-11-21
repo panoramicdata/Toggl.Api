@@ -13,7 +13,7 @@ public class ProjectTests : TogglTest
 	}
 
 	[Fact]
-	public async void List()
+	public async Task List()
 	{
 		var projects = await TogglClient
 			.Projects
@@ -23,7 +23,7 @@ public class ProjectTests : TogglTest
 	}
 
 	[Fact]
-	public async void GetProjectReportDashboard()
+	public async Task GetProjectReportDashboard()
 	{
 		var workspaces = await TogglClient
 			.Workspaces

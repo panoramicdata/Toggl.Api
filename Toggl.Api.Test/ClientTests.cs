@@ -11,7 +11,7 @@ public class ClientTests : TogglTest
 	}
 
 	[Fact]
-	public async void GetClients()
+	public async Task GetClients()
 	{
 		var clients = await TogglClient
 			.Clients

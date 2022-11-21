@@ -16,7 +16,7 @@ public class ReportTests : TogglTest
 	}
 
 	[Fact]
-	public async void List()
+	public async Task List()
 	{
 		var workspaces = await TogglClient
 			.Workspaces
