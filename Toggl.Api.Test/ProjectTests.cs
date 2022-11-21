@@ -1,5 +1,6 @@
 using FluentAssertions;
 using System.Linq;
+using System.Threading.Tasks;
 using Toggl.Api.QueryObjects;
 using Xunit;
 using Xunit.Abstractions;
