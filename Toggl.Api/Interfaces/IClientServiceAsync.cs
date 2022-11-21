@@ -13,7 +13,14 @@ public interface IClientServiceAsync
 	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-clients-visible-to-user
 	/// </summary>
 	/// <returns></returns>
-	Task<List<Client>> GetAllAsync(bool includeDeleted = false);
+	Task<List<Client>> GetAllAsync(bool includeDeleted);
+
+	/// <summary>
+	///
+	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-clients-visible-to-user
+	/// </summary>
+	/// <returns></returns>
+	Task<List<Client>> GetAllAsync();
 
 	/// <summary>
 	/// Get a client
