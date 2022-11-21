@@ -2,18 +2,17 @@
 using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 
-namespace Toggl.Api.Interfaces
+namespace Toggl.Api.Interfaces;
+
+public interface IProjectServiceAsync
 {
-	public interface IProjectServiceAsync
-	{
-		/// <summary>
-		///List project services
-		/// https://www.toggl.com/public/api#get_projects
-		/// </summary>
-		Task<List<Project>> ListAsync();
+	/// <summary>
+	///List project services
+	/// https://www.toggl.com/public/api#get_projects
+	/// </summary>
+	Task<List<Project>> ListAsync();
 
-		Task<Project> GetAsync(long id);
+	Task<Project> GetAsync(long id);
 
-		Task<Project> AddAsync(Project project);
-	}
+	Task<Project> AddAsync(Project project);
 }

@@ -13,317 +13,316 @@ using Toggl.Api.Responses;
 using Toggl.Api.Routes;
 using Task = System.Threading.Tasks.Task;
 
-namespace Toggl.Api.Services
+namespace Toggl.Api.Services;
+
+public class ApiServiceAsync : IApiServiceAsync
 {
-	public class ApiServiceAsync : IApiServiceAsync
+	private string ApiToken { get; set; }
+
+	public Session? Session { get; set; }
+
+	public ApiServiceAsync(string apiToken)
 	{
-		private string ApiToken { get; set; }
+		ApiToken = apiToken;
+	}
 
-		public Session? Session { get; set; }
-
-		public ApiServiceAsync(string apiToken)
+	public async Task InitializeAsync()
+	{
+		if (Session != null && !string.IsNullOrEmpty(Session.ApiToken))
 		{
-			ApiToken = apiToken;
+			return;
 		}
 
-		public async Task InitializeAsync()
+		await GetSessionAsync().ConfigureAwait(false);
+	}
+
+	public async Task<Session> GetSessionAsync()
+	{
+		var args = new List<KeyValuePair<string, string>>();
+
+		var response = await GetAsync(ApiRoutes.Session.Me, args).ConfigureAwait(false);
+		Session = response.GetData<Session>();
+
+		ApiToken = Session.ApiToken;
+
+		return Session;
+	}
+
+	public async Task<ApiResponse> GetAsync(string url)
+	{
+		var response = await GetAsync(new ApiRequest
 		{
-			if (Session != null && !string.IsNullOrEmpty(Session.ApiToken))
+			Url = url
+		})
+		.ConfigureAwait(false);
+
+		return response;
+	}
+
+	public async Task<ApiResponse> GetAsync(string url, List<KeyValuePair<string, string>> args)
+	{
+		var response = await GetAsync(new ApiRequest
+		{
+			Url = url,
+			Args = args
+		})
+		.ConfigureAwait(false);
+
+		return response;
+	}
+
+	public async Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, string>> args)
+	{
+		var response = await GetAsync<TResponse>(new ApiRequest
+		{
+			Url = url,
+			Args = args
+		})
+		.ConfigureAwait(false);
+
+		return response;
+	}
+
+	public async Task<ApiResponse> DeleteAsync(string url)
+	{
+		var response = await GetAsync(new ApiRequest
+		{
+			Url = url,
+			Method = "DELETE"
+		})
+		.ConfigureAwait(false);
+
+		return response;
+	}
+
+	public async Task<ApiResponse> DeleteAsync(string url, List<KeyValuePair<string, string>> args)
+	{
+		var response = await GetAsync(new ApiRequest
+		{
+			Url = url,
+			Method = "DELETE",
+			Args = args
+		}).ConfigureAwait(false);
+		return response;
+	}
+
+	public async Task<ApiResponse> PostAsync(string url, string? data)
+	{
+		var response = await GetAsync(
+			new ApiRequest
 			{
-				return;
-			}
-
-			await GetSessionAsync().ConfigureAwait(false);
-		}
-
-		public async Task<Session> GetSessionAsync()
-		{
-			var args = new List<KeyValuePair<string, string>>();
-
-			var response = await GetAsync(ApiRoutes.Session.Me, args).ConfigureAwait(false);
-			Session = response.GetData<Session>();
-
-			ApiToken = Session.ApiToken;
-
-			return Session;
-		}
-
-		public async Task<ApiResponse> GetAsync(string url)
-		{
-			var response = await GetAsync(new ApiRequest
-			{
-				Url = url
+				Url = url,
+				Method = "POST",
+				ContentType = "application/json",
+				Data = data
 			})
 			.ConfigureAwait(false);
 
-			return response;
-		}
+		return response;
+	}
 
-		public async Task<ApiResponse> GetAsync(string url, List<KeyValuePair<string, string>> args)
-		{
-			var response = await GetAsync(new ApiRequest
+	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
+	{
+		var response = await GetAsync(
+			new ApiRequest
 			{
 				Url = url,
-				Args = args
+				Args = args,
+				Method = "POST",
+				ContentType = "application/json",
+				Data = data
 			})
 			.ConfigureAwait(false);
 
-			return response;
-		}
+		return response;
+	}
 
-		public async Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, string>> args)
-		{
-			var response = await GetAsync<TResponse>(new ApiRequest
+	public async Task<ApiResponse> PutAsync(string url, string data)
+	{
+		var response = await GetAsync(
+			new ApiRequest
 			{
 				Url = url,
-				Args = args
-			})
-			.ConfigureAwait(false);
-
-			return response;
-		}
-
-		public async Task<ApiResponse> DeleteAsync(string url)
-		{
-			var response = await GetAsync(new ApiRequest
-			{
-				Url = url,
-				Method = "DELETE"
-			})
-			.ConfigureAwait(false);
-
-			return response;
-		}
-
-		public async Task<ApiResponse> DeleteAsync(string url, List<KeyValuePair<string, string>> args)
-		{
-			var response = await GetAsync(new ApiRequest
-			{
-				Url = url,
-				Method = "DELETE",
-				Args = args
+				Method = "PUT",
+				ContentType = "application/json",
+				Data = data
 			}).ConfigureAwait(false);
-			return response;
-		}
+		return response;
+	}
 
-		public async Task<ApiResponse> PostAsync(string url, string? data)
-		{
-			var response = await GetAsync(
-				new ApiRequest
-				{
-					Url = url,
-					Method = "POST",
-					ContentType = "application/json",
-					Data = data
-				})
-				.ConfigureAwait(false);
-
-			return response;
-		}
-
-		public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
-		{
-			var response = await GetAsync(
-				new ApiRequest
-				{
-					Url = url,
-					Args = args,
-					Method = "POST",
-					ContentType = "application/json",
-					Data = data
-				})
-				.ConfigureAwait(false);
-
-			return response;
-		}
-
-		public async Task<ApiResponse> PutAsync(string url, string data)
-		{
-			var response = await GetAsync(
-				new ApiRequest
-				{
-					Url = url,
-					Method = "PUT",
-					ContentType = "application/json",
-					Data = data
-				}).ConfigureAwait(false);
-			return response;
-		}
-
-		public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
-		{
-			var response = await GetAsync(
-				new ApiRequest
-				{
-					Url = url,
-					Args = args,
-					Method = "PUT",
-					ContentType = "application/json",
-					Data = data
-				})
-				.ConfigureAwait(false);
-
-			return response;
-		}
-
-		private async Task<TResponse> GetAsync<TResponse>(ApiRequest apiRequest)
-		{
-			string[] value = { "" };
-
-			if (apiRequest.Args?.Count > 0)
+	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
+	{
+		var response = await GetAsync(
+			new ApiRequest
 			{
-				apiRequest.Args.ForEach(e => value[0] += e.Key + "=" + Uri.EscapeDataString(e.Value) + "&");
-				value[0] = value[0].Trim('&');
-			}
+				Url = url,
+				Args = args,
+				Method = "PUT",
+				ContentType = "application/json",
+				Data = data
+			})
+			.ConfigureAwait(false);
 
-			if (apiRequest.Method == "GET" && !string.IsNullOrEmpty(value[0]))
+		return response;
+	}
+
+	private async Task<TResponse> GetAsync<TResponse>(ApiRequest apiRequest)
+	{
+		string[] value = { "" };
+
+		if (apiRequest.Args?.Count > 0)
+		{
+			apiRequest.Args.ForEach(e => value[0] += e.Key + "=" + Uri.EscapeDataString(e.Value) + "&");
+			value[0] = value[0].Trim('&');
+		}
+
+		if (apiRequest.Method == "GET" && !string.IsNullOrEmpty(value[0]))
+		{
+			apiRequest.Url += "?" + value[0];
+		}
+
+		string content;
+
+		while (true)
+		{
+			try
 			{
-				apiRequest.Url += "?" + value[0];
-			}
+				var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
+				authRequest.Method = apiRequest.Method;
+				authRequest.ContentType = apiRequest.ContentType;
+				authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+				authRequest.Headers.Add(GetAuthHeader());
 
-			string content;
+				var authResponse = (HttpWebResponse)await authRequest
+					.GetResponseAsync()
+					.ConfigureAwait(false);
 
-			while (true)
-			{
-				try
-				{
-					var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
-					authRequest.Method = apiRequest.Method;
-					authRequest.ContentType = apiRequest.ContentType;
-					authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-					authRequest.Headers.Add(GetAuthHeader());
-
-					var authResponse = (HttpWebResponse)await authRequest
-						.GetResponseAsync()
-						.ConfigureAwait(false);
-
-					if ((int)authResponse.StatusCode == 429)    // Too many requests
-					{
-						await Task.Delay(5000, default).ConfigureAwait(false);
-						continue;
-					}
-					using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
-					content = reader.ReadToEnd();
-
-					// Success
-					break;
-				}
-				catch (WebException ex) when (ex.Message.Contains("(429)"))
+				if ((int)authResponse.StatusCode == 429)    // Too many requests
 				{
 					await Task.Delay(5000, default).ConfigureAwait(false);
 					continue;
 				}
-			}
+				using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
+				content = reader.ReadToEnd();
 
-			var rsp = JsonConvert.DeserializeObject<TResponse>(content);
+				// Success
+				break;
+			}
+			catch (WebException ex) when (ex.Message.Contains("(429)"))
+			{
+				await Task.Delay(5000, default).ConfigureAwait(false);
+				continue;
+			}
+		}
+
+		var rsp = JsonConvert.DeserializeObject<TResponse>(content);
+		return rsp;
+	}
+
+	private async Task<ApiResponse> GetAsync(ApiRequest apiRequest)
+	{
+		string[] value = { "" };
+
+		if (apiRequest.Args?.Count > 0)
+		{
+			apiRequest.Args.ForEach(e => value[0] += e.Key + "=" + Uri.EscapeDataString(e.Value) + "&");
+			value[0] = value[0].Trim('&');
+		}
+
+		if (apiRequest.Method == "GET" && !string.IsNullOrEmpty(value[0]))
+		{
+			apiRequest.Url += "?" + value[0];
+		}
+
+		string content;
+		HttpWebResponse? authResponse;
+
+		while (true)
+		{
+			try
+			{
+				var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
+				authRequest.Method = apiRequest.Method;
+				authRequest.ContentType = apiRequest.ContentType;
+				authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+				authRequest.Headers.Add(GetAuthHeader());
+
+				if (apiRequest.Method == "POST" || apiRequest.Method == "PUT")
+				{
+					var utd8WithoutBom = new UTF8Encoding(false);
+
+					value[0] += apiRequest.Data;
+					authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
+					using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
+					writer.Write(value[0]);
+				}
+
+				authResponse = (HttpWebResponse)await authRequest
+					.GetResponseAsync()
+					.ConfigureAwait(false);
+
+				if ((int)authResponse.StatusCode == 429)    // Too many requests
+				{
+					await Task.Delay(5000, default).ConfigureAwait(false);
+					continue;
+				}
+
+				using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
+				content = reader.ReadToEnd();
+
+				// Success
+				break;
+			}
+			catch (WebException ex) when (ex.Message.Contains("(429)"))
+			{
+				await Task.Delay(5000, default).ConfigureAwait(false);
+				continue;
+			}
+		}
+
+		if ((string.IsNullOrEmpty(content)
+			 || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
+			 && authResponse.StatusCode == HttpStatusCode.OK
+			 && authResponse.Method == "DELETE")
+		{
+			var rsp = new ApiResponse
+			{
+				Data = new JObject(),
+				RelatedDataUpdatedAt = DateTime.Now,
+				StatusCode = authResponse.StatusCode,
+				Method = authResponse.Method
+			};
+
 			return rsp;
 		}
 
-		private async Task<ApiResponse> GetAsync(ApiRequest apiRequest)
+		try
 		{
-			string[] value = { "" };
+			var rsp = string.Equals(content, "null", StringComparison.OrdinalIgnoreCase)
+				? new ApiResponse()
+				: JsonConvert.DeserializeObject<ApiResponse>(content);
 
-			if (apiRequest.Args?.Count > 0)
-			{
-				apiRequest.Args.ForEach(e => value[0] += e.Key + "=" + Uri.EscapeDataString(e.Value) + "&");
-				value[0] = value[0].Trim('&');
-			}
-
-			if (apiRequest.Method == "GET" && !string.IsNullOrEmpty(value[0]))
-			{
-				apiRequest.Url += "?" + value[0];
-			}
-
-			string content;
-			HttpWebResponse? authResponse;
-
-			while (true)
-			{
-				try
-				{
-					var authRequest = (HttpWebRequest)WebRequest.Create(apiRequest.Url);
-					authRequest.Method = apiRequest.Method;
-					authRequest.ContentType = apiRequest.ContentType;
-					authRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-					authRequest.Headers.Add(GetAuthHeader());
-
-					if (apiRequest.Method == "POST" || apiRequest.Method == "PUT")
-					{
-						var utd8WithoutBom = new UTF8Encoding(false);
-
-						value[0] += apiRequest.Data;
-						authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
-						using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
-						writer.Write(value[0]);
-					}
-
-					authResponse = (HttpWebResponse)await authRequest
-						.GetResponseAsync()
-						.ConfigureAwait(false);
-
-					if ((int)authResponse.StatusCode == 429)    // Too many requests
-					{
-						await Task.Delay(5000, default).ConfigureAwait(false);
-						continue;
-					}
-
-					using var reader = new StreamReader(authResponse.GetResponseStream(), Encoding.UTF8);
-					content = reader.ReadToEnd();
-
-					// Success
-					break;
-				}
-				catch (WebException ex) when (ex.Message.Contains("(429)"))
-				{
-					await Task.Delay(5000, default).ConfigureAwait(false);
-					continue;
-				}
-			}
-
-			if ((string.IsNullOrEmpty(content)
-				 || string.Equals(content, "null", StringComparison.OrdinalIgnoreCase))
-				 && authResponse.StatusCode == HttpStatusCode.OK
-				 && authResponse.Method == "DELETE")
-			{
-				var rsp = new ApiResponse
-				{
-					Data = new JObject(),
-					RelatedDataUpdatedAt = DateTime.Now,
-					StatusCode = authResponse.StatusCode,
-					Method = authResponse.Method
-				};
-
-				return rsp;
-			}
-
-			try
-			{
-				var rsp = string.Equals(content, "null", StringComparison.OrdinalIgnoreCase)
-					? new ApiResponse()
-					: JsonConvert.DeserializeObject<ApiResponse>(content);
-
-				rsp.StatusCode = authResponse.StatusCode;
-				rsp.Method = authResponse.Method;
-				return rsp;
-			}
-			catch (Exception)
-			{
-				var token = JToken.Parse(content);
-				var rsp = new ApiResponse
-				{
-					Data = token,
-					RelatedDataUpdatedAt = DateTime.Now,
-					StatusCode = authResponse.StatusCode,
-					Method = authResponse.Method
-				};
-				return rsp;
-			}
+			rsp.StatusCode = authResponse.StatusCode;
+			rsp.Method = authResponse.Method;
+			return rsp;
 		}
-
-		private string GetAuthHeader()
+		catch (Exception)
 		{
-			var encodedApiKey = Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiToken + ":api_token"));
-			return "Authorization: Basic " + encodedApiKey;
+			var token = JToken.Parse(content);
+			var rsp = new ApiResponse
+			{
+				Data = token,
+				RelatedDataUpdatedAt = DateTime.Now,
+				StatusCode = authResponse.StatusCode,
+				Method = authResponse.Method
+			};
+			return rsp;
 		}
+	}
+
+	private string GetAuthHeader()
+	{
+		var encodedApiKey = Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiToken + ":api_token"));
+		return "Authorization: Basic " + encodedApiKey;
 	}
 }

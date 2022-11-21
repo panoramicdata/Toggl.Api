@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace Toggl.Api.DataObjects
-{
-	public class MostActiveUser : BaseDataObject
-	{
-		[JsonProperty(PropertyName = "user_id")]
-		public long UserId { get; set; }
+namespace Toggl.Api.DataObjects;
 
-		[JsonProperty(PropertyName = "duration")]
-		public int Duration { get; set; }
-	}
+public class MostActiveUser : BaseDataObject
+{
+	[JsonProperty(PropertyName = "user_id")]
+	public long UserId { get; set; }
+
+	[JsonProperty(PropertyName = "duration")]
+	public int Duration { get; set; }
 }

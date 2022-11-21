@@ -4,23 +4,22 @@ using System.Threading.Tasks;
 using Toggl.Api.DataObjects;
 using Toggl.Api.Interfaces;
 
-namespace Toggl.Api.Services
+namespace Toggl.Api.Services;
+
+public class TagServiceAsync : ITagServiceAsync
 {
-	public class TagServiceAsync : ITagServiceAsync
+	private readonly IApiServiceAsync _apiServiceAsync;
+
+	public TagServiceAsync(string apiKey)
+		: this(new ApiServiceAsync(apiKey))
 	{
-		private readonly IApiServiceAsync _apiServiceAsync;
-
-		public TagServiceAsync(string apiKey)
-			: this(new ApiServiceAsync(apiKey))
-		{
-		}
-
-		public TagServiceAsync(IApiServiceAsync apiServiceAsync)
-		{
-			_apiServiceAsync = apiServiceAsync;
-		}
-
-		public Task<List<Tag>> GetAllAsync()
-			=> throw new NotSupportedException();
 	}
+
+	public TagServiceAsync(IApiServiceAsync apiServiceAsync)
+	{
+		_apiServiceAsync = apiServiceAsync;
+	}
+
+	public Task<List<Tag>> GetAllAsync()
+		=> throw new NotSupportedException();
 }

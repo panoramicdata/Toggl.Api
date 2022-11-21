@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace Toggl.Api.Exceptions
+namespace Toggl.Api.Exceptions;
+
+public class TogglApiException : Exception
 {
-	public class TogglApiException : Exception
+	public TogglApiException()
 	{
-		public TogglApiException()
-		{
-		}
+	}
 
-		public TogglApiException(string message) : base(message)
-		{
-		}
+	public TogglApiException(string message) : base(message)
+	{
+	}
 
-		public TogglApiException(string message, Exception innerException) : base(message, innerException)
-		{
-		}
+	public TogglApiException(string message, Exception innerException) : base(message, innerException)
+	{
 	}
 }
