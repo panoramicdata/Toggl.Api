@@ -187,11 +187,11 @@ public class TaskServiceAsync : ITaskServiceAsync
 			timeEntry.TaskId = masterTaskId;
 			try
 			{
-				var _ = await timeEntryService.UpdateAsync(timeEntry).ConfigureAwait(false);
+				_ = await timeEntryService.UpdateAsync(timeEntry).ConfigureAwait(false);
 			}
 			catch (Exception ex)
 			{
-				var _ = ex.Data;
+				_ = ex.Data;
 			}
 		}
 
