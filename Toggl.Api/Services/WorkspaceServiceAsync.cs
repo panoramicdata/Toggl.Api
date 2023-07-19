@@ -81,5 +81,8 @@ public class WorkspaceServiceAsync : IWorkspaceServiceAsync
 	}
 
 	Task<List<DataObjects.Task>> IWorkspaceServiceAsync.GetTasksAsync(long workspaceId)
-		=> throw new NotSupportedException();
+	{
+		_ = workspaceId;
+		throw new NotSupportedException();
+	}
 }
