@@ -121,7 +121,8 @@ public class ApiServiceAsync : IApiServiceAsync
 		return response;
 	}
 
-	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
+	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args) => await PostAsync(url, args, "");
+	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data)
 	{
 		var response = await GetAsync(
 			new ApiRequest
@@ -149,8 +150,9 @@ public class ApiServiceAsync : IApiServiceAsync
 			}).ConfigureAwait(false);
 		return response;
 	}
+	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args) => await PutAsync(url, args, "");
 
-	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
+	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data)
 	{
 		var response = await GetAsync(
 			new ApiRequest
