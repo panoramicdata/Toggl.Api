@@ -211,7 +211,6 @@ public class ApiServiceAsync : IApiServiceAsync
 			catch (WebException ex) when (ex.Message.Contains("(429)"))
 			{
 				await Task.Delay(5000, default).ConfigureAwait(false);
-				continue;
 			}
 		}
 
@@ -251,7 +250,11 @@ public class ApiServiceAsync : IApiServiceAsync
 				{
 					var utd8WithoutBom = new UTF8Encoding(false);
 
-					value[0] += apiRequest.Data;
+
+					StringBuilder stringBuilder = new(value[0]);
+					stringBuilder.Append(apiRequest.Data);
+					value[0] = stringBuilder.ToString();
+
 					authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
 					using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
 					writer.Write(value[0]);
