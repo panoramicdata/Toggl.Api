@@ -21,7 +21,7 @@ public class ReportServiceAsync : IReportServiceAsync
 	}
 
 	public Task<ProjectReportDashboard> GetProjectReportAsync(ProjectDashboardParams requestParameters) =>
-		TogglSrv.GetAsync<ProjectReportDashboard>(ApiRoutes.Reports.Project, requestParameters.ToKeyValuePair());
+		TogglSrv.GetAsync<ProjectReportDashboard>(ApiRoutes.Reports.TogglProject, requestParameters.ToKeyValuePair());
 
 	public Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
 		=> TogglSrv.GetAsync<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());

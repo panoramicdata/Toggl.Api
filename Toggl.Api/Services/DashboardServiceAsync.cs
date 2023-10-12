@@ -39,13 +39,17 @@ public class DashboardServiceAsync : IServiceAsync<Dashboard>
 	/// List dashboards
 	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/clients.md#get-clients-visible-to-user
 	/// </summary>
-	public async Task<List<Dashboard>> GetAllAsync(bool includeDeleted = false)
+	///
+	public async Task<List<Dashboard>> GetAllAsync() => await GetAllAsync(false);
+	public async Task<List<Dashboard>> GetAllAsync(bool includeDeleted)
 	{
 		var response = await TogglSrv.GetAsync(ApiRoutes.Client.ClientsUrl).ConfigureAwait(false);
 		var result = response.GetData<List<Dashboard>>();
 
 		return result.ToList();
 	}
+
+
 
 	public async Task<Dashboard> GetAsync(long id)
 	{

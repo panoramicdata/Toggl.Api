@@ -121,7 +121,8 @@ public class ApiServiceAsync : IApiServiceAsync
 		return response;
 	}
 
-	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
+	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args) => await PostAsync(url, args, "");
+	public async Task<ApiResponse> PostAsync(string url, List<KeyValuePair<string, string>> args, string data)
 	{
 		var response = await GetAsync(
 			new ApiRequest
@@ -149,8 +150,9 @@ public class ApiServiceAsync : IApiServiceAsync
 			}).ConfigureAwait(false);
 		return response;
 	}
+	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args) => await PutAsync(url, args, "");
 
-	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data = "")
+	public async Task<ApiResponse> PutAsync(string url, List<KeyValuePair<string, string>> args, string data)
 	{
 		var response = await GetAsync(
 			new ApiRequest
@@ -211,7 +213,6 @@ public class ApiServiceAsync : IApiServiceAsync
 			catch (WebException ex) when (ex.Message.Contains("(429)"))
 			{
 				await Task.Delay(5000, default).ConfigureAwait(false);
-				continue;
 			}
 		}
 
@@ -251,7 +252,11 @@ public class ApiServiceAsync : IApiServiceAsync
 				{
 					var utd8WithoutBom = new UTF8Encoding(false);
 
-					value[0] += apiRequest.Data;
+
+					StringBuilder stringBuilder = new(value[0]);
+					stringBuilder.Append(apiRequest.Data);
+					value[0] = stringBuilder.ToString();
+
 					authRequest.ContentLength = utd8WithoutBom.GetByteCount(value[0]);
 					using var writer = new StreamWriter(authRequest.GetRequestStream(), utd8WithoutBom);
 					writer.Write(value[0]);

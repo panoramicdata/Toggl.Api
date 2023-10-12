@@ -18,7 +18,7 @@ public class Project : BaseDataObject
 	/// wid: workspace ID, where the project will be saved (integer, required)
 	/// </summary>
 	[JsonProperty(PropertyName = "wid")]
-	public long WorkspaceId { get; set; } = 0;
+	public long WorkspaceId { get; set; }
 
 	/// <summary>
 	///  cid: client ID (integer, not required)

@@ -42,8 +42,9 @@ public class BaseDataObject
 
 		return list;
 	}
+	public string ToJson() => ToJson("");
 
-	public string ToJson(string objName = "")
+	public string ToJson(string objName)
 	{
 		var cverts = new List<JsonConverter>
 		{
