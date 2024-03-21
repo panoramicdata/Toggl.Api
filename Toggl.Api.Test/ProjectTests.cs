@@ -7,19 +7,14 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class ProjectTests : TogglTest
+public class ProjectTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
-	public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-	{
-	}
-
 	[Fact]
 	public async Task List()
 	{
 		var projects = await TogglClient
 			.Projects
-			.ListAsync()
-			.ConfigureAwait(false);
+			.ListAsync();
 		projects.Should().NotBeNullOrEmpty();
 	}
 
@@ -28,15 +23,13 @@ public class ProjectTests : TogglTest
 	{
 		var workspaces = await TogglClient
 			.Workspaces
-			.GetAllAsync()
-			.ConfigureAwait(false);
+			.GetAllAsync();
 		var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
 		togglWorkspace.Should().NotBeNull();
 
 		var projects = await TogglClient
 			.Projects
-			.ListAsync()
-			.ConfigureAwait(false);
+			.ListAsync();
 		var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 		togglProject.Should().NotBeNull();
 
@@ -47,8 +40,7 @@ public class ProjectTests : TogglTest
 			ProjectId = togglProject!.Id!.Value,
 			OrderDesc = "on",
 			OrderField = "name"
-		})
-		.ConfigureAwait(false);
+		});
 
 		projectReportDashboard.Should().NotBeNull();
 	}

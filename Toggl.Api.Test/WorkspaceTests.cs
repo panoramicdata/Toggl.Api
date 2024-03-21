@@ -5,19 +5,14 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class WorkspaceTests : TogglTest
+public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
-	public WorkspaceTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-	{
-	}
-
 	[Fact]
 	public async Task List()
 	{
 		var workspaces = await TogglClient
 			.Workspaces
-			.GetAllAsync()
-			.ConfigureAwait(false);
+			.GetAllAsync();
 		workspaces.Should().NotBeNullOrEmpty();
 	}
 
@@ -26,15 +21,13 @@ public class WorkspaceTests : TogglTest
 	{
 		var workspaces = await TogglClient
 			.Workspaces
-			.GetAllAsync()
-			.ConfigureAwait(false);
+			.GetAllAsync();
 		workspaces.Should().NotBeNullOrEmpty();
 		var workspaceId = workspaces[0].Id;
 
 		var projectUsers = await TogglClient
 			.Workspaces
-			.GetProjectUsersAsync(workspaceId)
-			.ConfigureAwait(false);
+			.GetProjectUsersAsync(workspaceId);
 		projectUsers.Should().NotBeNullOrEmpty();
 		projectUsers.Should().OnlyContain(pu => pu.Id != 0);
 		projectUsers.Should().OnlyContain(pu => pu.UserId != 0);
