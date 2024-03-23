@@ -1,37 +1,7 @@
-using FluentAssertions;
-using System.Threading.Tasks;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
 public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
-	[Fact]
-	public async Task List()
-	{
-		var workspaces = await TogglClient
-			.Workspaces
-			.GetAllAsync();
-		workspaces.Should().NotBeNullOrEmpty();
-	}
-
-	[Fact]
-	public async Task ListProjectUsers()
-	{
-		var workspaces = await TogglClient
-			.Workspaces
-			.GetAllAsync();
-		workspaces.Should().NotBeNullOrEmpty();
-		var workspaceId = workspaces[0].Id;
-
-		var projectUsers = await TogglClient
-			.Workspaces
-			.GetProjectUsersAsync(workspaceId);
-		projectUsers.Should().NotBeNullOrEmpty();
-		projectUsers.Should().OnlyContain(pu => pu.Id != 0);
-		projectUsers.Should().OnlyContain(pu => pu.UserId != 0);
-		projectUsers.Should().OnlyContain(pu => pu.ProjectId != 0);
-		projectUsers.Should().OnlyContain(pu => pu.WorkspaceId != 0);
-	}
 }

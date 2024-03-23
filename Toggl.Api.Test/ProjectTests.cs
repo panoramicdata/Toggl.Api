@@ -1,6 +1,5 @@
 using FluentAssertions;
 using System.Linq;
-using System.Threading.Tasks;
 using Toggl.Api.QueryObjects;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,37 +9,34 @@ namespace Toggl.Api.Test;
 public class ProjectTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async Task List()
+	public async void List()
 	{
+		var workspaceId = await GetWorkspaceIdAsync();
+
 		var projects = await TogglClient
 			.Projects
-			.ListAsync();
+			.GetAllAsync(workspaceId, default);
+
 		projects.Should().NotBeNullOrEmpty();
+		projects.Count(p => p.Name == Configuration.SampleProjectName).Should().Be(1);
 	}
 
 	[Fact]
-	public async Task GetProjectReportDashboard()
+	public async void GetProjectReportDashboard()
 	{
-		var workspaces = await TogglClient
-			.Workspaces
-			.GetAllAsync();
-		var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
-		togglWorkspace.Should().NotBeNull();
+		var workspaceId = await GetWorkspaceIdAsync();
 
 		var projects = await TogglClient
 			.Projects
-			.ListAsync();
+			.GetAllAsync(workspaceId, default);
 		var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 		togglProject.Should().NotBeNull();
 
-		var projectReportDashboard = await TogglClient.Reports.GetProjectReportAsync(new ProjectDashboardParams
+		var projectReportDashboard = await TogglClient.Reports.DetailedAsync(new DetailedReportParams
 		{
 			UserAgent = "TogglAPI.Net",
-			WorkspaceId = togglWorkspace!.Id,
-			ProjectId = togglProject!.Id!.Value,
-			OrderDesc = "on",
-			OrderField = "name"
-		});
+			WorkspaceId = workspaceId,
+		}, default);
 
 		projectReportDashboard.Should().NotBeNull();
 	}

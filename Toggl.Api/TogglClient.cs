@@ -1,67 +1,97 @@
-﻿using Toggl.Api.Interfaces;
-using Toggl.Api.Services;
+﻿using Refit;
+using System;
+using System.Net.Http;
+using Toggl.Api.Interfaces;
 
 namespace Toggl.Api;
 
 /// <summary>
 /// A Toggl client
 /// </summary>
-public class TogglClient
+public class TogglClient : IDisposable
 {
-	public const string UserAgent = "Toggl.Api";
+	private readonly HttpClient _httpClient;
 
-	public TogglClient(string key)
+	public TogglClient(TogglClientOptions options)
 	{
-		ApiService = new ApiServiceAsync(key);
-		Clients = new ClientServiceAsync(ApiService);
-		Projects = new ProjectServiceAsync(ApiService);
-		Reports = new ReportServiceAsync(ApiService);
-		Tags = new TagServiceAsync(ApiService);
-		Tasks = new TaskServiceAsync(ApiService);
-		TimeEntries = new TimeEntryServiceAsync(ApiService);
-		Users = new UserServiceAsync(ApiService);
-		Workspaces = new WorkspaceServiceAsync(ApiService);
+		ArgumentNullException.ThrowIfNull(options);
+
+		// Validate that all of the necessary configuration has been provided
+		options.Validate();
+
+		_httpClient = new HttpClient(new AuthenticatedHttpClientHandler(options))
+		{
+			BaseAddress = new Uri("https://api.track.toggl.com/"),
+			Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds)
+		};
+
+		Clients = RestService.For<IClients>(_httpClient);
+		Me = RestService.For<IMe>(_httpClient);
+		//Projects = RestService.For<IProjects>(_httpClient);
+		//ProjectUsers = RestService.For<IProjectUsers>(_httpClient);
+		//Reports = RestService.For<IReports>(_httpClient);
+		//Tags = RestService.For<ITags>(_httpClient);
+		//Tasks = RestService.For<ITasks>(_httpClient);
+		//TimeEntries = RestService.For<ITimeEntries>(_httpClient);
+		//Users = RestService.For<IUsers>(_httpClient);
+		Workspaces = RestService.For<IWorkspaces>(_httpClient);
 	}
 
-	private IApiServiceAsync ApiService { get; }
+	/// <summary>
+	/// Methods to access client information
+	/// </summary>
+	public IClients Clients { get; }
 
 	/// <summary>
-	/// Holds methods to access client information
+	/// Methods to access information about the current user
 	/// </summary>
-	public IClientServiceAsync Clients { get; }
+	public IMe Me { get; }
 
 	/// <summary>
 	/// Holds methods to access project information
 	/// </summary>
-	public IProjectServiceAsync Projects { get; }
-
-	/// <summary>
-	/// Holds methods to access report information
-	/// </summary>
-	public ReportServiceAsync Reports { get; }
-
-	/// <summary>
-	/// Holds methods to access tag information
-	/// </summary>
-	public ITagServiceAsync Tags { get; }
-
-	/// <summary>
-	/// Holds methods to access task information
-	/// </summary>
-	public ITaskServiceAsync Tasks { get; }
-
-	/// <summary>
-	/// Holds methods to access time entry information
-	/// </summary>
-	public ITimeEntryServiceAsync TimeEntries { get; }
-
-	/// <summary>
-	/// Holds methods to access user information
-	/// </summary>
-	public IUserServiceAsync Users { get; }
+	public IProjects Projects { get; }
 
 	/// <summary>
 	/// Holds methods to access workspace information
 	/// </summary>
-	public IWorkspaceServiceAsync Workspaces { get; }
+	public IProjectUsers ProjectUsers { get; }
+
+	/// <summary>
+	/// Holds methods to access report information
+	/// </summary>
+	public IReports Reports { get; }
+
+	/// <summary>
+	/// Holds methods to access tag information
+	/// </summary>
+	public ITags Tags { get; }
+
+	/// <summary>
+	/// Holds methods to access task information
+	/// </summary>
+	public ITasks Tasks { get; }
+
+	/// <summary>
+	/// Holds methods to access time entry information
+	/// </summary>
+	public ITimeEntries TimeEntries { get; }
+
+	/// <summary>
+	/// Holds methods to access user information
+	/// </summary>
+	public IUsers Users { get; }
+
+	/// <summary>
+	/// Holds methods to access workspace information
+	/// </summary>
+	public IWorkspaces Workspaces { get; }
+
+
+
+	public void Dispose()
+	{
+		_httpClient.Dispose();
+		GC.SuppressFinalize(this);
+	}
 }

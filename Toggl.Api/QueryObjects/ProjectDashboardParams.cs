@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Toggl.Api.DataObjects;
+using Toggl.Api.Models;
 
 namespace Toggl.Api.QueryObjects;
 
-public class ProjectDashboardParams : BaseDataObject
+public class ProjectDashboardParams : Item
 {
 	/// <summary>
 	/// The developer's details

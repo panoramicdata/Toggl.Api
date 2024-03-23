@@ -38,6 +38,7 @@ public class ApiResponse
 				T t = jArray.ToObject<T>() ?? (T)Activator.CreateInstance(typeof(T));
 				return t;
 			}
+
 			if (Data is JToken jToken)
 			{
 				return jToken.ToObject<T>()
@@ -45,8 +46,8 @@ public class ApiResponse
 			}
 			else
 			{
-				var json = JsonConvert.SerializeObject(Data, cverts.ToArray());
-				return JsonConvert.DeserializeObject<T>(json, cverts.ToArray())
+				var json = JsonConvert.SerializeObject(Data, [.. cverts]);
+				return JsonConvert.DeserializeObject<T>(json, [.. cverts])
 					?? throw new TogglApiException("Could not create data object");
 			}
 		}

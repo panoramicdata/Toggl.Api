@@ -21,4 +21,9 @@ public class Configuration
 	/// A sample project name
 	/// </summary>
 	public string SampleProjectName { get; set; } = string.Empty;
+
+	/// <summary>
+	/// A sample client name to use for testing CRUD operations
+	/// </summary>
+	public string CrudClientName { get; set; } = "Test Client Name";
 }

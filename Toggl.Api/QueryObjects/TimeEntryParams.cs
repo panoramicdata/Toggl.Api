@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Toggl.Api.DataObjects;
+using Toggl.Api.Models;
 
 namespace Toggl.Api.QueryObjects;
 

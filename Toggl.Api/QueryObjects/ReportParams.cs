@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using Toggl.Api.DataObjects;
+using Toggl.Api.Models;
 
 namespace Toggl.Api.QueryObjects;
 
-public class ReportParams : BaseDataObject
+public class ReportParams : Item
 {
 	[JsonProperty(PropertyName = "user_agent")]
 	public string? UserAgent { get; set; }

@@ -1,8 +1,6 @@
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Toggl.Api.Extensions;
 using Toggl.Api.QueryObjects;
 using Xunit;
@@ -13,39 +11,36 @@ namespace Toggl.Api.Test;
 public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async Task List()
+	public async void List()
 	{
-		var workspaces = await TogglClient
-			.Workspaces
-			.GetAllAsync();
-		var togglWorkspace = workspaces.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName);
-		togglWorkspace.Should().NotBeNull();
+		var workspaceId = await GetWorkspaceIdAsync();
 
-		List<DataObjects.Project> projects = await TogglClient
+		var projects = await TogglClient
 			.Projects
-			.ListAsync();
+			.GetAllAsync(workspaceId, default);
 
 		projects.Should().NotBeNullOrEmpty();
 
 		var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
 		togglProject.Should().NotBeNull();
-		togglProject!.Id.Should().NotBeNull();
+		togglProject.Id.Should().NotBe(0);
 
 		var utcNow = DateTime.UtcNow;
 		var endDateTime = new DateTime(utcNow.Year, utcNow.Month, 1);
 		var startDateTime = endDateTime.AddMonths(-1);
 
-		var detailedReport = await TogglClient.Reports.Detailed(new DetailedReportParams
-		{
-			UserAgent = "TogglAPI.Net",
-			WorkspaceId = togglWorkspace!.Id,
-			Since = startDateTime.ToIsoDateStr(),
-			Until = endDateTime.ToIsoDateStr(),
-			ProjectIds = new List<long> { togglProject!.Id!.Value },
-			Page = 1
-		});
+		var detailedReport = await TogglClient
+			.Reports
+			.DetailedAsync(new DetailedReportParams
+			{
+				UserAgent = "TogglAPI.Net",
+				WorkspaceId = workspaceId,
+				Since = startDateTime.ToIsoDateStr(),
+				Until = endDateTime.ToIsoDateStr(),
+				ProjectIds = [togglProject!.Id],
+				Page = 1
+			}, default);
 
-		detailedReport.Should().NotBeNull();
 		detailedReport.Data.Should().NotBeNull();
 
 		// Re-fetch the time entries
@@ -59,7 +54,7 @@ public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 			{
 				var refetchedTimeEntry = await TogglClient
 					.TimeEntries
-					.GetAsync(timeEntryId!.Value);
+					.GetAsync(timeEntryId, default);
 				refetchedTimeEntry.Id.Should().Be(timeEntryId);
 				success = true;
 			}
@@ -68,6 +63,7 @@ public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 				// This happens, but should not happen all the time.
 			}
 		}
+
 		success.Should().Be(true);
 	}
 }

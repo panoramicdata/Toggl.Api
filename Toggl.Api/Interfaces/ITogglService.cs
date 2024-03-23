@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Toggl.Api.DataObjects;
+using Toggl.Api.Models;
 using Toggl.Api.Responses;
 
 namespace Toggl.Api.Interfaces;
