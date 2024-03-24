@@ -4,20 +4,16 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Toggl.Api;
-internal class AuthenticatedHttpClientHandler : HttpClientHandler
+internal class AuthenticatedHttpClientHandler(TogglClientOptions options) : HttpClientHandler
 {
-	private readonly TogglClientOptions _options;
-	private readonly ILogger _logger;
-
-	public AuthenticatedHttpClientHandler(TogglClientOptions options)
-	{
-		_options = options;
-		_logger = options.Logger ?? NullLogger.Instance;
-	}
+	private static JsonSerializerOptions PrettyPrintJsonSerializerOptions = new() { WriteIndented = true };
+	private readonly TogglClientOptions _options = options;
+	private readonly ILogger _logger = options.Logger ?? NullLogger.Instance;
 
 	/// <summary>
 	/// Override of the base method that is used to handle the sending of a request
@@ -31,25 +27,49 @@ internal class AuthenticatedHttpClientHandler : HttpClientHandler
 	{
 		if (request.Headers.Authorization is null)
 		{
-			request.Headers.Add("Authorization", "Authorization: Basic " + (string?)Convert.ToBase64String(Encoding.ASCII.GetBytes(_options.Key + ":api_token")));
+			request.Headers.Add("Authorization", "Basic " + (string?)Convert.ToBase64String(Encoding.ASCII.GetBytes(_options.Key + ":api_token")));
+		}
+
+		using var scope = _logger.BeginScope("Request: {Method} {Uri}", request.Method, request.RequestUri);
+		if (_logger.IsEnabled(LogLevel.Debug))
+		{
+			_logger.LogDebug(
+				"Request: {Method} {Uri}\n{RequestContent}",
+				request.Method,
+				request.RequestUri,
+				request.Content is null
+					? string.Empty
+					: PrettyPrintJson(await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false))
+			);
 		}
 
 		while (true)
 		{
 			try
 			{
-				var httpResponse = await base
+				var response = await base
 					.SendAsync(request, cancellationToken)
 					.ConfigureAwait(false);
 
-				if ((int)httpResponse.StatusCode == 429)    // Too many requests
+				if ((int)response.StatusCode == 429)    // Too many requests
 				{
 					await Task.Delay(5000, default).ConfigureAwait(false);
 					continue;
 				}
 
+				if (_logger.IsEnabled(LogLevel.Debug))
+				{
+					_logger.LogDebug(
+						"Response: {Status}\n{ResponseContent}",
+						response.StatusCode,
+						response.Content is null
+							? string.Empty
+							: PrettyPrintJson(await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false))
+					);
+				}
+
 				// Success
-				return httpResponse;
+				return response;
 			}
 			catch (WebException ex) when (ex.Message.Contains("(429)"))
 			{
@@ -76,4 +96,15 @@ internal class AuthenticatedHttpClientHandler : HttpClientHandler
 	//		}
 	//	}
 	//}
+
+	public static string PrettyPrintJson(string jsonString)
+	{
+		if (string.IsNullOrWhiteSpace(jsonString))
+		{
+			return string.Empty;
+		}
+
+		using var jsonDoc = JsonDocument.Parse(jsonString);
+		return JsonSerializer.Serialize(jsonDoc, PrettyPrintJsonSerializerOptions);
+	}
 }

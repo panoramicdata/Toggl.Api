@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System;
 using System.Globalization;
 
@@ -12,19 +12,19 @@ public class Workspace : IdentifiedItem
 	/// <summary>
 	/// name: (string, required)
 	/// </summary>
-	[JsonProperty(PropertyName = "name")]
+	[JsonPropertyName("name")]
 	public string? Name { get; set; }
 
 	/// <summary>
 	/// premium: If it's a pro workspace or not. Shows if someone is paying for the workspace or not (boolean, not required)
 	/// </summary>
-	[JsonProperty(PropertyName = "premium")]
-	public bool? Ispremium { get; set; }
+	[JsonPropertyName("premium")]
+	public bool? IsPremium { get; set; }
 
 	/// <summary>
 	/// at: timestamp that is sent in the response, indicates the time item was last updated
 	/// </summary>
-	[JsonProperty(PropertyName = "at")]
+	[JsonPropertyName("at")]
 	public DateTime? UpdatedOn { get; set; }
 
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);

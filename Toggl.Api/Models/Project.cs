@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -7,109 +9,175 @@ namespace Toggl.Api.Models;
 /// A Project
 /// https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#projects
 /// </summary>
-public class Project : IdentifiedItem
+public class Project : NamedIdentifiedItem
 {
 	/// <summary>
-	/// wid: workspace ID, where the project will be saved (integer, required)
+	/// Workspace ID, where the project will be saved
 	/// </summary>
-	[JsonProperty(PropertyName = "wid")]
-	public long WorkspaceId { get; set; } = 0;
+	[JsonPropertyName("workspace_id")]
+	public required long WorkspaceId { get; set; }
 
 	/// <summary>
-	///  cid: client ID (integer, not required)
+	/// Workspace ID, where the project will be saved (again, for some reason)
 	/// </summary>
-	[JsonProperty(PropertyName = "cid")]
-	public long? ClientId { get; set; }
+	[JsonPropertyName("wid")]
+	public required long WorkspaceId2 { get; set; }
 
 	/// <summary>
-	/// name: The name of the project (string, required, unique for client and workspace)
+	///  Client ID
 	/// </summary>
-	[JsonProperty(PropertyName = "name")]
-	public string? Name { get; set; }
+	[JsonPropertyName("client_id")]
+	public required long ClientId { get; set; }
 
 	/// <summary>
-	/// billable: whether the project is billable or not (boolean, default true, available only for pro workspaces)
+	///  Client ID (again, for some reason)
 	/// </summary>
-	[JsonProperty(PropertyName = "billable")]
-	public bool? IsBillable { get; set; }
+	[JsonPropertyName("cid")]
+	public required long ClientId2 { get; set; }
 
 	/// <summary>
-	/// is_private: whether project is accessible for only project users or for all workspace users (boolean, default true)
+	/// Whether the project is billable or not
 	/// </summary>
-	[JsonProperty(PropertyName = "is_private")]
-	public bool? IsPrivate { get; set; }
+	[JsonPropertyName("billable")]
+	public required bool IsBillable { get; set; }
 
 	/// <summary>
-	/// active: whether the project is archived or not (boolean, by default true)
+	/// Whether project is accessible for only project users or for all workspace users (boolean, default true)
 	/// </summary>
-	[JsonProperty(PropertyName = "active")]
-	public bool? IsActive { get; set; }
+	[JsonPropertyName("is_private")]
+	public required bool IsPrivate { get; set; }
 
 	/// <summary>
-	/// template: whether the project can be used as a template (boolean, not required)
+	/// Whether the project is archived
 	/// </summary>
-	[JsonProperty(PropertyName = "template")]
-	public bool? IsTemplateable { get; set; }
+	[JsonPropertyName("active")]
+	public required bool IsActive { get; set; }
 
 	/// <summary>
-	/// at: timestamp that is sent in the response for PUT, indicates the time task was last updated
+	/// Whether the project can be used as a template
 	/// </summary>
-	[JsonProperty(PropertyName = "at")]
-	public string? UpdatedOn { get; set; }
+	[JsonPropertyName("template")]
+	public required bool IsTemplateable { get; set; }
 
 	/// <summary>
-	/// created_at: timestamp indicating when the project was created (UTC time), read-only
+	/// Timestamp that is sent in the response for PUT, indicates the time task was last updated
 	/// </summary>
-	[JsonProperty(PropertyName = "created_at")]
-	public string? CreatedOn { get; set; }
+	[JsonPropertyName("at")]
+	public required string LastModified { get; set; }
 
 	/// <summary>
-	/// color: a color
+	/// Timestamp indicating when the project was created, read-only
 	/// </summary>
-	[JsonProperty(PropertyName = "color")]
-	public string? Color { get; set; }
+	[JsonPropertyName("created_at")]
+	public required DateTimeOffset Created { get; set; }
 
 	/// <summary>
-	/// auto_estimates: whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours' (boolean, default false, not required, premium functionality)
+	/// Timestamp indicating when the project started
 	/// </summary>
-	[JsonProperty(PropertyName = "auto_estimates")]
-	public bool? IsAutoEstimates { get; set; }
+	[JsonPropertyName("start_date")]
+	public required DateTimeOffset StartDate { get; set; }
 
 	/// <summary>
-	/// estimated_hours: if auto_estimates is true then the sum of task estimations is returned, otherwise user inserted hours (integer, not required, premium functionality)
+	/// Timestamp indicating when the project ends
 	/// </summary>
-	[JsonProperty(PropertyName = "estimated_hours")]
+	[JsonPropertyName("end_date")]
+	public DateTimeOffset? EndDate { get; set; }
+
+	/// <summary>
+	/// The project status
+	/// </summary>
+	[JsonPropertyName("status")]
+	public required ProjectStatus Status { get; set; }
+
+	/// <summary>
+	/// Timestamp indicating when the project was deleted (or null if not deleted)
+	/// </summary>
+	[JsonPropertyName("server_deleted_at")]
+	public required DateTimeOffset? ServerDeletedAt { get; set; }
+
+	/// <summary>
+	/// Timestamp indicating when the rate was last updated
+	/// </summary>
+	[JsonPropertyName("rate_last_updated")]
+	public required DateTimeOffset? RateLastUpdated { get; set; }
+
+	/// <summary>
+	/// Whether the project is recurring
+	/// </summary>
+	[JsonPropertyName("recurring")]
+	public required bool Recurring { get; set; }
+
+	/// <summary>
+	/// If the project is recurring, the recurrence parameters
+	/// </summary>
+	[JsonPropertyName("recurring_parameters")]
+	public required ICollection<RecurringParameter> RecurringParameters { get; set; }
+
+	/// <summary>
+	/// Whether the project has a fixed fee
+	/// </summary>
+	[JsonPropertyName("fixed_fee")]
+	public required bool? IsFixedFee { get; set; }
+
+	/// <summary>
+	/// A color
+	/// </summary>
+	[JsonPropertyName("color")]
+	public required string Color { get; set; }
+
+	/// <summary>
+	/// Whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours' (boolean, default false, not required, premium functionality)
+	/// </summary>
+	[JsonPropertyName("auto_estimates")]
+	public required bool IsAutoEstimates { get; set; }
+
+	/// <summary>
+	/// If auto_estimates is true then the sum of task estimations is returned, otherwise user inserted hours (integer, not required, premium functionality)
+	/// </summary>
+	[JsonPropertyName("estimated_hours")]
 	public int? EstimatedHours { get; set; }
 
 	/// <summary>
-	/// actual_houts: The number of actual hours spent
+	/// If auto_estimates is true then the sum of task estimations is returned, otherwise user inserted seconds (integer, not required, premium functionality)
 	/// </summary>
-	[JsonProperty(PropertyName = "actual_hours")]
+	[JsonPropertyName("estimated_seconds")]
+	public int? EstimatedSeconds { get; set; }
+
+	/// <summary>
+	/// The number of actual hours spent
+	/// </summary>
+	[JsonPropertyName("actual_hours")]
 	public double? ActualHours { get; set; }
 
 	/// <summary>
-	/// template_id: id of the template project used on current project's creation
+	/// The number of actual seconds spent
 	/// </summary>
-	[JsonProperty(PropertyName = "template_id")]
+	[JsonPropertyName("actual_seconds")]
+	public double? ActualSeconds { get; set; }
+
+	/// <summary>
+	/// The current period
+	/// </summary>
+	[JsonPropertyName("current_period")]
+	public Period? CurrentPeriod { get; set; }
+
+	/// <summary>
+	/// Id of the template project used on current project's creation
+	/// </summary>
+	[JsonPropertyName("template_id")]
 	public long? TemplateId { get; set; }
 
 	/// <summary>
-	/// rate: hourly rate of the project (float, not required, premium functionality)
+	/// Hourly rate of the project (float, not required, premium functionality)
 	/// </summary>
-	[JsonProperty(PropertyName = "rate")]
+	[JsonPropertyName("rate")]
 	public double? HourlyRate { get; set; }
 
 	/// <summary>
-	/// currency: hourly rate currency of the project
+	/// Hourly rate currency of the project
 	/// </summary>
-	[JsonProperty(PropertyName = "currency")]
-	public string? Currency { get; set; }
-
-	/// <summary>
-	/// color: a color
-	/// </summary>
-	[JsonProperty(PropertyName = "hex_color")]
-	public string? HexColor { get; set; }
+	[JsonPropertyName("currency")]
+	public required string Currency { get; set; }
 
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }

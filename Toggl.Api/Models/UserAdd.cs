@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -7,9 +7,9 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class UserAdd : Item
 {
-	[JsonProperty(PropertyName = "email")]
+	[JsonPropertyName("email")]
 	public string? Email { get; set; }
 
-	[JsonProperty(PropertyName = "timezone")]
+	[JsonPropertyName("timezone")]
 	public string? Timezone { get; set; }
 }

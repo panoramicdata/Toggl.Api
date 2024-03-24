@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace Toggl.Api.Models;
@@ -8,18 +8,18 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class UserExtended : User
 {
-	[JsonProperty(PropertyName = "time_entries")]
+	[JsonPropertyName("time_entries")]
 	public List<TimeEntry>? TimeEntries { get; set; }
 
-	[JsonProperty(PropertyName = "projects")]
+	[JsonPropertyName("projects")]
 	public List<Project>? Projects { get; set; }
 
-	[JsonProperty(PropertyName = "tags")]
+	[JsonPropertyName("tags")]
 	public List<Tag>? Tags { get; set; }
 
-	[JsonProperty(PropertyName = "workspaces")]
+	[JsonPropertyName("workspaces")]
 	public List<Workspace>? Workspaces { get; set; }
 
-	[JsonProperty(PropertyName = "clients")]
+	[JsonPropertyName("clients")]
 	public List<Client>? Clients { get; set; }
 }

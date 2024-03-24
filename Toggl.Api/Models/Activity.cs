@@ -1,22 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
 public class Activity : Item
 {
-	[JsonProperty(PropertyName = "user_id")]
+	[JsonPropertyName("user_id")]
 	public long UserId { get; set; }
 
-	[JsonProperty(PropertyName = "project_id")]
+	[JsonPropertyName("project_id")]
 	public long ProjectId { get; set; }
 
-	[JsonProperty(PropertyName = "duration")]
+	[JsonPropertyName("duration")]
 	public int Duration { get; set; }
 
-	[JsonProperty(PropertyName = "description")]
+	[JsonPropertyName("description")]
 	public string? Description { get; set; }
 
-	[JsonProperty(PropertyName = "stop")]
-	public DateTime Stop { get; set; }
+	[JsonPropertyName("stop")]
+	public DateTimeOffset Stop { get; set; }
 }

@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit.Abstractions;
@@ -16,16 +17,22 @@ namespace Toggl.Api.Test;
 public class TogglTest
 {
 	protected ILogger Logger { get; }
+
 	protected TogglClient TogglClient { get; }
+
 	protected Configuration Configuration { get; }
 
 	protected TogglTest(ITestOutputHelper iTestOutputHelper)
 	{
-		Logger = iTestOutputHelper.BuildLogger();
+		Logger = iTestOutputHelper.BuildLogger(LogLevel.Debug);
 		Configuration = LoadConfiguration("appsettings.json");
 		TogglClient = new TogglClient(new TogglClientOptions
 		{
-			Key = Configuration.ApiKey
+			Key = Configuration.ApiKey,
+			Logger = Logger,
+			// Find missing properties during unit testing
+			// Note that this is NOT the default behavior, so changes to the API won't cause backward compatibility issues
+			JsonUnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
 		});
 	}
 

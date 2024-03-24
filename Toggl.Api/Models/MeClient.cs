@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -11,37 +11,37 @@ public class MeClient : NamedIdentifiedItem
 	/// <summary>
 	/// IsArchived is true if the client is archived
 	/// </summary>
-	[JsonProperty(PropertyName = "archived")]
+	[JsonPropertyName("archived")]
 	public required bool IsArchived { get; set; }
 
 	/// <summary>
 	/// When was the last update
 	/// </summary>
-	[JsonProperty(PropertyName = "at")]
+	[JsonPropertyName("at")]
 	public required DateTimeOffset LastModified { get; set; }
 
 	/// <summary>
 	/// CreatorID is the ID of the user who created the client
 
 	/// </summary>
-	[JsonProperty(PropertyName = "creator_id")]
+	[JsonPropertyName("creator_id")]
 	public required int CreatorId { get; set; }
 
 	/// <summary>
 	/// List of authorization permissions for this client.
 	/// </summary>
-	[JsonProperty(PropertyName = "permissions")]
-	public required string permissions { get; set; }
+	[JsonPropertyName("permissions")]
+	public string? Permissions { get; set; }
 
 	/// <summary>
 	/// When was deleted, null if not deleted
 	/// </summary>
-	[JsonProperty(PropertyName = "server_deleted_at")]
+	[JsonPropertyName("server_deleted_at")]
 	public DateTimeOffset? ServerDeletedAt { get; set; }
 
 	/// <summary>
 	/// Workspace ID
 	/// </summary>
-	[JsonProperty(PropertyName = "wid")]
+	[JsonPropertyName("wid")]
 	public long WorkspaceId { get; set; }
 }

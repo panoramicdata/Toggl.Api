@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -8,24 +8,24 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class ProjectUser : IdentifiedItem
 {
-	[JsonProperty(PropertyName = "pid")]
+	[JsonPropertyName("pid")]
 	public long ProjectId { get; set; }
 
-	[JsonProperty(PropertyName = "wid")]
+	[JsonPropertyName("wid")]
 	public long WorkspaceId { get; set; }
 
-	[JsonProperty(PropertyName = "uid")]
+	[JsonPropertyName("uid")]
 	public long UserId { get; set; }
 
-	[JsonProperty(PropertyName = "manager")]
+	[JsonPropertyName("manager")]
 	public bool IsManager { get; set; }
 
-	[JsonProperty(PropertyName = "at")]
+	[JsonPropertyName("at")]
 	public DateTime? UpdatedOn { get; set; }
 
 	/// <summary>
 	/// rate: hourly rate of the project (float, not required, premium functionality)
 	/// </summary>
-	[JsonProperty(PropertyName = "rate")]
+	[JsonPropertyName("rate")]
 	public double? HourlyRate { get; set; }
 }

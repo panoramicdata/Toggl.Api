@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -7,39 +7,39 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class UserEdit : Item
 {
-	[JsonProperty(PropertyName = "fullname")]
+	[JsonPropertyName("fullname")]
 	public string? FullName { get; set; }
 
-	[JsonProperty(PropertyName = "email")]
+	[JsonPropertyName("email")]
 	public string? Email { get; set; }
 
-	[JsonProperty(PropertyName = "send_product_emails")]
+	[JsonPropertyName("send_product_emails")]
 	public bool? IsSendProductEmails { get; set; }
 
-	[JsonProperty(PropertyName = "send_weekly_report")]
+	[JsonPropertyName("send_weekly_report")]
 	public bool? IsSendWeeklyReport { get; set; }
 
-	[JsonProperty(PropertyName = "send_timer_notifications")]
+	[JsonPropertyName("send_timer_notifications")]
 	public bool? IsSendTimerNotifications { get; set; }
 
-	[JsonProperty(PropertyName = "store_start_and_stop_time")]
+	[JsonPropertyName("store_start_and_stop_time")]
 	public bool? IsStartStopTime { get; set; }
 
-	[JsonProperty(PropertyName = "beginning_of_week")]
+	[JsonPropertyName("beginning_of_week")]
 	public int? BeginningOfWeek { get; set; }
 
-	[JsonProperty(PropertyName = "timezone")]
+	[JsonPropertyName("timezone")]
 	public string? Timezone { get; set; }
 
-	[JsonProperty(PropertyName = "timeofday_format")]
+	[JsonPropertyName("timeofday_format")]
 	public string? TimeOfDayFormat { get; set; }
 
-	[JsonProperty(PropertyName = "date_format")]
+	[JsonPropertyName("date_format")]
 	public string? DateFormat { get; set; }
 
-	[JsonProperty(PropertyName = "current_password")]
+	[JsonPropertyName("current_password")]
 	public string? CurrentPassword { get; set; }
 
-	[JsonProperty(PropertyName = "password")]
+	[JsonPropertyName("password")]
 	public string? Password { get; set; }
 }

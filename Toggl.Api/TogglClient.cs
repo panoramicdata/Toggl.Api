@@ -1,6 +1,8 @@
 ﻿using Refit;
 using System;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Toggl.Api.Interfaces;
 
 namespace Toggl.Api;
@@ -25,8 +27,22 @@ public class TogglClient : IDisposable
 			Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds)
 		};
 
-		Clients = RestService.For<IClients>(_httpClient);
-		Me = RestService.For<IMe>(_httpClient);
+		var refitSettings = new RefitSettings()
+		{
+			ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
+			{
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				WriteIndented = true,
+				UnmappedMemberHandling = options.JsonUnmappedMemberHandling,
+				Converters =
+				{
+					new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+				}
+			})
+		};
+
+		Clients = RestService.For<IClients>(_httpClient, refitSettings);
+		Me = RestService.For<IMe>(_httpClient, refitSettings);
 		//Projects = RestService.For<IProjects>(_httpClient);
 		//ProjectUsers = RestService.For<IProjectUsers>(_httpClient);
 		//Reports = RestService.For<IReports>(_httpClient);
@@ -34,7 +50,7 @@ public class TogglClient : IDisposable
 		//Tasks = RestService.For<ITasks>(_httpClient);
 		//TimeEntries = RestService.For<ITimeEntries>(_httpClient);
 		//Users = RestService.For<IUsers>(_httpClient);
-		Workspaces = RestService.For<IWorkspaces>(_httpClient);
+		Workspaces = RestService.For<IWorkspaces>(_httpClient, refitSettings);
 	}
 
 	/// <summary>

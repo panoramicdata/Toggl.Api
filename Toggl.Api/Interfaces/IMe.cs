@@ -21,7 +21,7 @@ public interface IMe
 	/// <returns></returns>
 	[Get("/api/v9/me")]
 	Task<Me> GetAsync(
-		[AliasAs("with_related_data")] bool? withRelatedData,
+		[AliasAs("with_related_data")] bool withRelatedData,
 		CancellationToken cancellationToken
 		);
 
@@ -47,7 +47,7 @@ public interface IMe
 	/// <returns></returns>
 	[Get("/api/v9/me/clients")]
 	Task<ICollection<MeClient>> GetClientsAsync(
-		[AliasAs("since")] long sinceUnixTimestampSeconds,
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken
 		);
 
@@ -106,7 +106,7 @@ public interface IMe
 	[Get("/api/v9/me/projects")]
 	Task<ICollection<Project>> GetProjectsAsync(
 		[AliasAs("include_archived")] bool includeArchived,
-		[AliasAs("since")] long sinceUnixTimestampSeconds,
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken
 		);
 
@@ -119,11 +119,11 @@ public interface IMe
 	/// <param name="perPage">Number of items per page, default 201.</param>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	[Put("/api/v9/me/projects/paginated")]
-	Task<ICollection<Project>> GetProjectsAsync(
-		[AliasAs("start_project_id")] bool startProjectId,
-		[AliasAs("since")] long sinceUnixTimestampSeconds,
-		[AliasAs("per_page")] int perPage,
+	[Get("/api/v9/me/projects/paginated")]
+	Task<ICollection<Project>> GetProjectsPaginatedAsync(
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
+		[AliasAs("start_project_id")] int? startProjectId,
+		[AliasAs("per_page")] int? perPage,
 		CancellationToken cancellationToken
 		);
 
@@ -134,9 +134,9 @@ public interface IMe
 	/// <param name="sinceUnixTimestampSeconds">Retrieve projects created/modified/deleted since this date using UNIX timestamp.</param>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	[Put("/api/v9/me/tags")]
-	Task<ICollection<Tag>> GetProjectsAsync(
-		[AliasAs("since")] long sinceUnixTimestampSeconds,
+	[Get("/api/v9/me/tags")]
+	Task<ICollection<Tag>> GetTagsAsync(
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken
 		);
 
@@ -148,9 +148,9 @@ public interface IMe
 	/// <param name="includeInactive">	Include tasks marked as done.</param>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	[Put("/api/v9/me/tasks")]
+	[Get("/api/v9/me/tasks")]
 	Task<ICollection<Models.Task>> GetTasksAsync(
-		[AliasAs("since")] long sinceUnixTimestampSeconds,
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		[AliasAs("include_not_active")] bool includeInactive,
 		CancellationToken cancellationToken
 		);
@@ -161,7 +161,7 @@ public interface IMe
 	/// </summary>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	[Put("/api/v9/me/web-timer")]
+	[Get("/api/v9/me/web-timer")]
 	Task GetWebTimerAsync(
 		CancellationToken cancellationToken
 		);
@@ -173,7 +173,7 @@ public interface IMe
 	/// <param name="sinceUnixTimestampSeconds">Retrieve projects created/modified/deleted since this date using UNIX timestamp.</param>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	[Put("/api/v9/me/workspaces")]
+	[Get("/api/v9/me/workspaces")]
 	Task<ICollection<Workspace>> GetWorkspacesAsync(
 		[AliasAs("since")] long sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken

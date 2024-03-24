@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
 public class DetailedReport : Report
 {
-	[JsonProperty(PropertyName = "data")]
+	[JsonPropertyName("data")]
 	public List<ReportTimeEntry>? Data { get; set; }
 
-	[JsonProperty(PropertyName = "total_count")]
+	[JsonPropertyName("total_count")]
 	public long? TotalCount { get; set; }
 
-	[JsonProperty(PropertyName = "per_page")]
+	[JsonPropertyName("per_page")]
 	public long? PerPage { get; set; }
 }

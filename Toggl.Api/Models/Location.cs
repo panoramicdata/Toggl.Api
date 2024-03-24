@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -10,30 +10,30 @@ public class Location : Item
 	/// <summary>
 	/// The city
 	/// </summary>
-	[JsonProperty(PropertyName = "city")]
+	[JsonPropertyName("city")]
 	public required string city { get; set; }
 
 	/// <summary>
 	/// The city lat/long
 	/// </summary>
-	[JsonProperty(PropertyName = "city_lat_long")]
+	[JsonPropertyName("city_lat_long")]
 	public required string CityLatLong { get; set; }
 
 	/// <summary>
 	/// The country code
 	/// </summary>
-	[JsonProperty(PropertyName = "country_code")]
+	[JsonPropertyName("country_code")]
 	public required string CountryCode { get; set; }
 
 	/// <summary>
 	/// The country name
 	/// </summary>
-	[JsonProperty(PropertyName = "country_name")]
+	[JsonPropertyName("country_name")]
 	public required string CountryName { get; set; }
 
 	/// <summary>
 	/// The state
 	/// </summary>
-	[JsonProperty(PropertyName = "state")]
+	[JsonPropertyName("state")]
 	public required string State { get; set; }
 }

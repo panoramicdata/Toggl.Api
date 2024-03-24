@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.QueryObjects;
 
 public class DetailedReportParams : ReportParams
 {
-	[JsonProperty(PropertyName = "page")]
+	[JsonPropertyName("page")]
 	public long? Page { get; set; }
 }

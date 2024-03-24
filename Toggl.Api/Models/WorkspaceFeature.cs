@@ -1,22 +1,22 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
 /// <summary>
 /// https://engineering.toggl.com/docs/api/me#get-features
 /// </summary>
-public class WorkspaceFeature : NamedItem
+public class WorkspaceFeature : Item
 {
 	/// <summary>
 	/// The features
 	/// </summary>
-	[JsonProperty(PropertyName = "features")]
+	[JsonPropertyName("features")]
 	public required ICollection<Feature> Features { get; set; }
 
 	/// <summary>
 	/// The workspace id
 	/// </summary>
-	[JsonProperty(PropertyName = "workspace_id")]
+	[JsonPropertyName("workspace_id")]
 	public required int WorkspaceId { get; set; }
 }

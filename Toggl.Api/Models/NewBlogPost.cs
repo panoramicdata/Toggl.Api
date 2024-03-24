@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
 public class NewBlogPost : Item
 {
-	[JsonProperty("title")]
+	[JsonPropertyName("title")]
 	public string? Title { get; set; }
 
-	[JsonProperty("url")]
+	[JsonPropertyName("url")]
 	public string? Url { get; set; }
 
-	[JsonProperty("category")]
+	[JsonPropertyName("category")]
 	public string? Category { get; set; }
 
-	[JsonProperty("pub_date")]
+	[JsonPropertyName("pub_date")]
 	public string? PubDate { get; set; }
 }

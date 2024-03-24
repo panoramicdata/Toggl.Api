@@ -2,63 +2,63 @@
 
 namespace Toggl.Api.Models;
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Globalization;
 
 public class ReportTimeEntry : IdentifiedItem
 {
-	[JsonProperty(PropertyName = "pid")]
+	[JsonPropertyName("pid")]
 	public long? ProjectId { get; set; }
 
-	[JsonProperty(PropertyName = "project")]
+	[JsonPropertyName("project")]
 	public string? ProjectName { get; set; }
 
-	[JsonProperty(PropertyName = "client")]
+	[JsonPropertyName("client")]
 	public string? ClientName { get; set; }
 
-	[JsonProperty(PropertyName = "tid")]
+	[JsonPropertyName("tid")]
 	public long? TaskId { get; set; }
 
-	[JsonProperty(PropertyName = "task")]
+	[JsonPropertyName("task")]
 	public string? TaskName { get; set; }
 
-	[JsonProperty(PropertyName = "uid")]
+	[JsonPropertyName("uid")]
 	public long? UserId { get; set; }
 
-	[JsonProperty(PropertyName = "user")]
+	[JsonPropertyName("user")]
 	public string? UserName { get; set; } = null;
 
-	[JsonProperty(PropertyName = "description")]
+	[JsonPropertyName("description")]
 	public string? Description { get; set; }
 
-	[JsonProperty(PropertyName = "start")]
+	[JsonPropertyName("start")]
 	//[JsonConverter(typeof(IsoDateTimeConverter))]
 	//public DateTime? Start { get; set; }
 	public string? Start { get; set; }
 
-	[JsonProperty(PropertyName = "end")]
+	[JsonPropertyName("end")]
 	//[JsonConverter(typeof(IsoDateTimeConverter))]
 	//public DateTime? Stop { get; set; }
 	public string? Stop { get; set; } = null;
 
-	[JsonProperty(PropertyName = "dur")]
+	[JsonPropertyName("dur")]
 	public long? Duration { get; set; }
 
-	[JsonProperty(PropertyName = "updated")]
+	[JsonPropertyName("updated")]
 	//[JsonConverter(typeof(IsoDateTimeConverter))]
 	//public DateTime? Stop { get; set; }
 	public string? Updated { get; set; } = null;
 
-	[JsonProperty(PropertyName = "use_stop")]
+	[JsonPropertyName("use_stop")]
 	public bool? UseStop { get; set; }
 
-	[JsonProperty(PropertyName = "is_billable")]
+	[JsonPropertyName("is_billable")]
 	public bool? IsBillable { get; set; }
 
-	[JsonProperty(PropertyName = "billable")]
+	[JsonPropertyName("billable")]
 	public long? Billable { get; set; }
 
-	[JsonProperty(PropertyName = "tags")]
+	[JsonPropertyName("tags")]
 	public List<string>? TagNames { get; set; } = null;
 
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Start: {1}, Stop: {2}, TaskId: {3}", Id, Start, Stop, TaskId);

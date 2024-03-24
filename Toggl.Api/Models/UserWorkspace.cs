@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -10,24 +10,24 @@ public class UserWorkspace : NamedItem
 	/// <summary>
 	/// Whether requestor is an admin of the workspace
 	/// </summary>
-	[JsonProperty(PropertyName = "admin")]
+	[JsonPropertyName("admin")]
 	public bool IsAdmin { get; set; }
 
 	/// <summary>
 	/// Whether requestor is inactive
 	/// </summary>
-	[JsonProperty(PropertyName = "inactive")]
+	[JsonPropertyName("inactive")]
 	public bool IsInactive { get; set; }
 
 	/// <summary>
 	/// The user's role in the workspace
 	/// </summary>
-	[JsonProperty(PropertyName = "role")]
+	[JsonPropertyName("role")]
 	public required string Role { get; set; }
 
 	/// <summary>
 	/// The workspace id
 	/// </summary>
-	[JsonProperty(PropertyName = "workspace_id")]
+	[JsonPropertyName("workspace_id")]
 	public long WorkspaceId { get; set; }
 }

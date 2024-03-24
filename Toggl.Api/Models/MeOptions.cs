@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -10,6 +10,6 @@ public class MeOptions
 	/// <summary>
 	/// Additional properties
 	/// </summary>
-	[JsonProperty(PropertyName = "additionalProperties")]
+	[JsonPropertyName("additionalProperties")]
 	public required object AdditionalProperties { get; set; }
 }

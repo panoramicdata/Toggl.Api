@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
 public class Dashboard : Item
 {
-	[JsonProperty(PropertyName = "most_active_user")]
+	[JsonPropertyName("most_active_user")]
 	public MostActiveUser[] MostActiveUser { get; set; } = [];
 
-	[JsonProperty(PropertyName = "activity")]
+	[JsonPropertyName("activity")]
 	public Activity[] Activity { get; set; } = [];
 }

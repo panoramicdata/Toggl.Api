@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -10,6 +10,6 @@ public class ClientCreationDto : NamedItem
 	/// <summary>
 	/// Workspace ID
 	/// </summary>
-	[JsonProperty(PropertyName = "wid")]
+	[JsonPropertyName("wid")]
 	public long WorkspaceId { get; set; }
 }

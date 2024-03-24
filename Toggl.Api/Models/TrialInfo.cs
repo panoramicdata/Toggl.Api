@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System;
 
 namespace Toggl.Api.Models;
@@ -11,36 +11,36 @@ public class TrialInfo
 	/// <summary>
 	/// 	CanHaveInitialTrial is true if neither the organization nor the owner has never had a trial before
 	/// </summary>
-	[JsonProperty(PropertyName = "can_have_trial")]
+	[JsonPropertyName("can_have_trial")]
 	public bool CanHaveTrial { get; set; }
 
 	/// <summary>
 	/// 	What was the previous plan before the trial
 	/// </summary>
-	[JsonProperty(PropertyName = "last_pricing_plan_id")]
+	[JsonPropertyName("last_pricing_plan_id")]
 	public int? LastPricingPlanId { get; set; }
 
 	/// <summary>
 	/// 	When the trial payment is due
 	/// </summary>
-	[JsonProperty(PropertyName = "next_payment_date")]
+	[JsonPropertyName("next_payment_date")]
 	public DateTimeOffset? NextPaymentDate { get; set; }
 
 	/// <summary>
 	/// 	Whether the organization's subscription is currently on trial
 	/// </summary>
-	[JsonProperty(PropertyName = "trial")]
+	[JsonPropertyName("trial")]
 	public bool IsTrial { get; set; }
 
 	/// <summary>
 	/// 	When a trial is available for this organization
 	/// </summary>
-	[JsonProperty(PropertyName = "trial_available")]
+	[JsonPropertyName("trial_available")]
 	public bool IsTrialAvailable { get; set; }
 
 	/// <summary>
 	/// 	When the trial ends
 	/// </summary>
-	[JsonProperty(PropertyName = "trial_end_date")]
+	[JsonPropertyName("trial_end_date")]
 	public DateTimeOffset? TrialEndDate { get; set; }
 }

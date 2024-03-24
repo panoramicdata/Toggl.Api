@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -7,6 +7,6 @@ public abstract class NamedIdentifiedItem : IdentifiedItem
 	/// <summary>
 	/// The ID
 	/// </summary>
-	[JsonProperty(PropertyName = "name")]
+	[JsonPropertyName("name")]
 	public required string Name { get; set; }
 }

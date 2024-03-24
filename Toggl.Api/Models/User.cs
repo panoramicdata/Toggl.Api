@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System;
 
 namespace Toggl.Api.Models;
@@ -8,96 +8,96 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class User : IdentifiedItem
 {
-	[JsonProperty(PropertyName = "api_token")]
+	[JsonPropertyName("api_token")]
 	public string? ApiToken { get; set; }
 
-	[JsonProperty(PropertyName = "default_wid")]
+	[JsonPropertyName("default_wid")]
 	public long? DefaultWorkspaceId { get; set; }
 
-	[JsonProperty(PropertyName = "email")]
+	[JsonPropertyName("email")]
 	public string? Email { get; set; }
 
-	[JsonProperty(PropertyName = "fullname")]
+	[JsonPropertyName("fullname")]
 	public string? FullName { get; set; }
 
-	[JsonProperty(PropertyName = "jquery_timeofday_format")]
+	[JsonPropertyName("jquery_timeofday_format")]
 	public string? JQueryTimeofdayFormat { get; set; }
 
-	[JsonProperty(PropertyName = "jquery_date_format")]
+	[JsonPropertyName("jquery_date_format")]
 	public string? JqueryDateFormat { get; set; }
 
-	[JsonProperty(PropertyName = "timeofday_format")]
+	[JsonPropertyName("timeofday_format")]
 	public string? TimeOfDayFormat { get; set; }
 
-	[JsonProperty(PropertyName = "date_format")]
+	[JsonPropertyName("date_format")]
 	public string? DateFormat { get; set; }
 
-	[JsonProperty(PropertyName = "store_start_and_stop_time")]
+	[JsonPropertyName("store_start_and_stop_time")]
 	public bool? IsStartStopTime { get; set; }
 
-	[JsonProperty(PropertyName = "beginning_of_week")]
+	[JsonPropertyName("beginning_of_week")]
 	public int? BeginningOfWeek { get; set; }
 
-	[JsonProperty(PropertyName = "language")]
+	[JsonPropertyName("language")]
 	public string? Language { get; set; }
 
-	[JsonProperty(PropertyName = "image_url")]
+	[JsonPropertyName("image_url")]
 	public string? ImageUrl { get; set; }
 
-	[JsonProperty(PropertyName = "sidebar_piechart")]
+	[JsonPropertyName("sidebar_piechart")]
 	public bool? IsSidebarPiechart { get; set; }
 
-	[JsonProperty(PropertyName = "at")]
+	[JsonPropertyName("at")]
 	public DateTime? UpdatedOn { get; set; }
 
-	[JsonProperty(PropertyName = "created_at")]
+	[JsonPropertyName("created_at")]
 	public DateTime? CreatedOn { get; set; }
 
-	[JsonProperty(PropertyName = "retention")]
+	[JsonPropertyName("retention")]
 	public int? Retention { get; set; }
 
-	[JsonProperty(PropertyName = "record_timeline")]
+	[JsonPropertyName("record_timeline")]
 	public bool? IsRecordTimeline { get; set; }
 
-	[JsonProperty(PropertyName = "render_timeline")]
+	[JsonPropertyName("render_timeline")]
 	public bool? IsRenderTimeline { get; set; }
 
-	[JsonProperty(PropertyName = "timeline_enabled")]
+	[JsonPropertyName("timeline_enabled")]
 	public bool? IsTimelineEnabled { get; set; }
 
-	[JsonProperty(PropertyName = "timeline_experiment")]
+	[JsonPropertyName("timeline_experiment")]
 	public bool? IsTimelineExperiment { get; set; }
 
-	[JsonProperty(PropertyName = "manual_mode")]
+	[JsonPropertyName("manual_mode")]
 	public bool? IsManualMode { get; set; }
 
-	[JsonProperty(PropertyName = "new_blog_post")]
+	[JsonPropertyName("new_blog_post")]
 	public NewBlogPost? NewBlogPost { get; set; }
 
-	[JsonProperty(PropertyName = "should_upgrade")]
+	[JsonPropertyName("should_upgrade")]
 	public bool? IsShouldUpgrade { get; set; }
 
-	[JsonProperty(PropertyName = "show_offer")]
+	[JsonPropertyName("show_offer")]
 	public bool? IsShowOffer { get; set; }
 
-	[JsonProperty(PropertyName = "share_experiment")]
+	[JsonPropertyName("share_experiment")]
 	public bool? IsShareExperiment { get; set; }
 
-	[JsonProperty(PropertyName = "achievements_enabled")]
+	[JsonPropertyName("achievements_enabled")]
 	public bool? IsAchievementsEnabled { get; set; }
 
-	[JsonProperty(PropertyName = "timezone")]
+	[JsonPropertyName("timezone")]
 	public string? Timezone { get; set; }
 
-	[JsonProperty(PropertyName = "openid_enabled")]
+	[JsonPropertyName("openid_enabled")]
 	public bool? IsOpenidEnabled { get; set; }
 
-	[JsonProperty(PropertyName = "send_product_emails")]
+	[JsonPropertyName("send_product_emails")]
 	public bool? IsSendProductEmails { get; set; }
 
-	[JsonProperty(PropertyName = "send_weekly_report")]
+	[JsonPropertyName("send_weekly_report")]
 	public bool? IsSendWeeklyReport { get; set; }
 
-	[JsonProperty(PropertyName = "send_timer_notifications")]
+	[JsonPropertyName("send_timer_notifications")]
 	public bool? IsSendTimerNotifications { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
@@ -10,12 +10,12 @@ public class OrganizationCreationDto
 	/// <summary>
 	/// The name
 	/// </summary>
-	[JsonProperty(PropertyName = "name")]
+	[JsonPropertyName("name")]
 	public required string Name { get; set; }
 
 	/// <summary>
 	/// The workspace name
 	/// </summary>
-	[JsonProperty(PropertyName = "workspace_name")]
+	[JsonPropertyName("workspace_name")]
 	public required string WorkspaceName { get; set; }
 }
