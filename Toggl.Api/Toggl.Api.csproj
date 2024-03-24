@@ -24,7 +24,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 		<PackageReleaseNotes>
-			List of int64 items in URL parameters fixed
+			Initial release of v9 support.
 		</PackageReleaseNotes>
 	</PropertyGroup>
 
