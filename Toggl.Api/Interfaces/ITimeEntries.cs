@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Refit;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
@@ -8,79 +10,49 @@ namespace Toggl.Api.Interfaces;
 public interface ITimeEntries
 {
 	/// <summary>
-	/// List recent time entry services
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
+	/// Lists latest time entries.
+	/// https://engineering.toggl.com/docs/api/time_entries#get-timeentries
 	/// </summary>
+	/// <param name="includeMetaEntityData">Should the response contain data for meta entities</param>
+	/// <param name="includeSharingDetails">Include sharing details in the response</param>
+	/// <param name="since">Get entries modified since this date using UNIX timestamp, including deleted ones.</param>
+	/// <param name="before">Get entries with start time, before given date</param>
+	/// <param name="startDate">Get entries with start time, before this value</param>
+	/// <param name="endDate">	Get entries with start time, until this value</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	Task<List<TimeEntry>> ListRecent(CancellationToken cancellationToken);
+	[Get("/api/v9/me/time_entries")]
+	Task<ICollection<TimeEntry>> GetAsync(
+		[AliasAs("meta")] bool includeMetaEntityData,
+		[AliasAs("include_sharing")] bool includeSharingDetails,
+		[AliasAs("since")] DateTimeOffset? since,
+		[AliasAs("before")] DateTimeOffset? before,
+		[AliasAs("start_date")] DateTimeOffset? startDate,
+		[AliasAs("end_date")] DateTimeOffset? endDate,
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	/// List time entry services
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
+	/// Load running time entry for user ID.
+	/// https://engineering.toggl.com/docs/api/time_entries#get-get-current-time-entry
 	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	Task<List<TimeEntry>> GetAllAsync(CancellationToken cancellationToken);
+	[Get("/api/v9/me/time_entries/current")]
+	Task<TimeEntry> GetAsync(
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	/// List time entries
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entries-started-in-a-specific-time-range
+	/// Load time entry by ID that is accessible by the current user.
+	/// https://engineering.toggl.com/docs/api/time_entries#get-get-a-time-entry-by-id
 	/// </summary>
-	/// <param name="obj"></param>
+	/// <param name="timeEntryId">Should the response contain data for meta entities</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	Task<List<TimeEntry>> GetAllAsync(QueryObjects.TimeEntryParams obj, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Get the current time entry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-running-time-entry
-	/// </summary>
-	/// <returns></returns>
-	Task<TimeEntry> GetCurrentAsync(CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Get a time entry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#get-time-entry-details
-	/// </summary>
-	/// <param name="id"></param>
-	/// <returns></returns>
-	Task<TimeEntry> GetAsync(long id, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Add a time entry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#create-a-time-entry
-	/// </summary>
-	/// <param name="obj"></param>
-	/// <returns></returns>
-	Task<TimeEntry> CreateAsync(TimeEntry obj, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Start a TimeEntry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#start-a-time-entry
-	/// </summary>
-	/// <param name="obj">A TimeEntry object.</param>
-	/// <returns>The runnig TimeEntry.</returns>
-	Task<TimeEntry> StartAsync(TimeEntry obj, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Stop a TimeEntry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#stop-a-time-entry
-	/// </summary>
-	/// <param name="obj">A TimeEntry object.</param>
-	/// <returns>The stopped TimeEntry.</returns>
-	Task<TimeEntry> StopAsync(TimeEntry obj, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Edit a time entry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#update-a-time-entry
-	/// </summary>
-	/// <param name="obj"></param>
-	/// <returns></returns>
-	Task<TimeEntry> UpdateAsync(TimeEntry obj, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Delete a time entry
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/time_entries.md#delete-a-time-entry
-	/// </summary>
-	/// <param name="id"></param>
-	/// <returns></returns>
-	Task<bool> DeleteAsync(long id, CancellationToken cancellationToken);
+	[Get("/api/v9/me/time_entries/{time_entry_id}")]
+	Task<TimeEntry> GetAsync(
+		[AliasAs("time_entry_id")] long timeEntryId,
+		CancellationToken cancellationToken
+		);
 }
