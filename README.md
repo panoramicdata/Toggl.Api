@@ -10,3 +10,13 @@
 This is a .NET 8.0 library for the Toggl API.
 
 v9 support is provided in alpha only.  Many endpoints are currently missing.  You pull requests are welcome!
+
+## Contributing
+
+This project is developed using Refit and System.Text.Json.  It is a .NET 8.0 project.
+
+Add interfaces for new endpoints in the `Interfaces` folder.
+Add models in the `Models` folder.
+Add unit tests in the `Toggl.Api.Tests` project.
+
+Refer to the Toggl API documentation for more information on the endpoints and models here: https://engineering.toggl.com/docs/
