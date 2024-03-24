@@ -49,7 +49,7 @@ public class Me : IdentifiedItem
 	/// The default workspace id
 	/// </summary>
 	[JsonPropertyName("default_workspace_id")]
-	public required int DefaultWorkspaceId { get; set; }
+	public required long DefaultWorkspaceId { get; set; }
 
 	/// <summary>
 	/// Email

@@ -5,8 +5,8 @@ namespace Toggl.Api.Models;
 public enum SortDirection
 {
 	[JsonPropertyName("asc")]
-	Asc,
+	Ascending,
 
 	[JsonPropertyName("desc")]
-	Desc
+	Descending
 }

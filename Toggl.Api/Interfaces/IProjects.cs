@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Refit;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
@@ -8,10 +11,56 @@ namespace Toggl.Api.Interfaces;
 public interface IProjects
 {
 	/// <summary>
-	///List project services
-	/// https://www.toggl.com/public/api#get_projects
+	/// Get projects for given workspace.
+	/// https://engineering.toggl.com/docs/api/projects#get-workspaceprojects
 	/// </summary>
-	Task<List<Project>> GetAllAsync(long workspaceId, CancellationToken cancellationToken);
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="isActive">active</param>
+	/// <param name="since">Retrieve projects created/modified/deleted since this date using UNIX timestamp.</param>
+	/// <param name="isBillable">billable</param>
+	/// <param name="userIds">user_ids</param>
+	/// <param name="clientIds">client_ids</param>
+	/// <param name="groupIds">group_ids</param>
+	/// <param name="statuses">statuses</param>
+	/// <param name="nameContains">name</param>
+	/// <param name="page">page</param>
+	/// <param name="sortField">sort_field</param>
+	/// <param name="sortOrder">sort_order</param>
+	/// <param name="onlyTemplates">only_templates</param>
+	/// <param name="perPage">Number of items per page, default 151. Cannot exceed 200.</param>
+	/// <param name="cancellationToken">A cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/workspaces/{workspace_id}/projects")]
+	Task<ICollection<Project>> GetPageAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("isActive")] bool? isActive,
+		[AliasAs("since")] DateTimeOffset? since,
+		[AliasAs("billable")] bool? isBillable,
+		[AliasAs("user_ids")] ICollection<int>? userIds,
+		[AliasAs("client_ids")] ICollection<int>? clientIds,
+		[AliasAs("group_ids")] ICollection<int>? groupIds,
+		[AliasAs("statuses")] ICollection<ProjectStatus>? statuses,
+		[AliasAs("name")] string nameContains,
+		[AliasAs("page")] int page,
+		[AliasAs("sort_field")] string sortField,
+		[AliasAs("sort_order")] SortDirection sortOrder,
+		[AliasAs("only_templates")] bool onlyTemplates,
+		[AliasAs("per_page")][Range(1, 200)] int? perPage,
+		CancellationToken cancellationToken
+		);
 
-	Task<Project> GetAsync(long id, CancellationToken cancellationToken);
+	/// <summary>
+	/// Get project for given workspace.
+	/// https://engineering.toggl.com/docs/api/projects#get-workspaceproject
+	/// </summary>
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="projectId">Numeric ID of the project</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/workspaces/{workspace_id}/projects/{project_id}")]
+	Task<Project> GetAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		CancellationToken cancellationToken
+		);
 }

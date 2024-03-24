@@ -1,6 +1,4 @@
-using FluentAssertions;
-using System.Linq;
-using Toggl.Api.QueryObjects;
+﻿using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,35 +7,21 @@ namespace Toggl.Api.Test;
 public class ProjectTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async void List()
+	public async void Projects_GetPage_Succeeds()
 	{
-		var workspaceId = await GetWorkspaceIdAsync();
-
-		var projects = await TogglClient
-			.Projects
-			.GetAllAsync(workspaceId, default);
-
+		var projects = await GetProjectsPageAsync();
 		projects.Should().NotBeNullOrEmpty();
-		projects.Count(p => p.Name == Configuration.SampleProjectName).Should().Be(1);
 	}
 
 	[Fact]
-	public async void GetProjectReportDashboard()
+	public async void Projects_Get_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
-
-		var projects = await TogglClient
+		var projectId = await GetProjectIdAsync();
+		var project = await TogglClient
 			.Projects
-			.GetAllAsync(workspaceId, default);
-		var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
-		togglProject.Should().NotBeNull();
+			.GetAsync(workspaceId, projectId, default);
 
-		var projectReportDashboard = await TogglClient.Reports.DetailedAsync(new DetailedReportParams
-		{
-			UserAgent = "TogglAPI.Net",
-			WorkspaceId = workspaceId,
-		}, default);
-
-		projectReportDashboard.Should().NotBeNull();
+		project.Should().NotBeNull();
 	}
 }

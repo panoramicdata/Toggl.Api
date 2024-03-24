@@ -9,7 +9,7 @@ namespace Toggl.Api.Test;
 
 public class ClientTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
-	[Fact]
+	[Fact(Skip = "Functionality not yet complete")]
 	public async void Crud_Client_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();

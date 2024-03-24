@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Toggl.Api.Test;
 
 public class TogglTest
 {
+	private static ReportRequest? _reportRequest;
+	private long? _workspaceId;
+	private long? _projectId;
+
 	protected ILogger Logger { get; }
 
 	protected TogglClient TogglClient { get; }
@@ -61,11 +66,68 @@ public class TogglTest
 
 	protected async Task<long> GetWorkspaceIdAsync()
 	{
-		var me = await TogglClient
-			.Me
-			.GetAsync(true, default);
-		var workspaceId = me.Workspaces!.SingleOrDefault(w => w.Name == Configuration.SampleWorkspaceName)?.Id
-			?? throw new InvalidOperationException($"Missing {nameof(Workspace)} {Configuration.SampleWorkspaceName}");
-		return workspaceId;
+		if (_workspaceId is null)
+		{
+			var me = await TogglClient
+				.Me
+				.GetAsync(true, default);
+			_workspaceId = me.DefaultWorkspaceId;
+		}
+
+		return _workspaceId.Value;
+	}
+
+
+	protected async Task<long> GetProjectIdAsync()
+	{
+		if (_projectId is null)
+		{
+			var projects = await GetProjectsPageAsync();
+			_projectId = projects.First().Id;
+		}
+
+		return _projectId.Value;
+	}
+
+	protected static ReportRequest GetReportRequest()
+	{
+		if (_reportRequest is null)
+		{
+			var endDate = DateTime.Now.Date;
+			var startDate = endDate.AddMonths(-1);
+			var startDateOnly = new DateOnly(startDate.Date.Year, startDate.Date.Month, startDate.Date.Day);
+			var endDateOnly = new DateOnly(endDate.Date.Year, endDate.Date.Month, endDate.Date.Day);
+			_reportRequest = new ReportRequest
+			{
+				StartDate = startDateOnly,
+				EndDate = endDateOnly,
+				StartTime = TimeOnly.MinValue
+			};
+		}
+
+		return _reportRequest;
+	}
+
+	protected async Task<ICollection<Project>> GetProjectsPageAsync()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+		return await TogglClient
+				.Projects
+				.GetPageAsync(
+					workspaceId,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					"",
+					1,
+					"name",
+					SortDirection.Ascending,
+					false,
+					null,
+					default);
 	}
 }

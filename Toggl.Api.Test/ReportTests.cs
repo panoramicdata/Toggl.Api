@@ -1,8 +1,5 @@
 using FluentAssertions;
-using System;
 using System.Linq;
-using Toggl.Api.Extensions;
-using Toggl.Api.QueryObjects;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -11,59 +8,34 @@ namespace Toggl.Api.Test;
 public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async void List()
+	public async void Reports_GetWorkspaceProjectSummary_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
+		var reportRequest = GetReportRequest();
 
-		var projects = await TogglClient
-			.Projects
-			.GetAllAsync(workspaceId, default);
-
-		projects.Should().NotBeNullOrEmpty();
-
-		var togglProject = projects.SingleOrDefault(p => p.Name == Configuration.SampleProjectName);
-		togglProject.Should().NotBeNull();
-		togglProject.Id.Should().NotBe(0);
-
-		var utcNow = DateTime.UtcNow;
-		var endDateTime = new DateTime(utcNow.Year, utcNow.Month, 1);
-		var startDateTime = endDateTime.AddMonths(-1);
-
-		var detailedReport = await TogglClient
+		var report = await TogglClient
 			.Reports
-			.DetailedAsync(new DetailedReportParams
-			{
-				UserAgent = "TogglAPI.Net",
-				WorkspaceId = workspaceId,
-				Since = startDateTime.ToIsoDateStr(),
-				Until = endDateTime.ToIsoDateStr(),
-				ProjectIds = [togglProject!.Id],
-				Page = 1
-			}, default);
+			.GetWorkspaceProjectSummaryAsync(workspaceId, reportRequest, default);
 
-		detailedReport.Data.Should().NotBeNull();
+		report.Should().NotBeNullOrEmpty();
+	}
 
-		// Re-fetch the time entries
-		var timeEntryIds = detailedReport?.Data?.ConvertAll(d => d.Id);
-		timeEntryIds.Should().NotBeNull();
+	[Fact]
+	public async void Reports_GetProjectSummary_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+		var reportRequest = GetReportRequest();
 
-		var success = false;
-		foreach (var timeEntryId in timeEntryIds!)
+		var projects = await GetProjectsPageAsync();
+
+		// Test the last 10 projects
+		foreach (var project in projects.Reverse().Take(10))
 		{
-			try
-			{
-				var refetchedTimeEntry = await TogglClient
-					.TimeEntries
-					.GetAsync(timeEntryId, default);
-				refetchedTimeEntry.Id.Should().Be(timeEntryId);
-				success = true;
-			}
-			catch
-			{
-				// This happens, but should not happen all the time.
-			}
-		}
+			var report = await TogglClient
+			.Reports
+				.GetProjectSummaryAsync(workspaceId, project.Id, reportRequest, default);
 
-		success.Should().Be(true);
+			report.Should().NotBeNull();
+		}
 	}
 }
