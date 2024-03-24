@@ -8,3 +8,5 @@
 ## Description
 
 This is a .NET Standard 2.0 library for the Toggl API.
+
+v9 support is provided in alpha only.  Many endpoints are currently missing.  You pull requests are welcome!

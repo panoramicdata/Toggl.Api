@@ -22,6 +22,7 @@
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<PackageReleaseNotes>
 			Initial release of v9 support.
@@ -29,6 +30,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 		<None Include="Icon.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
