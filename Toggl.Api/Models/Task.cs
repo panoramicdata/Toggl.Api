@@ -1,34 +1,76 @@
-﻿using System.Text.Json.Serialization;
-using System;
-using System.Globalization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
 /// <summary>
 /// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md#tasks
 /// </summary>
-public class Task : IdentifiedItem
+public class Task : NamedIdentifiedItem
 {
-	[JsonPropertyName("name")]
-	public string? Name { get; set; }
+	/// <summary>
+	/// Whether the task is active
+	/// </summary>
+	[JsonPropertyName("active")]
+	public required bool IsActive { get; set; }
 
-	[JsonPropertyName("pid")]
-	public long? ProjectId { get; set; }
-
-	[JsonPropertyName("wid")]
-	public long? WorkspaceId { get; set; }
-
-	[JsonPropertyName("uid")]
-	public long? UserId { get; set; }
-
-	[JsonPropertyName("estimated_seconds")]
-	public int? EstimatedSeconds { get; set; }
-
-	[JsonPropertyName("is_active")]
-	public bool? IsActive { get; set; }
-
+	/// <summary>
+	/// When the task was created/last modified
+	/// </summary>
 	[JsonPropertyName("at")]
-	public DateTime? UpdatedOn { get; set; }
+	public required DateTimeOffset LastModified { get; set; }
 
-	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
+	/// <summary>
+	/// Estimation time for this task in seconds
+	/// </summary>
+	[JsonPropertyName("estimated_seconds")]
+	public required int? EstimatedSeconds { get; set; }
+
+	/// <summary>
+	/// Permissions
+	/// </summary>
+	[JsonPropertyName("permissions")]
+	public required string Permissions { get; set; }
+
+	/// <summary>
+	/// Project id
+	/// </summary>
+	[JsonPropertyName("project_id")]
+	public required int ProjectId { get; set; }
+
+	/// <summary>
+	/// Whether this is a recurring task
+	/// </summary>
+	[JsonPropertyName("recurring")]
+	public required int IsRecurring { get; set; }
+
+	/// <summary>
+	/// When the task was deleted (or null if not deleted)
+	/// </summary>
+	[JsonPropertyName("server_deleted_at")]
+	public required DateTimeOffset? ServerDeletedAt { get; set; }
+
+	/// <summary>
+	/// Task assignee, if set above this will be the toggl_account_id for that user
+	/// </summary>
+	[JsonPropertyName("toggl_accounts_id")]
+	public required string? TogglAccountsId { get; set; }
+
+	/// <summary>
+	/// The value tracked_seconds is in milliseconds, not in seconds.
+	/// </summary>
+	[JsonPropertyName("tracked_seconds")]
+	public required int TrackedMilliseconds { get; set; }
+
+	/// <summary>
+	/// When the task was deleted (or null if not deleted)
+	/// </summary>
+	[JsonPropertyName("user_id")]
+	public required int? UserId { get; set; }
+
+	/// <summary>
+	/// Workspace ID
+	/// </summary>
+	[JsonPropertyName("workspace_id")]
+	public required long? WorkspaceId { get; set; }
 }

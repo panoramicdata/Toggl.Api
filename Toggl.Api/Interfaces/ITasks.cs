@@ -1,40 +1,58 @@
-﻿using System.Threading;
+﻿using Refit;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
 using System.Threading.Tasks;
-using Task = Toggl.Api.Models.Task;
+using Toggl.Api.Models;
 
 namespace Toggl.Api.Interfaces;
 
 public interface ITasks
 {
 	/// <summary>
-	/// Get a task
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md#get-task-details
+	/// Get project tasks for given workspace.
+	/// https://engineering.toggl.com/docs/api/tasks#get-workspaceprojecttasks
 	/// </summary>
-	/// <param name="id"></param>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	Task<Task> GetAsync(long id, CancellationToken cancellationToken);
+	[Get("/api/v9/workspaces/{workspace_id}/projects/{project_id}/tasks")]
+	Task<ICollection<Models.Task>> GetAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	///Add a Task
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md#create-a-task
+	/// Get all tasks for given workspace.
+	/// https://engineering.toggl.com/docs/api/tasks#get-workspaceprojecttasks
 	/// </summary>
-	/// <param name="t"></param>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="since">Retrieve tasks created/modified/deleted since this date using UNIX timestamp.</param>
+	/// <param name="page">Page number, default 1</param>
+	/// <param name="perPage">Number of items per page, default 50</param>
+	/// <param name="sortField">Field used for sorting</param>
+	/// <param name="sortOrder">Sort order, default ASC</param>
+	/// <param name="isActive">Filter by active state</param>
+	/// <param name="projectId">Filter by project id</param>
+	/// <param name="startDate">Smallest boundary date in the format YYYY-MM-DD</param>
+	/// <param name="endDate">Biggest boundary date in the format YYYY-MM-DD</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
-	Task<Task> CreateAsync(Task t, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Edit a task
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md#update-a-task
-	/// </summary>
-	/// <param name="t"></param>
-	/// <returns></returns>
-	Task<Task> UpdateAsync(Task t, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Delete a task
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md#delete-a-task
-	/// </summary>
-	/// <param name="id"></param>
-	/// <returns></returns>
-	Task<bool> DeleteAsync(long id, CancellationToken cancellationToken);
+	[Get("/api/v9/workspaces/{workspace_id}/tasks")]
+	Task<Page<Models.Task>> GetAsync(
+		[AliasAs("workspace_id")] long? workspaceId,
+		[AliasAs("since")] long? since,
+		[AliasAs("page")] int? page,
+		[AliasAs("per_page")][Range(1, 200)] int? perPage,
+		[AliasAs("sort_field")] string? sortField,
+		[AliasAs("sort_order")] SortDirection? sortOrder,
+		[AliasAs("active")] bool? isActive,
+		[AliasAs("pid")] int? projectId,
+		[AliasAs("start_date")] DateOnly? startDate,
+		[AliasAs("end_date")] DateOnly? endDate,
+		CancellationToken cancellationToken
+		);
 }

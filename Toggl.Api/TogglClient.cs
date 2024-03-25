@@ -47,7 +47,7 @@ public class TogglClient : IDisposable
 		//ProjectUsers = RestService.For<IProjectUsers>(_httpClient);
 		Reports = RestService.For<IReports>(_httpClient);
 		//Tags = RestService.For<ITags>(_httpClient);
-		//Tasks = RestService.For<ITasks>(_httpClient);
+		Tasks = RestService.For<ITasks>(_httpClient);
 		TimeEntries = RestService.For<ITimeEntries>(_httpClient);
 		//Users = RestService.For<IUsers>(_httpClient);
 		Workspaces = RestService.For<IWorkspaces>(_httpClient, refitSettings);
