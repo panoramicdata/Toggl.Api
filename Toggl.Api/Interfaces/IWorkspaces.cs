@@ -21,10 +21,23 @@ public interface IWorkspaces
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/v9/workspaces/{workspace_id}/clients")]
-	Task<ICollection<Client>> GetAsync(
+	Task<ICollection<Client>> GetClientsAsync(
 		[AliasAs("workspace_id")] long workspaceId,
 		[AliasAs("status")] ClientStatus? clientStatus,
 		[AliasAs("name")] string? nameContains,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Get information of single workspace.
+	/// https://engineering.toggl.com/docs/api/workspaces#get-get-single-workspace
+	/// </summary>
+	/// <param name="workspaceId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/v9/workspaces/{workspace_id}")]
+	Task<Workspace> GetAsync(
+		[AliasAs("workspace_id")] long workspaceId,
 		CancellationToken cancellationToken
 		);
 }

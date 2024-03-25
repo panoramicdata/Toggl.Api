@@ -43,6 +43,7 @@ public class TogglClient : IDisposable
 
 		Clients = RestService.For<IClients>(_httpClient, refitSettings);
 		Me = RestService.For<IMe>(_httpClient, refitSettings);
+		Groups = RestService.For<IGroups>(_httpClient, refitSettings);
 		Projects = RestService.For<IProjects>(_httpClient);
 		//ProjectUsers = RestService.For<IProjectUsers>(_httpClient);
 		Reports = RestService.For<IReports>(_httpClient);
@@ -62,6 +63,11 @@ public class TogglClient : IDisposable
 	/// Methods to access information about the current user
 	/// </summary>
 	public IMe Me { get; }
+
+	/// <summary>
+	/// Methods to access information about user groups
+	/// </summary>
+	public IGroups Groups { get; }
 
 	/// <summary>
 	/// Holds methods to access project information

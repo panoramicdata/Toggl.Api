@@ -19,6 +19,7 @@ public class TogglTest
 {
 	private static ReportRequest? _reportRequest;
 	private long? _workspaceId;
+	private long? _organizationId;
 	private long? _projectId;
 
 	protected ILogger Logger { get; }
@@ -77,6 +78,19 @@ public class TogglTest
 		return _workspaceId.Value;
 	}
 
+	protected async Task<long> GetOrganizationIdAsync()
+	{
+		if (_organizationId is null)
+		{
+			var workspaceId = await GetWorkspaceIdAsync();
+			var workspace = await TogglClient
+				.Workspaces
+				.GetAsync(workspaceId, default);
+			_organizationId = workspace.OrganizationId;
+		}
+
+		return _organizationId.Value;
+	}
 
 	protected async Task<long> GetProjectIdAsync()
 	{
