@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Toggl.Api;
 internal class AuthenticatedHttpClientHandler(TogglClientOptions options) : HttpClientHandler
 {
-	private static JsonSerializerOptions PrettyPrintJsonSerializerOptions = new() { WriteIndented = true };
+	private static readonly JsonSerializerOptions _prettyPrintJsonSerializerOptions = new() { WriteIndented = true };
 	private readonly TogglClientOptions _options = options;
 	private readonly ILogger _logger = options.Logger ?? NullLogger.Instance;
 
@@ -105,6 +105,6 @@ internal class AuthenticatedHttpClientHandler(TogglClientOptions options) : Http
 		}
 
 		using var jsonDoc = JsonDocument.Parse(jsonString);
-		return JsonSerializer.Serialize(jsonDoc, PrettyPrintJsonSerializerOptions);
+		return JsonSerializer.Serialize(jsonDoc, _prettyPrintJsonSerializerOptions);
 	}
 }
