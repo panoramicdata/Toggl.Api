@@ -1,6 +1,8 @@
 using FluentAssertions;
 using Refit;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
 using Xunit.Abstractions;
@@ -115,9 +117,12 @@ public class ClientTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 			);
 
 		// Refetching the client should fail with a 404
-		await Assert.ThrowsAsync<ApiException>(async () =>
+
+		await (
+			(Func<Task<Client>>)
+			(async () =>
 			{
-				await TogglClient
+				return await TogglClient
 					.Clients
 					.GetAsync(
 						workspaceId,
@@ -125,6 +130,9 @@ public class ClientTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 						default
 					);
 			}
-		);
+			)
+		)
+		.Should()
+		.ThrowAsync<ApiException>();
 	}
 }

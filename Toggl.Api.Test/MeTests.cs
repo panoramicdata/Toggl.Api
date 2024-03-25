@@ -87,12 +87,9 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetLogged_Succeeds()
-	{
-		await TogglClient
-			.Me
-			.GetLoggedAsync(default);
-	}
+	public async void Me_GetLogged_Succeeds() => await TogglClient
+		.Me
+		.GetLoggedAsync(default);
 
 	[Theory]
 	[InlineData(true)]
