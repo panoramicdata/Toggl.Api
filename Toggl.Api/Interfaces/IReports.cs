@@ -39,4 +39,5 @@ public interface IReports
 		[Body] ReportRequest reportRequest,
 		CancellationToken cancellationToken
 		);
+	Task<ICollection<DetailedReportTimeEntryGroup>> GetDetailsAsync(
 }
