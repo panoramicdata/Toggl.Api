@@ -19,7 +19,7 @@ public class DetailedReportRequest
 	/// Client IDs, optional, filtering attribute. To filter records with no clients, use [null].
 	/// </summary>
 	[JsonPropertyName("client_ids")]
-	public ICollection<int>? ClientIds { get; set; }
+	public ICollection<long>? ClientIds { get; set; }
 
 	/// <summary>
 	/// Description, optional, filtering attribute.
@@ -55,7 +55,7 @@ public class DetailedReportRequest
 	/// Group IDs, optional, filtering attribute.
 	/// </summary>
 	[JsonPropertyName("group_ids")]
-	public ICollection<int>? GroupIds { get; set; }
+	public ICollection<long>? GroupIds { get; set; }
 
 	/// <summary>
 	/// Whether time entries should be grouped, optional, default false.
@@ -139,23 +139,23 @@ public class DetailedReportRequest
 	/// Tag IDs, optional, filtering attribute. To filter records with no tags, use [null].
 	/// </summary>
 	[JsonPropertyName("tag_ids")]
-	public ICollection<int>? TagIds { get; set; }
+	public ICollection<long>? TagIds { get; set; }
 
 	/// <summary>
 	/// Task IDs, optional, filtering attribute. To filter records with no tasks, use [null].
 	/// </summary>
 	[JsonPropertyName("task_ids")]
-	public ICollection<int>? TaskIds { get; set; }
+	public ICollection<long>? TaskIds { get; set; }
 
 	/// <summary>
 	/// TimeEntryIDs filters by time entries. This was added to support retro-compatibility with reports v2.
 	/// </summary>
 	[JsonPropertyName("time_entry_ids")]
-	public ICollection<int>? TimeEntryIds { get; set; }
+	public ICollection<long>? TimeEntryIds { get; set; }
 
 	/// <summary>
 	/// User IDs, optional, filtering attribute.
 	/// </summary>
 	[JsonPropertyName("user_ids")]
-	public ICollection<int>? UserIds { get; set; }
+	public ICollection<long>? UserIds { get; set; }
 }
