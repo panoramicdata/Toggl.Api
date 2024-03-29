@@ -63,7 +63,7 @@ public class Project : NamedIdentifiedItem
 	/// Timestamp that is sent in the response for PUT, indicates the time task was last updated
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required string LastModified { get; set; }
+	public required DateTimeOffset LastModified { get; set; }
 
 	/// <summary>
 	/// Timestamp indicating when the project was created, read-only

@@ -20,3 +20,13 @@ Add models in the `Models` folder.
 Add unit tests in the `Toggl.Api.Tests` project.
 
 Refer to the Toggl API documentation for more information on the endpoints and models here: https://engineering.toggl.com/docs/
+
+## Migrating from v8 to v9
+
+The v9 version of the library is a complete rewrite.  The main differences are:
+- The library is now .NET 8.0.
+- The library uses Refit for the API calls
+- The library uses System.Text.Json for JSON serialization
+- The library uses the new Toggl API v9 endpoints
+- The library uses the new Toggl API v9 models and these are in the `Models` namespace (previously `DataObjects`)
+- The library uses the new Toggl API v9 interfaces and these are in the `Interfaces` namespace 

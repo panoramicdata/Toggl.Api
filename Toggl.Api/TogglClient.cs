@@ -1,8 +1,11 @@
 ﻿using Refit;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
+using System.Threading.Tasks;
 using Toggl.Api.Interfaces;
 
 namespace Toggl.Api;
@@ -109,7 +112,8 @@ public class TogglClient : IDisposable
 	/// </summary>
 	public IWorkspaces Workspaces { get; }
 
-
+	public Task<ICollection<T>> GetAllAsync<T>(long workspaceId, CancellationToken cancellationToken)
+		=> throw new NotImplementedException("Not yet implemented in the V9 client.");
 
 	public void Dispose()
 	{
