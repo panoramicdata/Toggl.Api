@@ -51,16 +51,4 @@ public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 
 		report.Should().NotBeNull();
 	}
-
-	[Fact]
-	public async void Reports_GetProjectUsers_Succeeds()
-	{
-		var workspaceId = await GetWorkspaceIdAsync();
-
-		var report = await TogglClient
-			.Reports
-			.GetProjectUsersAsync(workspaceId, null, null, default);
-
-		report.Should().NotBeNullOrEmpty();
-	}
 }

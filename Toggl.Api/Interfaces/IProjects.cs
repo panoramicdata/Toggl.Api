@@ -63,4 +63,21 @@ public interface IProjects
 		[AliasAs("project_id")] long projectId,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Returns project users.
+	/// https://engineering.toggl.com/docs/api/projects#get-get-workspace-projects-users
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectIds">Numeric IDs of projects</param>
+	/// <param name="withGroupMembers">Include group members</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/workspaces/{workspace_id}/project_users")]
+	Task<ICollection<ProjectUser>> GetUsersAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_ids")] long? projectIds,
+		[AliasAs("with_group_members")] bool? withGroupMembers,
+		CancellationToken cancellationToken
+		);
 }
