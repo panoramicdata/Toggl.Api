@@ -175,7 +175,7 @@ public interface IMe
 	/// <returns></returns>
 	[Get("/api/v9/me/workspaces")]
 	Task<ICollection<Workspace>> GetWorkspacesAsync(
-		[AliasAs("since")] long sinceUnixTimestampSeconds,
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken
 		);
 }
