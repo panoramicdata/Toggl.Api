@@ -109,7 +109,7 @@ public class DetailedReportRequest
 	/// Project IDs, optional, filtering attribute. To filter records with no projects, use [null].
 	/// </summary>
 	[JsonPropertyName("project_ids")]
-	public int? ProjectIds { get; set; }
+	public ICollection<long>? ProjectIds { get; set; }
 
 	/// <summary>
 	/// 	Whether time should be rounded, optional, default from workspace settings.
