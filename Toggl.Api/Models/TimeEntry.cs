@@ -14,13 +14,7 @@ public class TimeEntry : IdentifiedItem
 	/// The Project ID
 	/// </summary>
 	[JsonPropertyName("project_id")]
-	public required long ProjectId { get; set; }
-
-	/// <summary>
-	/// The Project ID (again, for some reason)
-	/// </summary>
-	[JsonPropertyName("pid")]
-	public required long ProjectId2 { get; set; }
+	public required long? ProjectId { get; set; }
 
 	/// <summary>
 	/// The Task ID

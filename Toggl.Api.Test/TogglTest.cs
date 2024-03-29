@@ -158,7 +158,7 @@ public class TogglTest
 					"",
 					1,
 					"name",
-					SortDirection.Ascending,
+					SortDirection.Asc,
 					false,
 					null,
 					default);

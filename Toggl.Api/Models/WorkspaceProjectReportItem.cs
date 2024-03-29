@@ -17,7 +17,7 @@ public class WorkspaceProjectReportItem
 	/// The project id
 	/// </summary>
 	[JsonPropertyName("project_id")]
-	public required int ProjectId { get; set; }
+	public required long? ProjectId { get; set; }
 
 	/// <summary>
 	/// The tracked seconds

@@ -91,7 +91,7 @@ public class DetailedReportRequest
 	/// 	Order direction, optional. Can be ASC or DESC.
 	/// </summary>
 	[JsonPropertyName("order_dir")]
-	public PageSortDirection? OrderDirection { get; set; }
+	public SortDirection OrderDirection { get; set; }
 
 	/// <summary>
 	/// PageSize defines the number of items per page, optional, default 50.
