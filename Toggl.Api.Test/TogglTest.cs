@@ -18,6 +18,7 @@ namespace Toggl.Api.Test;
 public class TogglTest
 {
 	private static ReportRequest? _reportRequest;
+	private static DetailedReportRequest? _detailedReportRequest;
 	private long? _workspaceId;
 	private long? _organizationId;
 	private long? _projectId;
@@ -120,6 +121,24 @@ public class TogglTest
 		}
 
 		return _reportRequest;
+	}
+	protected static DetailedReportRequest GetDetailedReportRequest()
+	{
+		if (_detailedReportRequest is null)
+		{
+			var endDate = DateTime.Now.Date;
+			var startDate = endDate.AddMonths(-1);
+			var startDateOnly = new DateOnly(startDate.Date.Year, startDate.Date.Month, startDate.Date.Day);
+			var endDateOnly = new DateOnly(endDate.Date.Year, endDate.Date.Month, endDate.Date.Day);
+			_detailedReportRequest = new DetailedReportRequest
+			{
+				StartDate = startDateOnly,
+				EndDate = endDateOnly,
+				StartTime = TimeOnly.MinValue
+			};
+		}
+
+		return _detailedReportRequest;
 	}
 
 	protected async Task<ICollection<Project>> GetProjectsPageAsync()

@@ -38,4 +38,17 @@ public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 			report.Should().NotBeNull();
 		}
 	}
+
+	[Fact]
+	public async void Reports_DetailedReport_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+		var detailedReportRequest = GetDetailedReportRequest();
+
+		var report = await TogglClient
+			.Reports
+			.GetDetailsAsync(workspaceId, detailedReportRequest, default);
+
+		report.Should().NotBeNull();
+	}
 }

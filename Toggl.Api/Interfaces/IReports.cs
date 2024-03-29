@@ -39,5 +39,20 @@ public interface IReports
 		[Body] ReportRequest reportRequest,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Returns project's summary.
+	/// https://engineering.toggl.com/docs/reports/summary_reports#post-load-project-summary
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="reportRequest">The report request</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/reports/api/v3/workspace/{workspace_id}/search/time_entries")]
 	Task<ICollection<DetailedReportTimeEntryGroup>> GetDetailsAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[Body] DetailedReportRequest reportRequest,
+		CancellationToken cancellationToken
+		);
 }
