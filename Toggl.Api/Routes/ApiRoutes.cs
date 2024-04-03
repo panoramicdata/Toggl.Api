@@ -10,7 +10,7 @@ public static class ApiRoutes
 		public static readonly string Detailed = TogglReportUrl + "/details";
 		public static readonly string Weekly = TogglReportUrl + "/weekly";
 		public static readonly string Summary = TogglReportUrl + "/summary";
-		public static readonly string Project = TogglReportUrl + "/project";
+		public static readonly string Project = TogglReportUrl + "/projects";
 	}
 
 	public static class Session
