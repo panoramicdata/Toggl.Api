@@ -8,33 +8,45 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class ProjectSummaryReportItem
 {
-	///// <summary>
-	///// The billable seconds
-	///// </summary>
-	//[JsonPropertyName("billable_seconds")]
-	//public required int BillableSeconds { get; set; }
-
-	///// <summary>
-	///// The project id
-	///// </summary>
-	//[JsonPropertyName("project_id")]
-	//public required int ProjectId { get; set; }
-
-	///// <summary>
-	///// The tracked seconds
-	///// </summary>
-	//[JsonPropertyName("tracked_seconds")]
-	//public required int TrackedSeconds { get; set; }
+	/// <summary>
+	/// The billable amount in cents
+	/// </summary>
+	[JsonPropertyName("billable_amount_in_cents")]
+	public int? BillableAmountInCents { get; set; }
 
 	/// <summary>
 	/// The seconds
 	/// </summary>
 	[JsonPropertyName("seconds")]
-	public required int Seconds { get; set; }
+	public int? Seconds { get; set; }
+
+	/// <summary>
+	/// The labour cost in cents
+	/// </summary>
+	[JsonPropertyName("labour_cost_in_cents")]
+	public int? LabourCostInCents { get; set; }
+
+	/// <summary>
+	/// The resolution
+	/// </summary>
+	[JsonPropertyName("resolution")]
+	public string? Resolution { get; set; }
+
+	/// <summary>
+	/// The tracked days
+	/// </summary>
+	[JsonPropertyName("tracked_days")]
+	public int? TrackedDays { get; set; }
+
+	/// <summary>
+	/// The graphs
+	/// </summary>
+	[JsonPropertyName("graph")]
+	public ICollection<object>? Graph { get; set; }
 
 	/// <summary>
 	/// The rates
 	/// </summary>
 	[JsonPropertyName("rates")]
-	public required ICollection<object> Rates { get; set; }
+	public ICollection<Rate>? Rates { get; set; }
 }
