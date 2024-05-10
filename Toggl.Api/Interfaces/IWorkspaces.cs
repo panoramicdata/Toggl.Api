@@ -40,5 +40,19 @@ public interface IWorkspaces
 		[AliasAs("workspace_id")] long workspaceId,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Returns users that belong to the workspace and organization
+	/// https://engineering.toggl.com/docs/api/projects#get-get-workspace-projects-users
+	/// </summary>
+	/// <param name="organizationId">The organization ID</param>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/organizations/{organization_id}/workspaces/{workspace_id}/workspace_users")]
+	Task<ICollection<WorkspaceUser>> GetUsersAsync(
+		[AliasAs("organization_id")] long organizationId,
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken);
 }
 

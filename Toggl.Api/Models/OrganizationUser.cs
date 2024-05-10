@@ -42,7 +42,7 @@ public class OrganizationUser : NamedIdentifiedItem
 	/// Invitation code
 	/// </summary>
 	[JsonPropertyName("invitation_code")]
-	public bool InvitationCode { get; set; }
+	public string InvitationCode { get; set; }
 
 	/// <summary>
 	/// Whether the user is joined
@@ -60,7 +60,7 @@ public class OrganizationUser : NamedIdentifiedItem
 	/// The user id
 	/// </summary>
 	[JsonPropertyName("user_id")]
-	public bool UserId { get; set; }
+	public int UserId { get; set; }
 
 	/// <summary>
 	/// Workspaces that the user belongs to
