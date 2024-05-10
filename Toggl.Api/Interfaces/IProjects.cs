@@ -33,7 +33,7 @@ public interface IProjects
 	[Get("/api/v9/workspaces/{workspace_id}/projects")]
 	Task<ICollection<Project>> GetPageAsync(
 		[AliasAs("workspace_id")] long workspaceId,
-		[AliasAs("isActive")] bool? isActive,
+		[AliasAs("active")] bool? isActive,
 		[AliasAs("since")] long? since,
 		[AliasAs("billable")] bool? isBillable,
 		[AliasAs("user_ids")] ICollection<int>? userIds,
