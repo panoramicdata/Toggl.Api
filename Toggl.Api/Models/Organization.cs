@@ -101,4 +101,16 @@ public class Organization : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("user_count")]
 	public int UserCount { get; set; }
+
+	/// <summary>
+	/// The pricing plan name
+	/// </summary>
+	[JsonPropertyName("pricing_plan_name")]
+	public string? PricingPlanName { get; set; }
+
+	/// <summary>
+	/// Whether the pricing plan is an enterprise one
+	/// </summary>
+	[JsonPropertyName("pricing_plan_enterprise")]
+	public bool? PricingPlanEnterprise { get; set; }
 }

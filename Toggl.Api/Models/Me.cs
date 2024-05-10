@@ -150,8 +150,14 @@ public class Me : IdentifiedItem
 	public ICollection<Workspace>? Workspaces { get; set; }
 
 	/// <summary>
-	/// The Toggle Account id
+	/// The Toggl Account id
 	/// </summary>
 	[JsonPropertyName("toggl_accounts_id")]
 	public required string TogglAccountsId { get; set; }
+
+	/// <summary>
+	/// When authorization was updated
+	/// </summary>
+	[JsonPropertyName("authorization_updated_at")]
+	public DateTimeOffset? AuthorizationUpdatedAt { get; set; }
 }

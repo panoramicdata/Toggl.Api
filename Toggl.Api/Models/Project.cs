@@ -179,5 +179,11 @@ public class Project : NamedIdentifiedItem
 	[JsonPropertyName("currency")]
 	public required string Currency { get; set; }
 
+	/// <summary>
+	/// Permissions
+	/// </summary>
+	[JsonPropertyName("permissions")]
+	public string? Permissions { get; set; }
+
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }

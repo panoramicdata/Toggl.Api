@@ -34,7 +34,7 @@ public interface IProjects
 	Task<ICollection<Project>> GetPageAsync(
 		[AliasAs("workspace_id")] long workspaceId,
 		[AliasAs("isActive")] bool? isActive,
-		[AliasAs("since")] DateTimeOffset? since,
+		[AliasAs("since")] long? since,
 		[AliasAs("billable")] bool? isBillable,
 		[AliasAs("user_ids")] ICollection<int>? userIds,
 		[AliasAs("client_ids")] ICollection<int>? clientIds,
