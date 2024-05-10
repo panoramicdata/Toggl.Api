@@ -12,41 +12,41 @@ public class ProjectSummaryReportItem
 	/// The billable amount in cents
 	/// </summary>
 	[JsonPropertyName("billable_amount_in_cents")]
-	public int? BillableAmountInCents { get; set; }
+	public int BillableAmountInCents { get; set; }
 
 	/// <summary>
 	/// The seconds
 	/// </summary>
 	[JsonPropertyName("seconds")]
-	public int? Seconds { get; set; }
+	public int Seconds { get; set; }
 
 	/// <summary>
 	/// The labour cost in cents
 	/// </summary>
 	[JsonPropertyName("labour_cost_in_cents")]
-	public int? LabourCostInCents { get; set; }
+	public int LabourCostInCents { get; set; }
 
 	/// <summary>
 	/// The resolution
 	/// </summary>
 	[JsonPropertyName("resolution")]
-	public string? Resolution { get; set; }
+	public string Resolution { get; set; } = string.Empty;
 
 	/// <summary>
 	/// The tracked days
 	/// </summary>
 	[JsonPropertyName("tracked_days")]
-	public int? TrackedDays { get; set; }
+	public int TrackedDays { get; set; }
 
 	/// <summary>
 	/// The graphs
 	/// </summary>
 	[JsonPropertyName("graph")]
-	public ICollection<object>? Graph { get; set; }
+	public ICollection<object>? Graph { get; set; } = [];
 
 	/// <summary>
 	/// The rates
 	/// </summary>
 	[JsonPropertyName("rates")]
-	public ICollection<Rate>? Rates { get; set; }
+	public ICollection<Rate>? Rates { get; set; } = [];
 }

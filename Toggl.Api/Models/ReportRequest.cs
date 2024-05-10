@@ -14,7 +14,7 @@ public class ReportRequest
 	/// <summary>
 	/// 	Start time
 	/// </summary>
-	[JsonPropertyName("start_time")]
+	[JsonPropertyName("startTime")]		// This contains no underscore!
 	public required TimeOnly StartTime { get; set; }
 
 	/// <summary>
