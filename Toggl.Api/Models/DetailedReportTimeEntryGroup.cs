@@ -24,7 +24,7 @@ public class DetailedReportTimeEntryGroup
 	/// The project id
 	/// </summary>
 	[JsonPropertyName("project_id")]
-	public int ProjectId { get; set; }
+	public int? ProjectId { get; set; }
 
 	/// <summary>
 	/// The task id, if set
