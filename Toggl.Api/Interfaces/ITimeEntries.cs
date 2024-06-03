@@ -27,8 +27,8 @@ public interface ITimeEntries
 		[AliasAs("include_sharing")] bool includeSharingDetails,
 		[AliasAs("since")] DateTimeOffset? since,
 		[AliasAs("before")] DateTimeOffset? before,
-		[AliasAs("start_date")] DateTimeOffset? startDate,
-		[AliasAs("end_date")] DateTimeOffset? endDate,
+		[AliasAs("start_date"), Query(Format = "yyyy-MM-dd'T'HH:mm:ss.fffK")] DateTimeOffset? startDate,
+		[AliasAs("end_date"), Query(Format = "yyyy-MM-dd'T'HH:mm:ss.fffK")] DateTimeOffset? endDate,
 		CancellationToken cancellationToken
 		);
 
