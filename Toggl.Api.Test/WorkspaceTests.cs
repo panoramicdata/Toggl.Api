@@ -1,4 +1,5 @@
 using FluentAssertions;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -7,7 +8,7 @@ namespace Toggl.Api.Test;
 public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async void Workspaces_GetById_Succeeds()
+	public async Task Workspaces_GetById_Succeeds()
 	{
 		var workspace = await TogglClient
 			.Workspaces
@@ -17,7 +18,7 @@ public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(test
 	}
 
 	[Fact]
-	public async void Workspaces_GetClients_Succeeds()
+	public async Task Workspaces_GetClients_Succeeds()
 	{
 		var workspace = await TogglClient
 			.Workspaces
@@ -27,7 +28,7 @@ public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(test
 	}
 
 	[Fact]
-	public async void Workspaces_GetUsers_Succeeds()
+	public async Task Workspaces_GetUsers_Succeeds()
 	{
 		var organizationId = await GetOrganizationIdAsync();
 		var workspaceId = await GetWorkspaceIdAsync();
@@ -40,7 +41,7 @@ public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(test
 	}
 
 	[Fact]
-	public async void Workspaces_GetProjects_Succeeds()
+	public async Task Workspaces_GetProjects_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 
