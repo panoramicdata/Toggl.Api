@@ -27,19 +27,19 @@ public class Project : NamedIdentifiedItem
 	///  Client ID
 	/// </summary>
 	[JsonPropertyName("client_id")]
-	public required long ClientId { get; set; }
+	public long? ClientId { get; set; }
 
 	/// <summary>
 	///  Client ID (again, for some reason)
 	/// </summary>
 	[JsonPropertyName("cid")]
-	public required long ClientId2 { get; set; }
+	public long? ClientId2 { get; set; }
 
 	/// <summary>
 	/// Whether the project is billable or not
 	/// </summary>
 	[JsonPropertyName("billable")]
-	public required bool IsBillable { get; set; }
+	public bool? IsBillable { get; set; }
 
 	/// <summary>
 	/// Whether project is accessible for only project users or for all workspace users (boolean, default true)
@@ -57,7 +57,7 @@ public class Project : NamedIdentifiedItem
 	/// Whether the project can be used as a template
 	/// </summary>
 	[JsonPropertyName("template")]
-	public required bool IsTemplateable { get; set; }
+	public bool? IsTemplateable { get; set; }
 
 	/// <summary>
 	/// Timestamp that is sent in the response for PUT, indicates the time task was last updated
@@ -129,7 +129,7 @@ public class Project : NamedIdentifiedItem
 	/// Whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours' (boolean, default false, not required, premium functionality)
 	/// </summary>
 	[JsonPropertyName("auto_estimates")]
-	public required bool IsAutoEstimates { get; set; }
+	public bool? IsAutoEstimates { get; set; }
 
 	/// <summary>
 	/// If auto_estimates is true then the sum of task estimations is returned, otherwise user inserted hours (integer, not required, premium functionality)
@@ -184,6 +184,18 @@ public class Project : NamedIdentifiedItem
 	/// </summary>
 	[JsonPropertyName("permissions")]
 	public string? Permissions { get; set; }
+
+	/// <summary>
+	/// Can Track time
+	/// </summary>
+	[JsonPropertyName("can_track_time")]
+	public bool? CanTrackTime { get; set; }
+
+	/// <summary>
+	/// Is shared
+	/// </summary>
+	[JsonPropertyName("is_shared")]
+	public bool? IsShared { get; set; }
 
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }

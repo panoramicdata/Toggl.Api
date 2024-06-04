@@ -38,4 +38,16 @@ public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(test
 
 		users.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async void Workspaces_GetProjects_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+
+		var projects = await TogglClient
+			.Workspaces
+			.GetProjectsAsync(workspaceId, default);
+
+		projects.Should().NotBeNull();
+	}
 }
