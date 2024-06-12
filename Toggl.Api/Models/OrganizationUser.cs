@@ -42,7 +42,7 @@ public class OrganizationUser : NamedIdentifiedItem
 	/// Invitation code
 	/// </summary>
 	[JsonPropertyName("invitation_code")]
-	public string InvitationCode { get; set; }
+	public string? InvitationCode { get; set; }
 
 	/// <summary>
 	/// Whether the user is joined

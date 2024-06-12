@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -7,11 +8,11 @@ namespace Toggl.Api.Test;
 public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async void Me_Get_WithoutRelatedData_Succeeds()
+	public async Task Me_Get_WithoutRelatedData_Succeeds()
 	{
 		var me = await TogglClient
 			.Me
-			.GetAsync(false, default); ;
+			.GetAsync(false, default);
 
 		me.Should().NotBeNull();
 		me.Clients.Should().BeNullOrEmpty();
@@ -20,7 +21,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_Get_WithRelatedData_Succeeds()
+	public async Task Me_Get_WithRelatedData_Succeeds()
 	{
 		var me = await TogglClient
 			.Me
@@ -30,7 +31,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetClients_Succeeds()
+	public async Task Me_GetClients_Succeeds()
 	{
 		var clients = await TogglClient
 			.Me
@@ -40,7 +41,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetFeatures_Succeeds()
+	public async Task Me_GetFeatures_Succeeds()
 	{
 		var features = await TogglClient
 			.Me
@@ -52,7 +53,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	[Theory]
 	[InlineData(true)]
 	[InlineData(false)]
-	public async void Me_GetTasks_Succeeds(bool includeInactive)
+	public async Task Me_GetTasks_Succeeds(bool includeInactive)
 	{
 		var tasks = await TogglClient
 			.Me
@@ -61,13 +62,13 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetWebTimer_Succeeds()
+	public async Task Me_GetWebTimer_Succeeds()
 		=> await TogglClient
 			.Me
 			.GetWebTimerAsync(default);
 
 	[Fact]
-	public async void Me_GetLastKnownLocation_Succeeds()
+	public async Task Me_GetLastKnownLocation_Succeeds()
 	{
 		var location = await TogglClient
 			.Me
@@ -77,7 +78,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetOrganizations_Succeeds()
+	public async Task Me_GetOrganizations_Succeeds()
 	{
 		var organizations = await TogglClient
 			.Me
@@ -87,14 +88,14 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetLogged_Succeeds() => await TogglClient
+	public async Task Me_GetLogged_Succeeds() => await TogglClient
 		.Me
 		.GetLoggedAsync(default);
 
 	[Theory]
 	[InlineData(true)]
 	[InlineData(false)]
-	public async void Me_GetProjects_Succeeds(bool includeArchived)
+	public async Task Me_GetProjects_Succeeds(bool includeArchived)
 	{
 		var projects = await TogglClient
 			.Me
@@ -104,7 +105,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetProjectsPaginated_Succeeds()
+	public async Task Me_GetProjectsPaginated_Succeeds()
 	{
 		var projects = await TogglClient
 			.Me
@@ -114,7 +115,7 @@ public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputH
 	}
 
 	[Fact]
-	public async void Me_GetTags_Succeeds()
+	public async Task Me_GetTags_Succeeds()
 	{
 		var projects = await TogglClient
 			.Me

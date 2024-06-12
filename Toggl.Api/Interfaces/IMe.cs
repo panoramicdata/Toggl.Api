@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
-using Task = System.Threading.Tasks.Task;
+
 
 namespace Toggl.Api.Interfaces;
 
@@ -149,7 +149,7 @@ public interface IMe
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/me/tasks")]
-	Task<ICollection<Models.Task>> GetTasksAsync(
+	Task<ICollection<Models.ProjectTask>> GetTasksAsync(
 		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		[AliasAs("include_not_active")] bool includeInactive,
 		CancellationToken cancellationToken

@@ -12,7 +12,7 @@ namespace Toggl.Api.Test;
 public class ClientTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact(Skip = "Functionality not yet complete")]
-	public async void Crud_Client_Succeeds()
+	public async Task Crud_Client_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 
@@ -28,21 +28,12 @@ public class ClientTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 		var matchingClients = clients
 			.Where(p => p.Name == Configuration.CrudClientName)
 			.ToList();
-		switch (matchingClients.Count)
-		{
-			case 0:
-				// None there. Good.
-				break;
-			default:
-				// Remove them all
-				foreach (var client in matchingClients)
-				{
-					await TogglClient
-						.Clients
-						.DeleteAsync(workspaceId, client.Id, default);
-				}
 
-				break;
+		foreach (var client in matchingClients)
+		{
+			await TogglClient
+				.Clients
+				.DeleteAsync(workspaceId, client.Id, default);
 		}
 
 		// Create a new client

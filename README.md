@@ -9,7 +9,11 @@
 
 This is a .NET 8.0 library for the Toggl API.
 
-We now only provide v9 support.  Many endpoints are currently missing.  You pull requests are welcome!
+We now only provide v9 support.  Many endpoints are currently missing.  Your pull requests are welcome!
+
+## Breaking change!!!
+**To avoid the conflict with System.Threading.Tasks.Task, we have renamed the Task class to ProjectTask.
+This will require you to update your code to use ProjectTask instead of Task.**
 
 ## Contributing
 

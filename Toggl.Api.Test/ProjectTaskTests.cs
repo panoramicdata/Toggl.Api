@@ -1,13 +1,14 @@
 ﻿using FluentAssertions;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class TaskTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class ProjectTaskTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async void Tasks_Get_ForProject_Succeeds()
+	public async Task Tasks_Get_ForProject_Succeeds()
 	{
 		var tasks = await TogglClient
 			.Tasks
@@ -17,7 +18,7 @@ public class TaskTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutpu
 	}
 
 	[Fact]
-	public async void Tasks_Get_ForWorkspace_Succeeds()
+	public async Task Tasks_Get_ForWorkspace_Succeeds()
 	{
 		var tasks = await TogglClient
 			.Tasks

@@ -123,7 +123,7 @@ public class Me : IdentifiedItem
 	/// Tasks, null if with_related_data was not set to true or if the user does not have any tasks
 	/// </summary>
 	[JsonPropertyName("tasks")]
-	public ICollection<Task>? Tasks { get; set; }
+	public ICollection<ProjectTask>? Tasks { get; set; }
 
 	/// <summary>
 	/// TimeEntries, null if with_related_data was not set to true or if the user does not have any time entries

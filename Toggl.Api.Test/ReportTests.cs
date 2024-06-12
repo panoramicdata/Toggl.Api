@@ -1,5 +1,6 @@
 using FluentAssertions;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -8,7 +9,7 @@ namespace Toggl.Api.Test;
 public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
 {
 	[Fact]
-	public async void Reports_GetWorkspaceProjectSummary_Succeeds()
+	public async Task Reports_GetWorkspaceProjectSummary_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 		var reportRequest = GetReportRequest();
@@ -21,7 +22,7 @@ public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 	}
 
 	[Fact]
-	public async void Reports_GetProjectSummary_Succeeds()
+	public async Task Reports_GetProjectSummary_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 		var reportRequest = GetReportRequest();
@@ -40,7 +41,7 @@ public class ReportTests(ITestOutputHelper testOutputHelper) : TogglTest(testOut
 	}
 
 	[Fact]
-	public async void Reports_DetailedReport_Succeeds()
+	public async Task Reports_DetailedReport_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 		var detailedReportRequest = GetDetailedReportRequest();

@@ -30,7 +30,7 @@ public class TogglClient : IDisposable
 			Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds)
 		};
 
-		var refitSettings = new RefitSettings()
+		var refitSettings = new RefitSettings
 		{
 			ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
 			{

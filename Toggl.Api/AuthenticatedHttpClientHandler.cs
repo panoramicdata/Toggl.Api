@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Toggl.Api;
-internal class AuthenticatedHttpClientHandler(TogglClientOptions options) : HttpClientHandler
+internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options) : HttpClientHandler
 {
 	private static readonly JsonSerializerOptions _prettyPrintJsonSerializerOptions = new() { WriteIndented = true };
 	private readonly TogglClientOptions _options = options;
@@ -27,7 +27,7 @@ internal class AuthenticatedHttpClientHandler(TogglClientOptions options) : Http
 	{
 		if (request.Headers.Authorization is null)
 		{
-			request.Headers.Add("Authorization", "Basic " + (string?)Convert.ToBase64String(Encoding.ASCII.GetBytes(_options.Key + ":api_token")));
+			request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(_options.Key + ":api_token")));
 		}
 
 		using var scope = _logger.BeginScope("Request: {Method} {Uri}", request.Method, request.RequestUri);
@@ -74,7 +74,6 @@ internal class AuthenticatedHttpClientHandler(TogglClientOptions options) : Http
 			catch (WebException ex) when (ex.Message.Contains("(429)"))
 			{
 				await Task.Delay(5000, default).ConfigureAwait(false);
-				continue;
 			}
 		}
 	}

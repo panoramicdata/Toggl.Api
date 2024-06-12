@@ -19,7 +19,7 @@ public interface ITasks
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/workspaces/{workspace_id}/projects/{project_id}/tasks")]
-	Task<ICollection<Models.Task>> GetAsync(
+	Task<ICollection<Models.ProjectTask>> GetAsync(
 		[AliasAs("workspace_id")] long workspaceId,
 		[AliasAs("project_id")] long projectId,
 		CancellationToken cancellationToken
@@ -42,7 +42,7 @@ public interface ITasks
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/workspaces/{workspace_id}/tasks")]
-	Task<Page<Models.Task>> GetAsync(
+	Task<Page<Models.ProjectTask>> GetAsync(
 		[AliasAs("workspace_id")] long? workspaceId,
 		[AliasAs("since")] long? since,
 		[AliasAs("page")] int? page,

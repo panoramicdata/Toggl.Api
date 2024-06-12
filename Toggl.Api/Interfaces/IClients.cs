@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
-using Task = System.Threading.Tasks.Task;
+
 
 namespace Toggl.Api.Interfaces;
 

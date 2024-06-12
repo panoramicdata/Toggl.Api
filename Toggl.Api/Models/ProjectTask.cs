@@ -6,7 +6,7 @@ namespace Toggl.Api.Models;
 /// <summary>
 /// https://github.com/toggl/toggl_api_docs/blob/master/chapters/tasks.md#tasks
 /// </summary>
-public class Task : NamedIdentifiedItem
+public class ProjectTask : NamedIdentifiedItem
 {
 	/// <summary>
 	/// Whether the task is active
