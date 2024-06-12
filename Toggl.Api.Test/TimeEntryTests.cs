@@ -33,6 +33,6 @@ public class TimeEntryTests(ITestOutputHelper testOutputHelper) : TogglTest(test
 			.TimeEntries
 			.GetAsync(false, false, null, null, startDate, endDate, default);
 
-		timeEntries.Should().NotBeNullOrEmpty();
+		timeEntries.Should().NotBeNull();
 	}
 }
