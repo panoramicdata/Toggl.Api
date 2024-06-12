@@ -9,7 +9,7 @@
 
 This is a .NET 8.0 library for the Toggl API.
 
-v9 support is provided in alpha only.  Many endpoints are currently missing.  You pull requests are welcome!
+We now only provide v9 support.  Many endpoints are currently missing.  You pull requests are welcome!
 
 ## Contributing
 
