@@ -27,13 +27,13 @@ public class Project : NamedIdentifiedItem
 	///  Client ID
 	/// </summary>
 	[JsonPropertyName("client_id")]
-	public required long ClientId { get; set; }
+	public required long? ClientId { get; set; }
 
 	/// <summary>
 	///  Client ID (again, for some reason)
 	/// </summary>
 	[JsonPropertyName("cid")]
-	public required long ClientId2 { get; set; }
+	public required long? ClientId2 { get; set; }
 
 	/// <summary>
 	/// Whether the project is billable or not
