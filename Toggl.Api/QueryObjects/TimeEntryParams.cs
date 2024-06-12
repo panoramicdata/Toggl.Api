@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Toggl.Api.Models;
 
 namespace Toggl.Api.QueryObjects;
@@ -12,7 +13,7 @@ public class TimeEntryParams : TimeEntry
 
 	public TimeEntryParams()
 	{
-		TagNames = new List<string>();
+		Tags = new List<string>();
 	}
 
 	public List<KeyValuePair<string, string>> GetParameters()
@@ -38,5 +39,5 @@ public class TimeEntryParams : TimeEntry
 		=> GetIsoDate(EndDate);
 
 	private static string GetIsoDate(DateTime? dt)
-		=> dt.GetValueOrDefault().ToString("yyyy-MM-ddTHH:mm:sszzz");
+		=> dt.GetValueOrDefault().ToString("yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture);
 }

@@ -54,5 +54,16 @@ public interface IWorkspaces
 		[AliasAs("organization_id")] long organizationId,
 		[AliasAs("workspace_id")] long workspaceId,
 		CancellationToken cancellationToken);
-}
 
+	/// <summary>
+	/// Get projects for given workspace.
+	/// https://engineering.toggl.com/docs/api/projects#get-workspaceprojects
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/workspaces/{workspace_id}/projects")]
+	Task<ICollection<Project>> GetProjectsAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken);
+}
