@@ -26,7 +26,7 @@ public class ReportTimeEntry : IdentifiedItem
 	public long? UserId { get; set; }
 
 	[JsonPropertyName("user")]
-	public string? UserName { get; set; } = null;
+	public string? UserName { get; set; }
 
 	[JsonPropertyName("description")]
 	public string? Description { get; set; }

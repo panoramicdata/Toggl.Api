@@ -11,7 +11,7 @@ This is a .NET 8.0 library for the Toggl API.
 
 We now only provide v9 support.  Many endpoints are currently missing.  Your pull requests are welcome!
 
-## Breaking change!!!
+## Breaking change
 **To avoid the conflict with System.Threading.Tasks.Task, we have renamed the Task class to ProjectTask.
 This will require you to update your code to use ProjectTask instead of Task.**
 
@@ -28,9 +28,9 @@ Refer to the Toggl API documentation for more information on the endpoints and m
 ## Migrating from v8 to v9
 
 The v9 version of the library is a complete rewrite.  The main differences are:
-- The library is now .NET 8.0.
-- The library uses Refit for the API calls
-- The library uses System.Text.Json for JSON serialization
-- The library uses the new Toggl API v9 endpoints
-- The library uses the new Toggl API v9 models and these are in the `Models` namespace (previously `DataObjects`)
-- The library uses the new Toggl API v9 interfaces and these are in the `Interfaces` namespace 
+  - The library is now .NET 8.0.
+  - The library uses Refit for the API calls
+  - The library uses System.Text.Json for JSON serialization
+  - The library uses the new Toggl API v9 endpoints
+  - The library uses the new Toggl API v9 models and these are in the `Models` namespace (previously `DataObjects`)
+  - The library uses the new Toggl API v9 interfaces and these are in the `Interfaces` namespace 
