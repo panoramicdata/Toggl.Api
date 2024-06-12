@@ -42,7 +42,7 @@ public class Task : NamedIdentifiedItem
 	/// Whether this is a recurring task
 	/// </summary>
 	[JsonPropertyName("recurring")]
-	public required int IsRecurring { get; set; }
+	public required bool IsRecurring { get; set; }
 
 	/// <summary>
 	/// When the task was deleted (or null if not deleted)
@@ -54,13 +54,13 @@ public class Task : NamedIdentifiedItem
 	/// Task assignee, if set above this will be the toggl_account_id for that user
 	/// </summary>
 	[JsonPropertyName("toggl_accounts_id")]
-	public required string? TogglAccountsId { get; set; }
+	public string? TogglAccountsId { get; set; }
 
 	/// <summary>
 	/// The value tracked_seconds is in milliseconds, not in seconds.
 	/// </summary>
 	[JsonPropertyName("tracked_seconds")]
-	public required int TrackedMilliseconds { get; set; }
+	public required long? TrackedMilliseconds { get; set; }
 
 	/// <summary>
 	/// When the task was deleted (or null if not deleted)

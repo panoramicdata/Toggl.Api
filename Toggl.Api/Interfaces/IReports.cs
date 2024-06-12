@@ -40,16 +40,16 @@ public interface IReports
 		CancellationToken cancellationToken
 		);
 
-	/// <summary>
-	/// Returns project's summary.
-	/// https://engineering.toggl.com/docs/reports/summary_reports#post-load-project-summary
-	/// </summary>
-	/// <param name="workspaceId">The workspace id</param>
-	/// <param name="reportRequest">The report request</param>
-	/// <param name="cancellationToken">The cancellation token</param>
-	/// <returns></returns>
-	[Post("/reports/api/v3/workspace/{workspace_id}/search/time_entries")]
-	Task<ICollection<DetailedReportTimeEntryGroup>> GetDetailsAsync(
+    /// <summary>
+    /// Returns time entries for detailed report according to the given filters. Supports pagination via X-Next-ID and X-Next-Row-Number headers returned in the response.
+    /// https://engineering.toggl.com/docs/reports/detailed_reports#post-search-time-entries
+    /// </summary>
+    /// <param name="workspaceId">The workspace id</param>
+    /// <param name="reportRequest">The report request</param>
+    /// <param name="cancellationToken">The cancellation token</param>
+    /// <returns></returns>
+    [Post("/reports/api/v3/workspace/{workspace_id}/search/time_entries")]
+	Task<ApiResponse<ICollection<DetailedReportTimeEntryGroup>>> GetDetailsAsync(
 		[AliasAs("workspace_id")] long workspaceId,
 		[Body] DetailedReportRequest reportRequest,
 		CancellationToken cancellationToken
