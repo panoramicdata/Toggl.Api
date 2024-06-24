@@ -25,7 +25,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<PackageReleaseNotes>
-			ProjectId is now nullable on DetailedReportTimeEntryGroup to avoid de-serialization when the Project ID is null.
+			Added missing Project and Group properties.
 		</PackageReleaseNotes>
 	</PropertyGroup>
 

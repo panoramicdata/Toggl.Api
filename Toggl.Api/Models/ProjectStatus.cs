@@ -4,5 +4,7 @@ public enum ProjectStatus
 {
 	Active,
 	Archived,
-	Ended
+	Deleted,
+	Ended,
+	Upcoming
 }
