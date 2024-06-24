@@ -54,4 +54,10 @@ public class GroupUser : NamedItem
 	/// </summary>
 	[JsonPropertyName("joined")]
 	public required bool Joined { get; set; }
+
+	/// <summary>
+	/// Whether the user is inactive
+	/// </summary>
+	[JsonPropertyName("inactive")]
+	public required bool InActive { get; set; }
 }

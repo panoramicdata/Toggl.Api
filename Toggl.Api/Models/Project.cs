@@ -185,5 +185,17 @@ public class Project : NamedIdentifiedItem
 	[JsonPropertyName("permissions")]
 	public string? Permissions { get; set; }
 
+	/// <summary>
+	/// Whether time can be tracked
+	/// </summary>
+	[JsonPropertyName("can_track_time")]
+	public required bool CanTrackTime { get; set; }
+
+	/// <summary>
+	/// Whether it is shared
+	/// </summary>
+	[JsonPropertyName("is_shared")]
+	public required bool IsShared { get; set; }
+
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }
