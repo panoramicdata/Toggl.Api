@@ -56,7 +56,7 @@ public class TimeEntry : IdentifiedItem
 	/// Project ID, legacy field
 	/// </summary>
 	[JsonPropertyName("pid")]
-	public required long Pid { get; set; }
+	public long? Pid { get; set; }
 
 	/// <summary>
 	/// Is Project Active
