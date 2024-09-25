@@ -66,7 +66,7 @@ public class WorkspaceCreationDto : NamedItem
 	/// The rate change mode, premium feature, optional, only for existing WS. Can be "start-today", "override-current", "override-all"
 	/// </summary>
 	[JsonPropertyName("rate_change_mode")]
-	public required WorkpsaceRateChangeMode RateChangeMode { get; set; }
+	public required WorkspaceRateChangeMode RateChangeMode { get; set; }
 
 	/// <summary>
 	/// Whether reports should be collapsed by default, optional, only for existing WS, will be true initially

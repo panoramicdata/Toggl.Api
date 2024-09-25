@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Admins
+
+using System;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -18,7 +20,7 @@ public class Workspace : NamedIdentifiedItem
 	/// deprecated
 	/// </summary>
 	[JsonPropertyName("api_token")]
-	public required string ApiToken { get; set; }
+	public required string ApiToken { get; set; } = string.Empty;
 
 	/// <summary>
 	/// Workspace on Premium subscription
@@ -141,10 +143,16 @@ public class Workspace : NamedIdentifiedItem
 	public required bool ProjectsBillableByDefault { get; set; }
 
 	/// <summary>
-	/// Workspace setting for default project visbility.
+	/// Workspace setting for default project visibility.
 	/// </summary>
 	[JsonPropertyName("projects_private_by_default")]
 	public required bool ProjectsPrivateByDefault { get; set; }
+
+	/// <summary>
+	/// Workspace setting for default project billable.
+	/// </summary>
+	[JsonPropertyName("projects_enforce_billable")]
+	public required bool ProjectsEnforceBillable { get; set; }
 
 	/// <summary>
 	/// Timestamp of last workspace rate update

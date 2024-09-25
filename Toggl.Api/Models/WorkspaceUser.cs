@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Labour
+
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -9,6 +11,12 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class WorkspaceUser : NamedIdentifiedItem
 {
+	/// <summary>
+	/// The UID
+	/// </summary>
+	[JsonPropertyName("uid")]
+	public int Uid { get; set; }
+
 	/// <summary>
 	/// Whether the user is active
 	/// </summary>
@@ -28,7 +36,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public string? AvatarUrl { get; set; }
 
 	/// <summary>
-	/// The email adddress
+	/// The email address
 	/// </summary>
 	[JsonPropertyName("email")]
 	public required string Email { get; set; } = string.Empty;
@@ -64,10 +72,22 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public required bool IsDirect { get; set; }
 
 	/// <summary>
+	/// The user labor cost
+	/// </summary>
+	[JsonPropertyName("labor_cost")]
+	public double? LaborCost { get; set; }
+
+	/// <summary>
 	/// The user labour cost
 	/// </summary>
 	[JsonPropertyName("labour_cost")]
-	public int? LabourCost { get; set; }
+	public double? LabourCost { get; set; }
+
+	/// <summary>
+	/// The user labour cost
+	/// </summary>
+	[JsonPropertyName("labor_cost_last_updated")]
+	public DateTimeOffset? LabourCostLastUpdated { get; set; }
 
 	/// <summary>
 	/// Indicates if user is admin inside organization
@@ -103,7 +123,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// The user ID
 	/// </summary>
 	[JsonPropertyName("user_id")]
-	public required int UserId { get; set; }
+	public int UserId { get; set; }
 
 	/// <summary>
 	/// The working hours in minutes
@@ -112,7 +132,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public int? WorkingHoursInMinutes { get; set; }
 
 	/// <summary>
-	/// Indicates whether the user is an admin in the worksapce
+	/// Indicates whether the user is an admin in the workspace
 	/// </summary>
 	[JsonPropertyName("workspace_admin")]
 	public bool IsWorkspaceAdmin { get; set; }
@@ -123,7 +143,12 @@ public class WorkspaceUser : NamedIdentifiedItem
 	[JsonPropertyName("workspace_id")]
 	public int WorkspaceId { get; set; }
 
-	//workspace_id
+	/// <summary>
+	/// The workspace identifier
+	/// </summary>
+	[JsonPropertyName("wid")]
+	public long Wid { get; set; }
+
 	/// <summary>
 	/// Timestamp of the last update
 	/// </summary>

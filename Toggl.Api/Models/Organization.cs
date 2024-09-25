@@ -64,7 +64,7 @@ public class Organization : IdentifiedItem
 	/// Organization's subscription payment methods. Omitted if empty.
 	/// </summary>
 	[JsonPropertyName("payment_methods")]
-	public required ICollection<PaymentMethod> PaymentMethods { get; set; }
+	public ICollection<PaymentMethod> PaymentMethods { get; set; } = [];
 
 	/// <summary>
 	/// Undocumented property (docs just say '-')
