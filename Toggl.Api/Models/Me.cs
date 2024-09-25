@@ -37,7 +37,7 @@ public class Me : IdentifiedItem
 	/// country_id
 	/// </summary>
 	[JsonPropertyName("country_id")]
-	public int CountryId { get; set; }
+	public int? CountryId { get; set; }
 
 	/// <summary>
 	/// Created
