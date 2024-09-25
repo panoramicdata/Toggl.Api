@@ -114,10 +114,10 @@ public class Project : NamedIdentifiedItem
 	public required ICollection<RecurringParameter> RecurringParameters { get; set; }
 
 	/// <summary>
-	/// Whether the project has a fixed fee
+	/// The fixed project fee
 	/// </summary>
 	[JsonPropertyName("fixed_fee")]
-	public required bool? IsFixedFee { get; set; }
+	public double? FixedFee { get; set; }
 
 	/// <summary>
 	/// A color
@@ -196,6 +196,12 @@ public class Project : NamedIdentifiedItem
 	/// </summary>
 	[JsonPropertyName("is_shared")]
 	public bool? IsShared { get; set; }
+
+	/// <summary>
+	/// Pinned
+	/// </summary>
+	[JsonPropertyName("pinned")]
+	public bool? Pinned { get; set; }
 
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }
