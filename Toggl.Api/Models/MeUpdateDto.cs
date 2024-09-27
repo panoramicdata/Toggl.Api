@@ -17,7 +17,7 @@ public class MeUpdateDto
 	/// User's country ID
 	/// </summary>
 	[JsonPropertyName("country_id")]
-	public required int CountryId { get; set; }
+	public required int? CountryId { get; set; }
 
 	/// <summary>
 	/// User's current password (used to change the current password)
