@@ -64,10 +64,16 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public required bool IsDirect { get; set; }
 
 	/// <summary>
-	/// The user labour cost
+	/// The labour cost
 	/// </summary>
-	[JsonPropertyName("labour_cost")]
+	[JsonPropertyName("labor_cost")]
 	public int? LabourCost { get; set; }
+
+	/// <summary>
+	/// When the labour cost was last updated
+	/// </summary>
+	[JsonPropertyName("labor_cost_last_updated")]
+	public object? LabourCostLastUpdated { get; set; }
 
 	/// <summary>
 	/// Indicates if user is admin inside organization
@@ -106,6 +112,12 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public required int UserId { get; set; }
 
 	/// <summary>
+	/// The legacy user ID
+	/// </summary>
+	[JsonPropertyName("uid")]
+	public int? Uid { get; set; }
+
+	/// <summary>
 	/// The working hours in minutes
 	/// </summary>
 	[JsonPropertyName("working_hours_in_minutes")]
@@ -123,7 +135,12 @@ public class WorkspaceUser : NamedIdentifiedItem
 	[JsonPropertyName("workspace_id")]
 	public int WorkspaceId { get; set; }
 
-	//workspace_id
+	/// <summary>
+	/// The workspace ID (legacy)
+	/// </summary>
+	[JsonPropertyName("wid")]
+	public int? Wid { get; set; }
+
 	/// <summary>
 	/// Timestamp of the last update
 	/// </summary>

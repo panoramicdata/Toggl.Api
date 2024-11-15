@@ -1,8 +1,7 @@
+using System;
 using System.Globalization;
 
 namespace Toggl.Api.Extensions;
-
-using System;
 
 public static class Dates
 {

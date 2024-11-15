@@ -13,7 +13,7 @@ public class TimeEntryParams : TimeEntry
 
 	public TimeEntryParams()
 	{
-		Tags = new List<string>();
+		Tags = [];
 	}
 
 	public List<KeyValuePair<string, string>> GetParameters()

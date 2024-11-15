@@ -141,6 +141,12 @@ public class Workspace : NamedIdentifiedItem
 	public required bool ProjectsBillableByDefault { get; set; }
 
 	/// <summary>
+	/// Workspace setting for project enforced billability.
+	/// </summary>
+	[JsonPropertyName("projects_enforce_billable")]
+	public required bool ProjectsEnforceBillable { get; set; }
+
+	/// <summary>
 	/// Workspace setting for default project visbility.
 	/// </summary>
 	[JsonPropertyName("projects_private_by_default")]

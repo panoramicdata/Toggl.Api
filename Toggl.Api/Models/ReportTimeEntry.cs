@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-
-namespace Toggl.Api.Models;
-
 using System.Globalization;
 using System.Text.Json.Serialization;
+
+namespace Toggl.Api.Models;
 
 public class ReportTimeEntry : IdentifiedItem
 {

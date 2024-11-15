@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Toggl.Api;
+namespace Toggl.Api.Models;
 
 public enum WorkpsaceRateChangeMode
 {

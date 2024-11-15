@@ -30,7 +30,13 @@ public class ProjectUser : IdentifiedItem
 	/// Labour cost for this project user
 	/// </summary>
 	[JsonPropertyName("labour_cost")]
-	public required long? LabourCost { get; set; }
+	public long? LabourCost { get; set; }
+
+	/// <summary>
+	/// Labour cost for this project user
+	/// </summary>
+	[JsonPropertyName("labour_cost_last_updated")]
+	public object? LabourCostLastUpdated { get; set; }
 
 	/// <summary>
 	/// Whether the user is manager of the project
