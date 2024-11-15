@@ -156,12 +156,6 @@ public class Project : NamedIdentifiedItem
 	public double? ActualSeconds { get; set; }
 
 	/// <summary>
-	/// Whether the project is pinned
-	/// </summary>
-	[JsonPropertyName("pinned")]
-	public bool? IsPinned { get; set; }
-
-	/// <summary>
 	/// The number of tasks
 	/// </summary>
 	[JsonPropertyName("tasks_count")]

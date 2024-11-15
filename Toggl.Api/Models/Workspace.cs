@@ -155,12 +155,6 @@ public class Workspace : NamedIdentifiedItem
 	public required bool ProjectsPrivateByDefault { get; set; }
 
 	/// <summary>
-	/// Workspace setting for default project billable.
-	/// </summary>
-	[JsonPropertyName("projects_enforce_billable")]
-	public required bool ProjectsEnforceBillable { get; set; }
-
-	/// <summary>
 	/// Timestamp of last workspace rate update
 	/// </summary>
 	[JsonPropertyName("rate_last_updated")]

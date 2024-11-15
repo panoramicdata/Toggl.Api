@@ -90,12 +90,6 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public DateTimeOffset? LabourCostLastUpdated { get; set; }
 
 	/// <summary>
-	/// When the labour cost was last updated
-	/// </summary>
-	[JsonPropertyName("labor_cost_last_updated")]
-	public object? LabourCostLastUpdated { get; set; }
-
-	/// <summary>
 	/// Indicates if user is admin inside organization
 	/// </summary>
 	[JsonPropertyName("organization_admin")]
@@ -130,12 +124,6 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// </summary>
 	[JsonPropertyName("user_id")]
 	public int UserId { get; set; }
-
-	/// <summary>
-	/// The legacy user ID
-	/// </summary>
-	[JsonPropertyName("uid")]
-	public int? Uid { get; set; }
 
 	/// <summary>
 	/// The working hours in minutes
