@@ -35,7 +35,7 @@ public class TogglClientOptions
 	{
 		if (string.IsNullOrEmpty(Key))
 		{
-			throw new ArgumentException("Key is required", nameof(Key));
+			throw new ArgumentException("Key is required");
 		}
 	}
 }

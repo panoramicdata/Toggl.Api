@@ -2,7 +2,7 @@
 
 namespace Toggl.Api.Models;
 
-public enum WorkpsaceRateChangeMode
+public enum WorkspaceRateChangeMode
 {
 	[JsonPropertyName("start_today")]
 	StartToday,
