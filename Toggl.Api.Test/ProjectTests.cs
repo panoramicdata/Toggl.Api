@@ -1,15 +1,11 @@
 ﻿using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using Toggl.Api.Models;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class ProjectTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
 	public async Task Projects_GetPage_Succeeds()

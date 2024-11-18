@@ -154,4 +154,16 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// </summary>
 	[JsonPropertyName("at")]
 	public DateTimeOffset? UpdatedAt { get; set; }
+
+	/// <summary>
+	/// View/edit billable rates
+	/// </summary>
+	[JsonPropertyName("view_edit_billable_rates")]
+	public bool ViewEditBillableRates { get; set; }
+
+	/// <summary>
+	/// View/edit labor costs
+	/// </summary>
+	[JsonPropertyName("view_edit_labor_costs")]
+	public bool ViewEditLaborCosts { get; set; }
 }

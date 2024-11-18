@@ -5,25 +5,25 @@ public class Configuration
 	/// <summary>
 	///  The API key
 	/// </summary>
-	public string ApiKey { get; set; } = string.Empty;
+	public required string ApiKey { get; init; }
 
 	/// <summary>
 	/// A sample workspace name
 	/// </summary>
-	public string SampleWorkspaceName { get; set; } = string.Empty;
+	public required string SampleWorkspaceName { get; init; }
 
 	/// <summary>
 	/// A sample client name
 	/// </summary>
-	public string SampleClientName { get; set; } = string.Empty;
+	public required string SampleClientName { get; init; }
 
 	/// <summary>
 	/// A sample project name
 	/// </summary>
-	public string SampleProjectName { get; set; } = string.Empty;
+	public required string SampleProjectName { get; init; }
 
 	/// <summary>
 	/// A sample client name to use for testing CRUD operations
 	/// </summary>
-	public string CrudClientName { get; set; } = "Test Client Name";
+	public required string CrudClientName { get; init; }
 }

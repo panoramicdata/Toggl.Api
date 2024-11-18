@@ -6,7 +6,7 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class TimeEntryTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class TimeEntryTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Theory]
 	[InlineData(true, true)]

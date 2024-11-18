@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class MeTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
 	public async Task Me_Get_WithoutRelatedData_Succeeds()

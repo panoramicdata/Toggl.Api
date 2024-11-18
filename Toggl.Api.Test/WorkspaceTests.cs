@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class WorkspaceTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
 	public async Task Workspaces_GetById_Succeeds()

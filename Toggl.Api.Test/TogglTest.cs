@@ -1,21 +1,19 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
+using Xunit;
 using Xunit.Abstractions;
+using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Toggl.Api.Test;
 
-public class TogglTest
+[CollectionDefinition("Dependency Injection")]
+public class TogglTest : TestBed<Fixture>
 {
 	private static ReportRequest? _reportRequest;
 	private static DetailedReportRequest? _detailedReportRequest;
@@ -29,10 +27,24 @@ public class TogglTest
 
 	protected Configuration Configuration { get; }
 
-	protected TogglTest(ITestOutputHelper iTestOutputHelper)
+	protected TogglTest(ITestOutputHelper testOutputHelper, Fixture fixture) : base(testOutputHelper, fixture)
 	{
-		Logger = iTestOutputHelper.BuildLogger(LogLevel.Debug);
-		Configuration = LoadConfiguration("appsettings.json");
+		ArgumentNullException.ThrowIfNull(testOutputHelper);
+		ArgumentNullException.ThrowIfNull(fixture);
+
+		// Logger
+		var loggerFactory = fixture
+			.GetService<ILoggerFactory>(testOutputHelper)
+			?? throw new InvalidOperationException("LoggerFactory is null");
+		Logger = loggerFactory.CreateLogger(GetType());
+
+		// Configuration
+		var configOptions = fixture
+			.GetService<IOptions<Configuration>>(testOutputHelper)
+			?? throw new InvalidOperationException("Configuration not found.");
+		Configuration = configOptions.Value;
+
+		// Toggl Client
 		TogglClient = new TogglClient(new TogglClientOptions
 		{
 			Key = Configuration.ApiKey,
@@ -41,29 +53,6 @@ public class TogglTest
 			// Note that this is NOT the default behavior, so changes to the API won't cause backward compatibility issues
 			JsonUnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
 		});
-	}
-
-	private static Configuration LoadConfiguration(string jsonFilePath)
-	{
-		var location = typeof(TogglTest).GetTypeInfo().Assembly.Location;
-		var dirPath = Path.Combine(Path.GetDirectoryName(location) ?? throw new ConfigurationErrorsException("Configuration location missing."), "../../..");
-
-		Configuration configuration;
-		var configurationRoot = new ConfigurationBuilder()
-			.SetBasePath(dirPath)
-			.AddJsonFile(jsonFilePath, false, false)
-			.Build();
-		var services = new ServiceCollection();
-		services.AddOptions();
-		services.Configure<Configuration>(configurationRoot);
-		using (var sp = services.BuildServiceProvider())
-		{
-			var options = sp.GetService<IOptions<Configuration>>()
-				?? throw new ConfigurationErrorsException("Options retrieved as null");
-			configuration = options.Value;
-		}
-
-		return configuration;
 	}
 
 	protected async Task<long> GetWorkspaceIdAsync()

@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class ClientTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact(Skip = "Functionality not yet complete")]
 	public async Task Crud_Client_Succeeds()

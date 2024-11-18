@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class GroupTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class GroupTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
 	public async Task Tasks_Get_Groups_Succeeds()

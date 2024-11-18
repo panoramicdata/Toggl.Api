@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
-public class ProjectTaskTests(ITestOutputHelper testOutputHelper) : TogglTest(testOutputHelper)
+public class ProjectTaskTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
 	public async Task Tasks_Get_ForProject_Succeeds()
