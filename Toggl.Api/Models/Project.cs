@@ -87,7 +87,7 @@ public class Project : NamedIdentifiedItem
 	/// The project status
 	/// </summary>
 	[JsonPropertyName("status")]
-	public required ProjectStatus Status { get; set; }
+	public ProjectStatus Status { get; set; }
 
 	/// <summary>
 	/// Timestamp indicating when the project was deleted (or null if not deleted)

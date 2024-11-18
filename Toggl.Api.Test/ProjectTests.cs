@@ -1,5 +1,8 @@
 ﻿using FluentAssertions;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Toggl.Api.Models;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -48,11 +51,10 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 
 		//var projectCreationDto = new ProjectCreationDto
 		//{
-		//	IsActive = false,
+		//	IsActive = true,
 		//	IsPrivate = false,
 		//	IsShared = false,
-		//	Name = "Test - can delete",
-		//	StartDate = DateTime.UtcNow
+		//	Name = "ABC"
 		//};
 
 		//// Create a project
@@ -60,8 +62,5 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 		//	await TogglClient.Projects.CreateAsync(workspaceId, projectCreationDto, CancellationToken.None);
 
 		//project.Should().NotBeNull();
-
-		// TODO: Add the DeleteAsync so the unit tests can be run properly
-		//await TogglClient.Projects.DeleteAsync
 	}
 }

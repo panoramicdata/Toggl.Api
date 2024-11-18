@@ -108,7 +108,7 @@ public class ProjectCreationDto : NamedItem
 	/// Start date of a project time-frame
 	/// </summary>
 	[JsonPropertyName("start_date")]
-	public required DateTimeOffset StartDate { get; set; }
+	public DateTimeOffset? StartDate { get; set; }
 
 	/// <summary>
 	/// Project is template, optional, premium feature
