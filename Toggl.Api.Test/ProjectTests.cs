@@ -47,18 +47,25 @@ public class ProjectTests(ITestOutputHelper testOutputHelper) : TogglTest(testOu
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 
-		var projectCreationDto = new ProjectCreationDto
-		{
-			IsActive = false,
-			IsPrivate = false,
-			IsShared = false,
-			Name = "Test - can delete",
-			StartDate = DateTime.UtcNow
-		};
+		// Commented out below until we put in the Project Delete method,
+		// as then the unit test can be run more conveniently!...
 
-		var project =
-			await TogglClient.Projects.CreateAsync(workspaceId, projectCreationDto, CancellationToken.None);
+		//var projectCreationDto = new ProjectCreationDto
+		//{
+		//	IsActive = false,
+		//	IsPrivate = false,
+		//	IsShared = false,
+		//	Name = "Test - can delete",
+		//	StartDate = DateTime.UtcNow
+		//};
 
-		project.Should().NotBeNull();
+		//// Create a project
+		//var project =
+		//	await TogglClient.Projects.CreateAsync(workspaceId, projectCreationDto, CancellationToken.None);
+
+		//project.Should().NotBeNull();
+
+		// TODO: Add the DeleteAsync so the unit tests can be run properly
+		//await TogglClient.Projects.DeleteAsync
 	}
 }
