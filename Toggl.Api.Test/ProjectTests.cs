@@ -1,5 +1,9 @@
 ﻿using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Toggl.Api.Models;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -38,4 +42,23 @@ public class ProjectTests(ITestOutputHelper testOutputHelper) : TogglTest(testOu
 		report.Should().NotBeNullOrEmpty();
 	}
 
+	[Fact]
+	public async Task Projects_CreateProject_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+
+		var projectCreationDto = new ProjectCreationDto
+		{
+			IsActive = false,
+			IsPrivate = false,
+			IsShared = false,
+			Name = "Test - can delete",
+			StartDate = DateTime.UtcNow
+		};
+
+		var project =
+			await TogglClient.Projects.CreateAsync(workspaceId, projectCreationDto, CancellationToken.None);
+
+		project.Should().NotBeNull();
+	}
 }

@@ -78,6 +78,17 @@ public interface IProjects
 		[AliasAs("workspace_id")] long workspaceId,
 		[AliasAs("project_ids")] ICollection<long>? projectIds,
 		[AliasAs("with_group_members")] bool? withGroupMembers,
-		CancellationToken cancellationToken
-		);
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Creates a new workspace Project
+	/// </summary>
+	/// <param name="project">The Project to create</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/workspaces/{workspace_id}/projects")]
+	Task<Project> CreateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[Body] ProjectCreationDto project,
+		CancellationToken cancellationToken);
 }
