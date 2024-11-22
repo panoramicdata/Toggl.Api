@@ -7,9 +7,9 @@
 
 ## Description
 
-This is a .NET 8.0 library for the Toggl API.
+This is a .NET 8.0 / .NET 9.0 library for the Toggl API.
 
-We now only provide v9 support.  Many endpoints are currently missing.  Your pull requests are welcome!
+We now only provide Toggl API v9 support.  Many endpoints are currently missing.  Your pull requests are welcome!
 
 ## Breaking change
 **To avoid the conflict with System.Threading.Tasks.Task, we have renamed the Task class to ProjectTask.
@@ -25,7 +25,7 @@ Add unit tests in the `Toggl.Api.Tests` project.
 
 Refer to the Toggl API documentation for more information on the endpoints and models here: https://engineering.toggl.com/docs/
 
-## Migrating from v8 to v9
+## Migrating from Toggl API v8 to Toggl API v9
 
 The v9 version of the library is a complete rewrite.  The main differences are:
   - The library is now .NET 8.0.
