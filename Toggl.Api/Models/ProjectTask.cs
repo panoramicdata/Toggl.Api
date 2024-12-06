@@ -30,7 +30,7 @@ public class ProjectTask : NamedIdentifiedItem
 	/// Permissions
 	/// </summary>
 	[JsonPropertyName("permissions")]
-	public required string Permissions { get; set; }
+	public string Permissions { get; set; }
 
 	/// <summary>
 	/// Project id
