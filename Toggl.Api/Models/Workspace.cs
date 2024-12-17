@@ -134,7 +134,7 @@ public class Workspace : NamedIdentifiedItem
 	/// deprecated
 	/// </summary>
 	[JsonPropertyName("profile")]
-	public required int Profile { get; set; }
+	public int? Profile { get; set; }
 
 	/// <summary>
 	/// New projects billable by default
@@ -149,7 +149,13 @@ public class Workspace : NamedIdentifiedItem
 	public required bool ProjectsEnforceBillable { get; set; }
 
 	/// <summary>
-	/// Workspace setting for default project visbility.
+	/// Workspace setting for limit public project data
+	/// </summary>
+	[JsonPropertyName("limit_public_project_data")]
+	public required bool LimitPublicProjectData { get; set; }
+
+	/// <summary>
+	/// Workspace setting for default project visibility.
 	/// </summary>
 	[JsonPropertyName("projects_private_by_default")]
 	public required bool ProjectsPrivateByDefault { get; set; }

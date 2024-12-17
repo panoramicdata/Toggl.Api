@@ -23,7 +23,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>
-			Support for both net8.0 and net9.0. Added missing WorkspaceUser fields.
+			Fixed broken Added additional property "LimitPublicProjectData" on Workspace.
 		</PackageReleaseNotes>
 
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
