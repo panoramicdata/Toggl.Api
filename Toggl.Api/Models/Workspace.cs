@@ -219,4 +219,10 @@ public class Workspace : NamedIdentifiedItem
 	/// </summary>
 	[JsonPropertyName("working_hours_in_minutes")]
 	public required int? WorkingHoursInMinutes { get; set; }
+
+	/// <summary>
+	/// Active project count
+	/// </summary>
+	[JsonPropertyName("active_project_count")]
+	public int? ActiveProjectCount { get; set; }
 }

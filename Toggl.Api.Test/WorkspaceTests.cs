@@ -1,4 +1,5 @@
 using FluentAssertions;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -15,6 +16,14 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 			.GetAsync(await GetWorkspaceIdAsync(), default);
 
 		workspace.Should().NotBeNull();
+	}
+
+
+	[Fact]
+	public async Task Workspaces_GetAll_Succeeds()
+	{
+		var workspaces = await TogglClient.Me.GetWorkspacesAsync(null, CancellationToken.None);
+		workspaces.Count.Should().NotBe(0);
 	}
 
 	[Fact]
