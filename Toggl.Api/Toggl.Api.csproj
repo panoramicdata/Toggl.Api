@@ -23,7 +23,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>
-			Fixed broken Added additional property "LimitPublicProjectData" on Workspace.
+			Added "Workspaces_GetAll_Succeeds" unit test, and added missing property "ActiveProjectCount" to Workspace entity.
 		</PackageReleaseNotes>
 
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
