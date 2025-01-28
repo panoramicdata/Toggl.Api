@@ -209,5 +209,12 @@ public class Project : NamedIdentifiedItem
 	[JsonPropertyName("pinned")]
 	public bool? Pinned { get; set; }
 
+	/// <summary>
+	/// Client Name
+	/// </summary>
+	[JsonPropertyName("client_name")]
+	public string? ClientName { get; set; }
+
+	///
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }

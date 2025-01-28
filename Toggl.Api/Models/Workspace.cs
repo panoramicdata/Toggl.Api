@@ -44,7 +44,7 @@ public class Workspace : NamedIdentifiedItem
 	/// The default hourly rate, premium feature, optional, only for existing WS, will be 0.0 initially
 	/// </summary>
 	[JsonPropertyName("default_hourly_rate")]
-	public required double? DefaultHourlyRate { get; set; }
+	public double? DefaultHourlyRate { get; set; }
 
 	/// <summary>
 	/// Whether to hide start and end times
@@ -56,13 +56,13 @@ public class Workspace : NamedIdentifiedItem
 	/// Calendar integration enabled
 	/// </summary>
 	[JsonPropertyName("ical_enabled")]
-	public required bool IsIcalEnabled { get; set; }
+	public bool IsIcalEnabled { get; set; }
 
 	/// <summary>
 	/// URL of calendar
 	/// </summary>
 	[JsonPropertyName("ical_url")]
-	public required Uri? IcalUrl { get; set; }
+	public Uri? IcalUrl { get; set; }
 
 	/// <summary>
 	/// Creation date
@@ -74,7 +74,7 @@ public class Workspace : NamedIdentifiedItem
 	/// Last modification of data in the workspace
 	/// </summary>
 	[JsonPropertyName("last_modified")]
-	public required DateTimeOffset? LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// URL of workspace logo
@@ -92,25 +92,25 @@ public class Workspace : NamedIdentifiedItem
 	/// Only admins will be able to create projects, optional, only for existing WS, will be false initially
 	/// </summary>
 	[JsonPropertyName("only_admins_may_create_projects")]
-	public required bool OnlyAdminsMayCreateProjects { get; set; }
+	public bool? OnlyAdminsMayCreateProjects { get; set; }
 
 	/// <summary>
 	/// Only admins will be able to create tags, optional, only for existing WS, will be false initially
 	/// </summary>
 	[JsonPropertyName("only_admins_may_create_tags")]
-	public required bool OnlyAdminsMayCreateTags { get; set; }
+	public bool? OnlyAdminsMayCreateTags { get; set; }
 
 	/// <summary>
 	/// Whether only admins will be able to see billable rates, premium feature, optional, only for existing WS. Will be false initially
 	/// </summary>
 	[JsonPropertyName("only_admins_see_billable_rates")]
-	public required bool OnlyAdminsSeeBillableRates { get; set; }
+	public bool? OnlyAdminsSeeBillableRates { get; set; }
 
 	/// <summary>
 	/// Only admins will be able to see the team dashboard, optional, only for existing WS, will be false initially
 	/// </summary>
 	[JsonPropertyName("only_admins_see_team_dashboard")]
-	public required bool OnlyAdminsSeeTeamDashboard { get; set; }
+	public bool? OnlyAdminsSeeTeamDashboard { get; set; }
 
 	/// <summary>
 	/// Identifier of the organization
@@ -140,37 +140,37 @@ public class Workspace : NamedIdentifiedItem
 	/// New projects billable by default
 	/// </summary>
 	[JsonPropertyName("projects_billable_by_default")]
-	public required bool ProjectsBillableByDefault { get; set; }
+	public bool? ProjectsBillableByDefault { get; set; }
 
 	/// <summary>
 	/// Workspace setting for project enforced billability.
 	/// </summary>
 	[JsonPropertyName("projects_enforce_billable")]
-	public required bool ProjectsEnforceBillable { get; set; }
+	public bool? ProjectsEnforceBillable { get; set; }
 
 	/// <summary>
 	/// Workspace setting for limit public project data
 	/// </summary>
 	[JsonPropertyName("limit_public_project_data")]
-	public required bool LimitPublicProjectData { get; set; }
+	public bool? LimitPublicProjectData { get; set; }
 
 	/// <summary>
 	/// Workspace setting for default project visibility.
 	/// </summary>
 	[JsonPropertyName("projects_private_by_default")]
-	public required bool ProjectsPrivateByDefault { get; set; }
+	public bool? ProjectsPrivateByDefault { get; set; }
 
 	/// <summary>
 	/// Timestamp of last workspace rate update
 	/// </summary>
 	[JsonPropertyName("rate_last_updated")]
-	public required DateTimeOffset? RateLastUpdated { get; set; }
+	public DateTimeOffset? RateLastUpdated { get; set; }
 
 	/// <summary>
 	/// Whether reports should be collapsed by default, optional, only for existing WS, will be true initially
 	/// </summary>
 	[JsonPropertyName("reports_collapse")]
-	public required bool ReportsCollapse { get; set; }
+	public bool? ReportsCollapse { get; set; }
 
 	/// <summary>
 	/// Role of the current user in the workspace
@@ -194,19 +194,19 @@ public class Workspace : NamedIdentifiedItem
 	/// Timestamp of deletion
 	/// </summary>
 	[JsonPropertyName("server_deleted_at")]
-	public required DateTimeOffset? ServerDeletedAt { get; set; }
+	public DateTimeOffset? ServerDeletedAt { get; set; }
 
 	/// <summary>
 	/// deprecated
 	/// </summary>
 	[JsonPropertyName("subscription")]
-	public required object? Subscription { get; set; }
+	public object? Subscription { get; set; }
 
 	/// <summary>
 	/// Timestamp of suspension
 	/// </summary>
 	[JsonPropertyName("suspended_at")]
-	public required DateTimeOffset? SuspendedAt { get; set; }
+	public DateTimeOffset? SuspendedAt { get; set; }
 
 	/// <summary>
 	/// Time entry constraints setting
@@ -218,7 +218,7 @@ public class Workspace : NamedIdentifiedItem
 	/// Working hours in minutes
 	/// </summary>
 	[JsonPropertyName("working_hours_in_minutes")]
-	public required int? WorkingHoursInMinutes { get; set; }
+	public int? WorkingHoursInMinutes { get; set; }
 
 	/// <summary>
 	/// Active project count

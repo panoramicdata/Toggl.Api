@@ -43,4 +43,10 @@ public class TrialInfo
 	/// </summary>
 	[JsonPropertyName("trial_end_date")]
 	public DateTimeOffset? TrialEndDate { get; set; }
+
+	/// <summary>
+	/// 	The trial plan ID
+	/// </summary>
+	[JsonPropertyName("trial_plan_id")]
+	public int? TrialPlanId { get; set; }
 }
