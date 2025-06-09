@@ -22,6 +22,11 @@ public class TogglClientOptions
 	public double TimeoutSeconds { get; set; } = 30;
 
 	/// <summary>
+	/// Once a 429 (too many requests) is received, how long to wait trying to send the request again
+	/// </summary>
+	public int DelayMsAfterTooManyRequests { get; set; } = 5_000;
+
+	/// <summary>
 	/// The User-Agent header to send
 	/// </summary>
 	public string UserAgent { get; set; } = "Toggl.Api";

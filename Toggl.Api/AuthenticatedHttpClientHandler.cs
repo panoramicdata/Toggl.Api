@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Toggl.Api;
+
 internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options) : HttpClientHandler
 {
 	private static readonly JsonSerializerOptions _prettyPrintJsonSerializerOptions = new() { WriteIndented = true };
@@ -53,7 +54,7 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 
 				if ((int)response.StatusCode == 429)    // Too many requests
 				{
-					await Task.Delay(5000, default).ConfigureAwait(false);
+					await Task.Delay(_options.DelayMsAfterTooManyRequests, default).ConfigureAwait(false);
 					continue;
 				}
 
@@ -73,7 +74,7 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 			}
 			catch (WebException ex) when (ex.Message.Contains("(429)"))
 			{
-				await Task.Delay(5000, default).ConfigureAwait(false);
+				await Task.Delay(_options.DelayMsAfterTooManyRequests, default).ConfigureAwait(false);
 			}
 		}
 	}

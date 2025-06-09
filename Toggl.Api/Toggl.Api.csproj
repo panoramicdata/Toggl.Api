@@ -23,7 +23,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>
-			Added missing member nullable int "TrialPlanId" onto TrialInfo entity (attached to an Organization). "OnlyAdminsSeeBillableRates" is now NOT 'required' on a Workspace entity. "ClientName" nullable string property has been added to the Project entity.
+			Added 'DelayMsAfterTooManyRequests' onto TogglClientOptions to allow control over the delay between retries after a HTTP 429 response.
 		</PackageReleaseNotes>
 
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
