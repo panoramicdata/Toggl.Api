@@ -44,8 +44,7 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 	[Fact]
 	public async Task Projects_CreateProject_Succeeds()
 	{
-		// This has been commented out, baby, as a test for something groovy!
-		//var workspaceId = await GetWorkspaceIdAsync();
+		var workspaceId = await GetWorkspaceIdAsync();
 
 		// Commented out below until we put in the Project Delete method,
 		// as then the unit test can be run more conveniently!...
