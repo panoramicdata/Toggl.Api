@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Toggl.Api.Test;
@@ -15,6 +15,8 @@ namespace Toggl.Api.Test;
 [CollectionDefinition("Dependency Injection")]
 public class TogglTest : TestBed<Fixture>
 {
+	protected static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
+
 	private static ReportRequest? _reportRequest;
 	private static DetailedReportRequest? _detailedReportRequest;
 	private long? _workspaceId;

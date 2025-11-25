@@ -1,8 +1,7 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using System;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -19,7 +18,7 @@ public class TimeEntryTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 	{
 		var timeEntries = await TogglClient
 			.TimeEntries
-			.GetAsync(includeMeta, includeSharingDetails, null, null, null, null, default);
+			.GetAsync(includeMeta, includeSharingDetails, null, null, null, null, CancellationToken);
 
 		timeEntries.Should().NotBeNullOrEmpty();
 	}
@@ -31,7 +30,7 @@ public class TimeEntryTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 		var endDate = DateTimeOffset.Now;
 		var timeEntries = await TogglClient
 			.TimeEntries
-			.GetAsync(false, false, null, null, startDate, endDate, default);
+			.GetAsync(false, false, null, null, startDate, endDate, CancellationToken);
 
 		timeEntries.Should().NotBeNull();
 	}

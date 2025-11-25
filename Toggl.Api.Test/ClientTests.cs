@@ -1,11 +1,10 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using Refit;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -23,7 +22,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				workspaceId,
 				ClientStatus.Both,
 				null,
-				default
+				CancellationToken
 			);
 		var matchingClients = clients
 			.Where(p => p.Name == Configuration.CrudClientName)
@@ -33,7 +32,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 		{
 			await TogglClient
 				.Clients
-				.DeleteAsync(workspaceId, client.Id, default);
+				.DeleteAsync(workspaceId, client.Id, CancellationToken);
 		}
 
 		// Create a new client
@@ -45,7 +44,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 
 		var createdClient = await TogglClient
 			.Clients
-			.CreateAsync(workspaceId, newClient, default);
+			.CreateAsync(workspaceId, newClient, CancellationToken);
 		createdClient.Should().NotBeNull();
 
 		// Check that it's there
@@ -54,7 +53,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			.GetAsync(
 				workspaceId,
 				createdClient.Id,
-				default
+				CancellationToken
 			);
 		refetchedClient.Should().NotBeNull();
 		refetchedClient!.Name.Should().Be(Configuration.CrudClientName);
@@ -67,7 +66,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				workspaceId,
 				ClientStatus.Both,
 				null,
-				default
+				CancellationToken
 			);
 
 		allClients.Should().NotBeNullOrEmpty();
@@ -81,7 +80,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				workspaceId,
 				refetchedClient.Id,
 				refetchedClient,
-				default
+				CancellationToken
 			);
 		updatedClient.Should().NotBeNull();
 
@@ -91,7 +90,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			.GetAsync(
 				workspaceId,
 				updatedClient.Id,
-				default
+				CancellationToken
 			);
 
 		refetchedUpdatedClient.Should().NotBeNull();
@@ -104,7 +103,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			.DeleteAsync(
 				workspaceId,
 				updatedClient.Id,
-				default
+				CancellationToken
 			);
 
 		// Refetching the client should fail with a 404

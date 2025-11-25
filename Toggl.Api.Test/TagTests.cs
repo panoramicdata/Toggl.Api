@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -12,7 +11,7 @@ public class TagTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : To
 	{
 		var tasks = await TogglClient
 			.Tags
-			.GetAsync(await GetWorkspaceIdAsync(), default);
+			.GetAsync(await GetWorkspaceIdAsync(), CancellationToken);
 
 		tasks.Should().NotBeNull();
 	}

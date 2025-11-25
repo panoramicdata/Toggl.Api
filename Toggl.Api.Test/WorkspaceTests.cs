@@ -1,8 +1,7 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -13,7 +12,7 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 	{
 		var workspace = await TogglClient
 			.Workspaces
-			.GetAsync(await GetWorkspaceIdAsync(), default);
+			.GetAsync(await GetWorkspaceIdAsync(), CancellationToken);
 
 		workspace.Should().NotBeNull();
 	}
@@ -31,7 +30,7 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 	{
 		var workspace = await TogglClient
 			.Workspaces
-			.GetClientsAsync(await GetWorkspaceIdAsync(), null, null, default);
+			.GetClientsAsync(await GetWorkspaceIdAsync(), null, null, CancellationToken);
 
 		workspace.Should().NotBeNull();
 	}
@@ -44,7 +43,7 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 
 		var users = await TogglClient
 			.Workspaces
-			.GetUsersAsync(organizationId, workspaceId, default);
+			.GetUsersAsync(organizationId, workspaceId, CancellationToken);
 
 		users.Should().NotBeNull();
 	}
@@ -56,7 +55,7 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 
 		var projects = await TogglClient
 			.Workspaces
-			.GetProjectsAsync(workspaceId, default);
+			.GetProjectsAsync(workspaceId, CancellationToken);
 
 		projects.Should().NotBeNull();
 	}

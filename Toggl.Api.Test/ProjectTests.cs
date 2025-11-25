@@ -1,10 +1,6 @@
-﻿using FluentAssertions;
-using System;
-using System.Threading;
+﻿using AwesomeAssertions;
 using System.Threading.Tasks;
-using Toggl.Api.Models;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -24,7 +20,7 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 		var projectId = await GetProjectIdAsync();
 		var project = await TogglClient
 			.Projects
-			.GetAsync(workspaceId, projectId, default);
+			.GetAsync(workspaceId, projectId, CancellationToken);
 
 		project.Should().NotBeNull();
 	}
@@ -36,7 +32,7 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 
 		var report = await TogglClient
 			.Projects
-			.GetUsersAsync(workspaceId, null, null, default);
+			.GetUsersAsync(workspaceId, null, null, CancellationToken);
 
 		report.Should().NotBeNullOrEmpty();
 	}

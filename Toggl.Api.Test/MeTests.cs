@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -12,7 +11,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var me = await TogglClient
 			.Me
-			.GetAsync(false, default);
+			.GetAsync(false, CancellationToken);
 
 		me.Should().NotBeNull();
 		me.Clients.Should().BeNullOrEmpty();
@@ -25,7 +24,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var me = await TogglClient
 			.Me
-			.GetAsync(true, default);
+			.GetAsync(true, CancellationToken);
 
 		me.Should().NotBeNull();
 	}
@@ -35,7 +34,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var clients = await TogglClient
 			.Me
-			.GetClientsAsync(null, default);
+			.GetClientsAsync(null, CancellationToken);
 
 		clients.Should().NotBeNullOrEmpty();
 	}
@@ -45,7 +44,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var features = await TogglClient
 			.Me
-			.GetFeaturesAsync(default);
+			.GetFeaturesAsync(CancellationToken);
 
 		features.Should().NotBeNullOrEmpty();
 	}
@@ -57,7 +56,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var tasks = await TogglClient
 			.Me
-			.GetTasksAsync(null, includeInactive, default);
+			.GetTasksAsync(null, includeInactive, CancellationToken);
 		tasks.Should().NotBeNull();
 	}
 
@@ -65,14 +64,14 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	public async Task Me_GetWebTimer_Succeeds()
 		=> await TogglClient
 			.Me
-			.GetWebTimerAsync(default);
+			.GetWebTimerAsync(CancellationToken);
 
 	[Fact]
 	public async Task Me_GetLastKnownLocation_Succeeds()
 	{
 		var location = await TogglClient
 			.Me
-			.GetLastKnownLocationAsync(default);
+			.GetLastKnownLocationAsync(CancellationToken);
 
 		location.Should().NotBeNull();
 	}
@@ -82,7 +81,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var organizations = await TogglClient
 			.Me
-			.GetOrganizationsAsync(default);
+			.GetOrganizationsAsync(CancellationToken);
 
 		organizations.Should().NotBeNull();
 	}
@@ -90,7 +89,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	[Fact]
 	public async Task Me_GetLogged_Succeeds() => await TogglClient
 		.Me
-		.GetLoggedAsync(default);
+		.GetLoggedAsync(CancellationToken);
 
 	[Theory]
 	[InlineData(true)]
@@ -99,7 +98,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var projects = await TogglClient
 			.Me
-			.GetProjectsAsync(includeArchived, null, default);
+			.GetProjectsAsync(includeArchived, null, CancellationToken);
 
 		projects.Should().NotBeNullOrEmpty();
 	}
@@ -109,7 +108,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var projects = await TogglClient
 			.Me
-			.GetProjectsPaginatedAsync(null, null, 201, default);
+			.GetProjectsPaginatedAsync(null, null, 201, CancellationToken);
 
 		projects.Should().NotBeNullOrEmpty();
 	}
@@ -119,7 +118,7 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	{
 		var projects = await TogglClient
 			.Me
-			.GetTagsAsync(null, default);
+			.GetTagsAsync(null, CancellationToken);
 
 		projects.Should().NotBeNullOrEmpty();
 	}

@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Toggl.Api.Test;
 
@@ -16,7 +15,7 @@ public class GroupTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : 
 				await GetOrganizationIdAsync(),
 				null,
 				null,
-				default);
+				CancellationToken);
 
 		tasks.Should().NotBeNull();
 	}
