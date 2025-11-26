@@ -23,7 +23,10 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>
-			Added 'DelayMsAfterTooManyRequests' onto TogglClientOptions to allow control over the delay between retries after a HTTP 429 response.
+			Updated for .NET 10 release.
+			Note: Toggl have crippled their API, limiting even Premium users to 600 API calls per hour.
+			Beyond that, you will receive HTTP 402 "Payment Required" response - this is an incorrect HTTP Status - it should be 429 "Too Many Requests".
+			You can provide your feedback to Toggl here: https://community.toggl.com/
 		</PackageReleaseNotes>
 
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
