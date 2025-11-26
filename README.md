@@ -5,16 +5,20 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e114c9b81699410887329ecc09609863)](https://www.codacy.com/gh/panoramicdata/Toggl.Api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=panoramicdata/Toggl.Api&amp;utm_campaign=Badge_Grade)
 
-# IMPORTANT NOTICE
+# IMPORTANT NOTICE - SUPPORT DROPPED UNTIL TOGGL RELAXES THEIR API LIMITS
 
 **In September 2025, Toggl crippled their API, limiting even Premium users to 600 API calls per hour.
 Beyond that, you will receive HTTP 402 "Payment Required" response (an incorrect HTTP Status - it should be 429 "Too Many Requests").**
 
-We can't even run our regression test sets, so I'm afraid this library is now untestable and so unsupportable.
+We can't even run our regression test sets, so I'm afraid this library is now untestable and therefore unsupportable.
 
 There is nothing we can do but hope they see sense and lift the limits.
 
 **You can provide your feedback to Toggl here: https://community.toggl.com/**
+
+![402 Payment Required Error](402_Payment_Required.png)
+
+---
 
 ## Description
 
