@@ -48,11 +48,11 @@ public class TogglClient : IDisposable
 		Me = RestService.For<IMe>(_httpClient, refitSettings);
 		Groups = RestService.For<IGroups>(_httpClient, refitSettings);
 		Organizations = RestService.For<IOrganizations>(_httpClient, refitSettings);
-		Projects = RestService.For<IProjects>(_httpClient);
-		Reports = RestService.For<IReports>(_httpClient);
-		Tags = RestService.For<ITags>(_httpClient);
-		Tasks = RestService.For<ITasks>(_httpClient);
-		TimeEntries = RestService.For<ITimeEntries>(_httpClient);
+		Projects = RestService.For<IProjects>(_httpClient, refitSettings);
+		Reports = RestService.For<IReports>(_httpClient, refitSettings);
+		Tags = RestService.For<ITags>(_httpClient, refitSettings);
+		Tasks = RestService.For<ITasks>(_httpClient, refitSettings);
+		TimeEntries = RestService.For<ITimeEntries>(_httpClient, refitSettings);
 		Workspaces = RestService.For<IWorkspaces>(_httpClient, refitSettings);
 	}
 
