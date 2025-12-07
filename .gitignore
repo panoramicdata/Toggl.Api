@@ -324,3 +324,4 @@ ASALocalRun/
 *.nvuser
 /Toggl.Api.Test/appsettings.json
 /nuget-key.txt
+/TestOutput.txt

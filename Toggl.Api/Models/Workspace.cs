@@ -53,6 +53,24 @@ public class Workspace : NamedIdentifiedItem
 	public required bool HideStartEndTimes { get; set; }
 
 	/// <summary>
+	/// Whether the timesheet view is disabled
+	/// </summary>
+	[JsonPropertyName("disable_timesheet_view")]
+	public bool? DisableTimesheetView { get; set; }
+
+	/// <summary>
+	/// Whether approvals are disabled
+	/// </summary>
+	[JsonPropertyName("disable_approvals")]
+	public bool? DisableApprovals { get; set; }
+
+	/// <summary>
+	/// Whether expenses are disabled
+	/// </summary>
+	[JsonPropertyName("disable_expenses")]
+	public bool? DisableExpenses { get; set; }
+
+	/// <summary>
 	/// Calendar integration enabled
 	/// </summary>
 	[JsonPropertyName("ical_enabled")]

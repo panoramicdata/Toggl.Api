@@ -215,6 +215,12 @@ public class Project : NamedIdentifiedItem
 	[JsonPropertyName("client_name")]
 	public string? ClientName { get; set; }
 
+	/// <summary>
+	/// Total count of projects in the workspace (only populated when listing projects)
+	/// </summary>
+	[JsonPropertyName("total_count")]
+	public int? TotalCount { get; set; }
+
 	///
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1}", Id, Name);
 }

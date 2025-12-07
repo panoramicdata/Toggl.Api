@@ -54,6 +54,8 @@ public class TogglTest : TestBed<Fixture>
 			// Find missing properties during unit testing
 			// Note that this is NOT the default behavior, so changes to the API won't cause backward compatibility issues
 			JsonUnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+			// Handle rate limiting by waiting and retrying
+			HandleRateLimiting = true,
 		});
 	}
 

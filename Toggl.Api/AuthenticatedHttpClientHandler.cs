@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -91,50 +92,68 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 				);
 			}
 
-			if ((int)response.StatusCode is 402 or 429 && _options.HandleRateLimiting) // Payment reqired or Too many requests
+			switch (response.StatusCode)
 			{
-				// Determine the delay from the response headers
-				if (!response
-					.Headers
-					.TryGetValues(QuotaRemainingHeader, out var quotaRemainingHeaders)
-					|| quotaRemainingHeaders.Count() != 1
-				)
-				{
-					throw new FormatException($"Toggl 402/429 reponses do not contain a single {QuotaRemainingHeader} header.");
-				}
+				// Toggl uses 429 Too Many Requests to indicate rate limiting for bursts
+				case HttpStatusCode.TooManyRequests when _options.HandleRateLimiting:
+					{
+						// Here we just delay 5s and continue
+						_logger.LogWarning(
+							"Toggl API rate limit reached (429).  Waiting 5 seconds before retrying.");
 
-				var quotaRemainingHeader = quotaRemainingHeaders.First();
+						await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken).ConfigureAwait(false);
+						continue;
+					}
+				// Toggl uses 402 Payment Required to indicate rate limiting
+				// This is incorrect usage of the HTTP spec, but we have to deal with it
+				// Documentation: https://support.toggl.com/api-webhook-limits
+				case HttpStatusCode.PaymentRequired when _options.HandleRateLimiting:
+					{
+						// Determine the delay from the response headers
+						if (!response
+							.Headers
+							.TryGetValues(QuotaRemainingHeader, out var quotaRemainingHeaders)
+							|| quotaRemainingHeaders.Count() != 1
+						)
+						{
+							throw new FormatException($"Toggl 402/429 reponses do not contain a single {QuotaRemainingHeader} header.");
+						}
 
-				if (!int.TryParse(quotaRemainingHeader, NumberStyles.Integer, CultureInfo.InvariantCulture, out var quotaRemainingCount) || quotaRemainingCount != 0)
-				{
-					throw new FormatException($"Toggl 402/429 reponses do not contain a valid {QuotaRemainingHeader}.  Received '{quotaRemainingHeader}'");
-				}
+						var quotaRemainingHeader = quotaRemainingHeaders.First();
 
-				if (!response
-					.Headers
-					.TryGetValues(ResetsInHeader, out var resetsInHeaders)
-					|| resetsInHeaders.Count() != 1
-				)
-				{
-					throw new FormatException($"Toggl 402/429 reponses do not contain a single {ResetsInHeader} header.");
-				}
+						if (!int.TryParse(quotaRemainingHeader, NumberStyles.Integer, CultureInfo.InvariantCulture, out var quotaRemainingCount) || quotaRemainingCount != 0)
+						{
+							throw new FormatException($"Toggl 402/429 reponses do not contain a valid {QuotaRemainingHeader}.  Received '{quotaRemainingHeader}'");
+						}
 
-				var resetsInHeader = resetsInHeaders.First();
-				if (!int.TryParse(resetsInHeader, NumberStyles.Integer, CultureInfo.InvariantCulture, out var resetsInSeconds))
-				{
-					throw new FormatException($"Toggl 402/429 reponses do not contain a valid {ResetsInHeader}.  Received '{resetsInHeader}'");
-				}
+						if (!response
+							.Headers
+							.TryGetValues(ResetsInHeader, out var resetsInHeaders)
+							|| resetsInHeaders.Count() != 1
+						)
+						{
+							throw new FormatException($"Toggl 402/429 reponses do not contain a single {ResetsInHeader} header.");
+						}
 
-				_logger.LogWarning(
-					"Toggl API rate limit reached.  Quota remaining: {QuotaRemaining}.  Waiting {ResetsInSeconds} seconds before retrying.",
-					quotaRemainingCount,
-					resetsInSeconds);
+						var resetsInHeader = resetsInHeaders.First();
+						if (!int.TryParse(resetsInHeader, NumberStyles.Integer, CultureInfo.InvariantCulture, out var resetsInSeconds))
+						{
+							throw new FormatException($"Toggl 402/429 reponses do not contain a valid {ResetsInHeader}.  Received '{resetsInHeader}'");
+						}
 
-				await Task
-					.Delay(TimeSpan.FromSeconds(resetsInSeconds), cancellationToken)
-					.ConfigureAwait(false);
+						_logger.LogWarning(
+							"Toggl API rate limit reached.  Quota remaining: {QuotaRemaining}.  Waiting {ResetsInSeconds} seconds before retrying.",
+							quotaRemainingCount,
+							resetsInSeconds);
 
-				continue;
+						await Task
+							.Delay(TimeSpan.FromSeconds(resetsInSeconds), cancellationToken)
+							.ConfigureAwait(false);
+
+						continue;
+					}
+				default:
+					break;
 			}
 
 			// Success
