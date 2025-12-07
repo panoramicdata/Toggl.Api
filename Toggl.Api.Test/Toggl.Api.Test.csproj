@@ -11,6 +11,7 @@
 		<UserSecretsId>deca5666-5906-4b93-9a14-2a998cd4252a</UserSecretsId>
 		<EnableMSTestRunner>false</EnableMSTestRunner>
 		<EnableXunitRunner>true</EnableXunitRunner>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>

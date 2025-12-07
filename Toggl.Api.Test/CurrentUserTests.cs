@@ -4,13 +4,13 @@ using Xunit;
 
 namespace Toggl.Api.Test;
 
-public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
+public class CurrentUserTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
-	public async Task Me_Get_WithoutRelatedData_Succeeds()
+	public async Task CurrentUser_Get_WithoutRelatedData_Succeeds()
 	{
 		var me = await TogglClient
-			.Me
+			.CurrentUser
 			.GetAsync(false, CancellationToken);
 
 		me.Should().NotBeNull();
@@ -20,30 +20,30 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	}
 
 	[Fact]
-	public async Task Me_Get_WithRelatedData_Succeeds()
+	public async Task CurrentUser_Get_WithRelatedData_Succeeds()
 	{
 		var me = await TogglClient
-			.Me
+			.CurrentUser
 			.GetAsync(true, CancellationToken);
 
 		me.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task Me_GetClients_Succeeds()
+	public async Task CurrentUser_GetClients_Succeeds()
 	{
 		var clients = await TogglClient
-			.Me
+			.CurrentUser
 			.GetClientsAsync(null, CancellationToken);
 
 		clients.Should().NotBeNullOrEmpty();
 	}
 
 	[Fact]
-	public async Task Me_GetFeatures_Succeeds()
+	public async Task CurrentUser_GetFeatures_Succeeds()
 	{
 		var features = await TogglClient
-			.Me
+			.CurrentUser
 			.GetFeaturesAsync(CancellationToken);
 
 		features.Should().NotBeNullOrEmpty();
@@ -52,72 +52,72 @@ public class MeTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : Tog
 	[Theory]
 	[InlineData(true)]
 	[InlineData(false)]
-	public async Task Me_GetTasks_Succeeds(bool includeInactive)
+	public async Task CurrentUser_GetTasks_Succeeds(bool includeInactive)
 	{
 		var tasks = await TogglClient
-			.Me
+			.CurrentUser
 			.GetTasksAsync(null, includeInactive, CancellationToken);
 		tasks.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task Me_GetWebTimer_Succeeds()
+	public async Task CurrentUser_GetWebTimer_Succeeds()
 		=> await TogglClient
-			.Me
+			.CurrentUser
 			.GetWebTimerAsync(CancellationToken);
 
 	[Fact]
-	public async Task Me_GetLastKnownLocation_Succeeds()
+	public async Task CurrentUser_GetLastKnownLocation_Succeeds()
 	{
 		var location = await TogglClient
-			.Me
+			.CurrentUser
 			.GetLastKnownLocationAsync(CancellationToken);
 
 		location.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task Me_GetOrganizations_Succeeds()
+	public async Task CurrentUser_GetOrganizations_Succeeds()
 	{
 		var organizations = await TogglClient
-			.Me
+			.CurrentUser
 			.GetOrganizationsAsync(CancellationToken);
 
 		organizations.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task Me_GetLogged_Succeeds() => await TogglClient
-		.Me
+	public async Task CurrentUser_GetLogged_Succeeds() => await TogglClient
+		.CurrentUser
 		.GetLoggedAsync(CancellationToken);
 
 	[Theory]
 	[InlineData(true)]
 	[InlineData(false)]
-	public async Task Me_GetProjects_Succeeds(bool includeArchived)
+	public async Task CurrentUser_GetProjects_Succeeds(bool includeArchived)
 	{
 		var projects = await TogglClient
-			.Me
+			.CurrentUser
 			.GetProjectsAsync(includeArchived, null, CancellationToken);
 
 		projects.Should().NotBeNullOrEmpty();
 	}
 
 	[Fact]
-	public async Task Me_GetProjectsPaginated_Succeeds()
+	public async Task CurrentUser_GetProjectsPaginated_Succeeds()
 	{
 		var projects = await TogglClient
-			.Me
+			.CurrentUser
 			.GetProjectsPaginatedAsync(null, null, 201, CancellationToken);
 
 		projects.Should().NotBeNullOrEmpty();
 	}
 
 	[Fact]
-	public async Task Me_GetTags_Succeeds()
+	public async Task CurrentUser_GetTags_Succeeds()
 	{
 		var projects = await TogglClient
-			.Me
+			.CurrentUser
 			.GetTagsAsync(null, CancellationToken);
 
 		projects.Should().NotBeNullOrEmpty();

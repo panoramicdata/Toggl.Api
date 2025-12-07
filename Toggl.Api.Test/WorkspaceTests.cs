@@ -21,7 +21,7 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 	[Fact]
 	public async Task Workspaces_GetAll_Succeeds()
 	{
-		var workspaces = await TogglClient.Me.GetWorkspacesAsync(null, CancellationToken.None);
+		var workspaces = await TogglClient.CurrentUser.GetWorkspacesAsync(null, CancellationToken.None);
 		workspaces.Count.Should().NotBe(0);
 	}
 

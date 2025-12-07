@@ -91,4 +91,17 @@ public interface IProjects
 		[AliasAs("workspace_id")] long workspaceId,
 		[Body] ProjectCreationDto project,
 		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Deletes the specified project from the given workspace asynchronously.
+	/// </summary>
+	/// <param name="workspaceId">The unique identifier of the workspace containing the project to delete.</param>
+	/// <param name="id">The unique identifier of the project to delete.</param>
+	/// <param name="cancellationToken">A cancellation token that can be used to cancel the delete operation.</param>
+	/// <returns>A task that represents the asynchronous delete operation.</returns>
+	[Delete("/api/v9/workspaces/{workspace_id}/projects/{project_id}")]
+	Task DeleteAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		CancellationToken cancellationToken);
 }

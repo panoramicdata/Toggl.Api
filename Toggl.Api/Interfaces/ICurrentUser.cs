@@ -10,7 +10,7 @@ namespace Toggl.Api.Interfaces;
 /// <summary>
 /// https://engineering.toggl.com/docs/api/me
 /// </summary>
-public interface IMe
+public interface ICurrentUser
 {
 	/// <summary>
 	/// Returns details for the current user.
@@ -20,7 +20,7 @@ public interface IMe
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/me")]
-	Task<Me> GetAsync(
+	Task<CurrentUser> GetAsync(
 		[AliasAs("with_related_data")] bool withRelatedData,
 		CancellationToken cancellationToken
 		);
@@ -33,7 +33,7 @@ public interface IMe
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Put("/api/v9/me")]
-	Task<Me> UpdateAsync(
+	Task<CurrentUser> UpdateAsync(
 		[Body] MeUpdateDto meUpdateDto,
 		CancellationToken cancellationToken
 		);

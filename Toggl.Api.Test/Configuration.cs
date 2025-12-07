@@ -21,9 +21,4 @@ public class Configuration
 	/// A sample project name
 	/// </summary>
 	public required string SampleProjectName { get; init; }
-
-	/// <summary>
-	/// A sample client name to use for testing CRUD operations
-	/// </summary>
-	public required string CrudClientName { get; init; }
 }

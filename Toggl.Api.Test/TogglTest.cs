@@ -61,10 +61,10 @@ public class TogglTest : TestBed<Fixture>
 	{
 		if (_workspaceId is null)
 		{
-			var me = await TogglClient
-				.Me
+			var currentUser = await TogglClient
+				.CurrentUser
 				.GetAsync(true, default);
-			_workspaceId = me.DefaultWorkspaceId;
+			_workspaceId = currentUser.DefaultWorkspaceId;
 		}
 
 		return _workspaceId.Value;

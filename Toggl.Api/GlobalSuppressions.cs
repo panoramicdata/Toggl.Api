@@ -5,4 +5,13 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "<Pending>", Scope = "member", Target = "~M:Toggl.Api.AuthenticatedHttpClientHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)~System.Threading.Tasks.Task{System.Net.Http.HttpResponseMessage}")]
+[assembly: SuppressMessage(
+	"Performance", "CA1848:Use the LoggerMessage delegates",
+	Justification = "Performance gain does not justify the implementation effort"
+)]
+
+[assembly: SuppressMessage(
+	"Naming",
+	"CA1716:Identifiers should not match keywords",
+	Justification = "Type has been marked obsolete.  Will be removed in future versions."
+)]

@@ -45,7 +45,7 @@ public class TogglClient : IDisposable
 		};
 
 		Clients = RestService.For<IClients>(_httpClient, refitSettings);
-		Me = RestService.For<IMe>(_httpClient, refitSettings);
+		CurrentUser = RestService.For<ICurrentUser>(_httpClient, refitSettings);
 		Groups = RestService.For<IGroups>(_httpClient, refitSettings);
 		Organizations = RestService.For<IOrganizations>(_httpClient, refitSettings);
 		Projects = RestService.For<IProjects>(_httpClient, refitSettings);
@@ -64,7 +64,13 @@ public class TogglClient : IDisposable
 	/// <summary>
 	/// Methods to access information about the current user
 	/// </summary>
-	public IMe Me { get; }
+	[Obsolete("Use CurrentUser instead.  Will be removed in future versions.", true)]
+	public ICurrentUser Me => CurrentUser;
+
+	/// <summary>
+	/// Methods to access information about the current user
+	/// </summary>
+	public ICurrentUser CurrentUser { get; }
 
 	/// <summary>
 	/// Methods to access information about user groups

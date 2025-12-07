@@ -1,5 +1,6 @@
 ﻿using AwesomeAssertions;
 using System.Threading.Tasks;
+using Toggl.Api.Models;
 using Xunit;
 
 namespace Toggl.Api.Test;
@@ -42,21 +43,32 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 
-		// Commented out below until we put in the Project Delete method,
-		// as then the unit test can be run more conveniently!...
+		var projectCreationDto = new ProjectCreationDto
+		{
+			IsActive = true,
+			IsPrivate = false,
+			IsShared = false,
+			Name = "ABC"
+		};
 
-		//var projectCreationDto = new ProjectCreationDto
-		//{
-		//	IsActive = true,
-		//	IsPrivate = false,
-		//	IsShared = false,
-		//	Name = "ABC"
-		//};
-
-		//// Create a project
-		//var project =
-		//	await TogglClient.Projects.CreateAsync(workspaceId, projectCreationDto, CancellationToken.None);
-
-		//project.Should().NotBeNull();
+		// Create a project
+		var project =
+			await TogglClient
+			.Projects
+			.CreateAsync(workspaceId, projectCreationDto, CancellationToken);
+		try
+		{
+			project.Should().NotBeNull();
+		}
+		finally
+		{
+			// Clean up
+			await TogglClient
+				.Projects
+				.DeleteAsync(
+					workspaceId,
+					project.Id,
+					CancellationToken);
+		}
 	}
 }

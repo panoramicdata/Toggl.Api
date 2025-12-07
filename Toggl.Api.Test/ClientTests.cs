@@ -10,7 +10,9 @@ namespace Toggl.Api.Test;
 
 public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
-	[Fact(Skip = "Functionality not yet complete")]
+	private static readonly string _crudClientName = "Test Client " + Guid.NewGuid().ToString();
+
+	[Fact]
 	public async Task Crud_Client_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
@@ -25,7 +27,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				CancellationToken
 			);
 		var matchingClients = clients
-			.Where(p => p.Name == Configuration.CrudClientName)
+			.Where(p => p.Name == _crudClientName)
 			.ToList();
 
 		foreach (var client in matchingClients)
@@ -38,7 +40,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 		// Create a new client
 		var newClient = new ClientCreationDto
 		{
-			Name = Configuration.CrudClientName,
+			Name = _crudClientName,
 			WorkspaceId = workspaceId,
 		};
 
@@ -56,7 +58,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				CancellationToken
 			);
 		refetchedClient.Should().NotBeNull();
-		refetchedClient!.Name.Should().Be(Configuration.CrudClientName);
+		refetchedClient!.Name.Should().Be(_crudClientName);
 		refetchedClient!.Id.Should().Be(createdClient.Id);
 
 		// Check that it's there in a list all clients
@@ -70,10 +72,10 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			);
 
 		allClients.Should().NotBeNullOrEmpty();
-		allClients.Count(c => c.Name == Configuration.CrudClientName).Should().Be(1);
+		allClients.Count(c => c.Name == _crudClientName).Should().Be(1);
 
 		// Update the client
-		refetchedClient!.Name = Configuration.CrudClientName + " updated";
+		refetchedClient!.Name = _crudClientName + " updated";
 		var updatedClient = await TogglClient
 			.Clients
 			.UpdateAsync(
@@ -94,7 +96,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			);
 
 		refetchedUpdatedClient.Should().NotBeNull();
-		refetchedUpdatedClient!.Name.Should().Be(Configuration.CrudClientName + " updated");
+		refetchedUpdatedClient!.Name.Should().Be(_crudClientName + " updated");
 		refetchedUpdatedClient!.Id.Should().Be(updatedClient.Id);
 
 		// Delete the client
