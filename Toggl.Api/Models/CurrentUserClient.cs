@@ -6,7 +6,7 @@ namespace Toggl.Api.Models;
 /// <summary>
 /// https://engineering.toggl.com/docs/api/me#get-clients
 /// </summary>
-public class MeClient : NamedIdentifiedItem
+public class CurrentUserClient : NamedIdentifiedItem
 {
 	/// <summary>
 	/// IsArchived is true if the client is archived
@@ -44,4 +44,10 @@ public class MeClient : NamedIdentifiedItem
 	/// </summary>
 	[JsonPropertyName("wid")]
 	public long WorkspaceId { get; set; }
+
+	/// <summary>
+	/// Total count of items in the response (only populated when listing)
+	/// </summary>
+	[JsonPropertyName("total_count")]
+	public int? TotalCount { get; set; }
 }

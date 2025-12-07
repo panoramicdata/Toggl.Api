@@ -27,13 +27,25 @@ public class ProjectUser : IdentifiedItem
 	public required long? GroupId2 { get; set; }
 
 	/// <summary>
-	/// Labour cost for this project user
+	/// Labor cost for this project user (American spelling)
 	/// </summary>
-	[JsonPropertyName("labour_cost")]
-	public long? LabourCost { get; set; }
+	[JsonPropertyName("labor_cost")]
+	public decimal? LaborCost { get; set; }
 
 	/// <summary>
-	/// Labour cost for this project user
+	/// Labour cost for this project user (British spelling)
+	/// </summary>
+	[JsonPropertyName("labour_cost")]
+	public decimal? LabourCost { get; set; }
+
+	/// <summary>
+	/// Labor cost last updated (American spelling)
+	/// </summary>
+	[JsonPropertyName("labor_cost_last_updated")]
+	public object? LaborCostLastUpdated { get; set; }
+
+	/// <summary>
+	/// Labour cost last updated for this project user (British spelling)
 	/// </summary>
 	[JsonPropertyName("labour_cost_last_updated")]
 	public object? LabourCostLastUpdated { get; set; }

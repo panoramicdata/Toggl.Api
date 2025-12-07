@@ -39,7 +39,7 @@ public class ProjectTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) 
 	}
 
 	[Fact]
-	public async Task Projects_CreateProject_Succeeds()
+	public async Task Projects_CrudProject_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 

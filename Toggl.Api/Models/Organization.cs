@@ -113,4 +113,10 @@ public class Organization : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("pricing_plan_enterprise")]
 	public bool? PricingPlanEnterprise { get; set; }
+
+	/// <summary>
+	/// When the Toggl Suite was last updated for this organization
+	/// </summary>
+	[JsonPropertyName("toggl_suite_updated_at")]
+	public DateTimeOffset? TogglSuiteUpdatedAt { get; set; }
 }

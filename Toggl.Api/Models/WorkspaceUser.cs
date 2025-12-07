@@ -18,6 +18,12 @@ public class WorkspaceUser : NamedIdentifiedItem
 	public int Uid { get; set; }
 
 	/// <summary>
+	/// Whether two-factor authentication is enabled for this user
+	/// </summary>
+	[JsonPropertyName("2fa_enabled")]
+	public bool TwoFactorAuthEnabled { get; set; }
+
+	/// <summary>
 	/// Whether the user is active
 	/// </summary>
 	[JsonPropertyName("active")]

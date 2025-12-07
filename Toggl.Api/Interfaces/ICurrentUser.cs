@@ -46,7 +46,7 @@ public interface ICurrentUser
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/me/clients")]
-	Task<ICollection<MeClient>> GetClientsAsync(
+	Task<ICollection<CurrentUserClient>> GetClientsAsync(
 		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken
 		);
