@@ -55,4 +55,74 @@ public interface ITasks
 		[AliasAs("end_date")] DateOnly? endDate,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Creates a new task for a project.
+	/// https://engineering.toggl.com/docs/api/tasks#post-workspaceprojecttasks
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="task">The task to create</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The created task</returns>
+	[Post("/api/v9/workspaces/{workspace_id}/projects/{project_id}/tasks")]
+	Task<Models.ProjectTask> CreateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		[Body] TaskCreationDto task,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Updates an existing task.
+	/// https://engineering.toggl.com/docs/api/tasks#put-workspaceprojecttask
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="taskId">The task id</param>
+	/// <param name="task">The task data to update</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated task</returns>
+	[Put("/api/v9/workspaces/{workspace_id}/projects/{project_id}/tasks/{task_id}")]
+	Task<Models.ProjectTask> UpdateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		[AliasAs("task_id")] long taskId,
+		[Body] TaskCreationDto task,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Deletes a task.
+	/// https://engineering.toggl.com/docs/api/tasks#delete-workspaceprojecttask
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="taskId">The task id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Delete("/api/v9/workspaces/{workspace_id}/projects/{project_id}/tasks/{task_id}")]
+	Task DeleteAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		[AliasAs("task_id")] long taskId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Gets a specific task by ID.
+	/// https://engineering.toggl.com/docs/api/tasks#get-workspaceprojecttask
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="taskId">The task id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The task</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/projects/{project_id}/tasks/{task_id}")]
+	Task<Models.ProjectTask> GetByIdAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		[AliasAs("task_id")] long taskId,
+		CancellationToken cancellationToken
+		);
 }

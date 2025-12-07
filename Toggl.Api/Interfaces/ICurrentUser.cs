@@ -178,4 +178,59 @@ public interface ICurrentUser
 		[AliasAs("since")] long? sinceUnixTimestampSeconds,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Returns a list of track reminders.
+	/// https://engineering.toggl.com/docs/api/me#get-trackreminders
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/me/track_reminders")]
+	Task<ICollection<TrackReminder>> GetTrackRemindersAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Returns the timesheets for the current user.
+	/// https://engineering.toggl.com/docs/api/me#get-timesheets
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/me/timesheets")]
+	Task<ICollection<Timesheet>> GetTimesheetsAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Resets API token for the current user.
+	/// https://engineering.toggl.com/docs/api/authentication#post-reset-token
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The new API token</returns>
+	[Post("/api/v9/me/reset_token")]
+	Task<string> ResetTokenAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Accepts the last version of the Terms of Service for the current user.
+	/// https://engineering.toggl.com/docs/api/me#post-accept-tos
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/accept_tos")]
+	Task AcceptTosAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Returns the local Track user ID for the authenticated user.
+	/// https://engineering.toggl.com/docs/api/me#get-me-id
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The user ID</returns>
+	[Get("/api/v9/me/id")]
+	Task<long> GetIdAsync(
+		CancellationToken cancellationToken
+		);
 }

@@ -73,4 +73,66 @@ public interface ITimeEntries
 		[Body] ICollection<TimeEntryBulkEditDto> array,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Creates a new time entry in the specified workspace.
+	/// https://engineering.toggl.com/docs/api/time_entries#post-timeentries
+	/// </summary>
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="timeEntry">Time entry data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The created time entry</returns>
+	[Post("/api/v9/workspaces/{workspace_id}/time_entries")]
+	Task<TimeEntry> CreateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[Body] TimeEntryCreationDto timeEntry,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Updates an existing time entry in the specified workspace.
+	/// https://engineering.toggl.com/docs/api/time_entries#put-timeentries
+	/// </summary>
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="timeEntryId">Numeric ID of the time entry</param>
+	/// <param name="timeEntry">Time entry data to update</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated time entry</returns>
+	[Put("/api/v9/workspaces/{workspace_id}/time_entries/{time_entry_id}")]
+	Task<TimeEntry> UpdateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("time_entry_id")] long timeEntryId,
+		[Body] TimeEntryUpdateDto timeEntry,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Deletes an existing time entry in the specified workspace.
+	/// https://engineering.toggl.com/docs/api/time_entries#delete-timeentries
+	/// </summary>
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="timeEntryId">Numeric ID of the time entry</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Delete("/api/v9/workspaces/{workspace_id}/time_entries/{time_entry_id}")]
+	Task DeleteAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("time_entry_id")] long timeEntryId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Stops the running time entry in the specified workspace.
+	/// https://engineering.toggl.com/docs/api/time_entries#patch-stop-timeentry
+	/// </summary>
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="timeEntryId">Numeric ID of the time entry</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The stopped time entry</returns>
+	[Patch("/api/v9/workspaces/{workspace_id}/time_entries/{time_entry_id}/stop")]
+	Task<TimeEntry> StopAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("time_entry_id")] long timeEntryId,
+		CancellationToken cancellationToken
+		);
 }

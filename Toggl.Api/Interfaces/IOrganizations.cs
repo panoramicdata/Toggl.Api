@@ -115,5 +115,31 @@ public interface IOrganizations
 		[AliasAs("organization_id")] long organizationId,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Returns a list of workspaces within an organization.
+	/// https://engineering.toggl.com/docs/api/organizations#get-organization-workspaces
+	/// </summary>
+	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/organizations/{organization_id}/workspaces")]
+	Task<ICollection<Workspace>> GetWorkspacesAsync(
+		[AliasAs("organization_id")] long organizationId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Returns a list of groups within an organization.
+	/// https://engineering.toggl.com/docs/api/organizations#get-organization-groups
+	/// </summary>
+	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Get("/api/v9/organizations/{organization_id}/groups")]
+	Task<ICollection<Group>> GetGroupsAsync(
+		[AliasAs("organization_id")] long organizationId,
+		CancellationToken cancellationToken
+		);
 }
 

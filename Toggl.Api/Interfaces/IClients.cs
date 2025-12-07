@@ -84,4 +84,34 @@ public interface IClients
 		long clientId,
 		CancellationToken cancellationToken
 		);
+
+	/// <summary>
+	/// Archives a client for a workspace
+	/// https://engineering.toggl.com/docs/api/clients#post-archives-client
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="clientId">The client ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/workspaces/{workspaceId}/clients/{clientId}/archive")]
+	Task ArchiveAsync(
+		long workspaceId,
+		long clientId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Restores an archived client for a workspace
+	/// https://engineering.toggl.com/docs/api/clients#post-restores-client-and-related-projects
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="clientId">The client ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/workspaces/{workspaceId}/clients/{clientId}/restore")]
+	Task RestoreAsync(
+		long workspaceId,
+		long clientId,
+		CancellationToken cancellationToken
+		);
 }

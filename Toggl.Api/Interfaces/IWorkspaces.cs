@@ -66,4 +66,56 @@ public interface IWorkspaces
 	Task<ICollection<Project>> GetProjectsAsync(
 		[AliasAs("workspace_id")] long workspaceId,
 		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Creates a new workspace in the specified organization.
+	/// https://engineering.toggl.com/docs/api/workspaces#post-create-a-new-workspace
+	/// </summary>
+	/// <param name="organizationId">The organization ID</param>
+	/// <param name="workspace">The workspace creation data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The created workspace</returns>
+	[Post("/api/v9/organizations/{organization_id}/workspaces")]
+	Task<Workspace> CreateAsync(
+		[AliasAs("organization_id")] long organizationId,
+		[Body] WorkspaceCreationDto workspace,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Updates an existing workspace.
+	/// https://engineering.toggl.com/docs/api/workspaces#put-update-workspace
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="workspace">The workspace update data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated workspace</returns>
+	[Put("/api/v9/workspaces/{workspace_id}")]
+	Task<Workspace> UpdateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[Body] WorkspaceCreationDto workspace,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get tags for a workspace.
+	/// https://engineering.toggl.com/docs/api/tags#get-tags
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>Collection of tags</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/tags")]
+	Task<ICollection<Tag>> GetTagsAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get time entries for a workspace.
+	/// https://engineering.toggl.com/docs/api/time_entries
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>Collection of time entries</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/time_entries")]
+	Task<ICollection<TimeEntry>> GetTimeEntriesAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken);
 }

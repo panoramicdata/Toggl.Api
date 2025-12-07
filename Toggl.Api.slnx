@@ -3,6 +3,11 @@
     <Platform Name="Any CPU" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/Open API/">
+    <File Path="Open API/api-bdd741600e7247ddebb5bbb673d1368c.json" />
+    <File Path="Open API/reports-90f73336280ee8fda8a76dcf30502c88.json" />
+    <File Path="Open API/webhooks-479d375ba167e9f885df9356e34a7c4e.json" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="exclusions.dic" />

@@ -104,4 +104,20 @@ public interface IProjects
 		[AliasAs("workspace_id")] long workspaceId,
 		[AliasAs("project_id")] long projectId,
 		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Updates an existing workspace project.
+	/// https://engineering.toggl.com/docs/api/projects#put-workspaceproject
+	/// </summary>
+	/// <param name="workspaceId">The unique identifier of the workspace containing the project.</param>
+	/// <param name="projectId">The unique identifier of the project to update.</param>
+	/// <param name="project">The project data to update.</param>
+	/// <param name="cancellationToken">A cancellation token that can be used to cancel the update operation.</param>
+	/// <returns>The updated project.</returns>
+	[Put("/api/v9/workspaces/{workspace_id}/projects/{project_id}")]
+	Task<Project> UpdateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		[Body] ProjectCreationDto project,
+		CancellationToken cancellationToken);
 }
