@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
-using System.Net;
+using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -15,6 +16,9 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 	private static readonly JsonSerializerOptions _prettyPrintJsonSerializerOptions = new() { WriteIndented = true };
 	private readonly TogglClientOptions _options = options;
 	private readonly ILogger _logger = options.Logger ?? NullLogger.Instance;
+
+	private const string QuotaRemainingHeader = "X-Toggl-Quota-Remaining";
+	private const string ResetsInHeader = "X-Toggl-Quota-Resets-In";
 
 	/// <summary>
 	/// Override of the base method that is used to handle the sending of a request
@@ -31,80 +35,110 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 			request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(_options.Key + ":api_token")));
 		}
 
-		using var scope = _logger.BeginScope("Request: {Method} {Uri}", request.Method, request.RequestUri);
-		if (_logger.IsEnabled(LogLevel.Debug))
-		{
-			_logger.LogDebug(
-				"Request: {Method} {Uri}\n{RequestContent}",
-				request.Method,
-				request.RequestUri,
-				request.Content is null
-					? string.Empty
-					: PrettyPrintJson(await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false))
-			);
-		}
-
-		while (true)
-		{
-			try
-			{
-				var response = await base
-					.SendAsync(request, cancellationToken)
-					.ConfigureAwait(false);
-
-				if ((int)response.StatusCode == 429)    // Too many requests
-				{
-					await Task.Delay(_options.DelayMsAfterTooManyRequests, default).ConfigureAwait(false);
-					continue;
-				}
-
-				if (_logger.IsEnabled(LogLevel.Debug))
-				{
-					_logger.LogDebug(
-						"Response: {Status}\n{ResponseContent}",
-						response.StatusCode,
-						response.Content is null
-							? string.Empty
-							: PrettyPrintJson(await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false))
-					);
-				}
-
-				// Success
-				return response;
-			}
-			catch (WebException ex) when (ex.Message.Contains("(429)"))
-			{
-				await Task.Delay(_options.DelayMsAfterTooManyRequests, default).ConfigureAwait(false);
-			}
-		}
+		return await ProcessRequestAsync(
+			request,
+			cancellationToken)
+			.ConfigureAwait(false);
 	}
 
-	//public async Task<List<T>> GetAllUsingPagingAsync<T>(string baseUrl, CancellationToken cancellationToken)
-	//{
-	//	var allProjects = new List<T>();
-	//	var pageIndex = 0;
-	//	while (true)
-	//	{
-	//		// Paging
-	//		var url = baseUrl + "?page=" + pageIndex++ + "&per_page=200";
-	//		var response = await SendAsync(url, cancellationToken).ConfigureAwait(false);
-	//		var projects = response.GetData<List<T>>();
-	//		allProjects.AddRange(projects);
-	//		if (projects.Count == 0 || projects.Count < 200)
-	//		{
-	//			return allProjects;
-	//		}
-	//	}
-	//}
-
-	public static string PrettyPrintJson(string jsonString)
+	private async Task<HttpResponseMessage> ProcessRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
 	{
-		if (string.IsNullOrWhiteSpace(jsonString))
+		var requestId = Guid.NewGuid();
+		using var requestScope = _logger.BeginScope("RequestId: {RequestId}", requestId);
+		while (true)
 		{
-			return string.Empty;
-		}
+			if (_logger.IsEnabled(LogLevel.Debug))
+			{
+				// Log request, including headers and content
+				_logger.LogDebug(
+					"Sending request: {Method} {Uri}\n" +
+					"Headers: {Headers}\n" +
+					"{RequestContent}",
+					request.Method,
+					request.RequestUri,
+					string.Join(
+						"; ",
+						request
+							.Headers
+							.Select(h => $"{h.Key}={string.Join(",", h.Value)}")
+					),
+					request.Content is null
+						? string.Empty
+						: await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
+				);
+			}
 
-		using var jsonDoc = JsonDocument.Parse(jsonString);
-		return JsonSerializer.Serialize(jsonDoc, _prettyPrintJsonSerializerOptions);
+			var response = await base
+				.SendAsync(request, cancellationToken)
+				.ConfigureAwait(false);
+
+			if (_logger.IsEnabled(LogLevel.Debug))
+			{
+				_logger.LogDebug(
+					"Response: {Status}\n" +
+					"Headers: {Headers}\n" +
+					"{ResponseContent}",
+					response.StatusCode,
+					string.Join(
+						"; ",
+						response
+							.Headers
+							.Select(h => $"{h.Key}={string.Join(",", h.Value)}")
+					),
+					response.Content is null
+						? string.Empty
+						: await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
+				);
+			}
+
+			if ((int)response.StatusCode is 402 or 429 && _options.HandleRateLimiting) // Payment reqired or Too many requests
+			{
+				// Determine the delay from the response headers
+				if (!response
+					.Headers
+					.TryGetValues(QuotaRemainingHeader, out var quotaRemainingHeaders)
+					|| quotaRemainingHeaders.Count() != 1
+				)
+				{
+					throw new FormatException($"Toggl 402/429 reponses do not contain a single {QuotaRemainingHeader} header.");
+				}
+
+				var quotaRemainingHeader = quotaRemainingHeaders.First();
+
+				if (!int.TryParse(quotaRemainingHeader, NumberStyles.Integer, CultureInfo.InvariantCulture, out var quotaRemainingCount) || quotaRemainingCount != 0)
+				{
+					throw new FormatException($"Toggl 402/429 reponses do not contain a valid {QuotaRemainingHeader}.  Received '{quotaRemainingHeader}'");
+				}
+
+				if (!response
+					.Headers
+					.TryGetValues(ResetsInHeader, out var resetsInHeaders)
+					|| resetsInHeaders.Count() != 1
+				)
+				{
+					throw new FormatException($"Toggl 402/429 reponses do not contain a single {ResetsInHeader} header.");
+				}
+
+				var resetsInHeader = resetsInHeaders.First();
+				if (!int.TryParse(resetsInHeader, NumberStyles.Integer, CultureInfo.InvariantCulture, out var resetsInSeconds))
+				{
+					throw new FormatException($"Toggl 402/429 reponses do not contain a valid {ResetsInHeader}.  Received '{resetsInHeader}'");
+				}
+
+				_logger.LogWarning(
+					"Toggl API rate limit reached.  Quota remaining: {QuotaRemaining}.  Waiting {ResetsInSeconds} seconds before retrying.",
+					quotaRemainingCount,
+					resetsInSeconds);
+
+				await Task
+					.Delay(TimeSpan.FromSeconds(resetsInSeconds), cancellationToken)
+					.ConfigureAwait(false);
+
+				continue;
+			}
+
+			// Success
+			return response;
+		}
 	}
 }

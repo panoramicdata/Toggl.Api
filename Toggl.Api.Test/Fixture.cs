@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,12 @@ public class Fixture : TestBedFixture
 
 		services
 			.AddScoped<CancellationTokenSource>()
-			.Configure<Configuration>(_configuration.GetSection("Configuration"));
+			.Configure<Configuration>(_configuration.GetSection("Configuration"))
+			.AddLogging(builder =>
+			{
+				builder.SetMinimumLevel(LogLevel.Debug);
+				builder.AddDebug();
+			});
 	}
 
 	protected override ValueTask DisposeAsyncCore()

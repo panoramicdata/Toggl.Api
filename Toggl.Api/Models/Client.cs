@@ -45,6 +45,12 @@ public class Client : NamedIdentifiedItem
 	[JsonPropertyName("wid")]
 	public long WorkspaceId { get; set; }
 
+	/// <summary>
+	/// Total count of clients in the workspace (only populated when listing clients)
+	/// </summary>
+	[JsonPropertyName("total_count")]
+	public int? TotalCount { get; set; }
+
 	public override string ToString()
 		=> string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1} {2}", Id, Name, DeletedAt == null ? string.Empty : "[DELETED]");
 }

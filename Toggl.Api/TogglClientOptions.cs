@@ -18,18 +18,19 @@ public class TogglClientOptions
 
 	/// <summary>
 	/// Web timeout in seconds
+	/// Set to two hours and ten minutes by default to accommodate Toggl's stupid 402 limit
 	/// </summary>
-	public double TimeoutSeconds { get; set; } = 30;
-
-	/// <summary>
-	/// Once a 429 (too many requests) is received, how long to wait trying to send the request again
-	/// </summary>
-	public int DelayMsAfterTooManyRequests { get; set; } = 5_000;
+	public double TimeoutSeconds { get; set; } = 7500;
 
 	/// <summary>
 	/// The User-Agent header to send
 	/// </summary>
 	public string UserAgent { get; set; } = "Toggl.Api";
+
+	/// <summary>
+	/// Whether to handle 402 Payment Required responses by backing off and retrying
+	/// </summary>
+	public bool HandleRateLimiting { get; set; }
 
 	/// <summary>
 	/// Leave at this value to ensure that changes to the API don't cause backward compatibility issues
