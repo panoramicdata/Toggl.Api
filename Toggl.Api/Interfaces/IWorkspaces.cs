@@ -118,4 +118,76 @@ public interface IWorkspaces
 	Task<ICollection<TimeEntry>> GetTimeEntriesAsync(
 		[AliasAs("workspace_id")] long workspaceId,
 		CancellationToken cancellationToken);
+
+	#region Phase 2: Workspace Statistics & Track Reminders
+
+	/// <summary>
+	/// Gets statistics for a workspace.
+	/// https://engineering.toggl.com/docs/api/workspaces#get-workspace-statistics
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>Workspace statistics</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/statistics")]
+	Task<WorkspaceStatistics> GetStatisticsAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Gets track reminders for a workspace.
+	/// https://engineering.toggl.com/docs/api/workspaces#get-track-reminders
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of track reminders</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/track_reminders")]
+	Task<ICollection<TrackReminder>> GetTrackRemindersAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Creates a new track reminder.
+	/// https://engineering.toggl.com/docs/api/workspaces#post-track-reminders
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="reminder">The reminder creation data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The created track reminder</returns>
+	[Post("/api/v9/workspaces/{workspace_id}/track_reminders")]
+	Task<TrackReminder> CreateTrackReminderAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[Body] TrackReminderCreationDto reminder,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Updates an existing track reminder.
+	/// https://engineering.toggl.com/docs/api/workspaces#put-track-reminders
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="reminderId">The reminder ID</param>
+	/// <param name="reminder">The reminder update data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated track reminder</returns>
+	[Put("/api/v9/workspaces/{workspace_id}/track_reminders/{reminder_id}")]
+	Task<TrackReminder> UpdateTrackReminderAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("reminder_id")] long reminderId,
+		[Body] TrackReminderCreationDto reminder,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Deletes a track reminder.
+	/// https://engineering.toggl.com/docs/api/workspaces#delete-track-reminders
+	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="reminderId">The reminder ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Delete("/api/v9/workspaces/{workspace_id}/track_reminders/{reminder_id}")]
+	Task DeleteTrackReminderAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("reminder_id")] long reminderId,
+		CancellationToken cancellationToken);
+
+	#endregion
 }

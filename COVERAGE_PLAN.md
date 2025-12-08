@@ -334,7 +334,7 @@ This document outlines a phased approach to achieve full coverage of the Toggl A
 | Phase | Status | Est. Completion |
 |-------|--------|-----------------|
 | Phase 1 | ? Complete | December 2024 |
-| Phase 2 | ? Not Started | - |
+| Phase 2 | ? Complete | December 2024 |
 | Phase 3 | ? Not Started | - |
 | Phase 4 | ? Not Started | - |
 | Phase 5 | ? Not Started | - |

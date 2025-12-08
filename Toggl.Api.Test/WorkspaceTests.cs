@@ -77,4 +77,32 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 	}
 
 	#endregion
+
+	#region Phase 2: Statistics & Track Reminders Tests
+
+	[Fact]
+	public async Task Workspaces_GetStatistics_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+
+		var statistics = await TogglClient
+			.Workspaces
+			.GetStatisticsAsync(workspaceId, CancellationToken);
+
+		statistics.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task Workspaces_GetTrackReminders_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+
+		var reminders = await TogglClient
+			.Workspaces
+			.GetTrackRemindersAsync(workspaceId, CancellationToken);
+
+		reminders.Should().NotBeNull();
+	}
+
+	#endregion
 }

@@ -141,5 +141,63 @@ public interface IOrganizations
 		[AliasAs("organization_id")] long organizationId,
 		CancellationToken cancellationToken
 		);
+
+	#region Phase 2: Organization Owner & Plans
+
+	/// <summary>
+	/// Gets the owner of the given organization.
+	/// https://engineering.toggl.com/docs/api/organizations#get-get-organization-owner
+	/// </summary>
+	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The organization owner</returns>
+	[Get("/api/v9/organizations/{organization_id}/owner")]
+	Task<OrganizationOwner> GetOwnerAsync(
+		[AliasAs("organization_id")] long organizationId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Gets the available pricing plans for the organization.
+	/// https://engineering.toggl.com/docs/api/organizations#get-organization-plans
+	/// </summary>
+	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of available pricing plans</returns>
+	[Get("/api/v9/organizations/{organization_id}/plans")]
+	Task<ICollection<PricingPlan>> GetPlansAsync(
+		[AliasAs("organization_id")] long organizationId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Gets a specific pricing plan by ID.
+	/// https://engineering.toggl.com/docs/api/organizations#get-organization-plans
+	/// </summary>
+	/// <param name="organizationId">The organization id</param>
+	/// <param name="planId">The plan id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The pricing plan</returns>
+	[Get("/api/v9/organizations/{organization_id}/plans/{plan_id}")]
+	Task<PricingPlan> GetPlanAsync(
+		[AliasAs("organization_id")] long organizationId,
+		[AliasAs("plan_id")] long planId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Gets the roles available in the organization.
+	/// https://engineering.toggl.com/docs/api/organizations#get-organization-roles
+	/// </summary>
+	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of organization roles</returns>
+	[Get("/api/v9/organizations/{organization_id}/roles")]
+	Task<ICollection<OrganizationRole>> GetRolesAsync(
+		[AliasAs("organization_id")] long organizationId,
+		CancellationToken cancellationToken
+		);
+
+	#endregion
 }
 

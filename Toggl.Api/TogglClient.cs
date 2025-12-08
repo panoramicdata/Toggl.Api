@@ -47,6 +47,7 @@ public class TogglClient : IDisposable
 		Clients = RestService.For<IClients>(_httpClient, refitSettings);
 		CurrentUser = RestService.For<ICurrentUser>(_httpClient, refitSettings);
 		Groups = RestService.For<IGroups>(_httpClient, refitSettings);
+		Invitations = RestService.For<IInvitations>(_httpClient, refitSettings);
 		Organizations = RestService.For<IOrganizations>(_httpClient, refitSettings);
 		Projects = RestService.For<IProjects>(_httpClient, refitSettings);
 		Reports = RestService.For<IReports>(_httpClient, refitSettings);
@@ -76,6 +77,11 @@ public class TogglClient : IDisposable
 	/// Methods to access information about user groups
 	/// </summary>
 	public IGroups Groups { get; }
+
+	/// <summary>
+	/// Methods to manage organization invitations
+	/// </summary>
+	public IInvitations Invitations { get; }
 
 	/// <summary>
 	/// Holds methods to access organization information
