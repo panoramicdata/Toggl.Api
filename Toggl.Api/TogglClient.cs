@@ -51,6 +51,7 @@ public class TogglClient : IDisposable
 		Organizations = RestService.For<IOrganizations>(_httpClient, refitSettings);
 		Projects = RestService.For<IProjects>(_httpClient, refitSettings);
 		Reports = RestService.For<IReports>(_httpClient, refitSettings);
+		Subscriptions = RestService.For<ISubscriptions>(_httpClient, refitSettings);
 		Tags = RestService.For<ITags>(_httpClient, refitSettings);
 		Tasks = RestService.For<ITasks>(_httpClient, refitSettings);
 		TimeEntries = RestService.For<ITimeEntries>(_httpClient, refitSettings);
@@ -98,6 +99,11 @@ public class TogglClient : IDisposable
 	/// Holds methods to access report information
 	/// </summary>
 	public IReports Reports { get; }
+
+	/// <summary>
+	/// Holds methods to access subscription information
+	/// </summary>
+	public ISubscriptions Subscriptions { get; }
 
 	/// <summary>
 	/// Holds methods to access tag information
