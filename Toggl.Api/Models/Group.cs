@@ -13,10 +13,10 @@ public class Group : NamedItem
 	public required int GroupId { get; set; }
 
 	/// <summary>
-	/// The group id
+	/// Timestamp of last update
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset Created { get; set; }
+	public required DateTimeOffset LastModified { get; set; }
 
 	/// <summary>
 	/// The workspace ids
@@ -29,4 +29,10 @@ public class Group : NamedItem
 	/// </summary>
 	[JsonPropertyName("users")]
 	public required ICollection<GroupUser> Users { get; set; }
+
+	/// <summary>
+	/// Total count of items in the response (only populated when listing)
+	/// </summary>
+	[JsonPropertyName("total_count")]
+	public int? TotalCount { get; set; }
 }

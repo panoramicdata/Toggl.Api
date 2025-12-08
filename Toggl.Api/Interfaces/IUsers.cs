@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Refit;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,53 +7,83 @@ using Toggl.Api.Models;
 namespace Toggl.Api.Interfaces;
 
 /// <summary>
-/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#users
+/// Interface for managing workspace users
+/// https://engineering.toggl.com/docs/api/workspaces#users
 /// </summary>
 public interface IUsers
 {
 	/// <summary>
-	/// Method to get basic information about a user.
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
+	/// Returns all users in a workspace.
+	/// https://engineering.toggl.com/docs/api/workspaces#get-workspace-users
 	/// </summary>
-	Task<User> GetCurrentAsync(CancellationToken cancellationToken);
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of workspace users</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/users")]
+	Task<ICollection<WorkspaceUser>> GetAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	/// Method to get basic information about a user and to get all the workspaces, clients, projects,
-	/// tasks, time entries and tags which the user can see
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
+	/// Updates a workspace user.
+	/// https://engineering.toggl.com/docs/api/workspaces#put-update-workspace-user
 	/// </summary>
-	Task<UserExtended> GetCurrentExtendedAsync(CancellationToken cancellationToken);
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="userId">Numeric ID of the user</param>
+	/// <param name="user">The user update data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated workspace user</returns>
+	[Put("/api/v9/workspaces/{workspace_id}/users/{user_id}")]
+	Task<WorkspaceUser> UpdateAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("user_id")] long userId,
+		[Body] WorkspaceUserUpdateDto user,
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	/// Method to get basic information about a user and to get all the workspaces, clients, projects,
-	/// tasks, time entries and tags which the user can see which have changed after certain time,
-	/// add since parameter to the query.
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-current-user-data
+	/// Returns all workspace users (detailed view with assignments).
+	/// https://engineering.toggl.com/docs/api/workspaces#get-workspace-workspace-users
 	/// </summary>
-	Task<UserExtended> GetCurrentChangedAsync(DateTime since, CancellationToken cancellationToken);
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of workspace users with assignments</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/workspace_users")]
+	Task<ICollection<WorkspaceUser>> GetWorkspaceUsersAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#update-user-data
+	/// Updates a workspace user assignment.
+	/// https://engineering.toggl.com/docs/api/workspaces#put-update-workspace-workspace-user
 	/// </summary>
-	/// <param name="u">UserEdit</param>
-	/// <returns>User</returns>
-	Task<User> UpdateAsync(User u, CancellationToken cancellationToken);
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="workspaceUserId">Numeric ID of the workspace user assignment</param>
+	/// <param name="user">The user update data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated workspace user</returns>
+	[Put("/api/v9/workspaces/{workspace_id}/workspace_users/{workspace_user_id}")]
+	Task<WorkspaceUser> UpdateWorkspaceUserAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("workspace_user_id")] long workspaceUserId,
+		[Body] WorkspaceUserUpdateDto user,
+		CancellationToken cancellationToken
+		);
 
 	/// <summary>
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#reset-api-token
+	/// Removes a user from the workspace.
+	/// https://engineering.toggl.com/docs/api/workspaces#delete-workspace-workspace-user
 	/// </summary>
-	Task<string> ResetApiTokenAsync(CancellationToken cancellationToken);
-
-	/// <summary>
-	///  Get list of users for a workspace
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/workspaces.md#get-workspace-users
-	/// </summary>
-	/// <param name="id"></param>
-	Task<List<User>> GetForWorkspaceAsync(long id, CancellationToken cancellationToken);
-
-	/// <summary>
-	/// https://github.com/toggl/toggl_api_docs/blob/master/chapters/users.md#get-workspace-users
-	/// </summary>
-	/// <param name="u"></param>
-	Task<User> CreateAsync(User u, CancellationToken cancellationToken);
+	/// <param name="workspaceId">Numeric ID of the workspace</param>
+	/// <param name="workspaceUserId">Numeric ID of the workspace user assignment</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Delete("/api/v9/workspaces/{workspace_id}/workspace_users/{workspace_user_id}")]
+	Task DeleteWorkspaceUserAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("workspace_user_id")] long workspaceUserId,
+		CancellationToken cancellationToken
+		);
 }

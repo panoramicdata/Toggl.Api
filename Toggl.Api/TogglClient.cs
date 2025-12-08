@@ -54,6 +54,7 @@ public class TogglClient : IDisposable
 		Tags = RestService.For<ITags>(_httpClient, refitSettings);
 		Tasks = RestService.For<ITasks>(_httpClient, refitSettings);
 		TimeEntries = RestService.For<ITimeEntries>(_httpClient, refitSettings);
+		Users = RestService.For<IUsers>(_httpClient, refitSettings);
 		Workspaces = RestService.For<IWorkspaces>(_httpClient, refitSettings);
 	}
 
@@ -112,6 +113,11 @@ public class TogglClient : IDisposable
 	/// Holds methods to access time entry information
 	/// </summary>
 	public ITimeEntries TimeEntries { get; }
+
+	/// <summary>
+	/// Methods to manage workspace users
+	/// </summary>
+	public IUsers Users { get; }
 
 	/// <summary>
 	/// Holds methods to access workspace information
