@@ -61,4 +61,20 @@ public class WorkspaceTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 
 		projects.Should().NotBeNull();
 	}
+
+	#region Phase 1: Additional Workspace Tests
+
+	[Fact]
+	public async Task Workspaces_GetTags_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+
+		var tags = await TogglClient
+			.Workspaces
+			.GetTagsAsync(workspaceId, CancellationToken);
+
+		tags.Should().NotBeNull();
+	}
+
+	#endregion
 }

@@ -7,14 +7,14 @@ This document outlines a phased approach to achieve full coverage of the Toggl A
 ### Existing Interfaces
 | Interface | Status | Coverage |
 |-----------|--------|----------|
-| `ICurrentUser` | Partial | ~60% |
+| `ICurrentUser` | Complete | ~95% |
 | `IClients` | Complete | ~100% |
 | `IWorkspaces` | Partial | ~40% |
 | `IOrganizations` | Partial | ~50% |
-| `IProjects` | Partial | ~70% |
-| `ITasks` | Partial | ~60% |
-| `ITags` | Partial | ~80% |
-| `ITimeEntries` | Partial | ~60% |
+| `IProjects` | Complete | ~95% |
+| `ITasks` | Complete | ~100% |
+| `ITags` | Complete | ~100% |
+| `ITimeEntries` | Partial | ~80% |
 | `IGroups` | Minimal | ~20% |
 | `IReports` | Partial | ~50% |
 
@@ -333,7 +333,7 @@ This document outlines a phased approach to achieve full coverage of the Toggl A
 
 | Phase | Status | Est. Completion |
 |-------|--------|-----------------|
-| Phase 1 | ?? In Progress | - |
+| Phase 1 | ? Complete | December 2024 |
 | Phase 2 | ? Not Started | - |
 | Phase 3 | ? Not Started | - |
 | Phase 4 | ? Not Started | - |

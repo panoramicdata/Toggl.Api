@@ -127,4 +127,64 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 		.Should()
 		.ThrowAsync<ApiException>();
 	}
+
+	#region Phase 1: Archive and Restore Tests
+
+	[Fact]
+	public async Task Client_ArchiveAndRestore_Succeeds()
+	{
+		var workspaceId = await GetWorkspaceIdAsync();
+		var uniqueClientName = $"ArchiveTest_{Guid.NewGuid():N}";
+
+		// Create a new client
+		var newClient = new ClientCreationDto
+		{
+			Name = uniqueClientName,
+			WorkspaceId = workspaceId,
+		};
+
+		var createdClient = await TogglClient
+			.Clients
+			.CreateAsync(workspaceId, newClient, CancellationToken);
+
+		try
+		{
+			createdClient.Should().NotBeNull();
+
+			// Archive the client
+			await TogglClient
+				.Clients
+				.ArchiveAsync(workspaceId, createdClient.Id, CancellationToken);
+
+			// Verify it's archived
+			var archivedClient = await TogglClient
+				.Clients
+				.GetAsync(workspaceId, createdClient.Id, CancellationToken);
+
+			archivedClient.Should().NotBeNull();
+			archivedClient.IsArchived.Should().BeTrue();
+
+			// Restore the client
+			await TogglClient
+				.Clients
+				.RestoreAsync(workspaceId, createdClient.Id, CancellationToken);
+
+			// Verify it's restored
+			var restoredClient = await TogglClient
+				.Clients
+				.GetAsync(workspaceId, createdClient.Id, CancellationToken);
+
+			restoredClient.Should().NotBeNull();
+			restoredClient.IsArchived.Should().BeFalse();
+		}
+		finally
+		{
+			// Clean up - delete the client
+			await TogglClient
+				.Clients
+				.DeleteAsync(workspaceId, createdClient.Id, CancellationToken);
+		}
+	}
+
+	#endregion
 }

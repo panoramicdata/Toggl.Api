@@ -120,4 +120,18 @@ public interface IProjects
 		[AliasAs("project_id")] long projectId,
 		[Body] ProjectCreationDto project,
 		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Returns the project statistics for a given project.
+	/// https://engineering.toggl.com/docs/api/projects#get-project-statistics
+	/// </summary>
+	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="projectId">The project id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>Project statistics</returns>
+	[Get("/api/v9/workspaces/{workspace_id}/projects/{project_id}/statistics")]
+	Task<ProjectStatistics> GetStatisticsAsync(
+		[AliasAs("workspace_id")] long workspaceId,
+		[AliasAs("project_id")] long projectId,
+		CancellationToken cancellationToken);
 }

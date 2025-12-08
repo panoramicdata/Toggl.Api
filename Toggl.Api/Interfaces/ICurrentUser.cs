@@ -233,4 +233,286 @@ public interface ICurrentUser
 	Task<long> GetIdAsync(
 		CancellationToken cancellationToken
 		);
+
+	#region Favorites
+
+	/// <summary>
+	/// Gets all favorites for the requesting user.
+	/// https://engineering.toggl.com/docs/api/favorites#get-favorites
+	/// </summary>
+	/// <param name="sinceUnixTimestampSeconds">Retrieve favorites created/deleted since this date using UNIX timestamp.</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of favorites</returns>
+	[Get("/api/v9/me/favorites")]
+	Task<ICollection<Favorite>> GetFavoritesAsync(
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Creates a new favorite.
+	/// https://engineering.toggl.com/docs/api/favorites#post-favorites
+	/// </summary>
+	/// <param name="includeMeta">Should the response contain data for meta entities</param>
+	/// <param name="favorite">Favorite details</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The created favorite</returns>
+	[Post("/api/v9/me/favorites")]
+	Task<Favorite> CreateFavoriteAsync(
+		[AliasAs("meta")] bool? includeMeta,
+		[Body] FavoriteDto favorite,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Updates an array of favorites.
+	/// https://engineering.toggl.com/docs/api/favorites#put-favorites
+	/// </summary>
+	/// <param name="includeMeta">Should the response contain data for meta entities</param>
+	/// <param name="favorites">Favorite details to update</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>The updated favorites</returns>
+	[Put("/api/v9/me/favorites")]
+	Task<ICollection<Favorite>> UpdateFavoritesAsync(
+		[AliasAs("meta")] bool? includeMeta,
+		[Body] ICollection<FavoriteDto> favorites,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Deletes a favorite.
+	/// https://engineering.toggl.com/docs/api/favorites#delete-favorites
+	/// </summary>
+	/// <param name="favoriteId">Numerical ID of the favorite</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Delete("/api/v9/me/favorites/{favorite_id}")]
+	Task DeleteFavoriteAsync(
+		[AliasAs("favorite_id")] long favoriteId,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Generates and returns a list of suggested favorites.
+	/// https://engineering.toggl.com/docs/api/favorites#post-favorites-suggestions
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of suggested favorites</returns>
+	[Post("/api/v9/me/favorites/suggestions")]
+	Task<ICollection<Favorite>> GetFavoritesSuggestionsAsync(
+		CancellationToken cancellationToken
+		);
+
+	#endregion
+
+	#region Flags
+
+	/// <summary>
+	/// Returns flags for the current user.
+	/// https://engineering.toggl.com/docs/api/me#get-me-flags
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>User flags as key-value pairs</returns>
+	[Get("/api/v9/me/flags")]
+	Task<UserFlags> GetFlagsAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Add flags for the current user.
+	/// https://engineering.toggl.com/docs/api/me#post-me-flags
+	/// </summary>
+	/// <param name="flags">Flags to add</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>Updated user flags</returns>
+	[Post("/api/v9/me/flags")]
+	Task<UserFlags> PostFlagsAsync(
+		[Body] UserFlags flags,
+		CancellationToken cancellationToken
+		);
+
+	#endregion
+
+	#region Preferences
+
+	/// <summary>
+	/// Returns user preferences and alpha features.
+	/// https://engineering.toggl.com/docs/api/preferences#get-preferences
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>User preferences</returns>
+	[Get("/api/v9/me/preferences")]
+	Task<UserPreferences> GetPreferencesAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Update the preferences for the current user.
+	/// https://engineering.toggl.com/docs/api/preferences#post-preferences
+	/// </summary>
+	/// <param name="preferences">Preferences to update</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/preferences")]
+	Task PostPreferencesAsync(
+		[Body] UserPreferences preferences,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Returns user preferences for a specific client.
+	/// https://engineering.toggl.com/docs/api/preferences#get-preferences-client
+	/// </summary>
+	/// <param name="client">Client type (desktop, web)</param>
+	/// <param name="sinceUnixTimestampSeconds">Retrieve preference modified since this date using UNIX timestamp.</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>User preferences for the client</returns>
+	[Get("/api/v9/me/preferences/{client}")]
+	Task<UserPreferences> GetPreferencesAsync(
+		string client,
+		[AliasAs("since")] long? sinceUnixTimestampSeconds,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Update the preferences for a specific client.
+	/// https://engineering.toggl.com/docs/api/preferences#post-preferences-client
+	/// </summary>
+	/// <param name="client">Client type (desktop, web)</param>
+	/// <param name="preferences">Preferences to update</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/preferences/{client}")]
+	Task PostPreferencesAsync(
+		string client,
+		[Body] UserPreferences preferences,
+		CancellationToken cancellationToken
+		);
+
+	#endregion
+
+	#region Export
+
+	/// <summary>
+	/// Get a list of objects to be downloaded for a user.
+	/// https://engineering.toggl.com/docs/api/exports#get-me-export
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of download request records</returns>
+	[Get("/api/v9/me/export")]
+	Task<ICollection<DownloadRequestRecord>> GetExportsAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Post an object which data to be downloaded.
+	/// https://engineering.toggl.com/docs/api/exports#post-me-export
+	/// </summary>
+	/// <param name="exportPayload">Objects to export</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/export")]
+	Task PostExportAsync(
+		[Body] ExportPayload exportPayload,
+		CancellationToken cancellationToken
+		);
+
+	#endregion
+
+	#region Quota
+
+	/// <summary>
+	/// Returns the API quota for the current user for all the organizations they are part of.
+	/// https://engineering.toggl.com/docs/api/me#get-quota
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of quota information per organization</returns>
+	[Get("/api/v9/me/quota")]
+	Task<ICollection<Quota>> GetQuotaAsync(
+		CancellationToken cancellationToken
+		);
+
+	#endregion
+
+	#region Account Management
+
+	/// <summary>
+	/// Close the current user's account.
+	/// https://engineering.toggl.com/docs/api/me#post-close-account
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/close_account")]
+	Task CloseAccountAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Disable product emails using a disable code.
+	/// https://engineering.toggl.com/docs/api/me#post-me-disable-product-emails
+	/// </summary>
+	/// <param name="disableCode">Disable code</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/disable_product_emails/{disable_code}")]
+	Task DisableProductEmailsAsync(
+		[AliasAs("disable_code")] string disableCode,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Disable weekly report using a weekly report code.
+	/// https://engineering.toggl.com/docs/api/me#post-me-disable-weekly-report
+	/// </summary>
+	/// <param name="weeklyReportCode">Weekly report code</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/disable_weekly_report/{weekly_report_code}")]
+	Task DisableWeeklyReportAsync(
+		[AliasAs("weekly_report_code")] string weeklyReportCode,
+		CancellationToken cancellationToken
+		);
+
+	#endregion
+
+	#region Push Services
+
+	/// <summary>
+	/// Get list of firebase tokens registered for current user.
+	/// https://engineering.toggl.com/docs/api/me#get-push-services
+	/// </summary>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns>List of firebase tokens</returns>
+	[Get("/api/v9/me/push_services")]
+	Task<ICollection<string>> GetPushServicesAsync(
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Register Firebase token for current user.
+	/// https://engineering.toggl.com/docs/api/me#post-push-services
+	/// </summary>
+	/// <param name="token">Firebase token</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Post("/api/v9/me/push_services")]
+	Task PostPushServiceAsync(
+		[Body] PushServiceToken token,
+		CancellationToken cancellationToken
+		);
+
+	/// <summary>
+	/// Unregister Firebase token for current user.
+	/// https://engineering.toggl.com/docs/api/me#delete-push-services
+	/// </summary>
+	/// <param name="token">Firebase token</param>
+	/// <param name="cancellationToken">The cancellation token</param>
+	/// <returns></returns>
+	[Delete("/api/v9/me/push_services")]
+	Task DeletePushServiceAsync(
+		[Body] PushServiceToken token,
+		CancellationToken cancellationToken
+		);
+
+	#endregion
 }
