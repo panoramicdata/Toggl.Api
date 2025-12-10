@@ -67,11 +67,11 @@ This document outlines a phased approach to achieve full coverage of the Toggl A
 
 ### 1.3 Complete ITasks
 **Currently implemented:** GET (list, by project), CREATE, UPDATE, DELETE, GET by ID  
-**Status:** ? Complete
+**Status:** Complete
 
 ### 1.4 Complete ITags
 **Currently implemented:** GET, CREATE, UPDATE, DELETE  
-**Status:** ? Complete
+**Status:** Complete
 
 ---
 
@@ -333,16 +333,16 @@ This document outlines a phased approach to achieve full coverage of the Toggl A
 
 | Phase | Status | Est. Completion |
 |-------|--------|-----------------|
-| Phase 1 | ? Complete | December 2024 |
-| Phase 2 | ? Complete | December 2024 |
-| Phase 3 | ? Complete | December 2024 |
-| Phase 4 | ? Complete | December 2024 |
-| Phase 5 | ? Not Started | - |
-| Phase 6 | ? Not Started | - |
-| Phase 7 | ? Not Started | - |
-| Phase 8 | ? Not Started | - |
+| Phase 1 | COMPLETE | December 2024 |
+| Phase 2 | COMPLETE | December 2024 |
+| Phase 3 | Not Started | - |
+| Phase 4 | Not Started | - |
+| Phase 5 | Not Started | - |
+| Phase 6 | Not Started | - |
+| Phase 7 | Not Started | - |
+| Phase 8 | Not Started | - |
 
-**Legend:** ? Complete | ?? In Progress | ? Not Started
+**Legend:** COMPLETE | IN PROGRESS | Not Started
 
 ---
 

@@ -12,6 +12,12 @@ namespace Toggl.Api.Models;
 public class WorkspaceUser : NamedIdentifiedItem
 {
 	/// <summary>
+	/// The user's full name
+	/// </summary>
+	[JsonPropertyName("fullname")]
+	public string? Fullname { get; set; }
+
+	/// <summary>
 	/// The UID
 	/// </summary>
 	[JsonPropertyName("uid")]
@@ -99,7 +105,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// Indicates if user is admin inside organization
 	/// </summary>
 	[JsonPropertyName("organization_admin")]
-	public bool IsOrganizationAdmin { get; set; }
+	public bool? IsOrganizationAdmin { get; set; }
 
 	/// <summary>
 	/// Rate assigned to the user
