@@ -27,6 +27,12 @@ public class ProjectStatistics
 	public string? EarliestTimeEntryDate { get; set; }
 
 	/// <summary>
+	/// Earliest time entry
+	/// </summary>
+	[JsonPropertyName("earliest_time_entry")]
+	public TimeEntry? EarliestTimeEntry { get; set; }
+
+	/// <summary>
 	/// Labour cost in cents
 	/// </summary>
 	[JsonPropertyName("labour_cost_in_cents")]

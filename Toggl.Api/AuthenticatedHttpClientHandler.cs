@@ -152,8 +152,6 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 
 						continue;
 					}
-				default:
-					break;
 			}
 
 			// Success

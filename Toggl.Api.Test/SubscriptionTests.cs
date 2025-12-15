@@ -90,7 +90,7 @@ public class SubscriptionTests(ITestOutputHelper iTestOutputHelper, Fixture fixt
 		// or 403 if the user doesn't have permission
 		try
 		{
-			var paymentFailed = await TogglClient
+			_ = await TogglClient
 				.Subscriptions
 				.GetPaymentFailedAsync(organizationId, CancellationToken);
 

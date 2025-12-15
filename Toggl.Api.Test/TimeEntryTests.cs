@@ -42,7 +42,7 @@ public class TimeEntryTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 	public async Task TimeEntries_GetCurrent_Succeeds()
 	{
 		// Get current running time entry (may be null if none running)
-		var currentEntry = await TogglClient
+		_ = await TogglClient
 			.TimeEntries
 			.GetAsync(CancellationToken);
 
