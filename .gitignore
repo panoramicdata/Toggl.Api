@@ -325,3 +325,7 @@ ASALocalRun/
 /Toggl.Api.Test/appsettings.json
 /nuget-key.txt
 /TestOutput.txt
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md
