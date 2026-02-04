@@ -37,6 +37,7 @@ public class TogglClient : IDisposable
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				WriteIndented = true,
 				UnmappedMemberHandling = options.JsonUnmappedMemberHandling,
+				TypeInfoResolver = TogglJsonSerializerContext.Default,
 				Converters =
 				{
 					new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)

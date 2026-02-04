@@ -152,6 +152,9 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 
 						continue;
 					}
+				default:
+					// Other status codes are handled after the switch
+					break;
 			}
 
 			// Success
