@@ -1,4 +1,4 @@
-﻿using Refit;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -37,7 +37,6 @@ public class TogglClient : IDisposable
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				WriteIndented = true,
 				UnmappedMemberHandling = options.JsonUnmappedMemberHandling,
-				TypeInfoResolver = TogglJsonSerializerContext.Default,
 				Converters =
 				{
 					new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)

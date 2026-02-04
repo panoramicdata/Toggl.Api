@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
-		<Nullable>enable</Nullable>
-		<AnalysisMode>Recommended</AnalysisMode>
+	<TargetFramework>net10.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
+	<Nullable>enable</Nullable>
+	<!-- Enable reflection-based JSON serialization for .NET 10 compatibility -->
+	<JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+	<AnalysisMode>Recommended</AnalysisMode>
 		<AnalysisLevel>latest-recommended</AnalysisLevel>
 		<AssemblyName>Toggl.Api</AssemblyName>
 		<RootNamespace>Toggl.Api</RootNamespace>
