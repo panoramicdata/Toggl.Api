@@ -94,6 +94,12 @@ public class Organization : IdentifiedItem
 	public DateTimeOffset? SuspendedAt { get; set; }
 
 	/// <summary>
+	/// Organization subscription information
+	/// </summary>
+	[JsonPropertyName("subscription")]
+	public Subscription? Subscription { get; set; }
+
+	/// <summary>
 	/// Undocumented property (docs just say '-')
 	/// </summary>
 	[JsonPropertyName("trial_info")]

@@ -199,11 +199,9 @@ public class CurrentUserTests(ITestOutputHelper iTestOutputHelper, Fixture fixtu
 			["test_flag_key"] = "test_value"
 		};
 
-		var result = await TogglClient
+		await TogglClient
 			.CurrentUser
 			.PostFlagsAsync(testFlags, CancellationToken);
-
-		result.Should().NotBeNull();
 	}
 
 	#endregion

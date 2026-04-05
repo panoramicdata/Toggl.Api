@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -41,6 +42,12 @@ public class UserPreferences
 	public int? BeginningOfWeek { get; set; }
 
 	/// <summary>
+	/// Beginning of the week (PascalCase variant returned by some endpoints)
+	/// </summary>
+	[JsonPropertyName("BeginningOfWeek")]
+	public int? BeginningOfWeekPascalCase { get; set; }
+
+	/// <summary>
 	/// Whether cells should be swapped
 	/// </summary>
 	[JsonPropertyName("cells_swapped")]
@@ -51,6 +58,12 @@ public class UserPreferences
 	/// </summary>
 	[JsonPropertyName("collapse_time_entries")]
 	public bool? CollapseTimeEntries { get; set; }
+
+	/// <summary>
+	/// Whether collapse time entries is enabled (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("CollapseTimeEntries")]
+	public bool? CollapseTimeEntriesPascalCase { get; set; }
 
 	/// <summary>
 	/// Date format (e.g., "MM/DD/YYYY")
@@ -119,6 +132,24 @@ public class UserPreferences
 	public bool? ManualMode { get; set; }
 
 	/// <summary>
+	/// Whether manual mode is enabled (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("ManualMode")]
+	public bool? ManualModePascalCase { get; set; }
+
+	/// <summary>
+	/// Whether manual entry mode is enabled (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("ManualEntryMode")]
+	public JsonElement? ManualEntryMode { get; set; }
+
+	/// <summary>
+	/// Whether ToS accept is needed (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("ToSAcceptNeeded")]
+	public bool? ToSAcceptNeeded { get; set; }
+
+	/// <summary>
 	/// Whether manualMode should be shown on mobile
 	/// </summary>
 	[JsonPropertyName("manual_mode_on_mobile")]
@@ -165,6 +196,12 @@ public class UserPreferences
 	/// </summary>
 	[JsonPropertyName("reminder")]
 	public bool? Reminder { get; set; }
+
+	/// <summary>
+	/// Whether product emails are enabled
+	/// </summary>
+	[JsonPropertyName("send_product_emails")]
+	public bool? SendProductEmails { get; set; }
 
 	/// <summary>
 	/// Reminder days

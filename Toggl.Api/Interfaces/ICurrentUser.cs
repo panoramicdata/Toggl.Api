@@ -324,9 +324,9 @@ public interface ICurrentUser
 	/// </summary>
 	/// <param name="flags">Flags to add</param>
 	/// <param name="cancellationToken">The cancellation token</param>
-	/// <returns>Updated user flags</returns>
+	/// <returns></returns>
 	[Post("/api/v9/me/flags")]
-	Task<UserFlags> PostFlagsAsync(
+	Task PostFlagsAsync(
 		[Body] UserFlags flags,
 		CancellationToken cancellationToken
 		);

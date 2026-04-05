@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -11,10 +12,22 @@ namespace Toggl.Api.Models;
 public class Favorite : IdentifiedItem
 {
 	/// <summary>
+	/// The favorite ID (separate from the entity ID)
+	/// </summary>
+	[JsonPropertyName("favorite_id")]
+	public long? FavoriteId { get; set; }
+
+	/// <summary>
 	/// Whether the favorite is billable
 	/// </summary>
 	[JsonPropertyName("billable")]
 	public bool? Billable { get; set; }
+
+	/// <summary>
+	/// Whether the favorite is public
+	/// </summary>
+	[JsonPropertyName("public")]
+	public bool? IsPublic { get; set; }
 
 	/// <summary>
 	/// Client ID associated with the favorite
@@ -117,4 +130,16 @@ public class Favorite : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("workspace_name")]
 	public string? WorkspaceName { get; set; }
+
+	/// <summary>
+	/// Rank/order of the favorite
+	/// </summary>
+	[JsonPropertyName("rank")]
+	public int? Rank { get; set; }
+
+	/// <summary>
+	/// Favorite permissions payload
+	/// </summary>
+	[JsonPropertyName("permissions")]
+	public JsonElement? Permissions { get; set; }
 }

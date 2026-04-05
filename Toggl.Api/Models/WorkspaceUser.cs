@@ -33,13 +33,25 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// Whether the user is active
 	/// </summary>
 	[JsonPropertyName("active")]
-	public required bool IsActive { get; set; }
+	public bool IsActive { get; set; }
+
+	/// <summary>
+	/// Whether the user is active (alternate property name)
+	/// </summary>
+	[JsonPropertyName("is_active")]
+	public bool? IsActiveFlag { get; set; }
 
 	/// <summary>
 	/// Whether the user is an admin
 	/// </summary>
 	[JsonPropertyName("admin")]
-	public required bool IsAdmin { get; set; }
+	public bool IsAdmin { get; set; }
+
+	/// <summary>
+	/// Whether the user is an admin (alternate property name)
+	/// </summary>
+	[JsonPropertyName("is_admin")]
+	public bool? IsAdminFlag { get; set; }
 
 	/// <summary>
 	/// The avatar url
@@ -51,7 +63,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// The email address
 	/// </summary>
 	[JsonPropertyName("email")]
-	public required string Email { get; set; } = string.Empty;
+	public string? Email { get; set; }
 
 	/// <summary>
 	/// Groups
@@ -63,7 +75,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// Whether the user is inactive
 	/// </summary>
 	[JsonPropertyName("inactive")]
-	public required bool IsInactive { get; set; }
+	public bool IsInactive { get; set; }
 
 	/// <summary>
 	/// Invitation code
@@ -81,7 +93,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// Indicates if user is a direct member of the workspace (is not assigned to the workspace using the group)
 	/// </summary>
 	[JsonPropertyName("is_direct")]
-	public required bool IsDirect { get; set; }
+	public bool IsDirect { get; set; }
 
 	/// <summary>
 	/// The user labor cost
@@ -123,13 +135,19 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// The user role
 	/// </summary>
 	[JsonPropertyName("role")]
-	public required string Role { get; set; } = string.Empty;
+	public string? Role { get; set; }
+
+	/// <summary>
+	/// The user role identifier
+	/// </summary>
+	[JsonPropertyName("role_id")]
+	public long? RoleId { get; set; }
 
 	/// <summary>
 	/// The timezone of the user
 	/// </summary>
 	[JsonPropertyName("timezone")]
-	public required string TimeZone { get; set; } = string.Empty;
+	public string? TimeZone { get; set; }
 
 	/// <summary>
 	/// The user ID
@@ -147,7 +165,7 @@ public class WorkspaceUser : NamedIdentifiedItem
 	/// Indicates whether the user is an admin in the workspace
 	/// </summary>
 	[JsonPropertyName("workspace_admin")]
-	public bool IsWorkspaceAdmin { get; set; }
+	public bool? IsWorkspaceAdmin { get; set; }
 
 	/// <summary>
 	/// The workspace identifier

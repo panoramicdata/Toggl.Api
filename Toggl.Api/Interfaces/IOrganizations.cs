@@ -173,9 +173,9 @@ public interface IOrganizations
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
 	/// <param name="cancellationToken">The cancellation token</param>
-	/// <returns>List of available pricing plans</returns>
+	/// <returns>The plans payload returned by the API</returns>
 	[Get("/api/v9/organizations/{organization_id}/plans")]
-	Task<ICollection<PricingPlan>> GetPlansAsync(
+	Task<object> GetPlansAsync(
 		[AliasAs("organization_id")] long organizationId,
 		CancellationToken cancellationToken
 		);

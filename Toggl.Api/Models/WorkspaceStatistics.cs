@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -10,10 +12,10 @@ namespace Toggl.Api.Models;
 public class WorkspaceStatistics
 {
 	/// <summary>
-	/// Number of admins in the workspace
+	/// Admin user IDs in the workspace
 	/// </summary>
 	[JsonPropertyName("admins")]
-	public int Admins { get; set; }
+	public JsonElement? Admins { get; set; }
 
 	/// <summary>
 	/// Number of groups in the workspace
@@ -26,6 +28,12 @@ public class WorkspaceStatistics
 	/// </summary>
 	[JsonPropertyName("members")]
 	public int Members { get; set; }
+
+	/// <summary>
+	/// Number of members in the workspace (alternate field name)
+	/// </summary>
+	[JsonPropertyName("members_count")]
+	public int? MembersCount { get; set; }
 
 	/// <summary>
 	/// Number of pending invitations

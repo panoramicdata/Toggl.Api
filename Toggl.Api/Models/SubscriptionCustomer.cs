@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -8,6 +9,12 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class SubscriptionCustomer
 {
+	/// <summary>
+	/// Identifier
+	/// </summary>
+	[JsonPropertyName("id")]
+	public JsonElement? Id { get; set; }
+
 	/// <summary>
 	/// Customer ID
 	/// </summary>
@@ -49,4 +56,10 @@ public class SubscriptionCustomer
 	/// </summary>
 	[JsonPropertyName("reference")]
 	public string? Reference { get; set; }
+
+	/// <summary>
+	/// Toggl user identifier
+	/// </summary>
+	[JsonPropertyName("toggl_user_id")]
+	public long? TogglUserId { get; set; }
 }

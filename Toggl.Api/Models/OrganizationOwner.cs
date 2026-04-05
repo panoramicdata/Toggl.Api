@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -25,4 +26,22 @@ public class OrganizationOwner : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("user_id")]
 	public long UserId { get; set; }
+
+	/// <summary>
+	/// Organization user ID of the owner
+	/// </summary>
+	[JsonPropertyName("organization_user_id")]
+	public long? OrganizationUserId { get; set; }
+
+	/// <summary>
+	/// Organization ID
+	/// </summary>
+	[JsonPropertyName("organization_id")]
+	public long? OrganizationId { get; set; }
+
+	/// <summary>
+	/// Toggl accounts identifier
+	/// </summary>
+	[JsonPropertyName("toggl_accounts_id")]
+	public JsonElement? TogglAccountsId { get; set; }
 }

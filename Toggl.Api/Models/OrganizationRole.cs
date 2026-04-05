@@ -31,4 +31,28 @@ public class OrganizationRole : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("organization_id")]
 	public long OrganizationId { get; set; }
+
+	/// <summary>
+	/// Role ID
+	/// </summary>
+	[JsonPropertyName("role_id")]
+	public long? RoleId { get; set; }
+
+	/// <summary>
+	/// Role code
+	/// </summary>
+	[JsonPropertyName("code")]
+	public string? Code { get; set; }
+
+	/// <summary>
+	/// Entity type this role applies to
+	/// </summary>
+	[JsonPropertyName("entity")]
+	public string? Entity { get; set; }
+
+	/// <summary>
+	/// Role type
+	/// </summary>
+	[JsonPropertyName("type")]
+	public string? Type { get; set; }
 }

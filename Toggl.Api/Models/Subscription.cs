@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -82,6 +83,24 @@ public class Subscription
 	public string? PaymentMethod { get; set; }
 
 	/// <summary>
+	/// Plan payload returned by the subscription endpoint
+	/// </summary>
+	[JsonPropertyName("plan")]
+	public JsonElement? Plan { get; set; }
+
+	/// <summary>
+	/// Plan identifier
+	/// </summary>
+	[JsonPropertyName("plan_id")]
+	public long? PlanId { get; set; }
+
+	/// <summary>
+	/// Plan name
+	/// </summary>
+	[JsonPropertyName("plan_name")]
+	public string? PlanName { get; set; }
+
+	/// <summary>
 	/// Pricing plan ID
 	/// </summary>
 	[JsonPropertyName("pricing_plan_id")]
@@ -112,10 +131,22 @@ public class Subscription
 	public string? TogglProductHandle { get; set; }
 
 	/// <summary>
+	/// Site identifier
+	/// </summary>
+	[JsonPropertyName("site")]
+	public string? Site { get; set; }
+
+	/// <summary>
 	/// Updated at timestamp
 	/// </summary>
 	[JsonPropertyName("updated_at")]
 	public DateTimeOffset? UpdatedAt { get; set; }
+
+	/// <summary>
+	/// Whether the subscription is unified
+	/// </summary>
+	[JsonPropertyName("is_unified")]
+	public bool? IsUnified { get; set; }
 }
 
 /// <summary>

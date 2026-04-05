@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -9,6 +10,12 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class Group : NamedItem
 {
+	/// <summary>
+	/// The group identifier
+	/// </summary>
+	[JsonPropertyName("id")]
+	public long? Id { get; set; }
+
 	/// <summary>
 	/// The group id
 	/// </summary>
@@ -34,8 +41,26 @@ public class Group : NamedItem
 	public required ICollection<GroupUser> Users { get; set; }
 
 	/// <summary>
+	/// Whether the group has users
+	/// </summary>
+	[JsonPropertyName("has_users")]
+	public bool? HasUsers { get; set; }
+
+	/// <summary>
+	/// The workspace id
+	/// </summary>
+	[JsonPropertyName("workspace_id")]
+	public long? WorkspaceId { get; set; }
+
+	/// <summary>
 	/// Total count of items in the response (only populated when listing)
 	/// </summary>
 	[JsonPropertyName("total_count")]
 	public int? TotalCount { get; set; }
+
+	/// <summary>
+	/// Group permissions payload
+	/// </summary>
+	[JsonPropertyName("permissions")]
+	public JsonElement? Permissions { get; set; }
 }

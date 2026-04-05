@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -30,7 +31,7 @@ public class ProjectStatistics
 	/// Earliest time entry
 	/// </summary>
 	[JsonPropertyName("earliest_time_entry")]
-	public TimeEntry? EarliestTimeEntry { get; set; }
+	public JsonElement? EarliestTimeEntry { get; set; }
 
 	/// <summary>
 	/// Labour cost in cents
@@ -43,6 +44,12 @@ public class ProjectStatistics
 	/// </summary>
 	[JsonPropertyName("latest_time_entry_date")]
 	public string? LatestTimeEntryDate { get; set; }
+
+	/// <summary>
+	/// Latest time entry
+	/// </summary>
+	[JsonPropertyName("latest_time_entry")]
+	public JsonElement? LatestTimeEntry { get; set; }
 
 	/// <summary>
 	/// Number of tasks

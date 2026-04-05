@@ -11,5 +11,5 @@ public abstract class NamedItem : Item
 	/// The name
 	/// </summary>
 	[JsonPropertyName("name")]
-	public required string Name { get; set; }
+	public string? Name { get; set; }
 }

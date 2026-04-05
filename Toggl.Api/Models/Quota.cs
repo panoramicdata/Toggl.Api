@@ -12,7 +12,7 @@ public class Quota
 	/// Organization ID
 	/// </summary>
 	[JsonPropertyName("organization_id")]
-	public long OrganizationId { get; set; }
+	public long? OrganizationId { get; set; }
 
 	/// <summary>
 	/// Organization name
@@ -37,4 +37,22 @@ public class Quota
 	/// </summary>
 	[JsonPropertyName("resets_in")]
 	public int ResetsIn { get; set; }
+
+	/// <summary>
+	/// Seconds until the quota resets (alternate field name)
+	/// </summary>
+	[JsonPropertyName("resets_in_secs")]
+	public int? ResetsInSecs { get; set; }
+
+	/// <summary>
+	/// Remaining quota
+	/// </summary>
+	[JsonPropertyName("remaining")]
+	public int? Remaining { get; set; }
+
+	/// <summary>
+	/// Total quota
+	/// </summary>
+	[JsonPropertyName("total")]
+	public int? Total { get; set; }
 }

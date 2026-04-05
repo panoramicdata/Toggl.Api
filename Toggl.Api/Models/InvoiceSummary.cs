@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -68,4 +69,22 @@ public class InvoiceSummary
 	/// </summary>
 	[JsonPropertyName("total_in_cents")]
 	public long? TotalInCents { get; set; }
+
+	/// <summary>
+	/// Pricing plan tag
+	/// </summary>
+	[JsonPropertyName("pricing_plan_tag")]
+	public string? PricingPlanTag { get; set; }
+
+	/// <summary>
+	/// Total amount
+	/// </summary>
+	[JsonPropertyName("total_amount")]
+	public JsonElement? TotalAmount { get; set; }
+
+	/// <summary>
+	/// Total tax amount
+	/// </summary>
+	[JsonPropertyName("total_tax_amount")]
+	public JsonElement? TotalTaxAmount { get; set; }
 }

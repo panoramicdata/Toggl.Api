@@ -38,4 +38,16 @@ public class DownloadRequestRecord : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("user_id")]
 	public long? UserId { get; set; }
+
+	/// <summary>
+	/// Download token
+	/// </summary>
+	[JsonPropertyName("token")]
+	public string? Token { get; set; }
+
+	/// <summary>
+	/// Export state
+	/// </summary>
+	[JsonPropertyName("state")]
+	public string? State { get; set; }
 }
