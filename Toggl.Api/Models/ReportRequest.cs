@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// A report request.
+/// </summary>
 public class ReportRequest
 {
 	/// <summary>

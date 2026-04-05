@@ -22,7 +22,6 @@ public class CurrentUserClient : NamedIdentifiedItem
 
 	/// <summary>
 	/// CreatorID is the ID of the user who created the client
-
 	/// </summary>
 	[JsonPropertyName("creator_id")]
 	public required int CreatorId { get; set; }

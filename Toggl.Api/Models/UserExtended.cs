@@ -8,18 +8,33 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class UserExtended : User
 {
+	/// <summary>
+	/// The time entries.
+	/// </summary>
 	[JsonPropertyName("time_entries")]
 	public List<TimeEntry>? TimeEntries { get; set; }
 
+	/// <summary>
+	/// The projects.
+	/// </summary>
 	[JsonPropertyName("projects")]
 	public List<Project>? Projects { get; set; }
 
+	/// <summary>
+	/// The tags.
+	/// </summary>
 	[JsonPropertyName("tags")]
 	public List<Tag>? Tags { get; set; }
 
+	/// <summary>
+	/// The workspaces.
+	/// </summary>
 	[JsonPropertyName("workspaces")]
 	public List<Workspace>? Workspaces { get; set; }
 
+	/// <summary>
+	/// The clients.
+	/// </summary>
 	[JsonPropertyName("clients")]
 	public List<Client>? Clients { get; set; }
 }

@@ -4,6 +4,9 @@ namespace Toggl.Api.Models;
 
 // https://github.com/toggl/toggl_api_docs/blob/master/reports/project.md
 
+/// <summary>
+/// A project report dashboard.
+/// </summary>
 public class ProjectReportDashboard : Item
 {
 	/// <summary>

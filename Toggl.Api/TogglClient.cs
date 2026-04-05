@@ -17,6 +17,10 @@ public class TogglClient : IDisposable
 {
 	private readonly HttpClient _httpClient;
 
+	/// <summary>
+	/// Initializes a new instance of the <see cref="TogglClient"/> class.
+	/// </summary>
+	/// <param name="options">The client options.</param>
 	public TogglClient(TogglClientOptions options)
 	{
 		ArgumentNullException.ThrowIfNull(options);
@@ -130,9 +134,15 @@ public class TogglClient : IDisposable
 	/// </summary>
 	public IWorkspaces Workspaces { get; }
 
+	/// <summary>
+	/// Gets all items for a workspace.
+	/// </summary>
 	public Task<ICollection<T>> GetAllAsync<T>(long workspaceId, CancellationToken cancellationToken)
 		=> throw new NotImplementedException("Not yet implemented in the V9 client.");
 
+	/// <summary>
+	/// Disposes the client.
+	/// </summary>
 	public void Dispose()
 	{
 		_httpClient.Dispose();

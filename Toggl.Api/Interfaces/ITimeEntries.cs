@@ -8,6 +8,9 @@ using Toggl.Api.Models;
 
 namespace Toggl.Api.Interfaces;
 
+/// <summary>
+/// Interface for time entry operations.
+/// </summary>
 public interface ITimeEntries
 {
 	/// <summary>

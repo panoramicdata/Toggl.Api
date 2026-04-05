@@ -2,6 +2,9 @@
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// An identified item with an ID.
+/// </summary>
 public abstract class IdentifiedItem : Item
 {
 	/// <summary>

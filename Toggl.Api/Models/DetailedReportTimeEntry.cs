@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// A detailed report time entry.
+/// </summary>
 public class DetailedReportTimeEntry
 {
 	/// <summary>

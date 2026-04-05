@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Toggl.Api;
 
+/// <summary>
+/// Options for the Toggl client.
+/// </summary>
 public class TogglClientOptions
 {
 	/// <summary>

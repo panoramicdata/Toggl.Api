@@ -2,6 +2,9 @@
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// A user group.
+/// </summary>
 public class UserGroup : NamedItem
 {
 	/// <summary>

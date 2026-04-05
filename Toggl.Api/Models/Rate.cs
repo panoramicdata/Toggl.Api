@@ -2,6 +2,9 @@
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// Rate information.
+/// </summary>
 public class Rate
 {
 	/// <summary>

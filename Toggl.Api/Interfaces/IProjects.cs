@@ -8,6 +8,9 @@ using Toggl.Api.Models;
 
 namespace Toggl.Api.Interfaces;
 
+/// <summary>
+/// Interface for project operations.
+/// </summary>
 public interface IProjects
 {
 	/// <summary>
@@ -83,6 +86,7 @@ public interface IProjects
 	/// <summary>
 	/// Creates a new workspace Project
 	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
 	/// <param name="project">The Project to create</param>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
@@ -96,7 +100,7 @@ public interface IProjects
 	/// Deletes the specified project from the given workspace asynchronously.
 	/// </summary>
 	/// <param name="workspaceId">The unique identifier of the workspace containing the project to delete.</param>
-	/// <param name="id">The unique identifier of the project to delete.</param>
+	/// <param name="projectId">The unique identifier of the project to delete.</param>
 	/// <param name="cancellationToken">A cancellation token that can be used to cancel the delete operation.</param>
 	/// <returns>A task that represents the asynchronous delete operation.</returns>
 	[Delete("/api/v9/workspaces/{workspace_id}/projects/{project_id}")]

@@ -7,9 +7,15 @@ namespace Toggl.Api.Models;
 /// </summary>
 public class UserAdd : Item
 {
+	/// <summary>
+	/// The email address.
+	/// </summary>
 	[JsonPropertyName("email")]
 	public string? Email { get; set; }
 
+	/// <summary>
+	/// The timezone.
+	/// </summary>
 	[JsonPropertyName("timezone")]
 	public string? Timezone { get; set; }
 }

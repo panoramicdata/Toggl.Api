@@ -6,6 +6,9 @@ using Toggl.Api.Models;
 
 namespace Toggl.Api.Interfaces;
 
+/// <summary>
+/// Interface for tag operations.
+/// </summary>
 public interface ITags
 {
 	/// <summary>
@@ -13,6 +16,7 @@ public interface ITags
 	/// https://engineering.toggl.com/docs/api/tags#get-tags
 	/// </summary>
 	/// <param name="workspaceId">The workspace id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/workspaces/{workspace_id}/tags")]
 	Task<ICollection<Tag>> GetAsync(

@@ -2,6 +2,9 @@
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// A payment card.
+/// </summary>
 public class PaymentCard
 {
 	/// <summary>

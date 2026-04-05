@@ -6,6 +6,9 @@ using Toggl.Api.Models;
 
 namespace Toggl.Api.Interfaces;
 
+/// <summary>
+/// Interface for report operations.
+/// </summary>
 public interface IReports
 {
 	/// <summary>

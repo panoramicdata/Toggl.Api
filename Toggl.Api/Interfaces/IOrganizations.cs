@@ -16,6 +16,7 @@ public interface IOrganizations
 	/// https://engineering.toggl.com/docs/api/organizations#post-creates-a-new-organization
 	/// </summary>
 	/// <param name="organization">The organization to create</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Post("/api/v9/organizations")]
 	Task<Organization> CreateAsync(
@@ -27,7 +28,8 @@ public interface IOrganizations
 	/// GET Organization data
 	/// https://engineering.toggl.com/docs/api/organizations#get-organization-data
 	/// </summary>
-	/// <param name="organization">The organization to create</param>
+	/// <param name="organizationId">The organization ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/organizations/{organization_id}")]
 	Task<Organization> GetAsync(
@@ -40,7 +42,8 @@ public interface IOrganizations
 	/// https://engineering.toggl.com/docs/api/organizations#put-updates-an-existing-organization
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
-	/// <param name="organization">The organization to create</param>
+	/// <param name="organization">The organization to update</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Put("/api/v9/organizations/{organization_id}")]
 	Task<Organization> UpdateAsync(
@@ -55,6 +58,7 @@ public interface IOrganizations
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
 	/// <param name="organizationUsersQuery">The organization users query</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/organizations/{organization_id}/users")]
 	Task<ICollection<OrganizationUser>> GetUsersAsync(
@@ -69,6 +73,7 @@ public interface IOrganizations
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
 	/// <param name="userIds">The ids of users to delete</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Patch("/api/v9/organizations/{organization_id}/users")]
 	Task<ICollection<OrganizationUser>> DeleteUsersAsync(
@@ -82,6 +87,7 @@ public interface IOrganizations
 	/// https://engineering.toggl.com/docs/api/organizations#delete-leaves-organization
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Delete("/api/v9/organizations/{organization_id}/users")]
 	Task<ICollection<OrganizationUser>> LeaveAsync(
@@ -94,6 +100,9 @@ public interface IOrganizations
 	/// https://engineering.toggl.com/docs/api/organizations#delete-leaves-organization
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
+	/// <param name="organizationUserId">The organization user id</param>
+	/// <param name="organizationUser">The organization user update data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Put("/api/v9/organizations/{organization_id}/users/{organization_user_id}")]
 	Task<ICollection<OrganizationUser>> LeaveAsync(
@@ -109,6 +118,7 @@ public interface IOrganizations
 	/// https://engineering.toggl.com/docs/api/organizations#get-statistics-for-all-workspaces-in-the-organization
 	/// </summary>
 	/// <param name="organizationId">The organization id</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/organizations/{organization_id}/workspaces/statistics")]
 	Task<object> GetStatisticsAsync(

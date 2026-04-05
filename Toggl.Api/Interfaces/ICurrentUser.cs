@@ -100,7 +100,7 @@ public interface ICurrentUser
 	/// https://engineering.toggl.com/docs/api/me#get-projects
 	/// </summary>
 	/// <param name="includeArchived">Include archived projects.</param>
-	/// <param name="since">Retrieve projects modified since this date using UNIX timestamp, including deleted ones.</param>
+	/// <param name="sinceUnixTimestampSeconds">Retrieve projects modified since this date using UNIX timestamp, including deleted ones.</param>
 	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/me/projects")]

@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
 
+/// <summary>
+/// An organization.
+/// </summary>
 public class Organization : IdentifiedItem
 {
 	/// <summary>

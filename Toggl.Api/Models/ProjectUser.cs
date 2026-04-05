@@ -74,6 +74,9 @@ public class ProjectUser : IdentifiedItem
 	[JsonPropertyName("rate_last_updated")]
 	public required DateTimeOffset? RateLastModified { get; set; }
 
+	/// <summary>
+	/// The user ID.
+	/// </summary>
 	[JsonPropertyName("user_id")]
 	public required long UserId { get; set; }
 

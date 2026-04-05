@@ -3,6 +3,9 @@ using Toggl.Api.Models;
 
 namespace Toggl.Api.QueryObjects;
 
+/// <summary>
+/// Project dashboard parameters.
+/// </summary>
 public class ProjectDashboardParams : Item
 {
 	/// <summary>

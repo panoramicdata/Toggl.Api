@@ -172,8 +172,12 @@ public class TimeEntry : IdentifiedItem
 	[JsonPropertyName("workspace_id")]
 	public long? WorkspaceId { get; set; }
 
+	/// <inheritdoc />
 	public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Id: {0}, Start: {1}, Stop: {2}, TaskId: {3}", Id, Start, Stop, TaskId);
 
+	/// <summary>
+	/// Represents shared time entry information.
+	/// </summary>
 	public record TimeEntrySharedWith
 	{
 		/// <summary>

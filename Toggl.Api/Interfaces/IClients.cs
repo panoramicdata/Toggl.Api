@@ -33,7 +33,9 @@ public interface IClients
 	/// Create a client for a workspace
 	/// https://engineering.toggl.com/docs/api/clients#post-create-client
 	/// </summary>
+	/// <param name="workspaceId">The workspace ID</param>
 	/// <param name="client">The client to create</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Post("/api/v9/workspaces/{workspaceId}/clients")]
 	Task<Client> CreateAsync(
@@ -46,8 +48,9 @@ public interface IClients
 	/// Get a client by id for a workspace
 	/// https://engineering.toggl.com/docs/api/clients#get-load-client-from-id
 	/// </summary>
-	/// <param name="workspaceId"></param>
-	/// <param name="clientId"></param>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="clientId">The client ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Get("/api/v9/workspaces/{workspaceId}/clients/{clientId}")]
 	Task<Client> GetAsync(
@@ -59,9 +62,10 @@ public interface IClients
 	/// <summary>
 	/// Update a client for a workspace
 	/// </summary>
-	/// <param name="workspaceId"></param>
-	/// <param name="clientId"></param>
-	/// <param name="client"></param>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="clientId">The client ID</param>
+	/// <param name="client">The client data</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Put("/api/v9/workspaces/{workspaceId}/clients/{clientId}")]
 	Task<Client> UpdateAsync(
@@ -75,8 +79,9 @@ public interface IClients
 	/// Delete a client for a workspace
 	/// https://engineering.toggl.com/docs/api/clients#delete-delete-client
 	/// </summary>
-	/// <param name="workspaceId"></param>
-	/// <param name="clientId"></param>
+	/// <param name="workspaceId">The workspace ID</param>
+	/// <param name="clientId">The client ID</param>
+	/// <param name="cancellationToken">The cancellation token</param>
 	/// <returns></returns>
 	[Delete("/api/v9/workspaces/{workspaceId}/clients/{clientId}")]
 	Task DeleteAsync(

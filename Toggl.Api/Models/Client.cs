@@ -51,6 +51,7 @@ public class Client : NamedIdentifiedItem
 	[JsonPropertyName("total_count")]
 	public int? TotalCount { get; set; }
 
+	/// <inheritdoc />
 	public override string ToString()
 		=> string.Format(CultureInfo.InvariantCulture, "Id: {0}, Name: {1} {2}", Id, Name, DeletedAt == null ? string.Empty : "[DELETED]");
 }
