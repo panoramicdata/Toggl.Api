@@ -40,6 +40,7 @@ public class TogglClient : IDisposable
 			{
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				WriteIndented = true,
+				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 				UnmappedMemberHandling = options.JsonUnmappedMemberHandling,
 				Converters =
 				{

@@ -34,6 +34,18 @@ public class Invitation : IdentifiedItem
 	public long[]? WorkspaceIds { get; set; }
 
 	/// <summary>
+	/// Email address of the sender.
+	/// </summary>
+	[JsonPropertyName("sender_email")]
+	public string? SenderEmail { get; set; }
+
+	/// <summary>
+	/// Name of the sender.
+	/// </summary>
+	[JsonPropertyName("sender_name")]
+	public string? SenderName { get; set; }
+
+	/// <summary>
 	/// User ID of the inviter
 	/// </summary>
 	[JsonPropertyName("inviter_id")]

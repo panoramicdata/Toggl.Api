@@ -1,6 +1,5 @@
 ﻿using AwesomeAssertions;
-using Refit;
-using System.Net;
+using System;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
@@ -143,31 +142,34 @@ public class CurrentUserTests(ITestOutputHelper iTestOutputHelper, Fixture fixtu
 	public async Task CurrentUser_Crud_Favorite_Succeeds()
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
+		var existingFavorites = await TogglClient
+			.CurrentUser
+			.GetFavoritesAsync(null, CancellationToken);
+
+		// Toggl enforces a maximum of 10 favorites per user, so avoid issuing
+		// a request that the server will deterministically reject.
+		if (existingFavorites.Count >= 10)
+		{
+			return;
+		}
+
+		var favoriteDescription = $"Test Favorite {Guid.NewGuid():N}";
 
 		// Create a favorite
 		var favoriteDto = new FavoriteDto
 		{
 			WorkspaceId = workspaceId,
-			Description = "Test Favorite from Unit Tests"
+			Description = favoriteDescription
 		};
 
-		Favorite createdFavorite;
-		try
-		{
-			createdFavorite = await TogglClient
-				.CurrentUser
-				.CreateFavoriteAsync(true, favoriteDto, CancellationToken);
-		}
-		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
-		{
-			// Some accounts/workspaces may forbid creating favorites.
-			return;
-		}
+		var createdFavorite = await TogglClient
+			.CurrentUser
+			.CreateFavoriteAsync(true, favoriteDto, CancellationToken);
 
 		try
 		{
 			createdFavorite.Should().NotBeNull();
-			createdFavorite.Description.Should().Be("Test Favorite from Unit Tests");
+			createdFavorite.Description.Should().Be(favoriteDescription);
 			createdFavorite.WorkspaceId.Should().Be(workspaceId);
 
 			// Get favorites to verify it exists

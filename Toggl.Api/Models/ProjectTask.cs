@@ -30,13 +30,19 @@ public class ProjectTask : NamedIdentifiedItem
 	/// Permissions
 	/// </summary>
 	[JsonPropertyName("permissions")]
-	public required string Permissions { get; set; }
+	public string? Permissions { get; set; }
 
 	/// <summary>
 	/// Project id
 	/// </summary>
 	[JsonPropertyName("project_id")]
 	public required int ProjectId { get; set; }
+
+	/// <summary>
+	/// Whether the parent project is private.
+	/// </summary>
+	[JsonPropertyName("project_is_private")]
+	public bool? ProjectIsPrivate { get; set; }
 
 	/// <summary>
 	/// Whether this is a recurring task

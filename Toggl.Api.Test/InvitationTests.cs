@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using Refit;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
@@ -32,27 +33,19 @@ public class InvitationTests(ITestOutputHelper iTestOutputHelper, Fixture fixtur
 	{
 		var organizationId = await GetOrganizationIdAsync();
 		var workspaceId = await GetWorkspaceIdAsync();
+		var inviteeEmail = $"toggl-api-test-{Guid.NewGuid():N}@example-test-domain.invalid";
 
 		// Create an invitation - note this will send an actual email
 		// Use a test email or skip in CI
 		var invitationDto = new InvitationCreationDto
 		{
-			Emails = ["test-user-does-not-exist@example-test-domain.invalid"],
+			Emails = [inviteeEmail],
 			WorkspaceIds = [workspaceId]
 		};
 
-		InvitationResult result;
-		try
-		{
-			result = await TogglClient
-				.Invitations
-				.CreateAsync(organizationId, invitationDto, CancellationToken);
-		}
-		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
-		{
-			// Some organizations may block invitations to external domains.
-			return;
-		}
+		var result = await TogglClient
+			.Invitations
+			.CreateAsync(organizationId, invitationDto, CancellationToken);
 
 		result.Should().NotBeNull();
 	}

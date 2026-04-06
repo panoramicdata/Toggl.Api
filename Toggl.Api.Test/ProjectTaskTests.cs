@@ -1,7 +1,5 @@
 ﻿using AwesomeAssertions;
-using Refit;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
@@ -59,18 +57,9 @@ public class ProjectTaskTests(ITestOutputHelper iTestOutputHelper, Fixture fixtu
 			Active = true
 		};
 
-		Models.ProjectTask createdTask;
-		try
-		{
-			createdTask = await TogglClient
-				.Tasks
-				.CreateAsync(workspaceId, projectId, createDto, CancellationToken);
-		}
-		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
-		{
-			// Some workspaces/projects disallow task creation from API for current user.
-			return;
-		}
+		var createdTask = await TogglClient
+			.Tasks
+			.CreateAsync(workspaceId, projectId, createDto, CancellationToken);
 
 		try
 		{

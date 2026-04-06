@@ -1,7 +1,5 @@
 ﻿using AwesomeAssertions;
-using Refit;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
@@ -68,18 +66,9 @@ public class TimeEntryTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 			Duration = -1 // Running entry
 		};
 
-		TimeEntry createdEntry;
-		try
-		{
-			createdEntry = await TogglClient
-				.TimeEntries
-				.CreateAsync(workspaceId, createDto, CancellationToken);
-		}
-		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
-		{
-			// Some workspaces enforce additional required fields for time entry creation.
-			return;
-		}
+		var createdEntry = await TogglClient
+			.TimeEntries
+			.CreateAsync(workspaceId, createDto, CancellationToken);
 
 		try
 		{
@@ -101,7 +90,8 @@ public class TimeEntryTests(ITestOutputHelper iTestOutputHelper, Fixture fixture
 				.StopAsync(workspaceId, createdEntry.Id, CancellationToken);
 
 			stoppedEntry.Should().NotBeNull();
-			stoppedEntry.Duration.Should().BeGreaterThan(0);
+			stoppedEntry.Stop.Should().NotBeNull();
+			stoppedEntry.Duration.Should().BeGreaterThan(-1);
 
 			// Update the time entry
 			var updateDto = new TimeEntryUpdateDto

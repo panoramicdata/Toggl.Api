@@ -91,7 +91,10 @@ public class TogglTest : TestBed<Fixture>
 		if (_projectId is null)
 		{
 			var projects = await GetProjectsPageAsync();
-			_projectId = projects.First().Id;
+			_projectId = projects
+				.FirstOrDefault(project => project.IsActive && project.CanTrackTime != false && project.ServerDeletedAt is null)
+				?.Id
+				?? throw new InvalidOperationException("No active trackable project was found for integration tests.");
 		}
 
 		return _projectId.Value;

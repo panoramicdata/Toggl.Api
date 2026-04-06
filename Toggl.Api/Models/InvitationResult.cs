@@ -16,6 +16,12 @@ public class InvitationResult
 	public ICollection<InvitationResultItem>? Data { get; set; }
 
 	/// <summary>
+	/// Invitation metadata returned alongside the created invitations.
+	/// </summary>
+	[JsonPropertyName("invitations")]
+	public ICollection<Invitation>? Invitations { get; set; }
+
+	/// <summary>
 	/// Messages about the invitation process
 	/// </summary>
 	[JsonPropertyName("messages")]
@@ -46,6 +52,24 @@ public class InvitationResultItem
 	public string? InviteUrl { get; set; }
 
 	/// <summary>
+	/// Organization ID for the invitation.
+	/// </summary>
+	[JsonPropertyName("organization_id")]
+	public long? OrganizationId { get; set; }
+
+	/// <summary>
+	/// Sender user ID.
+	/// </summary>
+	[JsonPropertyName("sender_id")]
+	public long? SenderId { get; set; }
+
+	/// <summary>
+	/// Recipient user ID.
+	/// </summary>
+	[JsonPropertyName("recipient_id")]
+	public long? RecipientId { get; set; }
+
+	/// <summary>
 	/// Organization user ID if already a member
 	/// </summary>
 	[JsonPropertyName("organization_user_id")]
@@ -56,4 +80,10 @@ public class InvitationResultItem
 	/// </summary>
 	[JsonPropertyName("user_id")]
 	public long? UserId { get; set; }
+
+	/// <summary>
+	/// Workspace assignments created for the invitation.
+	/// </summary>
+	[JsonPropertyName("workspaces")]
+	public ICollection<InvitationWorkspaceInfo>? Workspaces { get; set; }
 }
