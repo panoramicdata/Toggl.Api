@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -62,4 +63,28 @@ public class SubscriptionCustomer
 	/// </summary>
 	[JsonPropertyName("toggl_user_id")]
 	public long? TogglUserId { get; set; }
+
+	/// <summary>
+	/// Toggl user email
+	/// </summary>
+	[JsonPropertyName("toggl_user_email")]
+	public string? TogglUserEmail { get; set; }
+
+	/// <summary>
+	/// Site identifier
+	/// </summary>
+	[JsonPropertyName("site")]
+	public string? Site { get; set; }
+
+	/// <summary>
+	/// Customer name
+	/// </summary>
+	[JsonPropertyName("customer_name")]
+	public string? CustomerName { get; set; }
+
+	/// <summary>
+	/// Additional undocumented customer fields
+	/// </summary>
+	[JsonExtensionData]
+	public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }

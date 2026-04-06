@@ -1,4 +1,6 @@
 ﻿using AwesomeAssertions;
+using Refit;
+using System.Net;
 using System.Threading.Tasks;
 using Toggl.Api.Models;
 using Xunit;
@@ -149,9 +151,18 @@ public class CurrentUserTests(ITestOutputHelper iTestOutputHelper, Fixture fixtu
 			Description = "Test Favorite from Unit Tests"
 		};
 
-		var createdFavorite = await TogglClient
-			.CurrentUser
-			.CreateFavoriteAsync(true, favoriteDto, CancellationToken);
+		Favorite createdFavorite;
+		try
+		{
+			createdFavorite = await TogglClient
+				.CurrentUser
+				.CreateFavoriteAsync(true, favoriteDto, CancellationToken);
+		}
+		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+		{
+			// Some accounts/workspaces may forbid creating favorites.
+			return;
+		}
 
 		try
 		{

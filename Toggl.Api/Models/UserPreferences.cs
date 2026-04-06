@@ -204,6 +204,18 @@ public class UserPreferences
 	public bool? SendProductEmails { get; set; }
 
 	/// <summary>
+	/// Whether timer notifications are enabled
+	/// </summary>
+	[JsonPropertyName("send_timer_notifications")]
+	public bool? SendTimerNotifications { get; set; }
+
+	/// <summary>
+	/// Whether weekly reports are enabled
+	/// </summary>
+	[JsonPropertyName("send_weekly_report")]
+	public bool? SendWeeklyReport { get; set; }
+
+	/// <summary>
 	/// Reminder days
 	/// </summary>
 	[JsonPropertyName("reminder_days")]
@@ -274,4 +286,34 @@ public class UserPreferences
 	/// </summary>
 	[JsonPropertyName("window_visible")]
 	public bool? WindowVisible { get; set; }
+
+	/// <summary>
+	/// Whether web time entry has started (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("WebTimeEntryStarted")]
+	public bool? WebTimeEntryStarted { get; set; }
+
+	/// <summary>
+	/// Whether web time entry has stopped (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("WebTimeEntryStopped")]
+	public bool? WebTimeEntryStopped { get; set; }
+
+	/// <summary>
+	/// Whether project dashboard overlay has been seen (PascalCase variant)
+	/// </summary>
+	[JsonPropertyName("SeenProjectDashboardOverlay")]
+	public bool? SeenProjectDashboardOverlay { get; set; }
+
+	/// <summary>
+	/// PostgreSQL timezone name
+	/// </summary>
+	[JsonPropertyName("pg_time_zone_name")]
+	public string? PgTimeZoneName { get; set; }
+
+	/// <summary>
+	/// Additional undocumented preference fields
+	/// </summary>
+	[JsonExtensionData]
+	public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }

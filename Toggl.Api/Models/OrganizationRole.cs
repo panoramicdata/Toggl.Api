@@ -55,4 +55,10 @@ public class OrganizationRole : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("type")]
 	public string? Type { get; set; }
+
+	/// <summary>
+	/// Privilege level
+	/// </summary>
+	[JsonPropertyName("privilege_level")]
+	public int? PrivilegeLevel { get; set; }
 }

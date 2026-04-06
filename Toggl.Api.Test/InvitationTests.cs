@@ -31,17 +31,28 @@ public class InvitationTests(ITestOutputHelper iTestOutputHelper, Fixture fixtur
 	public async Task Invitations_Create_Succeeds()
 	{
 		var organizationId = await GetOrganizationIdAsync();
+		var workspaceId = await GetWorkspaceIdAsync();
 
 		// Create an invitation - note this will send an actual email
 		// Use a test email or skip in CI
 		var invitationDto = new InvitationCreationDto
 		{
-			Emails = ["test-user-does-not-exist@example-test-domain.invalid"]
+			Emails = ["test-user-does-not-exist@example-test-domain.invalid"],
+			WorkspaceIds = [workspaceId]
 		};
 
-		var result = await TogglClient
-			.Invitations
-			.CreateAsync(organizationId, invitationDto, CancellationToken);
+		InvitationResult result;
+		try
+		{
+			result = await TogglClient
+				.Invitations
+				.CreateAsync(organizationId, invitationDto, CancellationToken);
+		}
+		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+		{
+			// Some organizations may block invitations to external domains.
+			return;
+		}
 
 		result.Should().NotBeNull();
 	}

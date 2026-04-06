@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -143,10 +144,40 @@ public class Subscription
 	public DateTimeOffset? UpdatedAt { get; set; }
 
 	/// <summary>
+	/// Subscription start date
+	/// </summary>
+	[JsonPropertyName("start_date")]
+	public DateTimeOffset? StartDate { get; set; }
+
+	/// <summary>
+	/// Subscription state
+	/// </summary>
+	[JsonPropertyName("state")]
+	public string? State { get; set; }
+
+	/// <summary>
+	/// Subscription end date
+	/// </summary>
+	[JsonPropertyName("end_date")]
+	public DateTimeOffset? EndDate { get; set; }
+
+	/// <summary>
 	/// Whether the subscription is unified
 	/// </summary>
 	[JsonPropertyName("is_unified")]
 	public bool? IsUnified { get; set; }
+
+	/// <summary>
+	/// Whether organization is on an enterprise plan
+	/// </summary>
+	[JsonPropertyName("enterprise")]
+	public bool? Enterprise { get; set; }
+
+	/// <summary>
+	/// Additional undocumented subscription fields
+	/// </summary>
+	[JsonExtensionData]
+	public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
 
 /// <summary>
@@ -239,6 +270,18 @@ public class ContactDetail
 public class SubscriptionPeriod
 {
 	/// <summary>
+	/// Subscription period identifier
+	/// </summary>
+	[JsonPropertyName("subscription_period_id")]
+	public long? SubscriptionPeriodId { get; set; }
+
+	/// <summary>
+	/// Subscription identifier
+	/// </summary>
+	[JsonPropertyName("subscription_id")]
+	public long? SubscriptionId { get; set; }
+
+	/// <summary>
 	/// Period end date
 	/// </summary>
 	[JsonPropertyName("period_end")]
@@ -249,4 +292,10 @@ public class SubscriptionPeriod
 	/// </summary>
 	[JsonPropertyName("period_start")]
 	public DateTimeOffset? PeriodStart { get; set; }
+
+	/// <summary>
+	/// Additional undocumented subscription period fields
+	/// </summary>
+	[JsonExtensionData]
+	public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }

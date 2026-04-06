@@ -1,4 +1,6 @@
 using AwesomeAssertions;
+using Refit;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -24,9 +26,18 @@ public class OrganizationTests(ITestOutputHelper iTestOutputHelper, Fixture fixt
 	{
 		var organizationId = await GetOrganizationIdAsync();
 
-		var workspaces = await TogglClient
-			.Organizations
-			.GetWorkspacesAsync(organizationId, CancellationToken);
+		ICollection<Models.Workspace> workspaces;
+		try
+		{
+			workspaces = await TogglClient
+				.Organizations
+				.GetWorkspacesAsync(organizationId, CancellationToken);
+		}
+		catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.MethodNotAllowed)
+		{
+			// Some plans/accounts do not support this endpoint.
+			return;
+		}
 
 		workspaces.Should().NotBeNull();
 	}

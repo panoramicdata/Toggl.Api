@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -87,4 +88,22 @@ public class InvoiceSummary
 	/// </summary>
 	[JsonPropertyName("total_tax_amount")]
 	public JsonElement? TotalTaxAmount { get; set; }
+
+	/// <summary>
+	/// Total discount amount
+	/// </summary>
+	[JsonPropertyName("total_discount_amount")]
+	public JsonElement? TotalDiscountAmount { get; set; }
+
+	/// <summary>
+	/// Total amount without discount
+	/// </summary>
+	[JsonPropertyName("total_amount_without_discount")]
+	public JsonElement? TotalAmountWithoutDiscount { get; set; }
+
+	/// <summary>
+	/// Additional undocumented invoice summary fields
+	/// </summary>
+	[JsonExtensionData]
+	public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }

@@ -24,6 +24,12 @@ public class WorkspaceStatistics
 	public int Groups { get; set; }
 
 	/// <summary>
+	/// Number of groups in the workspace (alternate field name)
+	/// </summary>
+	[JsonPropertyName("groups_count")]
+	public int? GroupsCount { get; set; }
+
+	/// <summary>
 	/// Number of members in the workspace
 	/// </summary>
 	[JsonPropertyName("members")]

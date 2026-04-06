@@ -44,4 +44,10 @@ public class OrganizationOwner : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("toggl_accounts_id")]
 	public JsonElement? TogglAccountsId { get; set; }
+
+	/// <summary>
+	/// Avatar URL
+	/// </summary>
+	[JsonPropertyName("avatar_url")]
+	public string? AvatarUrl { get; set; }
 }

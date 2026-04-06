@@ -20,25 +20,25 @@ public class Group : NamedItem
 	/// The group id
 	/// </summary>
 	[JsonPropertyName("group_id")]
-	public required int GroupId { get; set; }
+	public int? GroupId { get; set; }
 
 	/// <summary>
 	/// Timestamp of last update
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// The workspace ids
 	/// </summary>
 	[JsonPropertyName("workspaces")]
-	public required ICollection<int> Workspaces { get; set; }
+	public ICollection<int>? Workspaces { get; set; }
 
 	/// <summary>
 	/// The users
 	/// </summary>
 	[JsonPropertyName("users")]
-	public required ICollection<GroupUser> Users { get; set; }
+	public ICollection<GroupUser>? Users { get; set; }
 
 	/// <summary>
 	/// Whether the group has users
