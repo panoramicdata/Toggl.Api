@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api;
