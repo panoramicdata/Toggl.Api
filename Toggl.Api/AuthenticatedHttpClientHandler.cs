@@ -1,14 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Toggl.Api;
 
@@ -57,12 +52,7 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 					"{RequestContent}",
 					request.Method,
 					request.RequestUri,
-					string.Join(
-						"; ",
-						request
-							.Headers
-							.Select(h => $"{h.Key}={string.Join(",", h.Value)}")
-					),
+					request.Headers.ToDebugString(),
 					request.Content is null
 						? string.Empty
 						: await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
@@ -80,12 +70,7 @@ internal sealed class AuthenticatedHttpClientHandler(TogglClientOptions options)
 					"Headers: {Headers}\n" +
 					"{ResponseContent}",
 					response.StatusCode,
-					string.Join(
-						"; ",
-						response
-							.Headers
-							.Select(h => $"{h.Key}={string.Join(",", h.Value)}")
-					),
+					response.Headers.ToDebugString(),
 					response.Content is null
 						? string.Empty
 						: await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
