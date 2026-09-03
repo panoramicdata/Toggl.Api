@@ -34,8 +34,10 @@ public class Fixture : TestBedFixture
 			});
 	}
 
+	// Returning default here would skip the base class cleanup entirely, which is both what
+	// CA2215 objects to and a real leak: the base fixture disposes the service provider it built.
 	protected override ValueTask DisposeAsyncCore()
-		=> default;
+		=> base.DisposeAsyncCore();
 
 	protected override IEnumerable<TestAppSettings> GetTestAppSettings()
 	{
