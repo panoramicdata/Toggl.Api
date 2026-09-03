@@ -1,4 +1,7 @@
 using AwesomeAssertions;
+using Refit;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,102 +10,61 @@ namespace Toggl.Api.Test;
 public class SubscriptionTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	[Fact]
-	public async Task Subscriptions_Get_Succeeds()
-	{
-		var organizationId = await GetOrganizationIdAsync();
-
-		// Note: This test may fail with 404 if there's no active subscription
-		// or 403 if the user doesn't have permission to view subscriptions
-		try
-		{
-			var subscription = await TogglClient
-				.Subscriptions
-				.GetAsync(organizationId, CancellationToken);
-
-			subscription.Should().NotBeNull();
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-		{
-			// Organization may not have an active subscription - this is acceptable
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Forbidden)
-		{
-			// User may not have permission to view subscriptions - this is acceptable for testing
-		}
-	}
+	public Task Subscriptions_Get_Succeeds()
+		=> CallSubscriptionEndpointAsync(organizationId => TogglClient
+			.Subscriptions
+			.GetAsync(organizationId, CancellationToken));
 
 	[Fact]
-	public async Task Subscriptions_GetCustomer_Succeeds()
-	{
-		var organizationId = await GetOrganizationIdAsync();
-
-		// Note: This test may fail with 404 if there's no customer info
-		// or 403 if the user doesn't have permission
-		try
-		{
-			var customer = await TogglClient
-				.Subscriptions
-				.GetCustomerAsync(organizationId, CancellationToken);
-
-			customer.Should().NotBeNull();
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-		{
-			// Organization may not have customer info - this is acceptable
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Forbidden)
-		{
-			// User may not have permission - this is acceptable for testing
-		}
-	}
+	public Task Subscriptions_GetCustomer_Succeeds()
+		=> CallSubscriptionEndpointAsync(organizationId => TogglClient
+			.Subscriptions
+			.GetCustomerAsync(organizationId, CancellationToken));
 
 	[Fact]
-	public async Task Subscriptions_GetInvoiceSummary_Succeeds()
-	{
-		var organizationId = await GetOrganizationIdAsync();
-
-		// Note: This test may fail with 404 if there are no invoices
-		// or 403 if the user doesn't have permission
-		try
-		{
-			var invoiceSummary = await TogglClient
-				.Subscriptions
-				.GetInvoiceSummaryAsync(organizationId, CancellationToken);
-
-			invoiceSummary.Should().NotBeNull();
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-		{
-			// Organization may not have any invoices - this is acceptable
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Forbidden)
-		{
-			// User may not have permission - this is acceptable for testing
-		}
-	}
+	public Task Subscriptions_GetInvoiceSummary_Succeeds()
+		=> CallSubscriptionEndpointAsync(organizationId => TogglClient
+			.Subscriptions
+			.GetInvoiceSummaryAsync(organizationId, CancellationToken));
 
 	[Fact]
-	public async Task Subscriptions_GetPaymentFailed_Succeeds()
+	// Payment failed info may be null if there are no failures, so the call succeeding is all
+	// that is asserted here.
+	public Task Subscriptions_GetPaymentFailed_Succeeds()
+		=> CallSubscriptionEndpointAsync(
+			organizationId => TogglClient
+				.Subscriptions
+				.GetPaymentFailedAsync(organizationId, CancellationToken),
+			assertNotNull: false);
+
+	/// <summary>
+	/// Calls a subscription endpoint for the test organization and asserts that it returns a result.
+	/// </summary>
+	/// <remarks>
+	/// The test organization may legitimately have no subscription, customer record or invoices
+	/// (404), and the test user may not be permitted to view them (403).  Neither is a failure of
+	/// the client, so both are accepted.
+	/// </remarks>
+	/// <param name="callAsync">Invokes the endpoint under test.</param>
+	/// <param name="assertNotNull">Whether a successful call is expected to return a non-null result.</param>
+	private async Task CallSubscriptionEndpointAsync<T>(
+		Func<long, Task<T>> callAsync,
+		bool assertNotNull = true)
 	{
 		var organizationId = await GetOrganizationIdAsync();
 
-		// Note: This test may fail with 404 if there are no failed payments
-		// or 403 if the user doesn't have permission
 		try
 		{
-			_ = await TogglClient
-				.Subscriptions
-				.GetPaymentFailedAsync(organizationId, CancellationToken);
+			var result = await callAsync(organizationId);
 
-			// Payment failed info may be null if no failures - test passes if call succeeds
+			if (assertNotNull)
+			{
+				result.Should().NotBeNull();
+			}
 		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+		catch (ApiException ex) when (ex.StatusCode is HttpStatusCode.NotFound or HttpStatusCode.Forbidden)
 		{
-			// No failed payments - this is acceptable
-		}
-		catch (Refit.ApiException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Forbidden)
-		{
-			// User may not have permission - this is acceptable for testing
+			// Acceptable: see the remarks above.
 		}
 	}
 }

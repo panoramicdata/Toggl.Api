@@ -17,7 +17,33 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 	{
 		var workspaceId = await GetWorkspaceIdAsync();
 
-		// Delete any existing clients with the same name as the test client
+		await DeleteClientsNamedAsync(workspaceId, _crudClientName);
+
+		var createdClient = await CreateClientAsync(workspaceId, _crudClientName);
+
+		await AssertClientIsPresentAsync(workspaceId, createdClient.Id, _crudClientName);
+
+		var updatedName = _crudClientName + " updated";
+		var updatedClient = await RenameClientAsync(workspaceId, createdClient.Id, updatedName);
+
+		await AssertClientIsPresentAsync(workspaceId, updatedClient.Id, updatedName);
+
+		await TogglClient
+			.Clients
+			.DeleteAsync(
+				workspaceId,
+				updatedClient.Id,
+				CancellationToken
+			);
+
+		await AssertClientIsAbsentAsync(workspaceId, updatedClient.Id);
+	}
+
+	/// <summary>
+	/// Removes any clients left behind by an earlier run, so that the count assertions below are exact.
+	/// </summary>
+	private async Task DeleteClientsNamedAsync(long workspaceId, string name)
+	{
 		var clients = await TogglClient
 			.Clients
 			.GetAsync(
@@ -26,8 +52,9 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				null,
 				CancellationToken
 			);
+
 		var matchingClients = clients
-			.Where(p => p.Name == _crudClientName)
+			.Where(p => p.Name == name)
 			.ToList();
 
 		foreach (var client in matchingClients)
@@ -36,11 +63,13 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 				.Clients
 				.DeleteAsync(workspaceId, client.Id, CancellationToken);
 		}
+	}
 
-		// Create a new client
+	private async Task<Client> CreateClientAsync(long workspaceId, string name)
+	{
 		var newClient = new ClientCreationDto
 		{
-			Name = _crudClientName,
+			Name = name,
 			WorkspaceId = workspaceId,
 		};
 
@@ -49,19 +78,53 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			.CreateAsync(workspaceId, newClient, CancellationToken);
 		createdClient.Should().NotBeNull();
 
-		// Check that it's there
+		return createdClient;
+	}
+
+	private async Task<Client> RenameClientAsync(long workspaceId, long clientId, string newName)
+	{
+		var client = await TogglClient
+			.Clients
+			.GetAsync(
+				workspaceId,
+				clientId,
+				CancellationToken
+			);
+		client.Should().NotBeNull();
+
+		client!.Name = newName;
+
+		var updatedClient = await TogglClient
+			.Clients
+			.UpdateAsync(
+				workspaceId,
+				client.Id,
+				client,
+				CancellationToken
+			);
+		updatedClient.Should().NotBeNull();
+
+		return updatedClient;
+	}
+
+	/// <summary>
+	/// Asserts that the client can be fetched by id, and that it appears exactly once when all
+	/// clients in the workspace are listed.
+	/// </summary>
+	private async Task AssertClientIsPresentAsync(long workspaceId, long clientId, string expectedName)
+	{
 		var refetchedClient = await TogglClient
 			.Clients
 			.GetAsync(
 				workspaceId,
-				createdClient.Id,
+				clientId,
 				CancellationToken
 			);
-		refetchedClient.Should().NotBeNull();
-		refetchedClient!.Name.Should().Be(_crudClientName);
-		refetchedClient!.Id.Should().Be(createdClient.Id);
 
-		// Check that it's there in a list all clients
+		refetchedClient.Should().NotBeNull();
+		refetchedClient!.Name.Should().Be(expectedName);
+		refetchedClient!.Id.Should().Be(clientId);
+
 		var allClients = await TogglClient
 			.Clients
 			.GetAsync(
@@ -72,44 +135,12 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 			);
 
 		allClients.Should().NotBeNullOrEmpty();
-		allClients.Count(c => c.Name == _crudClientName).Should().Be(1);
+		allClients.Count(c => c.Name == expectedName).Should().Be(1);
+	}
 
-		// Update the client
-		refetchedClient!.Name = _crudClientName + " updated";
-		var updatedClient = await TogglClient
-			.Clients
-			.UpdateAsync(
-				workspaceId,
-				refetchedClient.Id,
-				refetchedClient,
-				CancellationToken
-			);
-		updatedClient.Should().NotBeNull();
-
-		// Check that it's updated
-		var refetchedUpdatedClient = await TogglClient
-			.Clients
-			.GetAsync(
-				workspaceId,
-				updatedClient.Id,
-				CancellationToken
-			);
-
-		refetchedUpdatedClient.Should().NotBeNull();
-		refetchedUpdatedClient!.Name.Should().Be(_crudClientName + " updated");
-		refetchedUpdatedClient!.Id.Should().Be(updatedClient.Id);
-
-		// Delete the client
-		await TogglClient
-			.Clients
-			.DeleteAsync(
-				workspaceId,
-				updatedClient.Id,
-				CancellationToken
-			);
-
+	private async Task AssertClientIsAbsentAsync(long workspaceId, long clientId)
+	{
 		// Refetching the client should fail with a 404
-
 		await (
 			(Func<Task<Client>>)
 			(async () =>
@@ -118,7 +149,7 @@ public class ClientTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) :
 					.Clients
 					.GetAsync(
 						workspaceId,
-						updatedClient.Id,
+						clientId,
 						default
 					);
 			}

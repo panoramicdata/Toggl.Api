@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Toggl.Api.Models;
 
@@ -163,6 +163,10 @@ namespace Toggl.Api;
 [JsonSerializable(typeof(List<Workspace>))]
 [JsonSerializable(typeof(List<WorkspaceUser>))]
 
+// 'partial' is required: the System.Text.Json source generator emits the other half of this
+// class, containing the JsonTypeInfo for every [JsonSerializable] type above.  Analysers that run
+// without the generator (Codacy's SonarCSharp, for one) report the 'partial' as gratuitous —
+// it is not, and removing it breaks the build.
 public partial class TogglJsonSerializerContext : JsonSerializerContext
 {
 }
