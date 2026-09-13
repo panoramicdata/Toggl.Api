@@ -13,11 +13,11 @@ public class CsvUploadData
 	/// Last modified
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// Log id
 	/// </summary>
 	[JsonPropertyName("log_id")]
-	public required int LogId { get; set; }
+	public int? LogId { get; set; }
 }

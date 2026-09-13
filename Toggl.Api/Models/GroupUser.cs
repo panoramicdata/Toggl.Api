@@ -12,23 +12,23 @@ public class GroupUser : NamedItem
 	/// The users
 	/// </summary>
 	[JsonPropertyName("user_id")]
-	public required int UserId { get; set; }
+	public int? UserId { get; set; }
 
 	/// <summary>
 	/// The users
 	/// </summary>
 	[JsonPropertyName("avatar_url")]
-	public required Uri AvatarUrl { get; set; }
+	public Uri? AvatarUrl { get; set; }
 
 	/// <summary>
 	/// Whether the user has joined
 	/// </summary>
 	[JsonPropertyName("joined")]
-	public required bool Joined { get; set; }
+	public bool? Joined { get; set; }
 
 	/// <summary>
 	/// Whether the GroupUser is inactive.
 	/// </summary>
 	[JsonPropertyName("inactive")]
-	public required bool IsInactive { get; set; }
+	public bool? IsInactive { get; set; }
 }

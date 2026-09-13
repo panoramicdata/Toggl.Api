@@ -12,13 +12,13 @@ public class RecurringParameter
 	/// Estimated seconds
 	/// </summary>
 	[JsonPropertyName("estimated_seconds")]
-	public required int EstimatedSeconds { get; set; }
+	public int? EstimatedSeconds { get; set; }
 
 	/// <summary>
 	/// Period
 	/// </summary>
 	[JsonPropertyName("period")]
-	public required string Period { get; set; }
+	public string? Period { get; set; }
 
 	/// <summary>
 	/// Custom period
@@ -30,13 +30,13 @@ public class RecurringParameter
 	/// Project start date
 	/// </summary>
 	[JsonPropertyName("project_start_date")]
-	public required DateTimeOffset ProjectStartDate { get; set; }
+	public DateTimeOffset? ProjectStartDate { get; set; }
 
 	/// <summary>
 	/// Parameter start date
 	/// </summary>
 	[JsonPropertyName("parameter_start_date")]
-	public required DateTimeOffset ParameterStartDate { get; set; }
+	public DateTimeOffset? ParameterStartDate { get; set; }
 
 	/// <summary>
 	/// Parameter end date

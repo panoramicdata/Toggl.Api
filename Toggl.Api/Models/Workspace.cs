@@ -14,31 +14,31 @@ public class Workspace : NamedIdentifiedItem
 	/// Current user is workspace admin
 	/// </summary>
 	[JsonPropertyName("admin")]
-	public required bool IsAdmin { get; set; }
+	public bool? IsAdmin { get; set; }
 
 	/// <summary>
 	/// deprecated
 	/// </summary>
 	[JsonPropertyName("api_token")]
-	public required string ApiToken { get; set; } = string.Empty;
+	public string? ApiToken { get; set; }
 
 	/// <summary>
 	/// Workspace on Premium subscription
 	/// </summary>
 	[JsonPropertyName("business_ws")]
-	public required bool IsBusinessWorkspace { get; set; }
+	public bool? IsBusinessWorkspace { get; set; }
 
 	/// <summary>
 	/// CSV upload data
 	/// </summary>
 	[JsonPropertyName("csv_upload")]
-	public required CsvUploadData CsvUpload { get; set; }
+	public CsvUploadData? CsvUpload { get; set; }
 
 	/// <summary>
 	/// Default currency, premium feature, optional, only for existing WS, will be 'USD' initially
 	/// </summary>
 	[JsonPropertyName("default_currency")]
-	public required string DefaultCurrency { get; set; }
+	public string? DefaultCurrency { get; set; }
 
 	/// <summary>
 	/// The default hourly rate, premium feature, optional, only for existing WS, will be 0.0 initially
@@ -50,7 +50,7 @@ public class Workspace : NamedIdentifiedItem
 	/// Whether to hide start and end times
 	/// </summary>
 	[JsonPropertyName("hide_start_end_times")]
-	public required bool HideStartEndTimes { get; set; }
+	public bool? HideStartEndTimes { get; set; }
 
 	/// <summary>
 	/// Whether the timesheet view is disabled
@@ -86,7 +86,7 @@ public class Workspace : NamedIdentifiedItem
 	/// Creation date
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset Created { get; set; }
+	public DateTimeOffset? Created { get; set; }
 
 	/// <summary>
 	/// Last modification of data in the workspace
@@ -98,7 +98,7 @@ public class Workspace : NamedIdentifiedItem
 	/// URL of workspace logo
 	/// </summary>
 	[JsonPropertyName("logo_url")]
-	public required Uri LogoUrl { get; set; }
+	public Uri? LogoUrl { get; set; }
 
 	/// <summary>
 	/// How far back free workspaces can access data.
@@ -134,7 +134,7 @@ public class Workspace : NamedIdentifiedItem
 	/// Identifier of the organization
 	/// </summary>
 	[JsonPropertyName("organization_id")]
-	public required int OrganizationId { get; set; }
+	public int? OrganizationId { get; set; }
 
 	/// <summary>
 	/// Permissions list
@@ -146,7 +146,7 @@ public class Workspace : NamedIdentifiedItem
 	/// Workspace on Starter subscription
 	/// </summary>
 	[JsonPropertyName("premium")]
-	public required bool IsPremium { get; set; }
+	public bool? IsPremium { get; set; }
 
 	/// <summary>
 	/// deprecated
@@ -194,19 +194,19 @@ public class Workspace : NamedIdentifiedItem
 	/// Role of the current user in the workspace
 	/// </summary>
 	[JsonPropertyName("role")]
-	public required string Role { get; set; }
+	public string? Role { get; set; }
 
 	/// <summary>
 	/// Default rounding, premium feature, optional, only for existing WS. 0 - nearest, 1 - round up, -1 - round down
 	/// </summary>
 	[JsonPropertyName("rounding")]
-	public required int Rounding { get; set; }
+	public int? Rounding { get; set; }
 
 	/// <summary>
 	/// 	Default rounding in minutes, premium feature, optional, only for existing WS
 	/// </summary>
 	[JsonPropertyName("rounding_minutes")]
-	public required int RoundingMinutes { get; set; }
+	public int? RoundingMinutes { get; set; }
 
 	/// <summary>
 	/// Timestamp of deletion

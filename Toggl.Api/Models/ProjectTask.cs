@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Toggl.Api.Models;
@@ -12,31 +13,32 @@ public class ProjectTask : NamedIdentifiedItem
 	/// Whether the task is active
 	/// </summary>
 	[JsonPropertyName("active")]
-	public required bool IsActive { get; set; }
+	public bool? IsActive { get; set; }
 
 	/// <summary>
 	/// When the task was created/last modified
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// Estimation time for this task in seconds
 	/// </summary>
 	[JsonPropertyName("estimated_seconds")]
-	public required int? EstimatedSeconds { get; set; }
+	public int? EstimatedSeconds { get; set; }
 
 	/// <summary>
-	/// Permissions
+	/// Permissions.  Toggl documents this as an array of strings, and omits it entirely
+	/// from most responses.
 	/// </summary>
 	[JsonPropertyName("permissions")]
-	public string? Permissions { get; set; }
+	public ICollection<string>? Permissions { get; set; }
 
 	/// <summary>
 	/// Project id
 	/// </summary>
 	[JsonPropertyName("project_id")]
-	public required int ProjectId { get; set; }
+	public int? ProjectId { get; set; }
 
 	/// <summary>
 	/// Whether the parent project is private.
@@ -48,13 +50,13 @@ public class ProjectTask : NamedIdentifiedItem
 	/// Whether this is a recurring task
 	/// </summary>
 	[JsonPropertyName("recurring")]
-	public required bool IsRecurring { get; set; }
+	public bool? IsRecurring { get; set; }
 
 	/// <summary>
 	/// When the task was deleted (or null if not deleted)
 	/// </summary>
 	[JsonPropertyName("server_deleted_at")]
-	public required DateTimeOffset? ServerDeletedAt { get; set; }
+	public DateTimeOffset? ServerDeletedAt { get; set; }
 
 	/// <summary>
 	/// Task assignee, if set above this will be the toggl_account_id for that user
@@ -66,17 +68,17 @@ public class ProjectTask : NamedIdentifiedItem
 	/// The value tracked_seconds is in milliseconds, not in seconds.
 	/// </summary>
 	[JsonPropertyName("tracked_seconds")]
-	public required long? TrackedMilliseconds { get; set; }
+	public long? TrackedMilliseconds { get; set; }
 
 	/// <summary>
 	/// When the task was deleted (or null if not deleted)
 	/// </summary>
 	[JsonPropertyName("user_id")]
-	public required int? UserId { get; set; }
+	public int? UserId { get; set; }
 
 	/// <summary>
 	/// Workspace ID
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
-	public required long? WorkspaceId { get; set; }
+	public long? WorkspaceId { get; set; }
 }

@@ -12,13 +12,13 @@ public class DetailedReportTimeEntry
 	/// The ID
 	/// </summary>
 	[JsonPropertyName("id")]
-	public required long Id { get; set; }
+	public long? Id { get; set; }
 
 	/// <summary>
 	/// The seconds spent
 	/// </summary>
 	[JsonPropertyName("seconds")]
-	public required int Seconds { get; set; }
+	public int? Seconds { get; set; }
 
 	/// <summary>
 	/// Start time

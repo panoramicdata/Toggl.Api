@@ -18,7 +18,7 @@ public class DetailedReportTimeEntryGroup
 	/// The username
 	/// </summary>
 	[JsonPropertyName("username")]
-	public required string Username { get; set; }
+	public string? Username { get; set; }
 
 	/// <summary>
 	/// The project id
@@ -36,19 +36,19 @@ public class DetailedReportTimeEntryGroup
 	/// Whether the time is billable
 	/// </summary>
 	[JsonPropertyName("billable")]
-	public required bool IsBillable { get; set; }
+	public bool? IsBillable { get; set; }
 
 	/// <summary>
 	/// The description
 	/// </summary>
 	[JsonPropertyName("description")]
-	public required string Description { get; set; }
+	public string? Description { get; set; }
 
 	/// <summary>
 	/// The tag ids
 	/// </summary>
 	[JsonPropertyName("tag_ids")]
-	public required ICollection<int> TagIds { get; set; }
+	public ICollection<int>? TagIds { get; set; }
 
 	/// <summary>
 	/// The billable amount in cents
@@ -66,17 +66,17 @@ public class DetailedReportTimeEntryGroup
 	/// The currency
 	/// </summary>
 	[JsonPropertyName("currency")]
-	public required string Currency { get; set; }
+	public string? Currency { get; set; }
 
 	/// <summary>
 	/// The time entries
 	/// </summary>
 	[JsonPropertyName("time_entries")]
-	public required ICollection<DetailedReportTimeEntry> TimeEntries { get; set; }
+	public ICollection<DetailedReportTimeEntry>? TimeEntries { get; set; }
 
 	/// <summary>
 	/// The row number
 	/// </summary>
 	[JsonPropertyName("row_number")]
-	public required int RowNumber { get; set; }
+	public int? RowNumber { get; set; }
 }

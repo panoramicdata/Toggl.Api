@@ -66,7 +66,8 @@ public class TogglTest : TestBed<Fixture>
 			var currentUser = await TogglClient
 				.CurrentUser
 				.GetAsync(true, default);
-			_workspaceId = currentUser.DefaultWorkspaceId;
+			_workspaceId = currentUser.DefaultWorkspaceId
+				?? throw new InvalidOperationException("The current user has no default workspace.");
 		}
 
 		return _workspaceId.Value;
@@ -80,7 +81,8 @@ public class TogglTest : TestBed<Fixture>
 			var workspace = await TogglClient
 				.Workspaces
 				.GetAsync(workspaceId, default);
-			_organizationId = workspace.OrganizationId;
+			_organizationId = workspace.OrganizationId
+				?? throw new InvalidOperationException($"Workspace {workspaceId} has no organization id.");
 		}
 
 		return _organizationId.Value;
@@ -92,7 +94,7 @@ public class TogglTest : TestBed<Fixture>
 		{
 			var projects = await GetProjectsPageAsync();
 			_projectId = projects
-				.FirstOrDefault(project => project.IsActive && project.CanTrackTime != false && project.ServerDeletedAt is null)
+				.FirstOrDefault(project => project.IsActive == true && project.CanTrackTime != false && project.ServerDeletedAt is null)
 				?.Id
 				?? throw new InvalidOperationException("No active trackable project was found for integration tests.");
 		}

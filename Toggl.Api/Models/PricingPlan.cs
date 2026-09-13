@@ -12,7 +12,7 @@ public class PricingPlan : IdentifiedItem
 	/// Name of the pricing plan
 	/// </summary>
 	[JsonPropertyName("name")]
-	public required string Name { get; set; }
+	public string? Name { get; set; }
 
 	/// <summary>
 	/// Whether this is an enterprise plan

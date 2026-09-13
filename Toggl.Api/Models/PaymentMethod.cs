@@ -11,11 +11,11 @@ public class PaymentMethod
 	/// Whether the requester is an admin of the organization
 	/// </summary>
 	[JsonPropertyName("type")]
-	public required string Type { get; set; }
+	public string? Type { get; set; }
 
 	/// <summary>
 	/// Whether the requester is an admin of the organization
 	/// </summary>
 	[JsonPropertyName("card")]
-	public required PaymentCard Card { get; set; }
+	public PaymentCard? Card { get; set; }
 }

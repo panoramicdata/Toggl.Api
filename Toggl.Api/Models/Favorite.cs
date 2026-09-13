@@ -123,7 +123,7 @@ public class Favorite : IdentifiedItem
 	/// Workspace ID associated with the favorite
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
-	public required long WorkspaceId { get; set; }
+	public long? WorkspaceId { get; set; }
 
 	/// <summary>
 	/// Workspace name (read-only, populated when meta=true)

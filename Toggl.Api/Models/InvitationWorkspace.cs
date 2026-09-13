@@ -11,5 +11,5 @@ public class InvitationWorkspace
 	/// Workspace ID to invite the user to.
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
-	public required long WorkspaceId { get; set; }
+	public long? WorkspaceId { get; set; }
 }

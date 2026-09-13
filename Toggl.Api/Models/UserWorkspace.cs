@@ -23,7 +23,7 @@ public class UserWorkspace : NamedItem
 	/// The user's role in the workspace
 	/// </summary>
 	[JsonPropertyName("role")]
-	public required string Role { get; set; }
+	public string? Role { get; set; }
 
 	/// <summary>
 	/// The workspace id

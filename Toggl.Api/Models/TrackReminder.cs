@@ -26,7 +26,7 @@ public class TrackReminder : IdentifiedItem
 	/// Groups IDs to send the reminder to
 	/// </summary>
 	[JsonPropertyName("group_ids")]
-	public required ICollection<int> GroupIds { get; set; }
+	public ICollection<int>? GroupIds { get; set; }
 
 	/// <summary>
 	/// Reminder ID
@@ -44,7 +44,7 @@ public class TrackReminder : IdentifiedItem
 	/// User IDs to send the reminder to
 	/// </summary>
 	[JsonPropertyName("user_ids")]
-	public required ICollection<int> UserIds { get; set; }
+	public ICollection<int>? UserIds { get; set; }
 
 	/// <summary>
 	/// Workspace ID

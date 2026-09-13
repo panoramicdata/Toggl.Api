@@ -14,13 +14,13 @@ public class TimeEntry : IdentifiedItem
 	/// When was last updated
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset At { get; set; }
+	public DateTimeOffset? At { get; set; }
 
 	/// <summary>
 	/// Whether the time entry is marked as billable
 	/// </summary>
 	[JsonPropertyName("billable")]
-	public required bool Billable { get; set; }
+	public bool? Billable { get; set; }
 
 	/// <summary>
 	/// Related entities meta fields - if requested
@@ -38,13 +38,13 @@ public class TimeEntry : IdentifiedItem
 	/// Time entry duration. For running entries should be negative, preferable -1
 	/// </summary>
 	[JsonPropertyName("duration")]
-	public required long Duration { get; set; }
+	public long? Duration { get; set; }
 
 	/// <summary>
 	/// Used to create a TE with a duration but without a stop time, this field is deprecated for GET endpoints where the value will always be true.
 	/// </summary>
 	[JsonPropertyName("duronly")]
-	public required bool Duronly { get; set; }
+	public bool? Duronly { get; set; }
 
 	/// <summary>
 	/// Permission list
@@ -184,18 +184,18 @@ public class TimeEntry : IdentifiedItem
 		/// Is Accepted
 		/// </summary>
 		[JsonPropertyName("accepted")]
-		public required bool Accepted { get; set; }
+		public bool? Accepted { get; set; }
 
 		/// <summary>
 		/// User Id
 		/// </summary>
 		[JsonPropertyName("user_id")]
-		public required long UserId { get; set; }
+		public long? UserId { get; set; }
 
 		/// <summary>
 		/// User Name
 		/// </summary>
 		[JsonPropertyName("user_name")]
-		public required string UserName { get; set; }
+		public string? UserName { get; set; }
 	}
 }

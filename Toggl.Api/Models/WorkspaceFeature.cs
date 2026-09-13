@@ -12,11 +12,11 @@ public class WorkspaceFeature : Item
 	/// The features
 	/// </summary>
 	[JsonPropertyName("features")]
-	public required ICollection<Feature> Features { get; set; }
+	public ICollection<Feature>? Features { get; set; }
 
 	/// <summary>
 	/// The workspace id
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
-	public required int WorkspaceId { get; set; }
+	public int? WorkspaceId { get; set; }
 }

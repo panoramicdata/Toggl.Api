@@ -13,13 +13,13 @@ public class CurrentUser : IdentifiedItem
 	/// Will be omitted if empty
 	/// </summary>
 	[JsonPropertyName("api_token")]
-	public required string ApiToken { get; set; }
+	public string? ApiToken { get; set; }
 
 	/// <summary>
 	/// Last modified
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset At { get; set; }
+	public DateTimeOffset? At { get; set; }
 
 	/// <summary>
 	/// The first day of the user's week
@@ -43,25 +43,25 @@ public class CurrentUser : IdentifiedItem
 	/// Created
 	/// </summary>
 	[JsonPropertyName("created_at")]
-	public required DateTimeOffset Created { get; set; }
+	public DateTimeOffset? Created { get; set; }
 
 	/// <summary>
 	/// The default workspace id
 	/// </summary>
 	[JsonPropertyName("default_workspace_id")]
-	public required long DefaultWorkspaceId { get; set; }
+	public long? DefaultWorkspaceId { get; set; }
 
 	/// <summary>
 	/// Email
 	/// </summary>
 	[JsonPropertyName("email")]
-	public required string Email { get; set; }
+	public string? Email { get; set; }
 
 	/// <summary>
 	/// The full name
 	/// </summary>
 	[JsonPropertyName("fullname")]
-	public required string FullName { get; set; }
+	public string? FullName { get; set; }
 
 	/// <summary>
 	/// Whether the user has a password
@@ -79,7 +79,7 @@ public class CurrentUser : IdentifiedItem
 	/// The image URL
 	/// </summary>
 	[JsonPropertyName("image_url")]
-	public required string ImageUrl { get; set; }
+	public string? ImageUrl { get; set; }
 
 	/// <summary>
 	/// The Intercom hash.
@@ -98,13 +98,13 @@ public class CurrentUser : IdentifiedItem
 	/// Whether OpenID is enabled
 	/// </summary>
 	[JsonPropertyName("openid_enabled")]
-	public required bool IsOpenIdEnabled { get; set; }
+	public bool? IsOpenIdEnabled { get; set; }
 
 	/// <summary>
 	/// The OpenID email
 	/// </summary>
 	[JsonPropertyName("openid_email")]
-	public required string? OpenIdEmail { get; set; }
+	public string? OpenIdEmail { get; set; }
 
 	/// <summary>
 	/// Additional properties
@@ -141,13 +141,13 @@ public class CurrentUser : IdentifiedItem
 	/// Time zone
 	/// </summary>
 	[JsonPropertyName("timezone")]
-	public required string Timezone { get; set; }
+	public string? Timezone { get; set; }
 
 	/// <summary>
 	/// Last modified
 	/// </summary>
 	[JsonPropertyName("updated_at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// Workspaces, null if with_related_data was not set to true or if the user does not have any workspaces
@@ -159,7 +159,7 @@ public class CurrentUser : IdentifiedItem
 	/// The Toggl Account id
 	/// </summary>
 	[JsonPropertyName("toggl_accounts_id")]
-	public required string TogglAccountsId { get; set; }
+	public string? TogglAccountsId { get; set; }
 
 	/// <summary>
 	/// When authorization was updated

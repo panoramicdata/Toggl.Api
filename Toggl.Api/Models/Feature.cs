@@ -11,11 +11,11 @@ public class Feature : NamedItem
 	/// Whether the feature is enabled
 	/// </summary>
 	[JsonPropertyName("enabled")]
-	public required bool IsEnabled { get; set; }
+	public bool? IsEnabled { get; set; }
 
 	/// <summary>
 	/// The feature id
 	/// </summary>
 	[JsonPropertyName("feature_id")]
-	public required int FeatureId { get; set; }
+	public int? FeatureId { get; set; }
 }

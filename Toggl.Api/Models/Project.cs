@@ -15,13 +15,13 @@ public class Project : NamedIdentifiedItem
 	/// Workspace ID, where the project will be saved
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
-	public required long WorkspaceId { get; set; }
+	public long? WorkspaceId { get; set; }
 
 	/// <summary>
 	/// Workspace ID, where the project will be saved (again, for some reason)
 	/// </summary>
 	[JsonPropertyName("wid")]
-	public required long WorkspaceId2 { get; set; }
+	public long? WorkspaceId2 { get; set; }
 
 	/// <summary>
 	///  Client ID
@@ -45,13 +45,13 @@ public class Project : NamedIdentifiedItem
 	/// Whether project is accessible for only project users or for all workspace users (boolean, default true)
 	/// </summary>
 	[JsonPropertyName("is_private")]
-	public required bool IsPrivate { get; set; }
+	public bool? IsPrivate { get; set; }
 
 	/// <summary>
 	/// Whether the project is archived
 	/// </summary>
 	[JsonPropertyName("active")]
-	public required bool IsActive { get; set; }
+	public bool? IsActive { get; set; }
 
 	/// <summary>
 	/// Whether the project can be used as a template
@@ -63,19 +63,19 @@ public class Project : NamedIdentifiedItem
 	/// Timestamp that is sent in the response for PUT, indicates the time task was last updated
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// Timestamp indicating when the project was created, read-only
 	/// </summary>
 	[JsonPropertyName("created_at")]
-	public required DateTimeOffset Created { get; set; }
+	public DateTimeOffset? Created { get; set; }
 
 	/// <summary>
 	/// Timestamp indicating when the project started
 	/// </summary>
 	[JsonPropertyName("start_date")]
-	public required DateTimeOffset StartDate { get; set; }
+	public DateTimeOffset? StartDate { get; set; }
 
 	/// <summary>
 	/// Timestamp indicating when the project ends
@@ -93,25 +93,25 @@ public class Project : NamedIdentifiedItem
 	/// Timestamp indicating when the project was deleted (or null if not deleted)
 	/// </summary>
 	[JsonPropertyName("server_deleted_at")]
-	public required DateTimeOffset? ServerDeletedAt { get; set; }
+	public DateTimeOffset? ServerDeletedAt { get; set; }
 
 	/// <summary>
 	/// Timestamp indicating when the rate was last updated
 	/// </summary>
 	[JsonPropertyName("rate_last_updated")]
-	public required DateTimeOffset? RateLastUpdated { get; set; }
+	public DateTimeOffset? RateLastUpdated { get; set; }
 
 	/// <summary>
 	/// Whether the project is recurring
 	/// </summary>
 	[JsonPropertyName("recurring")]
-	public required bool Recurring { get; set; }
+	public bool? Recurring { get; set; }
 
 	/// <summary>
 	/// If the project is recurring, the recurrence parameters
 	/// </summary>
 	[JsonPropertyName("recurring_parameters")]
-	public required ICollection<RecurringParameter> RecurringParameters { get; set; }
+	public ICollection<RecurringParameter>? RecurringParameters { get; set; }
 
 	/// <summary>
 	/// The fixed project fee
@@ -123,7 +123,7 @@ public class Project : NamedIdentifiedItem
 	/// A color
 	/// </summary>
 	[JsonPropertyName("color")]
-	public required string Color { get; set; }
+	public string? Color { get; set; }
 
 	/// <summary>
 	/// Whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours' (boolean, default false, not required, premium functionality)
@@ -183,7 +183,7 @@ public class Project : NamedIdentifiedItem
 	/// Hourly rate currency of the project
 	/// </summary>
 	[JsonPropertyName("currency")]
-	public required string Currency { get; set; }
+	public string? Currency { get; set; }
 
 	/// <summary>
 	/// Permissions

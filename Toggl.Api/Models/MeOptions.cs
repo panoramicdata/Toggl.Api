@@ -11,5 +11,5 @@ public class MeOptions
 	/// Additional properties
 	/// </summary>
 	[JsonPropertyName("additionalProperties")]
-	public required object AdditionalProperties { get; set; }
+	public object? AdditionalProperties { get; set; }
 }

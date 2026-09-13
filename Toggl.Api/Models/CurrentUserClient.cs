@@ -12,19 +12,19 @@ public class CurrentUserClient : NamedIdentifiedItem
 	/// IsArchived is true if the client is archived
 	/// </summary>
 	[JsonPropertyName("archived")]
-	public required bool IsArchived { get; set; }
+	public bool? IsArchived { get; set; }
 
 	/// <summary>
 	/// When was the last update
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// CreatorID is the ID of the user who created the client
 	/// </summary>
 	[JsonPropertyName("creator_id")]
-	public required int CreatorId { get; set; }
+	public int? CreatorId { get; set; }
 
 	/// <summary>
 	/// List of authorization permissions for this client.

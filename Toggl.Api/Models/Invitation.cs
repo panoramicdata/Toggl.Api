@@ -13,7 +13,7 @@ public class Invitation : IdentifiedItem
 	/// Email address of the invitee
 	/// </summary>
 	[JsonPropertyName("email")]
-	public required string Email { get; set; }
+	public string? Email { get; set; }
 
 	/// <summary>
 	/// Invitation code

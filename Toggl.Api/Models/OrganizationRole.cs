@@ -12,7 +12,7 @@ public class OrganizationRole : IdentifiedItem
 	/// Name of the role
 	/// </summary>
 	[JsonPropertyName("name")]
-	public required string Name { get; set; }
+	public string? Name { get; set; }
 
 	/// <summary>
 	/// Description of the role

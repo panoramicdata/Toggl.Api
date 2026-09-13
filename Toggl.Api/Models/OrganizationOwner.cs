@@ -13,13 +13,13 @@ public class OrganizationOwner : IdentifiedItem
 	/// Email address of the owner
 	/// </summary>
 	[JsonPropertyName("email")]
-	public required string Email { get; set; }
+	public string? Email { get; set; }
 
 	/// <summary>
 	/// Name of the owner
 	/// </summary>
 	[JsonPropertyName("name")]
-	public required string Name { get; set; }
+	public string? Name { get; set; }
 
 	/// <summary>
 	/// User ID of the owner

@@ -55,7 +55,7 @@ public class Organization : IdentifiedItem
 	/// Organization Name
 	/// </summary>
 	[JsonPropertyName("name")]
-	public required string Name { get; set; }
+	public string? Name { get; set; }
 
 	/// <summary>
 	/// Whether the requester is a the owner of the organization
@@ -103,7 +103,7 @@ public class Organization : IdentifiedItem
 	/// Undocumented property (docs just say '-')
 	/// </summary>
 	[JsonPropertyName("trial_info")]
-	public required TrialInfo TrialInfo { get; set; }
+	public TrialInfo? TrialInfo { get; set; }
 
 	/// <summary>
 	/// Number of organization users

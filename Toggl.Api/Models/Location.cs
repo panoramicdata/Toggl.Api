@@ -11,29 +11,29 @@ public class Location : Item
 	/// The city
 	/// </summary>
 	[JsonPropertyName("city")]
-	public required string city { get; set; }
+	public string? city { get; set; }
 
 	/// <summary>
 	/// The city lat/long
 	/// </summary>
 	[JsonPropertyName("city_lat_long")]
-	public required string CityLatLong { get; set; }
+	public string? CityLatLong { get; set; }
 
 	/// <summary>
 	/// The country code
 	/// </summary>
 	[JsonPropertyName("country_code")]
-	public required string CountryCode { get; set; }
+	public string? CountryCode { get; set; }
 
 	/// <summary>
 	/// The country name
 	/// </summary>
 	[JsonPropertyName("country_name")]
-	public required string CountryName { get; set; }
+	public string? CountryName { get; set; }
 
 	/// <summary>
 	/// The state
 	/// </summary>
 	[JsonPropertyName("state")]
-	public required string State { get; set; }
+	public string? State { get; set; }
 }

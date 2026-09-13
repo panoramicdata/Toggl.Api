@@ -18,7 +18,7 @@ public class OrganizationUser : NamedIdentifiedItem
 	/// The avatar url
 	/// </summary>
 	[JsonPropertyName("avatar_url")]
-	public required string AvatarUrl { get; set; }
+	public string? AvatarUrl { get; set; }
 
 	/// <summary>
 	/// Whether the user's email can be edited
@@ -30,7 +30,7 @@ public class OrganizationUser : NamedIdentifiedItem
 	/// Groups
 	/// </summary>
 	[JsonPropertyName("groups")]
-	public required ICollection<UserGroup> Groups { get; set; }
+	public ICollection<UserGroup>? Groups { get; set; }
 
 	/// <summary>
 	/// Whether the user is inactive
@@ -66,5 +66,5 @@ public class OrganizationUser : NamedIdentifiedItem
 	/// Workspaces that the user belongs to
 	/// </summary>
 	[JsonPropertyName("workspaces")]
-	public required ICollection<UserWorkspace> Workspaces { get; set; }
+	public ICollection<UserWorkspace>? Workspaces { get; set; }
 }

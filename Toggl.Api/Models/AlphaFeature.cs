@@ -12,11 +12,11 @@ public class AlphaFeature
 	/// Alpha feature code
 	/// </summary>
 	[JsonPropertyName("code")]
-	public required string Code { get; set; }
+	public string? Code { get; set; }
 
 	/// <summary>
 	/// Whether the alpha feature is enabled for the user
 	/// </summary>
 	[JsonPropertyName("enabled")]
-	public required bool Enabled { get; set; }
+	public bool? Enabled { get; set; }
 }

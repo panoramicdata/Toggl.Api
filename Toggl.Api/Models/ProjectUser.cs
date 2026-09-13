@@ -12,19 +12,19 @@ public class ProjectUser : IdentifiedItem
 	/// When was last modified
 	/// </summary>
 	[JsonPropertyName("at")]
-	public required DateTimeOffset LastModified { get; set; }
+	public DateTimeOffset? LastModified { get; set; }
 
 	/// <summary>
 	/// Group ID, legacy field
 	/// </summary>
 	[JsonPropertyName("group_id")]
-	public required long? GroupId { get; set; }
+	public long? GroupId { get; set; }
 
 	/// <summary>
 	/// Group ID (again, for some reason)
 	/// </summary>
 	[JsonPropertyName("gid")]
-	public required long? GroupId2 { get; set; }
+	public long? GroupId2 { get; set; }
 
 	/// <summary>
 	/// Labor cost for this project user (American spelling)
@@ -54,35 +54,35 @@ public class ProjectUser : IdentifiedItem
 	/// Whether the user is manager of the project
 	/// </summary>
 	[JsonPropertyName("manager")]
-	public required bool IsManager { get; set; }
+	public bool? IsManager { get; set; }
 
 	/// <summary>
 	/// Project ID
 	/// </summary>
 	[JsonPropertyName("project_id")]
-	public required long ProjectId { get; set; }
+	public long? ProjectId { get; set; }
 
 	/// <summary>
 	/// Custom rate for project user
 	/// </summary>
 	[JsonPropertyName("rate")]
-	public required double? HourlyRate { get; set; }
+	public double? HourlyRate { get; set; }
 
 	/// <summary>
 	/// When was last modified
 	/// </summary>
 	[JsonPropertyName("rate_last_updated")]
-	public required DateTimeOffset? RateLastModified { get; set; }
+	public DateTimeOffset? RateLastModified { get; set; }
 
 	/// <summary>
 	/// The user ID.
 	/// </summary>
 	[JsonPropertyName("user_id")]
-	public required long UserId { get; set; }
+	public long? UserId { get; set; }
 
 	/// <summary>
 	/// Workspace ID
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
-	public required long WorkspaceId { get; set; }
+	public long? WorkspaceId { get; set; }
 }
