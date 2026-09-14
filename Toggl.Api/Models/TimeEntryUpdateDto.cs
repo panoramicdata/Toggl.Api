@@ -5,10 +5,9 @@ using System.Text.Json.Serialization;
 namespace Toggl.Api.Models;
 
 /// <summary>
-/// DTO for updating a time entry
-/// https://engineering.toggl.com/docs/api/time_entries#put-timeentries
+/// Shared properties for time entry DTOs
 /// </summary>
-public class TimeEntryUpdateDto
+public abstract class TimeEntryDtoBase
 {
 	/// <summary>
 	/// Whether the time entry is marked as billable, optional
@@ -65,12 +64,6 @@ public class TimeEntryUpdateDto
 	public ICollection<string>? Tags { get; set; }
 
 	/// <summary>
-	/// Can be "add" or "remove". Used when updating an existing time entry
-	/// </summary>
-	[JsonPropertyName("tag_action")]
-	public string? TagAction { get; set; }
-
-	/// <summary>
 	/// Task ID, optional
 	/// </summary>
 	[JsonPropertyName("task_id")]
@@ -87,4 +80,17 @@ public class TimeEntryUpdateDto
 	/// </summary>
 	[JsonPropertyName("workspace_id")]
 	public required long WorkspaceId { get; set; }
+}
+
+/// <summary>
+/// DTO for updating a time entry
+/// https://engineering.toggl.com/docs/api/time_entries#put-timeentries
+/// </summary>
+public class TimeEntryUpdateDto : TimeEntryDtoBase
+{
+	/// <summary>
+	/// Can be "add" or "remove". Used when updating an existing time entry
+	/// </summary>
+	[JsonPropertyName("tag_action")]
+	public string? TagAction { get; set; }
 }
