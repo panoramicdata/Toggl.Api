@@ -12,7 +12,10 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Toggl.Api.Test;
 
+// Every derived suite calls the live Toggl API with credentials from user secrets, so the
+// Integration category is set here once and inherited, and CI filters it out (OPS-157454).
 [CollectionDefinition("Dependency Injection")]
+[Trait("Category", "Integration")]
 public class TogglTest : TestBed<Fixture>
 {
 	protected static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
