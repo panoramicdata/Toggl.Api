@@ -33,30 +33,6 @@ public class Session : IdentifiedItem
 	public string FullName { get; set; } = string.Empty;
 
 	/// <summary>
-	/// The jQuery time of day format.
-	/// </summary>
-	[JsonPropertyName("jquery_timeofday_format")]
-	public string JQueryTimeofdayFormat { get; set; } = string.Empty;
-
-	/// <summary>
-	/// The jQuery date format.
-	/// </summary>
-	[JsonPropertyName("jquery_date_format")]
-	public string JqueryDateFormat { get; set; } = string.Empty;
-
-	/// <summary>
-	/// The time of day format.
-	/// </summary>
-	[JsonPropertyName("timeofday_format")]
-	public string TimeOfDayFormat { get; set; } = string.Empty;
-
-	/// <summary>
-	/// The date format.
-	/// </summary>
-	[JsonPropertyName("date_format")]
-	public string DateFormat { get; set; } = string.Empty;
-
-	/// <summary>
 	/// Whether to store start and stop time.
 	/// </summary>
 	[JsonPropertyName("store_start_and_stop_time")]
@@ -73,6 +49,30 @@ public class Session : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("language")]
 	public string Language { get; set; } = string.Empty;
+
+	/// <summary>
+	/// The time of day format.
+	/// </summary>
+	[JsonPropertyName("timeofday_format")]
+	public string TimeOfDayFormat { get; set; } = string.Empty;
+
+	/// <summary>
+	/// The date format.
+	/// </summary>
+	[JsonPropertyName("date_format")]
+	public string DateFormat { get; set; } = string.Empty;
+
+	/// <summary>
+	/// The jQuery time of day format.
+	/// </summary>
+	[JsonPropertyName("jquery_timeofday_format")]
+	public string JQueryTimeofdayFormat { get; set; } = string.Empty;
+
+	/// <summary>
+	/// The jQuery date format.
+	/// </summary>
+	[JsonPropertyName("jquery_date_format")]
+	public string JqueryDateFormat { get; set; } = string.Empty;
 
 	/// <summary>
 	/// The image URL.

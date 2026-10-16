@@ -88,3 +88,48 @@ public class SubscriptionCustomer
 	[JsonExtensionData]
 	public Dictionary<string, JsonElement>? ExtensionData { get; set; }
 }
+
+/// <summary>
+/// Factory methods for <see cref="SubscriptionCustomer"/>.
+/// </summary>
+public static class SubscriptionCustomerFactory
+{
+	/// <summary>
+	/// Creates a new <see cref="SubscriptionCustomer"/> with the specified values.
+	/// </summary>
+	/// <param name="email">Email address.</param>
+	/// <param name="firstName">First name.</param>
+	/// <param name="lastName">Last name.</param>
+	/// <param name="organization">Organization name.</param>
+	/// <param name="phone">Phone number.</param>
+	/// <param name="reference">Reference (external ID).</param>
+	/// <param name="togglUserId">Toggl user identifier.</param>
+	/// <param name="togglUserEmail">Toggl user email.</param>
+	/// <param name="site">Site identifier.</param>
+	/// <param name="customerName">Customer name.</param>
+	/// <returns>A new <see cref="SubscriptionCustomer"/> with the provided values.</returns>
+	public static SubscriptionCustomer Create(
+		string? email,
+		string? firstName,
+		string? lastName,
+		string? organization,
+		string? phone,
+		string? reference,
+		long? togglUserId,
+		string? togglUserEmail,
+		string? site,
+		string? customerName)
+		=> new()
+		{
+			Email = email,
+			FirstName = firstName,
+			LastName = lastName,
+			Organization = organization,
+			Phone = phone,
+			Reference = reference,
+			TogglUserId = togglUserId,
+			TogglUserEmail = togglUserEmail,
+			Site = site,
+			CustomerName = customerName
+		};
+}

@@ -17,12 +17,6 @@ public class TimeEntry : IdentifiedItem
 	public DateTimeOffset? At { get; set; }
 
 	/// <summary>
-	/// Whether the time entry is marked as billable
-	/// </summary>
-	[JsonPropertyName("billable")]
-	public bool? Billable { get; set; }
-
-	/// <summary>
 	/// Related entities meta fields - if requested
 	/// </summary>
 	[JsonPropertyName("client_name")]
@@ -45,54 +39,6 @@ public class TimeEntry : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("duronly")]
 	public bool? Duronly { get; set; }
-
-	/// <summary>
-	/// Permission list
-	/// </summary>
-	[JsonPropertyName("permissions")]
-	public ICollection<string>? Permissions { get; set; }
-
-	/// <summary>
-	/// Project ID, legacy field
-	/// </summary>
-	[JsonPropertyName("pid")]
-	public long? Pid { get; set; }
-
-	/// <summary>
-	/// Is Project Active
-	/// </summary>
-	[JsonPropertyName("project_active")]
-	public bool? ProjectActive { get; set; }
-
-	/// <summary>
-	/// Project Color
-	/// </summary>
-	[JsonPropertyName("project_color")]
-	public bool? ProjectColor { get; set; }
-
-	/// <summary>
-	/// Project ID. Can be null if project was not provided or project was later deleted
-	/// </summary>
-	[JsonPropertyName("project_id")]
-	public long? ProjectId { get; set; }
-
-	/// <summary>
-	/// Project Name
-	/// </summary>
-	[JsonPropertyName("project_name")]
-	public string? ProjectName { get; set; }
-
-	/// <summary>
-	/// When was deleted, null if not deleted
-	/// </summary>
-	[JsonPropertyName("server_deleted_at")]
-	public DateTimeOffset? ServerDeletedAt { get; set; }
-
-	/// <summary>
-	/// Indicates who the time entry has been shared with
-	/// </summary>
-	[JsonPropertyName("shared_with")]
-	public TimeEntrySharedWith? SharedWith { get; set; }
 
 	/// <summary>
 	/// Start time in UTC
@@ -125,6 +71,48 @@ public class TimeEntry : IdentifiedItem
 	public long? TaskId { get; set; }
 
 	/// <summary>
+	/// Permission list
+	/// </summary>
+	[JsonPropertyName("permissions")]
+	public ICollection<string>? Permissions { get; set; }
+
+	/// <summary>
+	/// Project ID, legacy field
+	/// </summary>
+	[JsonPropertyName("pid")]
+	public long? Pid { get; set; }
+
+	/// <summary>
+	/// Is Project Active
+	/// </summary>
+	[JsonPropertyName("project_active")]
+	public bool? ProjectActive { get; set; }
+
+	/// <summary>
+	/// Project Color
+	/// </summary>
+	[JsonPropertyName("project_color")]
+	public bool? ProjectColor { get; set; }
+
+	/// <summary>
+	/// Project Name
+	/// </summary>
+	[JsonPropertyName("project_name")]
+	public string? ProjectName { get; set; }
+
+	/// <summary>
+	/// When was deleted, null if not deleted
+	/// </summary>
+	[JsonPropertyName("server_deleted_at")]
+	public DateTimeOffset? ServerDeletedAt { get; set; }
+
+	/// <summary>
+	/// Indicates who the time entry has been shared with
+	/// </summary>
+	[JsonPropertyName("shared_with")]
+	public TimeEntrySharedWith? SharedWith { get; set; }
+
+	/// <summary>
 	/// Task Name
 	/// </summary>
 	[JsonPropertyName("task_name")]
@@ -147,12 +135,6 @@ public class TimeEntry : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("user_avatar_url")]
 	public string? UserAvatarUrl { get; set; }
-
-	/// <summary>
-	/// Time Entry creator ID
-	/// </summary>
-	[JsonPropertyName("user_id")]
-	public long? UserId { get; set; }
 
 	/// <summary>
 	/// Time Entry creator ID

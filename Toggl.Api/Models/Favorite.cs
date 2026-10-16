@@ -36,7 +36,7 @@ public class Favorite : IdentifiedItem
 	public long? ClientId { get; set; }
 
 	/// <summary>
-	/// Client name (read-only, populated when meta=true)
+	/// Client name.
 	/// </summary>
 	[JsonPropertyName("client_name")]
 	public string? ClientName { get; set; }
@@ -66,19 +66,19 @@ public class Favorite : IdentifiedItem
 	public long? ProjectId { get; set; }
 
 	/// <summary>
-	/// Project name (read-only, populated when meta=true)
+	/// Project name.
 	/// </summary>
 	[JsonPropertyName("project_name")]
 	public string? ProjectName { get; set; }
 
 	/// <summary>
-	/// Project color (read-only, populated when meta=true)
+	/// Project color.
 	/// </summary>
 	[JsonPropertyName("project_color")]
 	public string? ProjectColor { get; set; }
 
 	/// <summary>
-	/// Project is active (read-only, populated when meta=true)
+	/// Project is active.
 	/// </summary>
 	[JsonPropertyName("project_active")]
 	public bool? ProjectActive { get; set; }
@@ -90,7 +90,7 @@ public class Favorite : IdentifiedItem
 	public ICollection<long>? TagIds { get; set; }
 
 	/// <summary>
-	/// Tag names (read-only, populated when meta=true)
+	/// Tag names.
 	/// </summary>
 	[JsonPropertyName("tags")]
 	public ICollection<string>? Tags { get; set; }
@@ -102,7 +102,7 @@ public class Favorite : IdentifiedItem
 	public long? TaskId { get; set; }
 
 	/// <summary>
-	/// Task name (read-only, populated when meta=true)
+	/// Task name.
 	/// </summary>
 	[JsonPropertyName("task_name")]
 	public string? TaskName { get; set; }
@@ -126,7 +126,7 @@ public class Favorite : IdentifiedItem
 	public long? WorkspaceId { get; set; }
 
 	/// <summary>
-	/// Workspace name (read-only, populated when meta=true)
+	/// Workspace name.
 	/// </summary>
 	[JsonPropertyName("workspace_name")]
 	public string? WorkspaceName { get; set; }

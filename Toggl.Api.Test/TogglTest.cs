@@ -105,18 +105,24 @@ public class TogglTest : TestBed<Fixture>
 		return _projectId.Value;
 	}
 
+	protected static (DateOnly StartDate, DateOnly EndDate) GetReportDateRange()
+	{
+		var endDate = DateTime.Now.Date;
+		var startDate = endDate.AddMonths(-1);
+		var startDateOnly = new DateOnly(startDate.Date.Year, startDate.Date.Month, startDate.Date.Day);
+		var endDateOnly = new DateOnly(endDate.Date.Year, endDate.Date.Month, endDate.Date.Day);
+		return (startDateOnly, endDateOnly);
+	}
+
 	protected static ReportRequest GetReportRequest()
 	{
 		if (_reportRequest is null)
 		{
-			var endDate = DateTime.Now.Date;
-			var startDate = endDate.AddMonths(-1);
-			var startDateOnly = new DateOnly(startDate.Date.Year, startDate.Date.Month, startDate.Date.Day);
-			var endDateOnly = new DateOnly(endDate.Date.Year, endDate.Date.Month, endDate.Date.Day);
+			var (startDate, endDate) = GetReportDateRange();
 			_reportRequest = new ReportRequest
 			{
-				StartDate = startDateOnly,
-				EndDate = endDateOnly,
+				StartDate = startDate,
+				EndDate = endDate,
 				StartTime = TimeOnly.MinValue
 			};
 		}
@@ -127,14 +133,11 @@ public class TogglTest : TestBed<Fixture>
 	{
 		if (_detailedReportRequest is null)
 		{
-			var endDate = DateTime.Now.Date;
-			var startDate = endDate.AddMonths(-1);
-			var startDateOnly = new DateOnly(startDate.Date.Year, startDate.Date.Month, startDate.Date.Day);
-			var endDateOnly = new DateOnly(endDate.Date.Year, endDate.Date.Month, endDate.Date.Day);
+			var (startDate, endDate) = GetReportDateRange();
 			_detailedReportRequest = new DetailedReportRequest
 			{
-				StartDate = startDateOnly,
-				EndDate = endDateOnly,
+				StartDate = startDate,
+				EndDate = endDate,
 				StartTime = TimeOnly.MinValue
 			};
 		}

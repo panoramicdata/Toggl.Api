@@ -80,3 +80,54 @@ public class SubscriptionCustomerDto
 	[JsonPropertyName("zip_code")]
 	public string? ZipCode { get; set; }
 }
+
+/// <summary>
+/// Factory methods for <see cref="SubscriptionCustomerDto"/>.
+/// </summary>
+public static class SubscriptionCustomerDtoFactory
+{
+	/// <summary>
+	/// Creates a new <see cref="SubscriptionCustomerDto"/> with the specified values.
+	/// </summary>
+	/// <param name="email">Email address.</param>
+	/// <param name="firstName">First name.</param>
+	/// <param name="lastName">Last name.</param>
+	/// <param name="organization">Organization name.</param>
+	/// <param name="phone">Phone number.</param>
+	/// <param name="companyName">Company name.</param>
+	/// <param name="companyAddress">Company address.</param>
+	/// <param name="companyCity">Company city.</param>
+	/// <param name="countryId">Country ID.</param>
+	/// <param name="countrySubdivisionId">Country subdivision ID.</param>
+	/// <param name="vatNumber">VAT number.</param>
+	/// <param name="zipCode">Zip code.</param>
+	/// <returns>A new <see cref="SubscriptionCustomerDto"/> with the provided values.</returns>
+	public static SubscriptionCustomerDto Create(
+		string? email,
+		string? firstName,
+		string? lastName,
+		string? organization,
+		string? phone,
+		string? companyName,
+		string? companyAddress,
+		string? companyCity,
+		int? countryId,
+		int? countrySubdivisionId,
+		string? vatNumber,
+		string? zipCode)
+		=> new()
+		{
+			Email = email,
+			FirstName = firstName,
+			LastName = lastName,
+			Organization = organization,
+			Phone = phone,
+			CompanyName = companyName,
+			CompanyAddress = companyAddress,
+			CompanyCity = companyCity,
+			CountryId = countryId,
+			CountrySubdivisionId = countrySubdivisionId,
+			VatNumber = vatNumber,
+			ZipCode = zipCode
+		};
+}

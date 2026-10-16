@@ -83,8 +83,7 @@ public abstract class TimeEntryDtoBase
 }
 
 /// <summary>
-/// DTO for updating a time entry
-/// https://engineering.toggl.com/docs/api/time_entries#put-timeentries
+/// DTO for updating a time entry (PUT timeentries)
 /// </summary>
 public class TimeEntryUpdateDto : TimeEntryDtoBase
 {
