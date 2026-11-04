@@ -28,7 +28,7 @@ public class TogglClient : IDisposable
 		// Validate that all of the necessary configuration has been provided
 		options.Validate();
 
-		_httpClient = new HttpClient(new AuthenticatedHttpClientHandler(options))
+		_httpClient = new HttpClient(new ReadOnlyHandler(options) { InnerHandler = new AuthenticatedHttpClientHandler(options) })
 		{
 			BaseAddress = new Uri("https://api.track.toggl.com/"),
 			Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds)

@@ -14,6 +14,11 @@ public class TogglClientOptions
 	public required string Key { get; set; }
 
 	/// <summary>
+	/// Whether the client refuses every request other than GET, HEAD, OPTIONS and the read-only reports POSTs
+	/// </summary>
+	public bool IsReadOnly { get; set; }
+
+	/// <summary>
 	/// An optional Logger
 	/// </summary>
 	public ILogger? Logger { get; set; }
