@@ -5,6 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e114c9b81699410887329ecc09609863)](https://www.codacy.com/gh/panoramicdata/Toggl.Api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=panoramicdata/Toggl.Api&amp;utm_campaign=Badge_Grade)
 
+
+Supports .NET 11.0.
+
 # IMPORTANT NOTICE - SUPPORT DROPPED UNTIL TOGGL RELAXES THEIR API LIMITS
 
 **In September 2025, Toggl crippled their API, limiting even Premium users to 600 API calls per hour.
@@ -22,7 +25,7 @@ There is nothing we can do but hope they see sense and lift the limits.
 
 ## Description
 
-This is a .NET 10.0 library for the Toggl API.
+This is a .NET 11.0 library for the Toggl API.
 
 We now only provide Toggl API v9 support.  Many endpoints are currently missing.  Your pull requests are welcome!
 
