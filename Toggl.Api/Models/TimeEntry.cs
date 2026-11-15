@@ -17,16 +17,16 @@ public class TimeEntry : IdentifiedItem
 	public DateTimeOffset? At { get; set; }
 
 	/// <summary>
-	/// Related entities meta fields - if requested
-	/// </summary>
-	[JsonPropertyName("client_name")]
-	public string? ClientName { get; set; }
-
-	/// <summary>
 	/// Time Entry description, null if not provided at creation/update
 	/// </summary>
 	[JsonPropertyName("description")]
 	public string? Description { get; set; }
+
+	/// <summary>
+	/// Related entities meta fields - if requested
+	/// </summary>
+	[JsonPropertyName("client_name")]
+	public string? ClientName { get; set; }
 
 	/// <summary>
 	/// Time entry duration. For running entries should be negative, preferable -1
@@ -35,10 +35,22 @@ public class TimeEntry : IdentifiedItem
 	public long? Duration { get; set; }
 
 	/// <summary>
+	/// Project Name
+	/// </summary>
+	[JsonPropertyName("project_name")]
+	public string? ProjectName { get; set; }
+
+	/// <summary>
 	/// Used to create a TE with a duration but without a stop time, this field is deprecated for GET endpoints where the value will always be true.
 	/// </summary>
 	[JsonPropertyName("duronly")]
 	public bool? Duronly { get; set; }
+
+	/// <summary>
+	/// Workspace ID, legacy field
+	/// </summary>
+	[JsonPropertyName("wid")]
+	public long? Wid { get; set; }
 
 	/// <summary>
 	/// Start time in UTC
@@ -47,10 +59,22 @@ public class TimeEntry : IdentifiedItem
 	public DateTimeOffset? Start { get; set; }
 
 	/// <summary>
+	/// Time Entry creator ID, legacy field
+	/// </summary>
+	[JsonPropertyName("uid")]
+	public long? Uid { get; set; }
+
+	/// <summary>
 	/// Stop time in UTC, can be null if it's still running or created with "duration" and "duronly" fields
 	/// </summary>
 	[JsonPropertyName("stop")]
 	public DateTimeOffset? Stop { get; set; }
+
+	/// <summary>
+	/// Task ID, legacy field
+	/// </summary>
+	[JsonPropertyName("tid")]
+	public long? Tid { get; set; }
 
 	/// <summary>
 	/// Tag IDs, null if tags were not provided or were later deleted
@@ -59,10 +83,22 @@ public class TimeEntry : IdentifiedItem
 	public ICollection<long>? TagIds { get; set; }
 
 	/// <summary>
+	/// Project ID, legacy field
+	/// </summary>
+	[JsonPropertyName("pid")]
+	public long? Pid { get; set; }
+
+	/// <summary>
 	/// Tag names, null if tags were not provided or were later deleted
 	/// </summary>
 	[JsonPropertyName("tags")]
 	public ICollection<string>? Tags { get; set; }
+
+	/// <summary>
+	/// Is Project Active
+	/// </summary>
+	[JsonPropertyName("project_active")]
+	public bool? ProjectActive { get; set; }
 
 	/// <summary>
 	/// Task ID. Can be null if task was not provided or project was later deleted
@@ -77,28 +113,10 @@ public class TimeEntry : IdentifiedItem
 	public ICollection<string>? Permissions { get; set; }
 
 	/// <summary>
-	/// Project ID, legacy field
-	/// </summary>
-	[JsonPropertyName("pid")]
-	public long? Pid { get; set; }
-
-	/// <summary>
-	/// Is Project Active
-	/// </summary>
-	[JsonPropertyName("project_active")]
-	public bool? ProjectActive { get; set; }
-
-	/// <summary>
 	/// Project Color
 	/// </summary>
 	[JsonPropertyName("project_color")]
 	public bool? ProjectColor { get; set; }
-
-	/// <summary>
-	/// Project Name
-	/// </summary>
-	[JsonPropertyName("project_name")]
-	public string? ProjectName { get; set; }
 
 	/// <summary>
 	/// When was deleted, null if not deleted
@@ -119,18 +137,6 @@ public class TimeEntry : IdentifiedItem
 	public string? TaskName { get; set; }
 
 	/// <summary>
-	/// Task ID, legacy field
-	/// </summary>
-	[JsonPropertyName("tid")]
-	public long? Tid { get; set; }
-
-	/// <summary>
-	/// Time Entry creator ID, legacy field
-	/// </summary>
-	[JsonPropertyName("uid")]
-	public long? Uid { get; set; }
-
-	/// <summary>
 	/// Avatar URL of the User
 	/// </summary>
 	[JsonPropertyName("user_avatar_url")]
@@ -141,12 +147,6 @@ public class TimeEntry : IdentifiedItem
 	/// </summary>
 	[JsonPropertyName("user_name")]
 	public string? UserName { get; set; }
-
-	/// <summary>
-	/// Workspace ID, legacy field
-	/// </summary>
-	[JsonPropertyName("wid")]
-	public long? Wid { get; set; }
 
 	/// <summary>
 	/// Workspace ID
