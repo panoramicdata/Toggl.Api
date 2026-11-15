@@ -25,12 +25,16 @@ public class AuthenticatedHttpClientHandlerTests
 	{
 		public List<string> Messages { get; } = [];
 
-		public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+		public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+		{
+			Messages.Add($"scope {state}");
+			return null;
+		}
 
-		public bool IsEnabled(LogLevel logLevel) => true;
+		public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
 
 		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
-			=> Messages.Add(formatter(state, exception));
+			=> Messages.Add($"{logLevel} {eventId.Id} {formatter(state, exception)}");
 	}
 
 	private sealed class LoopbackServer : IDisposable
