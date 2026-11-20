@@ -34,6 +34,8 @@ We now only provide Toggl API v9 support.  Many endpoints are currently missing.
 **To avoid the conflict with System.Threading.Tasks.Task, we have renamed the Task class to ProjectTask.
 This will require you to update your code to use ProjectTask instead of Task.**
 
+**The unused factory helpers `SubscriptionCustomerFactory.Create` (10 parameters) and `SubscriptionCustomerDtoFactory.Create` (12 parameters) have been removed, along with their static classes. Construct `SubscriptionCustomer` and `SubscriptionCustomerDto` with object initialisers instead.**
+
 ## Contributing
 
 This project is developed using Refit and System.Text.Json.
