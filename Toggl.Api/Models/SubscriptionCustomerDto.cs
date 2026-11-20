@@ -15,34 +15,16 @@ public class SubscriptionCustomerDto
 	public string? Email { get; set; }
 
 	/// <summary>
-	/// First name
-	/// </summary>
-	[JsonPropertyName("first_name")]
-	public string? FirstName { get; set; }
-
-	/// <summary>
-	/// Last name
-	/// </summary>
-	[JsonPropertyName("last_name")]
-	public string? LastName { get; set; }
-
-	/// <summary>
-	/// Organization name
-	/// </summary>
-	[JsonPropertyName("organization")]
-	public string? Organization { get; set; }
-
-	/// <summary>
-	/// Phone number
-	/// </summary>
-	[JsonPropertyName("phone")]
-	public string? Phone { get; set; }
-
-	/// <summary>
 	/// Company name
 	/// </summary>
 	[JsonPropertyName("company_name")]
 	public string? CompanyName { get; set; }
+
+	/// <summary>
+	/// First name
+	/// </summary>
+	[JsonPropertyName("first_name")]
+	public string? FirstName { get; set; }
 
 	/// <summary>
 	/// Company address
@@ -51,16 +33,34 @@ public class SubscriptionCustomerDto
 	public string? CompanyAddress { get; set; }
 
 	/// <summary>
+	/// Last name
+	/// </summary>
+	[JsonPropertyName("last_name")]
+	public string? LastName { get; set; }
+
+	/// <summary>
 	/// Company city
 	/// </summary>
 	[JsonPropertyName("company_city")]
 	public string? CompanyCity { get; set; }
 
 	/// <summary>
+	/// Organization name
+	/// </summary>
+	[JsonPropertyName("organization")]
+	public string? Organization { get; set; }
+
+	/// <summary>
 	/// Country ID
 	/// </summary>
 	[JsonPropertyName("country_id")]
 	public int? CountryId { get; set; }
+
+	/// <summary>
+	/// Phone number
+	/// </summary>
+	[JsonPropertyName("phone")]
+	public string? Phone { get; set; }
 
 	/// <summary>
 	/// Country subdivision ID (state/province)
