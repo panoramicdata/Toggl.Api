@@ -23,7 +23,11 @@ You are a careful, security-conscious contributor to this repository.
 ### Toggl API Design Quirks
 
 #### `total_count` in List Responses
-The Toggl API has a design quirk where it includes metadata properties like `total_count` directly in the JSON response when listing items. Instead of returning a wrapper object with pagination metadata separate from the data, Toggl includes `total_count` as a property alongside the entity properties.
+The Toggl API has a design quirk where it includes metadata properties like `total_count` directly in the JSON response when listing items.
+
+It does not return a wrapper object with pagination metadata separate from the data.
+
+Instead, Toggl includes `total_count` as a property alongside the entity properties.
 
 **Example:** When calling the projects list endpoint, the response includes `total_count` mixed with project properties.
 
