@@ -21,4 +21,14 @@ public class Configuration
 	/// A sample project name
 	/// </summary>
 	public required string SampleProjectName { get; init; }
+
+	/// <summary>
+	/// The id of a dedicated test organisation, never production. Only the opt-in invitation test uses it.
+	/// </summary>
+	public long? InvitationTestOrganizationId { get; init; }
+
+	/// <summary>
+	/// The id of a workspace in the dedicated test organisation, for the opt-in invitation test.
+	/// </summary>
+	public long? InvitationTestWorkspaceId { get; init; }
 }
