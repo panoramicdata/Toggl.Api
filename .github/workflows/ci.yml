@@ -45,7 +45,8 @@ jobs:
   # set that may: no dind, no privileged container, no hostPath, nothing shared between jobs.
   #
   # The filter excludes Category=Integration: every TogglTest-derived suite calls the live
-  # Toggl API with credentials from user secrets, which CI does not have.
+  # Toggl API with credentials from user secrets, which CI does not have. Category=IrreversibleLiveWrite
+  # (the invitation creation test, issue #55) is excluded too, in case it is ever moved off a TogglTest base.
   coverage:
     runs-on: [pdl-public]
 
@@ -82,7 +83,7 @@ jobs:
         --coverage-settings ${{ github.workspace }}/coverage.config
         --coverage-output-format cobertura
         --coverage-output coverage.cobertura.xml
-        --filter "Category!=Integration"
+        --filter "Category!=Integration&Category!=IrreversibleLiveWrite"
 
     # continue-on-error: a Codacy outage must not turn a passing test run red. The trade-off is that
     # an expired project token fails silently, so check the log for "Coverage received successfully".

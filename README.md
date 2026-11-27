@@ -36,6 +36,12 @@ This will require you to update your code to use ProjectTask instead of Task.**
 
 **The unused factory helpers `SubscriptionCustomerFactory.Create` (10 parameters) and `SubscriptionCustomerDtoFactory.Create` (12 parameters) have been removed, along with their static classes. Construct `SubscriptionCustomer` and `SubscriptionCustomerDto` with object initialisers instead.**
 
+## Running the tests
+
+Every suite derived from `TogglTest` calls the live Toggl API and is tagged `Category=Integration`; CI excludes it with `--filter "Category!=Integration"`. Offline tests run everywhere.
+
+`Invitations_Create_Succeeds` is additionally tagged `Category=IrreversibleLiveWrite`, because the invitations it creates can never be removed through the API (issue #55). It must only run against a dedicated test organisation, never production. Set `Configuration:InvitationTestOrganizationId` and `Configuration:InvitationTestWorkspaceId` (user secrets, or the environment variables `Configuration__InvitationTestOrganizationId` and `Configuration__InvitationTestWorkspaceId`), then run it explicitly with `--filter "Category=IrreversibleLiveWrite"`. Without those settings, or with the production organisation, it fails with a message saying what to set. `RunTests.ps1` excludes it.
+
 ## Contributing
 
 This project is developed using Refit and System.Text.Json.

@@ -8,6 +8,9 @@ using Xunit;
 
 namespace Toggl.Api.Test;
 
+/// <summary>
+/// Live invitation tests. Invitations_Create_Succeeds leaves an invitation that no API call can remove, so it runs only against a dedicated test organisation set in Configuration:InvitationTestOrganizationId and Configuration:InvitationTestWorkspaceId, and is excluded from default runs by its IrreversibleLiveWrite trait (see the README).
+/// </summary>
 public class InvitationTests(ITestOutputHelper iTestOutputHelper, Fixture fixture) : TogglTest(iTestOutputHelper, fixture)
 {
 	/// <summary>
@@ -29,14 +32,31 @@ public class InvitationTests(ITestOutputHelper iTestOutputHelper, Fixture fixtur
 	}
 
 	[Fact]
+	[Trait("Category", "IrreversibleLiveWrite")]
 	public async Task Invitations_Create_Succeeds()
 	{
-		var organizationId = await GetOrganizationIdAsync();
-		var workspaceId = await GetWorkspaceIdAsync();
+		// Fail fast, before any network call, unless the dedicated test organisation is configured.
+		var configurationProblem = InvitationTestGate.GetConfigurationProblem(
+			Configuration.InvitationTestOrganizationId,
+			Configuration.InvitationTestWorkspaceId);
+		if (configurationProblem is not null)
+		{
+			Assert.Fail(configurationProblem);
+		}
+
+		var organizationId = Configuration.InvitationTestOrganizationId!.Value;
+		var workspaceId = Configuration.InvitationTestWorkspaceId!.Value;
+
+		// A read-only lookup, to refuse the organisation that the API key's default workspace belongs to.
+		var productionProblem = InvitationTestGate.GetProductionProblem(organizationId, await GetOrganizationIdAsync());
+		if (productionProblem is not null)
+		{
+			Assert.Fail(productionProblem);
+		}
+
 		var inviteeEmail = $"toggl-api-test-{Guid.NewGuid():N}@example-test-domain.invalid";
 
-		// Create an invitation - note this will send an actual email
-		// Use a test email or skip in CI
+		// The invitation cannot be removed through the API afterwards, hence the dedicated organisation.
 		var invitationDto = new InvitationCreationDto
 		{
 			Emails = [inviteeEmail],
